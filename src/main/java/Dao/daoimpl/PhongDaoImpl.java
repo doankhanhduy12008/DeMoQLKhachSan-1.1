@@ -46,4 +46,10 @@ public class PhongDaoImpl implements PhongDao {
         String sql = "SELECT * FROM Phong WHERE IdLoaiPhong = ?";
         return XQuery.getBeanList(Phong.class, sql, idLoaiPhong);
     }
+    
+       @Override
+    public Phong findBySoPhong(String soPhong) {
+        String sql = "SELECT * FROM Phong WHERE SoPhong = ?";
+        return XQuery.getSingleBean(Phong.class, sql, soPhong);
+    }
 }

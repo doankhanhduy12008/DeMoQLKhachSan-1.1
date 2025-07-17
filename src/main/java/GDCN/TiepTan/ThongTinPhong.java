@@ -4,6 +4,15 @@
  */
 package GDCN.TiepTan;
 
+import Dao.dao.PhongDao;
+import Dao.daoimpl.PhongDaoImpl;
+import Dao.entity.Phong;
+import Util.XAuth;
+import static Util.XAuth.phong;
+import Util.XDialog;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Acer
@@ -17,6 +26,13 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+    }
+      public ThongTinPhong(java.awt.Frame parent, boolean modal, Phong phong) {
+        super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(null);
+        this.phongHienTai = phong; // Lưu lại phòng được chọn
+        // Bạn có thể thêm code để hiển thị thông tin phòng lên form ở đây
     }
 
     /**
@@ -32,11 +48,9 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
         labPhong = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaGhiChu = new javax.swing.JTextArea();
         btnThem = new javax.swing.JButton();
-        txtTrangThai = new javax.swing.JTextField();
         txtLoaiPhong = new javax.swing.JTextField();
         txtGiaTien = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -56,17 +70,16 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
         labPhong.setText("Phòng 101");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("Loại phòng:");
+        jLabel6.setText("Tầng:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Giá tiền thuê 1 ngày:");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setText("Trạng thái:");
-
         txaGhiChu.setColumns(20);
+        txaGhiChu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txaGhiChu.setRows(5);
         txaGhiChu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txaGhiChu.setEnabled(false);
         jScrollPane1.setViewportView(txaGhiChu);
 
         btnThem.setBackground(new java.awt.Color(204, 204, 204));
@@ -79,14 +92,13 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
             }
         });
 
-        txtTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtTrangThai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-
         txtLoaiPhong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtLoaiPhong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtLoaiPhong.setEnabled(false);
 
         txtGiaTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtGiaTien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtGiaTien.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("Ghi chú:");
@@ -109,15 +121,10 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
                                 .addGap(1, 1, 1)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(txtLoaiPhong))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel8)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(205, 205, 205)
                         .addComponent(labPhong)))
@@ -140,11 +147,7 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(txtGiaTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -169,6 +172,34 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+           if (!"Trống".equals(phongHienTai.getTrangThai())) {
+        XDialog.alert("Chỉ có thể đặt phòng đang trống!");
+        return; // Dừng lại nếu phòng không trống
+    }
+    
+    // Yêu cầu xác nhận từ người dùng
+    boolean confirmed = XDialog.confirm("Bạn có chắc chắn muốn đặt phòng " + phongHienTai.getSoPhong() + " không?");
+    
+    if (confirmed) {
+        try {
+            // 1. Cập nhật trạng thái của đối tượng phòng
+            phongHienTai.setTrangThai("Đang sử dụng");
+
+            // 2. Gọi DAO để cập nhật vào cơ sở dữ liệu
+            PhongDao dao = new PhongDaoImpl();
+            dao.update(phongHienTai);
+
+            // 3. Báo hiệu hành động đã thành công và đóng dialog
+            this.daXacNhan = true;
+            XDialog.alert("Đặt phòng thành công!");
+            this.dispose(); 
+            
+        } catch (Exception e) {
+            // Bắt lỗi nếu có sự cố khi cập nhật CSDL
+            XDialog.alert("Đã xảy ra lỗi khi đặt phòng!");
+            e.printStackTrace();
+        }
+    }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -202,6 +233,7 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
             java.util.logging.Logger.getLogger(ThongTinPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -222,7 +254,6 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
     private javax.swing.JButton btnThem;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -230,10 +261,25 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
     private javax.swing.JTextArea txaGhiChu;
     private javax.swing.JTextField txtGiaTien;
     private javax.swing.JTextField txtLoaiPhong;
-    private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables
 @Override
 public void open() {
     this.setLocationRelativeTo(null);
+    anh();
+}
+  private Phong phongHienTai;
+  private boolean daXacNhan = false;
+     public Phong getPhongDaChon() {
+        // Chỉ trả về phòng nếu người dùng đã nhấn nút "Đặt Phòng"
+        return daXacNhan ? this.phongHienTai : null;
+    }
+public void anh(){
+    labPhong.setText("Phòng " +XAuth.phong.getSoPhong());
+     BigDecimal  giaTien = XAuth.phong.getGiaTien();
+            DecimalFormat formatter = new DecimalFormat("#,##0 VND"); // Định dạng tiền tệ
+            txtGiaTien.setText(" "+ formatter.format(giaTien));
+    txtLoaiPhong.setText(" "+String.valueOf(XAuth.phong.getTang()));
+    txaGhiChu.setText(" "+XAuth.phong.getGhiChu());
+    System.out.println(XAuth.phong.getGiaTien());
 }
 }

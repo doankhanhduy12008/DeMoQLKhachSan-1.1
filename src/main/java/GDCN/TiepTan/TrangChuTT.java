@@ -5,17 +5,23 @@
 package GDCN.TiepTan;
 
 import Dao.dao.NguoiDungDao;
+import Dao.dao.PhongDao;
 import Dao.daoimpl.NguoiDungDaoImpl;
+import Dao.daoimpl.PhongDaoImpl;
 import Dao.entity.NguoiDung;
+import Dao.entity.Phong;
 import Util.XAuth;
 import Util.XDate;
 import Util.XDialog;
 import Util.XIcon;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -1211,11 +1217,22 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnThemPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPActionPerformed
         // TODO add your handling code here:
-        this.showThemPhongJDiaLog(this);
+         ChonLoaiPhong chonLoaiPhongDialog = new ChonLoaiPhong(this, true);
+        chonLoaiPhongDialog.setVisible(true); // Dừng ở đây cho đến khi dialog này đóng
+
+        // Sau khi dialog ChonLoaiPhong đóng, lấy kết quả trả về
+        Phong phongDaChonCuoiCung = chonLoaiPhongDialog.getSelectedPhong();
+        
+        // Nếu có phòng được chọn
+        if (phongDaChonCuoiCung != null) {
+            // Gọi hàm để thêm phòng đó vào bảng
+            addPhongToTable(phongDaChonCuoiCung);
+        }
     }//GEN-LAST:event_btnThemPActionPerformed
 
     private void btnXoaMCDCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaMCDCPActionPerformed
         // TODO add your handling code here:
+        xoadachon();
     }//GEN-LAST:event_btnXoaMCDCPActionPerformed
 
     private void btnThemDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDVActionPerformed
@@ -1322,6 +1339,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TrangChuTT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -1510,4 +1528,68 @@ void DX(){
     this.dispose();
     this.showDX(this);
 }
+
+public void addPhongToTable(Phong phong) {
+        // Lấy model từ bảng
+        DefaultTableModel model = (DefaultTableModel) tabPhong.getModel();
+        
+        // Tạo một dòng mới với thông tin của phòng
+        Object[] rowData = new Object[] {
+            phong.getSoPhong(),
+            phong.getGiaTien(), // Bạn có thể định dạng lại cho đẹp
+            false // Giá trị cho cột checkbox
+        };
+        
+        // Thêm dòng mới vào bảng
+        model.addRow(rowData);
+    }
+
+public void xoadachon(){
+    DefaultTableModel model = (DefaultTableModel) tabPhong.getModel();
+        PhongDao dao = new PhongDaoImpl();
+        
+        // Tạo một danh sách để lưu các phòng cần xóa để tránh lỗi khi xóa trực tiếp
+        List<Integer> rowsToRemove = new ArrayList<>();
+        
+        // Vòng lặp để kiểm tra và cập nhật trạng thái
+        for (int i = 0; i < model.getRowCount(); i++) {
+            // Lấy giá trị của checkbox ở cột thứ 2 (chỉ số 2)
+            Boolean isSelected = (Boolean) model.getValueAt(i, 2); 
+            
+            if (isSelected != null && isSelected) {
+                try {
+                    // Lấy số phòng từ cột đầu tiên (chỉ số 0)
+                    String soPhong = model.getValueAt(i, 0).toString();
+                    
+                    // Tìm phòng trong CSDL
+                    Phong phong = dao.findBySoPhong(soPhong);
+                    
+                    if (phong != null) {
+                        // Cập nhật trạng thái thành "Trống"
+                        phong.setTrangThai("Trống");
+                        dao.update(phong);
+                        
+                        // Thêm chỉ số của hàng vào danh sách cần xóa
+                        rowsToRemove.add(i);
+                    }
+                } catch (Exception e) {
+                    XDialog.alert("Lỗi khi cập nhật phòng!");
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        // Sau khi đã cập nhật xong, tiến hành xóa các hàng khỏi bảng
+        // **Quan trọng:** Phải xóa từ dưới lên để không bị lỗi chỉ số (index)
+        for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
+            model.removeRow(rowsToRemove.get(i));
+        }
+
+        if (!rowsToRemove.isEmpty()) {
+            XDialog.alert("Đã xóa các phòng được chọn và cập nhật trạng thái thành công!");
+        } else {
+            XDialog.alert("Bạn chưa chọn phòng nào để xóa!");
+        }
+    }                                        
 }
+

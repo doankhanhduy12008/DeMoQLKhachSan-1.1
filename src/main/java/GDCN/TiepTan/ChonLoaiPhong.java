@@ -10,6 +10,8 @@ import Dao.daoimpl.LoaiPhongDaoImpl;
 import Dao.daoimpl.PhongDaoImpl;
 import Dao.entity.LoaiPhong;
 import Dao.entity.Phong;
+import Util.XAuth;
+import Util.XDialog;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -49,7 +51,6 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -139,6 +140,7 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
             java.util.logging.Logger.getLogger(ChonLoaiPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -171,11 +173,21 @@ public void open() {
 public void showThemPhong(int Id) {
     PhongDao dao = new PhongDaoImpl();
     Phong bill = dao.findById(Id);
-
-    ThemPhong dialog = new ThemPhong((Frame) this.getOwner(), true);
-    dialog.setPhong(bill);
+    System.out.println(bill);
+    
+    XAuth.phong = bill; // duy trì user đăng nhập
+    this.dispose();
+    ThongTinPhong dialog = new ThongTinPhong((Frame) this.getOwner(), true);
+//    dialog.setPhong(bill);
     dialog.setVisible(true);
 }
+
+private Phong phongDaChon = null;
+
+   public Phong getSelectedPhong() {
+        return this.phongDaChon;
+    }
+   
 private void loadCards() {
     LoaiPhongDao dao = new LoaiPhongDaoImpl();
     List<LoaiPhong> LP = dao.findAll();
@@ -202,33 +214,54 @@ private JButton createButton(LoaiPhong lp) {
 }
 public void showThemPhong() {
     PhongDao dao = new PhongDaoImpl();
-    
-    // Lấy danh sách các Phòng theo mã Loại Phòng
-    List<Phong> listPhong = dao.findByIdLoaiPhong(Id); // HÀM NÀY PHẢI CÓ TRONG DAO
-    pnlPhong.removeAll(); // Xóa các nút cũ trước khi hiển thị
+    List<Phong> listPhong = dao.findByIdLoaiPhong(Id);
+    pnlPhong.removeAll();
 
     for (Phong p : listPhong) {
         JButton btn = new JButton("Phòng " + p.getSoPhong());
         btn.setPreferredSize(new Dimension(120, 60));
-        if(p.getTrangThai().equals("Trống")){
-            btn.setBackground(Color.GREEN);
-        }else if(p.getTrangThai().equals("Đang thuê")){
-            btn.setBackground(Color.red);
-        }else if(p.getTrangThai().equals("Đang dọn")){
-            btn.setBackground(Color.YELLOW);
-        }else{
-            btn.setBackground(Color.PINK);
-        }
-
         btn.setActionCommand(String.valueOf(p.getId()));
 
-        btn.addActionListener(e -> {
-            int idPhong = Integer.parseInt(e.getActionCommand());
-            Phong selected = dao.findById(idPhong); // Tải lại nếu cần
+        // Sử dụng if-else if để xử lý từng trạng thái
+        if (p.getTrangThai().equals("Trống")) {
+            btn.setBackground(Color.GREEN);
+            
+            // ✅ PHÒNG TRỐNG: Gán hành động mở dialog chi tiết
+            btn.addActionListener(e -> {
+                int idPhong = Integer.parseInt(e.getActionCommand());
+                Phong selected = dao.findById(idPhong);
 
-//            ThemPhong dialog = new ThemPhong((Frame) this.getOwner(), true, selected);
-//            dialog.setVisible(true);
-        });
+                ThongTinPhong thongTinDialog = new ThongTinPhong((Frame) this.getOwner(), true, selected);
+                thongTinDialog.setVisible(true);
+
+                Phong phongDuocChonTuDialog = thongTinDialog.getPhongDaChon();
+                if (phongDuocChonTuDialog != null) {
+                    this.phongDaChon = phongDuocChonTuDialog;
+                    this.dispose();
+                }
+            });
+            
+        } else if (p.getTrangThai().equals("Đang sử dụng")) {
+            btn.setBackground(Color.RED); // Màu đỏ cho phòng đang thuê
+            
+            // ✅ PHÒNG ĐANG THUÊ: Gán hành động hiển thị thông báo
+            btn.addActionListener(e -> {
+                XDialog.alert("Phòng này đã có người thuê, vui lòng chọn phòng khác!");
+            });
+
+        } else if (p.getTrangThai().equals("Đang dọn")) {
+            btn.setBackground(Color.YELLOW); // Màu vàng cho phòng đang dọn
+
+            // ✅ PHÒNG ĐANG DỌN: Gán hành động hiển thị thông báo
+            btn.addActionListener(e -> {
+                XDialog.alert("Phòng này đang được dọn dẹp!");
+            });
+
+        } else {
+            // Các trạng thái khác (ví dụ: đang sửa chữa)
+            btn.setBackground(Color.PINK);
+            btn.setEnabled(false); // Vẫn vô hiệu hóa cho các trạng thái không xác định
+        }
 
         pnlPhong.add(btn);
     }
@@ -236,4 +269,6 @@ public void showThemPhong() {
     pnlPhong.revalidate();
     pnlPhong.repaint();
 }
+    
 }
+
