@@ -38,4 +38,10 @@ public class LoaiPhongDaoImpl implements LoaiPhongDao {
         String sql = "SELECT * FROM LoaiPhong WHERE Id = ?";
         return XQuery.getSingleBean(LoaiPhong.class, sql, id);
     }
+
+    @Override
+    public List<LoaiPhong> findByName(String tenLoaiPhong) {
+        String sql = "SELECT * FROM LoaiPhong WHERE TenLoaiPhong LIKE ?";
+        return XQuery.getBeanList(LoaiPhong.class, sql, "%" + tenLoaiPhong + "%");
+    }
 }
