@@ -9,12 +9,15 @@ import java.util.List;
 public class HoaDonDaoImpl implements HoaDonDao {
 
     @Override
-    public HoaDon create(HoaDon entity) {
-        String sql = "INSERT INTO HoaDon (IdKhachHang, IdNguoiDungLap, IdDatPhong, NgayLap, TongTien, TrangThai) VALUES (?, ?, ?, ?, ?, ?)";
-        XJdbc.executeUpdate(sql, entity.getIdKhachHang(), entity.getIdNguoiDungLap(), entity.getIdDatPhong(), 
-                entity.getNgayLap(), entity.getTongTien(), entity.getTrangThai());
-        return null;
-    }
+public HoaDon create(HoaDon entity) {
+    String sql = "INSERT INTO HoaDon (IdKhachHang, IdNguoiDungLap, IdDatPhong, NgayLap, TongTien, TrangThai) VALUES (?, ?, ?, ?, ?, ?)";
+    XJdbc.executeUpdate(sql, entity.getIdKhachHang(), entity.getIdNguoiDungLap(), entity.getIdDatPhong(), 
+            entity.getNgayLap(), entity.getTongTien(), entity.getTrangThai());
+
+    // Lấy lại bản ghi vừa tạo để có ID mới nhất
+    String findNewestSql = "SELECT TOP 1 * FROM HoaDon ORDER BY Id DESC";
+    return XQuery.getSingleBean(HoaDon.class, findNewestSql);
+}
 
     @Override
     public void update(HoaDon entity) {

@@ -173,7 +173,6 @@ public void open() {
 public void showThemPhong(int Id) {
     PhongDao dao = new PhongDaoImpl();
     Phong bill = dao.findById(Id);
-    System.out.println(bill);
     
     XAuth.phong = bill; // duy trì user đăng nhập
     this.dispose();
@@ -206,7 +205,6 @@ private JButton createButton(LoaiPhong lp) {
     btnCard.addActionListener((ActionEvent e) -> {
         Id = Integer.parseInt(e.getActionCommand());
         showThemPhong();
-        System.out.println(Id);
         jScrollPane1.setVisible(false);
     }); 
     return btnCard;
@@ -237,6 +235,7 @@ public void showThemPhong() {
                 Phong phongDuocChonTuDialog = thongTinDialog.getPhongDaChon();
                 if (phongDuocChonTuDialog != null) {
                     this.phongDaChon = phongDuocChonTuDialog;
+                    
                     this.dispose();
                 }
             });

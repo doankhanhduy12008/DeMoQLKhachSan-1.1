@@ -9,12 +9,15 @@ import java.util.List;
 public class DatPhongDaoImpl implements DatPhongDao {
 
     @Override
-    public DatPhong create(DatPhong entity) {
-        String sql = "INSERT INTO DatPhong (IdKhachHang, IdNguoiDung, NgayDat, NgayNhanPhongDuKien, NgayTraPhongDuKien, TrangThai, GhiChu) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        XJdbc.executeUpdate(sql, entity.getIdKhachHang(), entity.getIdNguoiDung(), entity.getNgayDat(), 
-                entity.getNgayNhanPhongDuKien(), entity.getNgayTraPhongDuKien(), entity.getTrangThai(), entity.getGhiChu());
-        return null;
-    }
+public DatPhong create(DatPhong entity) {
+    String sql = "INSERT INTO DatPhong (IdKhachHang, IdNguoiDung, NgayDat, NgayNhanPhongDuKien, NgayTraPhongDuKien, TrangThai, GhiChu) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    XJdbc.executeUpdate(sql, entity.getIdKhachHang(), entity.getIdNguoiDung(), entity.getNgayDat(),
+            entity.getNgayNhanPhongDuKien(), entity.getNgayTraPhongDuKien(), entity.getTrangThai(), entity.getGhiChu());
+    
+    // Lấy lại bản ghi vừa tạo để có ID mới nhất
+    String findNewestSql = "SELECT TOP 1 * FROM DatPhong ORDER BY Id DESC";
+    return XQuery.getSingleBean(DatPhong.class, findNewestSql);
+}
 
     @Override
     public void update(DatPhong entity) {

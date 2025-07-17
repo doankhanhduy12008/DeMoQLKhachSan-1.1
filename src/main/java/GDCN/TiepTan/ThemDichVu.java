@@ -4,6 +4,14 @@
  */
 package GDCN.TiepTan;
 
+import Dao.dao.DichVuDao;
+import Dao.daoimpl.DichVuDaoImpl;
+import Dao.entity.DichVu;
+import Util.XDialog;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Acer
@@ -189,5 +197,52 @@ public class ThemDichVu extends javax.swing.JDialog implements ThemDichVuControl
 @Override
     public void open() {
     this.setLocationRelativeTo(null);
+    fillComboBox(); 
 }
+     DichVuDao dao = new DichVuDaoImpl();
+     void fillComboBox() {
+        // Lấy model của JComboBox
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboLoaiDichVu.getModel();
+        model.removeAllElements(); // Xóa các item cũ để tránh bị trùng lặp
+
+        try {
+            // Lấy danh sách tất cả dịch vụ từ database
+            List<DichVu> list = dao.findAll();
+            
+            // Lặp qua danh sách và thêm tên dịch vụ vào combobox
+            for (DichVu dv : list) {
+                model.addElement(dv.getTenDichVu());
+            }
+        } catch (Exception e) {
+            XDialog.alert("Lỗi truy vấn dữ liệu dịch vụ!");
+            e.printStackTrace();
+        }
+    }
+     
+    public DichVu getDV(){
+        DichVu dv = new DichVu();
+        return dv;
+        
+    }
+    void DV(){
+        String SL = txtSoLuong.getText().trim();
+        StringBuilder err = new StringBuilder();
+        double unitPrice = 0;
+    if (SL.isEmpty()) {
+        err.append("Chưa nhập giá tiền\n");
+    } else {
+        try {
+            unitPrice = Double.parseDouble(SL);
+            if (unitPrice < 1) {
+                err.append("Phải nhập giá lớn hơn 0\n");
+            }
+        } catch (NumberFormatException e) {
+            err.append("Phải nhập số tiền là số\n");
+        }
+    }
+    if (err.length() > 0) {
+        JOptionPane.showMessageDialog(this, err);
+        return;
+    }
+    }
 }

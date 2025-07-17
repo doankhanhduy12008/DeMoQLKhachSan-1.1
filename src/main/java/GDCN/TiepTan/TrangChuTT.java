@@ -4,10 +4,22 @@
  */
 package GDCN.TiepTan;
 
+import Dao.dao.ChiTietThuePhongDao;
+import Dao.dao.DatPhongDao;
+import Dao.dao.HoaDonDao;
+import Dao.dao.KhachHangDao;
 import Dao.dao.NguoiDungDao;
 import Dao.dao.PhongDao;
+import Dao.daoimpl.ChiTietThuePhongDaoImpl;
+import Dao.daoimpl.DatPhongDaoImpl;
+import Dao.daoimpl.HoaDonDaoImpl;
+import Dao.daoimpl.KhachHangDaoImpl;
 import Dao.daoimpl.NguoiDungDaoImpl;
 import Dao.daoimpl.PhongDaoImpl;
+import Dao.entity.ChiTietThuePhong;
+import Dao.entity.DatPhong;
+import Dao.entity.HoaDon;
+import Dao.entity.KhachHang;
 import Dao.entity.NguoiDung;
 import Dao.entity.Phong;
 import Util.XAuth;
@@ -1196,6 +1208,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
         // TODO add your handling code here:
+        l();
     }//GEN-LAST:event_btnCheckInActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
@@ -1218,14 +1231,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void btnThemPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPActionPerformed
         // TODO add your handling code here:
          ChonLoaiPhong chonLoaiPhongDialog = new ChonLoaiPhong(this, true);
-        chonLoaiPhongDialog.setVisible(true); // Dừng ở đây cho đến khi dialog này đóng
-
-        // Sau khi dialog ChonLoaiPhong đóng, lấy kết quả trả về
+        chonLoaiPhongDialog.setVisible(true); 
         Phong phongDaChonCuoiCung = chonLoaiPhongDialog.getSelectedPhong();
-        
-        // Nếu có phòng được chọn
         if (phongDaChonCuoiCung != null) {
-            // Gọi hàm để thêm phòng đó vào bảng
             addPhongToTable(phongDaChonCuoiCung);
         }
     }//GEN-LAST:event_btnThemPActionPerformed
@@ -1585,11 +1593,88 @@ public void xoadachon(){
             model.removeRow(rowsToRemove.get(i));
         }
 
-        if (!rowsToRemove.isEmpty()) {
-            XDialog.alert("Đã xóa các phòng được chọn và cập nhật trạng thái thành công!");
-        } else {
-            XDialog.alert("Bạn chưa chọn phòng nào để xóa!");
+   
+    }   
+
+
+void l() {
+    // 1. Kiểm tra dữ liệu đầu vào
+    String tkh = txtTenKH.getText().trim();
+    String scmt = txtSocmt.getText().trim();
+    String sdt = txtSDT.getText().trim();
+    if (tkh.isEmpty() || scmt.isEmpty() || sdt.isEmpty()) {
+        XDialog.alert("Vui lòng nhập đầy đủ thông tin khách hàng.");
+        return;
+    }
+    if (tabPhong.getRowCount() == 0) {
+        XDialog.alert("Vui lòng chọn ít nhất một phòng để check-in.");
+        return;
+    }
+
+    try {
+        // 2. Tạo hoặc tìm khách hàng
+        KhachHangDao khDao = new KhachHangDaoImpl();
+        KhachHang kh = khDao.findBySDT(sdt);
+        if (kh == null) {
+            kh = new KhachHang();
+            kh.setHoTen(tkh);
+            kh.setCmt(scmt);
+            kh.setSdt(sdt);
+            khDao.create(kh);
+            kh = khDao.findBySDT(sdt); // Lấy lại khách hàng với ID
         }
-    }                                        
+
+        // 3. Tạo bản ghi Đặt phòng
+        DatPhongDao dpDao = new DatPhongDaoImpl();
+        DatPhong dp = new DatPhong();
+        dp.setIdKhachHang(kh.getId());
+        dp.setIdNguoiDung(XAuth.user.getUsername()); // Giả sử user có getId()
+        dp.setNgayDat(new Date());
+        dp.setNgayNhanPhongDuKien(new Date()); 
+        dp.setNgayTraPhongDuKien(new Date());
+        dp.setTrangThai("Đã nhận phòng");
+        DatPhong datPhongMoi = dpDao.create(dp); // Tạo và lấy lại bản ghi có ID
+
+        // 4. Tạo Hóa đơn với IdDatPhong vừa có
+        HoaDonDao hdDao = new HoaDonDaoImpl();
+        HoaDon hd = new HoaDon();
+        hd.setIdKhachHang(kh.getId());
+        hd.setIdNguoiDungLap(XAuth.user.getUsername());
+        hd.setIdDatPhong(datPhongMoi.getId()); // *** Sửa lỗi chính ở đây ***
+        hd.setNgayLap(new Date());
+        hd.setTongTien(0); 
+        hd.setTrangThai("Chưa thanh toán");
+        HoaDon hoaDonMoi = hdDao.create(hd);
+
+        // 5. Tạo chi tiết thuê phòng và cập nhật trạng thái phòng
+        PhongDao phongDao = new PhongDaoImpl();
+        ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+        DefaultTableModel model = (DefaultTableModel) tabPhong.getModel();
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String soPhong = model.getValueAt(i, 0).toString();
+            Phong phong = phongDao.findBySoPhong(soPhong);
+            if (phong != null) {
+                // Cập nhật trạng thái
+                phong.setTrangThai("Đang sử dụng");
+                phongDao.update(phong);
+
+                // Tạo chi tiết thuê
+                ChiTietThuePhong cttp = new ChiTietThuePhong();
+                cttp.setIdHoaDon(hoaDonMoi.getId());
+                cttp.setIdPhong(phong.getId());
+                cttp.setThoiGianNhanPhong(new Date());
+                cttpDao.create(cttp);
+            }
+        }
+
+        XDialog.alert("Check-in thành công!");
+        // Thêm code để xóa trắng form nếu cần
+
+    } catch (Exception e) {
+        XDialog.alert("Đã xảy ra lỗi trong quá trình check-in!");
+        e.printStackTrace();
+    }
+}
 }
 

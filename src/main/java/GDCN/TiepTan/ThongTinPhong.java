@@ -4,14 +4,18 @@
  */
 package GDCN.TiepTan;
 
+import Dao.dao.ChiTietThuePhongDao;
 import Dao.dao.PhongDao;
+import Dao.daoimpl.ChiTietThuePhongDaoImpl;
 import Dao.daoimpl.PhongDaoImpl;
+import Dao.entity.ChiTietThuePhong;
 import Dao.entity.Phong;
 import Util.XAuth;
 import static Util.XAuth.phong;
 import Util.XDialog;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Date;
 
 /**
  *
@@ -172,34 +176,7 @@ public class ThongTinPhong extends javax.swing.JDialog implements ThongTinPhongC
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-           if (!"Trống".equals(phongHienTai.getTrangThai())) {
-        XDialog.alert("Chỉ có thể đặt phòng đang trống!");
-        return; // Dừng lại nếu phòng không trống
-    }
-    
-    // Yêu cầu xác nhận từ người dùng
-    boolean confirmed = XDialog.confirm("Bạn có chắc chắn muốn đặt phòng " + phongHienTai.getSoPhong() + " không?");
-    
-    if (confirmed) {
-        try {
-            // 1. Cập nhật trạng thái của đối tượng phòng
-            phongHienTai.setTrangThai("Đang sử dụng");
-
-            // 2. Gọi DAO để cập nhật vào cơ sở dữ liệu
-            PhongDao dao = new PhongDaoImpl();
-            dao.update(phongHienTai);
-
-            // 3. Báo hiệu hành động đã thành công và đóng dialog
-            this.daXacNhan = true;
-            XDialog.alert("Đặt phòng thành công!");
-            this.dispose(); 
-            
-        } catch (Exception e) {
-            // Bắt lỗi nếu có sự cố khi cập nhật CSDL
-            XDialog.alert("Đã xảy ra lỗi khi đặt phòng!");
-            e.printStackTrace();
-        }
-    }
+        DT();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -267,19 +244,50 @@ public void open() {
     this.setLocationRelativeTo(null);
     anh();
 }
-  private Phong phongHienTai;
+  Phong phongHienTai;
   private boolean daXacNhan = false;
      public Phong getPhongDaChon() {
         // Chỉ trả về phòng nếu người dùng đã nhấn nút "Đặt Phòng"
         return daXacNhan ? this.phongHienTai : null;
     }
 public void anh(){
-    labPhong.setText("Phòng " +XAuth.phong.getSoPhong());
-     BigDecimal  giaTien = XAuth.phong.getGiaTien();
-            DecimalFormat formatter = new DecimalFormat("#,##0 VND"); // Định dạng tiền tệ
-            txtGiaTien.setText(" "+ formatter.format(giaTien));
-    txtLoaiPhong.setText(" "+String.valueOf(XAuth.phong.getTang()));
-    txaGhiChu.setText(" "+XAuth.phong.getGhiChu());
-    System.out.println(XAuth.phong.getGiaTien());
+        labPhong.setText("Phòng " + phongHienTai.getSoPhong());
+        BigDecimal giaTien = phongHienTai.getGiaTien();
+        DecimalFormat formatter = new DecimalFormat("#,##0 VND");
+        txtGiaTien.setText(" " + formatter.format(giaTien));
+        txtLoaiPhong.setText(" " + String.valueOf(phongHienTai.getTang()));
+        txaGhiChu.setText(" " + phongHienTai.getGhiChu());
+}
+
+public void DT(){
+           if (!"Trống".equals(phongHienTai.getTrangThai())) {
+        XDialog.alert("Chỉ có thể đặt phòng đang trống!");
+        return; // Dừng lại nếu phòng không trống
+    }
+    
+    // Yêu cầu xác nhận từ người dùng
+    boolean confirmed = XDialog.confirm("Bạn có chắc chắn muốn đặt phòng " + phongHienTai.getSoPhong() + " không?");
+    
+    if (confirmed) {
+        try {
+            // 1. Cập nhật trạng thái của đối tượng phòng
+            phongHienTai.setTrangThai("Đang sử dụng");
+
+            // 2. Gọi DAO để cập nhật vào cơ sở dữ liệu
+            PhongDao dao = new PhongDaoImpl();
+            dao.update(phongHienTai);
+           
+
+            // 3. Báo hiệu hành động đã thành công và đóng dialog
+            this.daXacNhan = true;
+            XDialog.alert("Đặt phòng thành công!");
+            this.dispose(); 
+            
+        } catch (Exception e) {
+            // Bắt lỗi nếu có sự cố khi cập nhật CSDL
+            XDialog.alert("Đã xảy ra lỗi khi đặt phòng!");
+            e.printStackTrace();
+        }
+    }
 }
 }
