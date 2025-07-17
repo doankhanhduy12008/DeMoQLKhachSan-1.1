@@ -1,4 +1,4 @@
-package GDCN.QuanLy;
+    package GDCN.QuanLy;
 import Dao.dao.LoaiPhongDao;
 import Dao.dao.NguoiDungDao;
 import Dao.dao.PhongDao;
@@ -1152,10 +1152,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rdoNVTiepTan)
-                                    .addComponent(rdoNVDichVu)
-                                    .addComponent(rdoNVQuanLy, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rdoNVQuanLy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(rdoNVTiepTan)
+                                        .addComponent(rdoNVDichVu))))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1218,7 +1219,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addGap(0, 984, Short.MAX_VALUE)
+                        .addGap(0, 970, Short.MAX_VALUE)
                         .addComponent(bntNVXoaMucChon, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addContainerGap()
@@ -1956,7 +1957,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
     }//GEN-LAST:event_rdoPPhongSua1ActionPerformed
 
     private void bntPSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPSuaActionPerformed
-        this.suaPhong();
+        capNPhong();
     }//GEN-LAST:event_bntPSuaActionPerformed
 
     private void tblPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongMouseClicked
