@@ -2,7 +2,13 @@
 
 <Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    <Component class="javax.swing.JFileChooser" name="ChonAnh">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="cboNVVaitro">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="cboNVTrangThai">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="cboPTrangThai">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -1097,13 +1103,16 @@
                     <Component class="javax.swing.JRadioButton" name="rdoPPhongTrong">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="buttonGroup1"/>
+                          <ComponentRef name="cboPTrangThai"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Ph&#xf2;ng Tr&#x1ed1;ng"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdoPPhongDuocThue">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="cboPTrangThai"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Ph&#xf2;ng &#x110;ang &#x110;&#x1b0;&#x1ee3;c Thu&#xea;"/>
                       </Properties>
                       <Events>
@@ -1113,7 +1122,7 @@
                     <Component class="javax.swing.JRadioButton" name="rdoPPhongDonDep">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="buttonGroup1"/>
+                          <ComponentRef name="cboPTrangThai"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Ph&#xf2;ng &#x110;ang D&#x1ecd;n D&#x1eb9;p"/>
                       </Properties>
@@ -1207,6 +1216,9 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdoPPhongSua1">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="cboPTrangThai"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Ph&#xf2;ng &#x110;ang S&#x1eed;a"/>
                       </Properties>
                       <Events>
@@ -1515,9 +1527,9 @@
                                               <Component id="jLabel14" min="-2" pref="24" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="rdoNVQuanLy" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="rdoNVTiepTan" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="rdoNVDichVu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="rdoNVQuanLy" alignment="1" min="-2" pref="21" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
@@ -1592,6 +1604,9 @@
                               </Border>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="NVAnhMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1673,11 +1688,17 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdoNVQuanLy">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="cboNVVaitro"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd;"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdoNVTiepTan">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="cboNVVaitro"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Ti&#x1ebf;p T&#xe2;n"/>
                       </Properties>
                       <Events>
@@ -1686,6 +1707,9 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdoNVDichVu">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="cboNVVaitro"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="D&#x1ecb;ch V&#x1ee5;"/>
                       </Properties>
                     </Component>
@@ -1699,11 +1723,17 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdoNVHoatDong">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="cboNVTrangThai"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdoNVTamDung">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="cboNVTrangThai"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="T&#x1ea1;m D&#x1eeb;ng"/>
                       </Properties>
                       <Events>
@@ -1776,7 +1806,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="984" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="970" max="32767" attributes="0"/>
                                       <Component id="bntNVXoaMucChon" min="-2" pref="205" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">

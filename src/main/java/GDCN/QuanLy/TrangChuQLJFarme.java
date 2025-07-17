@@ -1,9 +1,12 @@
 package GDCN.QuanLy;
 import Dao.dao.LoaiPhongDao;
+import Dao.dao.NguoiDungDao;
 import Dao.dao.PhongDao;
 import Dao.daoimpl.LoaiPhongDaoImpl;
+import Dao.daoimpl.NguoiDungDaoImpl;
 import Dao.daoimpl.PhongDaoImpl;
 import Dao.entity.LoaiPhong;
+import Dao.entity.NguoiDung;
 import Dao.entity.Phong;
 import GDCN.TiepTan.TrangChu;
 import Util.XAuth;
@@ -11,10 +14,14 @@ import Util.XDialog;
 import Util.XIcon;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
 public final class TrangChuQLJFarme extends javax.swing.JFrame {
@@ -72,7 +79,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        ChonAnh = new javax.swing.JFileChooser();
+        cboNVVaitro = new javax.swing.ButtonGroup();
+        cboNVTrangThai = new javax.swing.ButtonGroup();
+        cboPTrangThai = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         Open = new javax.swing.JLabel();
         pnlMenuBar = new javax.swing.JPanel();
@@ -697,9 +707,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Trạng Thái:");
 
-        buttonGroup1.add(rdoPPhongTrong);
+        cboPTrangThai.add(rdoPPhongTrong);
         rdoPPhongTrong.setText("Phòng Trống");
 
+        cboPTrangThai.add(rdoPPhongDuocThue);
         rdoPPhongDuocThue.setText("Phòng Đang Được Thuê");
         rdoPPhongDuocThue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -707,7 +718,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(rdoPPhongDonDep);
+        cboPTrangThai.add(rdoPPhongDonDep);
         rdoPPhongDonDep.setText("Phòng Đang Dọn Dẹp");
         rdoPPhongDonDep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -758,6 +769,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
             }
         });
 
+        cboPTrangThai.add(rdoPPhongSua1);
         rdoPPhongSua1.setText("Phòng Đang Sửa");
         rdoPPhongSua1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -973,6 +985,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         NVAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         NVAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Logo.png"))); // NOI18N
         NVAnh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+        NVAnh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                NVAnhMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1014,8 +1031,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
 
         txtNVSDT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
+        cboNVVaitro.add(rdoNVQuanLy);
         rdoNVQuanLy.setText("Quản Lý");
 
+        cboNVVaitro.add(rdoNVTiepTan);
         rdoNVTiepTan.setText("Tiếp Tân");
         rdoNVTiepTan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1023,13 +1042,16 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
             }
         });
 
+        cboNVVaitro.add(rdoNVDichVu);
         rdoNVDichVu.setText("Dịch Vụ");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel17.setText("Trạng Thái:");
 
+        cboNVTrangThai.add(rdoNVHoatDong);
         rdoNVHoatDong.setText("Hoạt Động");
 
+        cboNVTrangThai.add(rdoNVTamDung);
         rdoNVTamDung.setText("Tạm Dừng");
         rdoNVTamDung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1131,9 +1153,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rdoNVQuanLy)
                                     .addComponent(rdoNVTiepTan)
-                                    .addComponent(rdoNVDichVu)))
+                                    .addComponent(rdoNVDichVu)
+                                    .addComponent(rdoNVQuanLy, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1963,6 +1985,16 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         this.xoaMDCPhong();
     }//GEN-LAST:event_bntPXoaMucDaChonActionPerformed
 
+    private void NVAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NVAnhMouseClicked
+        if(ChonAnh.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            File file = XIcon.copyTo(ChonAnh.getSelectedFile(), this.folder);
+            this.setIcon(file.getName());
+            if(this.fileChanged != null){
+                this.fileChanged.accept(file);
+            }
+        }
+    }//GEN-LAST:event_NVAnhMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2000,6 +2032,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Anh;
+    private javax.swing.JFileChooser ChonAnh;
     private javax.swing.JLabel NVAnh;
     private javax.swing.JPanel NoiDung;
     private javax.swing.JLabel Open;
@@ -2041,7 +2074,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
     private javax.swing.JLabel bntTrangChu;
     private javax.swing.JLabel btnDangXuat;
     private javax.swing.JLabel btnDoiMK;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup cboNVTrangThai;
+    private javax.swing.ButtonGroup cboNVVaitro;
+    private javax.swing.ButtonGroup cboPTrangThai;
     private javax.swing.JComboBox<String> cmbDTLocNgay;
     private javax.swing.JComboBox<String> cmbPLoaiPhong;
     private javax.swing.JLabel jLabel1;
@@ -2264,10 +2299,12 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         });
     }
     
-    // ==============================================================================================================================
-    // ====================================================  Phong ==================================================================
-    // ==============================================================================================================================
-
+    /**
+     * ==============================================================================================================================
+     * ======================================================== Phong ===============================================================
+     * ==============================================================================================================================
+     */
+    
     PhongDao Phongdao = new PhongDaoImpl();
     java.util.List<Phong> Phongitems;
 
@@ -2523,7 +2560,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
              err.append("Vui lòng chọn loại phòng.\n");
         }
 
-        if (buttonGroup1.getSelection() == null) {
+        if (cboPTrangThai.getSelection() == null) {
             err.append("Vui lòng chọn trạng thái phòng.\n");
         }
 
@@ -2543,5 +2580,55 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+     /**
+     * ==============================================================================================================================
+     * ==================================================== Nhan Vien ==============================================================
+     * ==============================================================================================================================
+     */
+    
+    String folder = "images";
+    Consumer<File> fileChanged;
 
+    public String getFolder() {
+        return folder;
+    }
+
+    public void setFolder(String folder) {
+        this.folder = folder;
+    }
+    
+    public void setIcon(String icon) {
+        NVAnh.setText("");
+        NVAnh.setToolTipText(icon);
+        XIcon.setIcon(NVAnh, new File(this.folder, icon));
+    }
+     
+    public String getIcon() {
+        return NVAnh.getToolTipText();
+    }
+    
+    
+    NguoiDungDao NVdao = new NguoiDungDaoImpl();
+    java.util.List<NguoiDung> NVitems;
+    
+    public NguoiDung layNguoiDung(){
+        NguoiDung entity = new NguoiDung();
+        entity.setAnh(this.getFolder());
+        entity.setUsername(txtNVTenDangNhap.getText());
+        entity.setHoVaTen(txtNVHoVaTen.getText());
+        entity.setMatKhau(txtNVMatKhau.getText());
+        entity.setSdt(txtNVSDT.getText());
+        if (rdoNVQuanLy.isSelected()) {
+            entity.setVaiTro("Quản lý");
+        } else if (rdoNVTiepTan.isSelected()) {
+            entity.setVaiTro("Tiếp tân");
+        } else {
+            entity.setVaiTro("Dịch vụ");
+        }
+        entity.setTrangThai(rdoNVHoatDong.isSelected());
+        
+        
+        return entity;
+    }
 }
