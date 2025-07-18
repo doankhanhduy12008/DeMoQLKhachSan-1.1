@@ -31,4 +31,9 @@ public class LoaiPhong {
     public void setTenLoaiPhong(String tenLoaiPhong) {
         this.tenLoaiPhong = tenLoaiPhong;
     }
+    
+    @Override
+    public String toString() {
+        return this.tenLoaiPhong;
+    }
 }

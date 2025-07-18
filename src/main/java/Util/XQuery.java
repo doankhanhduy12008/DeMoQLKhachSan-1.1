@@ -84,24 +84,41 @@ public class XQuery {
 //    }
     
     private static <B> B readBean(ResultSet resultSet, Class<B> beanClass) throws Exception {
-    B bean = beanClass.getDeclaredConstructor().newInstance();
-    Method[] methods = beanClass.getDeclaredMethods();
-    for (Method method : methods) {
-        String name = method.getName();
-        if (name.startsWith("set") && method.getParameterCount() == 1) {
-            String columnName = name.substring(3);
-            // Viết thường chữ cái đầu
-            columnName = columnName.substring(0, 1).toLowerCase() + columnName.substring(1);
-            try {
-                Object value = resultSet.getObject(columnName);
-                method.invoke(bean, value);
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SQLException e) {
-                System.out.printf("+ Column '%s' not found!\r\n", columnName);
+        B bean = beanClass.getDeclaredConstructor().newInstance();
+        java.sql.ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = metaData.getColumnName(i);
+            // Chuyển đổi tên cột thành tên phương thức setter (ví dụ: "so_phong" -> "setSoPhong")
+            String setterName = "set" + Character.toUpperCase(columnName.charAt(0)) + columnName.substring(1);
+
+            // Tìm phương thức setter phù hợp
+            for (java.lang.reflect.Method method : beanClass.getMethods()) {
+                if (method.getName().equalsIgnoreCase(setterName) && method.getParameterCount() == 1) {
+                    try {
+                        Object value = resultSet.getObject(i);
+                        Class<?> paramType = method.getParameterTypes()[0];
+
+                        // Xử lý chuyển đổi kiểu dữ liệu nếu cần
+                        if (value instanceof java.math.BigDecimal) {
+                            if (paramType == Double.class || paramType == double.class) {
+                                value = ((java.math.BigDecimal) value).doubleValue();
+                            } else if (paramType == Integer.class || paramType == int.class) {
+                                value = ((java.math.BigDecimal) value).intValue();
+                            }
+                        }
+
+                        method.invoke(bean, value);
+                        break; 
+                    } catch (Exception e) {
+                         // Bỏ qua nếu có lỗi, có thể do tên cột không khớp
+                    }
+                }
             }
         }
+        return bean;
     }
-    return bean;
-}
 
     
     public static void main(String[] args) {
