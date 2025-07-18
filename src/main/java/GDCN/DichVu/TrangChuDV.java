@@ -102,6 +102,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnKhungAnh = new javax.swing.JPanel();
         txtTen = new javax.swing.JLabel();
         Anh = new javax.swing.JLabel();
+        btnDichV1 = new javax.swing.JLabel();
         jpnDMK = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtTenDN = new javax.swing.JTextField();
@@ -250,6 +251,18 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         Anh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         Anh.setPreferredSize(new java.awt.Dimension(200, 250));
 
+        btnDichV1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDichV1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDichV1.setText("Dịch Vụ");
+        btnDichV1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnDichV1.setMinimumSize(new java.awt.Dimension(291, 40));
+        btnDichV1.setPreferredSize(new java.awt.Dimension(91, 40));
+        btnDichV1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDichV1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnTrangChuLayout = new javax.swing.GroupLayout(jpnTrangChu);
         jpnTrangChu.setLayout(jpnTrangChuLayout);
         jpnTrangChuLayout.setHorizontalGroup(
@@ -263,6 +276,10 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(500, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnTrangChuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDichV1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(465, 465, 465))
         );
         jpnTrangChuLayout.setVerticalGroup(
             jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +288,9 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
                 .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDichV1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(jpnKhungAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(149, 149, 149))
         );
@@ -594,6 +613,17 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         DX();
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
+    private void btnDichV1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDichV1MouseClicked
+        // TODO add your handling code here:
+                jpnTrangChu.setVisible(false);
+        jpnTDTrangChu.setVisible(false);
+        jpnDMK.setVisible(false);
+        jpnTDDMK.setVisible(false);
+        jpnDichVu.setVisible(true);
+        jpnTDDichVu.setVisible(true);
+        Open.setVisible(true);
+    }//GEN-LAST:event_btnDichV1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -636,6 +666,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
     private javax.swing.JPanel Tieude;
     private javax.swing.JLabel btnDangXuat;
     private javax.swing.JLabel btnDichV;
+    private javax.swing.JLabel btnDichV1;
     private javax.swing.JLabel btnDoiMK;
     private javax.swing.JButton btnLMDMK;
     private javax.swing.JButton btnLuuDMK;

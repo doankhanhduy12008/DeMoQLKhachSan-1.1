@@ -116,6 +116,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnKhungAnh = new javax.swing.JPanel();
         txtTen = new javax.swing.JLabel();
         Anh = new javax.swing.JLabel();
+        btnDatP1 = new javax.swing.JLabel();
+        btnXemLS1 = new javax.swing.JLabel();
         jpnDMK = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtTenDN = new javax.swing.JTextField();
@@ -322,19 +324,47 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         Anh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         Anh.setPreferredSize(new java.awt.Dimension(200, 250));
 
+        btnDatP1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDatP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDatP1.setText("Đặt Phòng");
+        btnDatP1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnDatP1.setMinimumSize(new java.awt.Dimension(291, 40));
+        btnDatP1.setPreferredSize(new java.awt.Dimension(91, 40));
+        btnDatP1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDatP1MouseClicked(evt);
+            }
+        });
+
+        btnXemLS1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnXemLS1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnXemLS1.setText("Xem Lịch Sử");
+        btnXemLS1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnXemLS1.setMinimumSize(new java.awt.Dimension(291, 40));
+        btnXemLS1.setPreferredSize(new java.awt.Dimension(91, 40));
+        btnXemLS1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXemLS1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnTrangChuLayout = new javax.swing.GroupLayout(jpnTrangChu);
         jpnTrangChu.setLayout(jpnTrangChuLayout);
         jpnTrangChuLayout.setHorizontalGroup(
             jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnTrangChuLayout.createSequentialGroup()
-                .addGap(206, 206, 206)
-                .addComponent(jpnKhungAnh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(451, 451, 451)
+                .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnXemLS1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                    .addComponent(btnDatP1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(179, 179, 179)
+                .addComponent(jpnKhungAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
             .addGroup(jpnTrangChuLayout.createSequentialGroup()
                 .addGap(494, 494, 494)
                 .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(522, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnTrangChuLayout.setVerticalGroup(
             jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,8 +373,13 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addComponent(jpnKhungAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpnKhungAnh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnTrangChuLayout.createSequentialGroup()
+                        .addComponent(btnDatP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXemLS1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(149, 149, 149))
         );
 
@@ -1322,6 +1357,32 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         DX();
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
+    private void btnDatP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatP1MouseClicked
+        // TODO add your handling code here:
+                jpnTrangChu.setVisible(false);
+        jpnTDTrangChu.setVisible(false);
+        jpnDMK.setVisible(false);
+        jpnTDDMK.setVisible(false);
+        jpnXemLS.setVisible(false);
+        jpnTDXemLS.setVisible(false);
+        jpnDatP.setVisible(true);
+        jpnTDDatP.setVisible(true);
+        Open.setVisible(true);
+    }//GEN-LAST:event_btnDatP1MouseClicked
+
+    private void btnXemLS1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLS1MouseClicked
+        // TODO add your handling code here:
+                jpnTrangChu.setVisible(false);
+        jpnTDTrangChu.setVisible(false);
+        jpnDMK.setVisible(false);
+        jpnTDDMK.setVisible(false);
+        jpnXemLS.setVisible(true);
+        jpnTDXemLS.setVisible(true);
+        jpnDatP.setVisible(false);
+        jpnTDDatP.setVisible(false);
+        Open.setVisible(true);
+    }//GEN-LAST:event_btnXemLS1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1368,6 +1429,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnDMK;
     private javax.swing.JLabel btnDangXuat;
     private javax.swing.JLabel btnDatP;
+    private javax.swing.JLabel btnDatP1;
     private javax.swing.JLabel btnDoiMK;
     private javax.swing.JButton btnLamMSDMK;
     private javax.swing.JButton btnLamMoiDP;
@@ -1379,6 +1441,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnTimKiemSDT;
     private javax.swing.JLabel btnTrangChu;
     private javax.swing.JLabel btnXemLS;
+    private javax.swing.JLabel btnXemLS1;
     private javax.swing.JButton btnXoaMCDCDV;
     private javax.swing.JButton btnXoaMCDCP;
     private javax.swing.JLabel jLabel1;
