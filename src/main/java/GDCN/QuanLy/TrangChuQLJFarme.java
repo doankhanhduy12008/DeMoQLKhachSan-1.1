@@ -2491,7 +2491,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         Phong entity = new Phong();
         entity.setSoPhong(txtPSoPhong.getText());
         entity.setTang(Integer.parseInt(txtPTang.getText()));
-        entity.setGiaTien(Double.parseDouble(txtPGiaThue.getText()));
+        entity.setGiaTien(new java.math.BigDecimal(txtPGiaThue.getText()));
         entity.setGhiChu(txaPGhiChu.getText());
 
         LoaiPhong loaiPhongChon = (LoaiPhong) cmbPLoaiPhong.getSelectedItem();
