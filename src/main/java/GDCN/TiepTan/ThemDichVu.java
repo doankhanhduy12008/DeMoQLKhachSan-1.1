@@ -21,11 +21,28 @@ public class ThemDichVu extends javax.swing.JDialog implements ThemDichVuControl
     /**
      * Creates new form ThemDichVu
      */
-    public ThemDichVu(java.awt.Frame parent, boolean modal) {
+    private DichVu selectedDichVu = null;
+    private int selectedSoLuong = 0;
+    private boolean confirmed = false;
+   public ThemDichVu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
     }
+    
+    public DichVu getSelectedDichVu() {
+        return selectedDichVu;
+    }
+
+    public int getSelectedSoLuong() {
+        return selectedSoLuong;
+    }
+    
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,7 +73,6 @@ public class ThemDichVu extends javax.swing.JDialog implements ThemDichVuControl
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
         cboLoaiDichVu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cboLoaiDichVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" }));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Loại dịch vụ:");
@@ -136,6 +152,7 @@ public class ThemDichVu extends javax.swing.JDialog implements ThemDichVuControl
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        DV();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -199,19 +216,20 @@ public class ThemDichVu extends javax.swing.JDialog implements ThemDichVuControl
     this.setLocationRelativeTo(null);
     fillComboBox(); 
 }
+    
+    
      DichVuDao dao = new DichVuDaoImpl();
-     void fillComboBox() {
-        // Lấy model của JComboBox
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cboLoaiDichVu.getModel();
-        model.removeAllElements(); // Xóa các item cũ để tránh bị trùng lặp
+    void fillComboBox() {
+        // **SỬA ĐỔI Ở ĐÂY**
+        // Ép kiểu model thành DefaultComboBoxModel<DichVu> để chứa đối tượng DichVu
+        javax.swing.DefaultComboBoxModel model = (javax.swing.DefaultComboBoxModel) cboLoaiDichVu.getModel();
+        model.removeAllElements();
 
         try {
-            // Lấy danh sách tất cả dịch vụ từ database
             List<DichVu> list = dao.findAll();
-            
-            // Lặp qua danh sách và thêm tên dịch vụ vào combobox
             for (DichVu dv : list) {
-                model.addElement(dv.getTenDichVu());
+                // Thêm toàn bộ đối tượng DichVu vào ComboBox
+                model.addElement(dv); 
             }
         } catch (Exception e) {
             XDialog.alert("Lỗi truy vấn dữ liệu dịch vụ!");
@@ -224,25 +242,29 @@ public class ThemDichVu extends javax.swing.JDialog implements ThemDichVuControl
         return dv;
         
     }
+
     void DV(){
-        String SL = txtSoLuong.getText().trim();
-        StringBuilder err = new StringBuilder();
-        double unitPrice = 0;
-    if (SL.isEmpty()) {
-        err.append("Chưa nhập giá tiền\n");
-    } else {
-        try {
-            unitPrice = Double.parseDouble(SL);
-            if (unitPrice < 1) {
-                err.append("Phải nhập giá lớn hơn 0\n");
-            }
-        } catch (NumberFormatException e) {
-            err.append("Phải nhập số tiền là số\n");
+        String slStr = txtSoLuong.getText().trim();
+        if (slStr.isEmpty()) {
+            XDialog.alert("Vui lòng nhập số lượng.");
+            return;
         }
-    }
-    if (err.length() > 0) {
-        JOptionPane.showMessageDialog(this, err);
-        return;
-    }
+
+        try {
+            int soLuong = Integer.parseInt(slStr);
+            if (soLuong <= 0) {
+                XDialog.alert("Số lượng phải là số dương.");
+                return;
+            }
+
+            // Lấy đối tượng DichVu được chọn từ ComboBox
+            this.selectedDichVu = (DichVu) cboLoaiDichVu.getSelectedItem();
+            this.selectedSoLuong = soLuong;
+            this.confirmed = true; // Đánh dấu là người dùng đã xác nhận
+            this.dispose(); // Đóng cửa sổ
+
+        } catch (NumberFormatException e) {
+            XDialog.alert("Số lượng phải là một số nguyên hợp lệ.");
+        }
     }
 }

@@ -38,4 +38,7 @@ this.showJDialog(new ThongTinPhong(frame, true));
 default void showDX(JFrame frame){
 this.showJDialog(new DangNhapJDialog(frame, true));
 }
+default void showKHCU(JFrame frame){
+this.showJDialog(new KhachHangCuJDiaLog(frame, true));
+}
 }

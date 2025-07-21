@@ -11,6 +11,7 @@ C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\Chung\DangN
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\Dao\daoimpl\ChiTietDichVuDaoImpl.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\TiepTan\ChonLoaiPhongController.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\TiepTan\TrangChu.java
+C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\TiepTan\KhachHangCuController.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\Dao\entity\HoaDon.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\Util\XStr.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\Dao\dao\LoaiPhongDao.java
@@ -26,6 +27,7 @@ C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\Chung\DangN
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\TiepTan\ThongTinPhongController.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\TiepTan\ChonLoaiPhong.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\Dao\daoimpl\NguoiDungDaoImpl.java
+C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\TiepTan\KhachHangCuJDiaLog.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\DichVu\CrudController.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\DichVu\XemPhongDVTungTangController.java
 C:\Users\Acer\Documents\GitHub\DeMoQLKhachSan-1.1\src\main\java\GDCN\DichVu\XemPhongDVTungTang.java

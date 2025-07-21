@@ -44,4 +44,10 @@ public class KhachHangDaoImpl implements KhachHangDao {
         String sql = "SELECT * FROM KhachHang WHERE SDT = ?";
         return XQuery.getSingleBean(KhachHang.class, sql, sdt);
     }
+    
+    @Override
+    public List<KhachHang> searchBySDT(String sdt) {
+        String sql = "SELECT * FROM KhachHang WHERE SDT LIKE ?";
+        return XQuery.getBeanList(KhachHang.class, sql, "%" + sdt + "%");
+    }
 }

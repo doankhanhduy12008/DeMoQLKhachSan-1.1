@@ -51,4 +51,9 @@ public class DichVu {
     public void setGiamGia(double giamGia) {
         this.giamGia = giamGia;
     }
+    
+        @Override
+    public String toString() {
+        return this.tenDichVu; // Hoặc bất kỳ trường nào bạn muốn hiển thị
+    }
 }
