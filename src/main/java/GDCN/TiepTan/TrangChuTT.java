@@ -8,31 +8,38 @@ import Dao.dao.ChiTietThuePhongDao;
 import Dao.dao.DatPhongDao;
 import Dao.dao.HoaDonDao;
 import Dao.dao.KhachHangDao;
+import Dao.dao.LoaiPhongDao;
 import Dao.dao.NguoiDungDao;
 import Dao.dao.PhongDao;
 import Dao.daoimpl.ChiTietThuePhongDaoImpl;
 import Dao.daoimpl.DatPhongDaoImpl;
 import Dao.daoimpl.HoaDonDaoImpl;
 import Dao.daoimpl.KhachHangDaoImpl;
+import Dao.daoimpl.LoaiPhongDaoImpl;
 import Dao.daoimpl.NguoiDungDaoImpl;
 import Dao.daoimpl.PhongDaoImpl;
 import Dao.entity.ChiTietThuePhong;
 import Dao.entity.DatPhong;
 import Dao.entity.HoaDon;
 import Dao.entity.KhachHang;
+import Dao.entity.LoaiPhong;
 import Dao.entity.NguoiDung;
 import Dao.entity.Phong;
 import Util.XAuth;
 import Util.XDate;
 import Util.XDialog;
 import Util.XIcon;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -112,6 +119,12 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         btnXemLS = new javax.swing.JLabel();
         Open = new javax.swing.JLabel();
         KhungTrang = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        pnlLoai = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        pnlPhong = new javax.swing.JPanel();
         jpnTrangChu = new javax.swing.JPanel();
         jpnKhungAnh = new javax.swing.JPanel();
         txtTen = new javax.swing.JLabel();
@@ -139,7 +152,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabPhong = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -156,7 +168,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         txtSDT = new javax.swing.JTextField();
         txtCheckIn = new javax.swing.JTextField();
         txtCheckOut = new javax.swing.JTextField();
-        txtTongTien = new javax.swing.JTextField();
         txtTienDenBu = new javax.swing.JTextField();
         txtTrangThai = new javax.swing.JTextField();
         jpnXemLS = new javax.swing.JPanel();
@@ -201,6 +212,11 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -326,6 +342,57 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
         KhungTrang.setBackground(new java.awt.Color(255, 255, 255));
         KhungTrang.setLayout(new java.awt.CardLayout());
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+
+        jScrollPane5.setBorder(null);
+
+        pnlLoai.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLoai.setLayout(new java.awt.GridLayout(0, 6, 5, 5));
+        jScrollPane5.setViewportView(pnlLoai);
+
+        jScrollPane6.setBorder(null);
+
+        pnlPhong.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPhong.setLayout(new java.awt.GridLayout(0, 6, 5, 5));
+        jScrollPane6.setViewportView(pnlPhong);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        KhungTrang.add(jPanel3, "card7");
 
         jpnTrangChu.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -563,9 +630,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setText("Tiền đền bù:");
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel13.setText("Tổng tiền:");
-
         tabPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -720,15 +784,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             }
         });
 
-        txtTongTien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtTongTien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtTongTien.setEnabled(false);
-        txtTongTien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTongTienActionPerformed(evt);
-            }
-        });
-
         txtTienDenBu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtTienDenBu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         txtTienDenBu.addActionListener(new java.awt.event.ActionListener() {
@@ -804,10 +859,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtTrangThai))
                                     .addGroup(jpnDatPLayout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtTongTien))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnDatPLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnXoaMCDCDV, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -850,11 +903,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel12))
                                     .addComponent(txtTienDenBu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(42, 42, 42)
-                                .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addGap(85, 85, 85)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1097,7 +1146,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, false
+                true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1108,9 +1157,15 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 return canEdit [columnIndex];
             }
         });
+        tabKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabKhachHangMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tabKhachHang);
         if (tabKhachHang.getColumnModel().getColumnCount() > 0) {
-            tabKhachHang.getColumnModel().getColumn(3).setResizable(false);
+            tabKhachHang.getColumnModel().getColumn(1).setResizable(false);
+            tabKhachHang.getColumnModel().getColumn(2).setResizable(false);
         }
 
         btnSuaKH.setBackground(new java.awt.Color(204, 204, 204));
@@ -1512,10 +1567,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCheckOutActionPerformed
 
-    private void txtTongTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTongTienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTongTienActionPerformed
-
     private void txtTienDenBuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTienDenBuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTienDenBuActionPerformed
@@ -1602,19 +1653,40 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnSuaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaKHActionPerformed
         // TODO add your handling code here:
+        updateKH();
     }//GEN-LAST:event_btnSuaKHActionPerformed
 
     private void btnLamMoiKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiKHActionPerformed
         // TODO add your handling code here:
+        clearFormKH();
     }//GEN-LAST:event_btnLamMoiKHActionPerformed
 
     private void btnTaoMoiKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiKHActionPerformed
         // TODO add your handling code here:
+        btnTaoMoiKH();
     }//GEN-LAST:event_btnTaoMoiKHActionPerformed
 
     private void btnXoaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKHActionPerformed
         // TODO add your handling code here:
+        deleteKH();
     }//GEN-LAST:event_btnXoaKHActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        open();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tabKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabKhachHangMouseClicked
+        // TODO add your handling code here:
+            if (evt.getClickCount() == 1) { // Kiểm tra nhấp đúp chuột
+        int selectedRow = tabKhachHang.getSelectedRow();
+        if (selectedRow >= 0) {
+            KhachHang kh = kh_items.get(selectedRow); // Lấy khách hàng từ danh sách
+            setFormKH(kh); // Điền thông tin lên form
+            suatblKH(true); // Bật nút "Sửa", tắt nút "Tạo Mới"
+        }
+    }
+    }//GEN-LAST:event_tabKhachHangMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1685,7 +1757,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1703,10 +1774,14 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel jpnDMK;
     private javax.swing.JPanel jpnDatP;
@@ -1719,7 +1794,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JPanel jpnTDXemLS;
     private javax.swing.JPanel jpnTrangChu;
     private javax.swing.JPanel jpnXemLS;
+    private javax.swing.JPanel pnlLoai;
     private javax.swing.JPanel pnlMenuBar;
+    private javax.swing.JPanel pnlPhong;
     private javax.swing.JTable tabDichVu;
     private javax.swing.JTable tabKhachHang;
     private javax.swing.JTable tabLS;
@@ -1745,7 +1822,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JTextField txtTimSDT;
     private javax.swing.JTextField txtTimTheoNgayBD;
     private javax.swing.JTextField txtTimTheoNgayKT;
-    private javax.swing.JTextField txtTongTien;
     private javax.swing.JLabel txtTrangChu;
     private javax.swing.JTextField txtTrangThai;
     private javax.swing.JPasswordField txtXNMKM;
@@ -1753,6 +1829,10 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 @Override
 public void open() {
     this.setLocationRelativeTo(null);
+    this.fillTableKhachHang();
+    loadCards();
+     pnlLoai.setLayout(new java.awt.GridLayout(6, 1, 50, 5));
+    pnlPhong.setLayout(new java.awt.GridLayout(6, 1, 50, 5));
 }
 @Override
 public void anh(){
@@ -1987,6 +2067,258 @@ void l() {
         XDialog.alert("Đã xảy ra lỗi trong quá trình check-in!");
         e.printStackTrace();
     }
+}
+
+
+
+
+
+//===Khach Hang===
+
+List<KhachHang> kh_items = new ArrayList<>();
+void fillTableKhachHang() {
+    DefaultTableModel model = (DefaultTableModel) tabKhachHang.getModel();
+    model.setRowCount(0); 
+    try {
+        KhachHangDao dao = new KhachHangDaoImpl();
+        kh_items = dao.findAll(); // Lưu danh sách khách hàng
+        for (KhachHang kh : kh_items) {
+            Object[] row = {
+                kh.getHoTen(),
+                kh.getCmt(),
+                kh.getSdt(),
+                false 
+            };
+            model.addRow(row);
+        }
+    } catch (Exception e) {
+        XDialog.alert("Lỗi truy vấn dữ liệu khách hàng!");
+    }
+}
+
+void setFormKH(KhachHang kh) {
+    txtTenKHT.setText(kh.getHoTen());
+    txtSocmtT.setText(kh.getCmt());
+    txtSDTT.setText(kh.getSdt());
+}
+
+void suatblKH(boolean sua) {
+    btnSuaKH.setEnabled(sua);
+    btnTaoMoiKH.setEnabled(!sua);
+}
+
+KhachHang getFormKH() {
+    KhachHang kh = new KhachHang();
+    kh.setHoTen(txtTenKHT.getText());
+    kh.setCmt(txtSocmtT.getText());
+    kh.setSdt(txtSDTT.getText());
+    return kh;
+}
+
+ void btnTaoMoiKH() {                                           
+    String tenKH = txtTenKHT.getText().trim();
+    String cmt = txtSocmtT.getText().trim();
+    String sdt = txtSDTT.getText().trim();
+
+    if (tenKH.isEmpty() || cmt.isEmpty() || sdt.isEmpty()) {
+        XDialog.alert("Vui lòng nhập đầy đủ thông tin khách hàng.");
+        return;
+    }
+
+    try {
+        KhachHangDao khDao = new KhachHangDaoImpl();
+        KhachHang kh = getFormKH();
+        khDao.create(kh); // Thêm khách hàng mới vào CSDL
+        this.fillTableKhachHang(); // Tải lại bảng
+        this.clearFormKH(); // Xóa trắng form
+        XDialog.alert("Thêm mới khách hàng thành công!");
+    } catch (Exception e) {
+        XDialog.alert("Thêm mới khách hàng thất bại!");
+        e.printStackTrace();
+    }
+}
+ 
+ void updateKH() {
+    int selectedRow = tabKhachHang.getSelectedRow();
+    if (selectedRow < 0) {
+        XDialog.alert("Bạn chưa chọn khách hàng nào để sửa.");
+        return;
+    }
+
+    // Lấy khách hàng từ danh sách dựa trên hàng đã chọn
+    KhachHang kh = kh_items.get(selectedRow);
+
+    // Lấy thông tin mới từ form
+    String tenKH = txtTenKHT.getText().trim();
+    String cmt = txtSocmtT.getText().trim();
+    String sdt = txtSDTT.getText().trim();
+
+    if (tenKH.isEmpty() || cmt.isEmpty() || sdt.isEmpty()) {
+        XDialog.alert("Vui lòng không để trống thông tin.");
+        return;
+    }
+
+    // Cập nhật thông tin cho đối tượng khách hàng
+    kh.setHoTen(tenKH);
+    kh.setCmt(cmt);
+    kh.setSdt(sdt);
+
+    try {
+        KhachHangDao khDao = new KhachHangDaoImpl();
+        khDao.update(kh); // Cập nhật trong CSDL
+        this.fillTableKhachHang(); // Tải lại dữ liệu bảng
+        XDialog.alert("Cập nhật khách hàng thành công!");
+    } catch (Exception e) {
+        XDialog.alert("Cập nhật khách hàng thất bại!");
+        e.printStackTrace();
+    }
+}
+ 
+ void deleteKH() {
+    int selectedRow = tabKhachHang.getSelectedRow();
+    if (selectedRow < 0) {
+        XDialog.alert("Bạn chưa chọn khách hàng nào để xóa.");
+        return;
+    }
+
+    if (XDialog.confirm("Bạn có chắc chắn muốn xóa khách hàng này không?")) {
+        try {
+            // Lấy ID của khách hàng từ danh sách
+            KhachHang kh = kh_items.get(selectedRow);
+            
+            KhachHangDao khDao = new KhachHangDaoImpl();
+            khDao.deleteById(kh.getId()); // Xóa khách hàng
+            
+            this.fillTableKhachHang(); // Tải lại bảng
+            this.clearFormKH(); // Xóa trắng form và reset các nút
+            XDialog.alert("Xóa khách hàng thành công!");
+        } catch (Exception e) {
+            XDialog.alert("Xóa khách hàng thất bại!");
+            e.printStackTrace();
+        }
+    }
+}
+ 
+ void clearFormKH() {
+    txtTenKHT.setText("");
+    txtSocmtT.setText("");
+    txtSDTT.setText("");
+    this.fillTableKhachHang();
+    suatblKH(false);
+}
+ 
+ //===Phong===
+
+public void showThemPhong(int Id) {
+    PhongDao dao = new PhongDaoImpl();
+    Phong bill = dao.findById(Id);
+    
+    XAuth.phong = bill; // duy trì user đăng nhập
+    this.dispose();
+    ThongTinPhong dialog = new ThongTinPhong((Frame) this.getOwner(), true);
+//    dialog.setPhong(bill);
+    dialog.setVisible(true);
+}
+
+private Phong phongDaChon = null;
+
+   public Phong getSelectedPhong() {
+        return this.phongDaChon;
+    }
+   
+private void loadCards() {
+    LoaiPhongDao dao = new LoaiPhongDaoImpl();
+    List<LoaiPhong> LP = dao.findAll();
+
+    pnlLoai.removeAll();
+    LP.forEach(card -> {
+        pnlLoai.add(this.createButton(card));
+    });
+}
+int Id;
+private JButton createButton(LoaiPhong lp) {
+    JButton btnCard = new JButton();
+    btnCard.setText(String.format("%s", lp.getTenLoaiPhong()));
+    btnCard.setPreferredSize(new Dimension(100, 50));
+    btnCard.setActionCommand(String.valueOf(lp.getId()));
+    btnCard.addActionListener((ActionEvent e) -> {
+        Id = Integer.parseInt(e.getActionCommand());
+        showThemPhong();
+        jScrollPane1.setVisible(false);
+    }); 
+    return btnCard;
+    
+}
+public void showThemPhong() {
+    PhongDao dao = new PhongDaoImpl();
+    LoaiPhongDao loaiPhongDao = new LoaiPhongDaoImpl(); // Thêm DAO cho Loại Phòng
+    List<Phong> listPhong = dao.findByIdLoaiPhong(Id);
+    pnlPhong.removeAll();
+
+    for (Phong p : listPhong) {
+        // Lấy tên loại phòng từ ID
+        LoaiPhong loaiPhong = loaiPhongDao.findById(p.getIdLoaiPhong());
+        String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không xác định";
+
+        // Sử dụng HTML để hiển thị thông tin trên nhiều dòng
+        String buttonText = "<html><center>"
+                          + "Phòng " + p.getSoPhong() + "<br>"
+                          + "Tầng: " + p.getTang() + "<br>"
+                          + "Loại: " + tenLoaiPhong + "<br>"
+                          + "(" + p.getTrangThai() + ")"
+                          + "</center></html>";
+        
+        JButton btn = new JButton(buttonText);
+        btn.setPreferredSize(new Dimension(100, 80)); // Tăng chiều cao để chứa đủ chữ
+        btn.setActionCommand(String.valueOf(p.getId()));
+
+        // Sử dụng if-else if để xử lý từng trạng thái
+        if (p.getTrangThai().equals("Trống")) {
+            btn.setBackground(Color.GREEN);
+            
+            // ✅ PHÒNG TRỐNG: Gán hành động mở dialog chi tiết
+            btn.addActionListener(e -> {
+                int idPhong = Integer.parseInt(e.getActionCommand());
+                Phong selected = dao.findById(idPhong);
+
+                ThongTinPhong thongTinDialog = new ThongTinPhong((Frame) this.getOwner(), true, selected);
+                thongTinDialog.setVisible(true);
+
+                Phong phongDuocChonTuDialog = thongTinDialog.getPhongDaChon();
+                if (phongDuocChonTuDialog != null) {
+                    this.phongDaChon = phongDuocChonTuDialog;
+                    
+                    this.dispose();
+                }
+            });
+            
+        } else if (p.getTrangThai().equals("Đang sử dụng")) {
+            btn.setBackground(Color.RED); // Màu đỏ cho phòng đang thuê
+            
+            // ✅ PHÒNG ĐANG THUÊ: Gán hành động hiển thị thông báo
+            btn.addActionListener(e -> {
+                XDialog.alert("Phòng này đã có người thuê, vui lòng chọn phòng khác!");
+            });
+
+        } else if (p.getTrangThai().equals("Đang dọn")) {
+            btn.setBackground(Color.YELLOW); // Màu vàng cho phòng đang dọn
+
+            // ✅ PHÒNG ĐANG DỌN: Gán hành động hiển thị thông báo
+            btn.addActionListener(e -> {
+                XDialog.alert("Phòng này đang được dọn dẹp!");
+            });
+
+        } else {
+            // Các trạng thái khác (ví dụ: đang sửa chữa)
+            btn.setBackground(Color.PINK);
+            btn.setEnabled(false); // Vẫn vô hiệu hóa cho các trạng thái không xác định
+        }
+
+        pnlPhong.add(btn);
+    }
+
+    pnlPhong.revalidate();
+    pnlPhong.repaint();
 }
 }
 

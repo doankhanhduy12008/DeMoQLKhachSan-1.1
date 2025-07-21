@@ -167,8 +167,8 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
 @Override
 public void open() {
     this.setLocationRelativeTo(null);
-    pnlLoai.setLayout(new java.awt.GridLayout(0, 5, 5, 5));
-    pnlPhong.setLayout(new java.awt.GridLayout(0, 5, 5, 5));
+    pnlLoai.setLayout(new java.awt.GridLayout(6, 1, 50, 5));
+    pnlPhong.setLayout(new java.awt.GridLayout(6, 1, 50, 5));
     loadCards();
 }
 @Override
@@ -214,12 +214,25 @@ private JButton createButton(LoaiPhong lp) {
 }
 public void showThemPhong() {
     PhongDao dao = new PhongDaoImpl();
+    LoaiPhongDao loaiPhongDao = new LoaiPhongDaoImpl(); // Thêm DAO cho Loại Phòng
     List<Phong> listPhong = dao.findByIdLoaiPhong(Id);
     pnlPhong.removeAll();
 
     for (Phong p : listPhong) {
-        JButton btn = new JButton("Phòng " + p.getSoPhong());
-        btn.setPreferredSize(new Dimension(100, 50));
+        // Lấy tên loại phòng từ ID
+        LoaiPhong loaiPhong = loaiPhongDao.findById(p.getIdLoaiPhong());
+        String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không xác định";
+
+        // Sử dụng HTML để hiển thị thông tin trên nhiều dòng
+        String buttonText = "<html><center>"
+                          + "Phòng " + p.getSoPhong() + "<br>"
+                          + "Tầng: " + p.getTang() + "<br>"
+                          + "Loại: " + tenLoaiPhong + "<br>"
+                          + "(" + p.getTrangThai() + ")"
+                          + "</center></html>";
+        
+        JButton btn = new JButton(buttonText);
+        btn.setPreferredSize(new Dimension(100, 80)); // Tăng chiều cao để chứa đủ chữ
         btn.setActionCommand(String.valueOf(p.getId()));
 
         // Sử dụng if-else if để xử lý từng trạng thái

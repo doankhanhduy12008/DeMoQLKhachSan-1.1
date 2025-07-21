@@ -3,6 +3,7 @@ GDCN\QuanLy\TrangChuQLJFarme$28.class
 GDCN\Chung\DangNhapJDialog$1.class
 GDCN\TiepTan\ThemDichVu$3$1.class
 GDCN\TiepTan\TrangChuTT$29.class
+GDCN\TiepTan\TrangChuTT$49.class
 GDCN\QuanLy\TrangChuJDialog$4.class
 Dao\dao\DichVuDao.class
 GDCN\DichVu\TrangChuDV$12.class
@@ -83,6 +84,7 @@ GDCN\QuanLy\TrangChuJDialog$16.class
 GDCN\TiepTan\TrangChu$19.class
 Dao\dao\LoaiPhongDao.class
 GDCN\TiepTan\TrangChu$39.class
+GDCN\TiepTan\TrangChuTT$52.class
 GDCN\Chung\DangNhapJDialog$5.class
 GDCN\DichVu\TrangChuJDialog.class
 GDCN\TiepTan\TrangChu$26.class
@@ -96,6 +98,7 @@ GDCN\DichVu\TrangChuDV$13.class
 GDCN\DichVu\TrangChuJDialog$12.class
 Dao\daoimpl\ChiTietThuePhongDaoImpl.class
 GDCN\TiepTan\TrangChu$30.class
+GDCN\TiepTan\TrangChuTT$48.class
 GDCN\DichVu\XemDichVu$2.class
 GDCN\QuanLy\TrangChuQLJFarme$17.class
 GDCN\QuanLy\TrangChuQLJFarme$37.class
@@ -103,6 +106,8 @@ GDCN\DichVu\TrangChuDV$16.class
 Dao\entity\KhachHang.class
 Dao\dao\HoaDonDao.class
 GDCN\DichVu\TrangChuDV$9.class
+GDCN\TiepTan\TrangChuTT$47.class
+GDCN\TiepTan\TrangChuTT$50.class
 GDCN\DichVu\XemPhongDVTungTang$2$1.class
 GDCN\TiepTan\TrangChu$24.class
 GDCN\TiepTan\TrangChu$18.class
@@ -121,8 +126,10 @@ GDCN\DichVu\TrangChuJDialog$14.class
 GDCN\TiepTan\TrangChuTT$18.class
 GDCN\QuanLy\TrangChuJDialog$24.class
 GDCN\QuanLy\TrangChuQLJFarme$9.class
+GDCN\TiepTan\TrangChuTT$46.class
 GDCN\DichVu\TrangChuDV$14.class
 GDCN\QuanLy\TrangChuQLJFarme$20.class
+GDCN\TiepTan\TrangChuTT$51.class
 GDCN\QuanLy\TrangChuQLJFarme$39.class
 GDCN\QuanLy\TrangChuQLJFarme$44.class
 GDCN\TiepTan\TrangChu$23.class
@@ -159,6 +166,7 @@ Dao\daoimpl\DichVuDaoImpl.class
 GDCN\Chung\DangNhapJDialog$4.class
 GDCN\TiepTan\TrangChu$22.class
 GDCN\TiepTan\TrangChu$28.class
+GDCN\TiepTan\TrangChuTT$53.class
 GDCN\QuanLy\TrangChuQLJFarme$25.class
 GDCN\QuanLy\TrangChuQLJFarme$45.class
 Util\XDialog.class
@@ -174,6 +182,7 @@ GDCN\TiepTan\ThemPhong$2.class
 GDCN\TiepTan\TrangChuTT$7.class
 GDCN\QuanLy\TrangChuQLJFarme$6.class
 GDCN\TiepTan\TrangChu$41$1.class
+GDCN\TiepTan\TrangChuTT$54.class
 GDCN\Chung\DangNhapJDialog$3.class
 GDCN\DichVu\XemPhongDVTungTang$1.class
 GDCN\TiepTan\TrangChu$3.class
