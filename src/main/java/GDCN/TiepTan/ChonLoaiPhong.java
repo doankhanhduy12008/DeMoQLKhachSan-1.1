@@ -167,6 +167,8 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
 @Override
 public void open() {
     this.setLocationRelativeTo(null);
+    pnlLoai.setLayout(new java.awt.GridLayout(0, 5, 5, 5));
+    pnlPhong.setLayout(new java.awt.GridLayout(0, 5, 5, 5));
     loadCards();
 }
 @Override
@@ -200,7 +202,7 @@ int Id;
 private JButton createButton(LoaiPhong lp) {
     JButton btnCard = new JButton();
     btnCard.setText(String.format("%s", lp.getTenLoaiPhong()));
-    btnCard.setPreferredSize(new Dimension(150, 80));
+    btnCard.setPreferredSize(new Dimension(100, 50));
     btnCard.setActionCommand(String.valueOf(lp.getId()));
     btnCard.addActionListener((ActionEvent e) -> {
         Id = Integer.parseInt(e.getActionCommand());
@@ -217,7 +219,7 @@ public void showThemPhong() {
 
     for (Phong p : listPhong) {
         JButton btn = new JButton("Phòng " + p.getSoPhong());
-        btn.setPreferredSize(new Dimension(120, 60));
+        btn.setPreferredSize(new Dimension(100, 50));
         btn.setActionCommand(String.valueOf(p.getId()));
 
         // Sử dụng if-else if để xử lý từng trạng thái
