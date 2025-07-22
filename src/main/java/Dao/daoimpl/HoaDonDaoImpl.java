@@ -9,15 +9,15 @@ import java.util.List;
 public class HoaDonDaoImpl implements HoaDonDao {
 
     @Override
-public HoaDon create(HoaDon entity) {
-    String sql = "INSERT INTO HoaDon (IdKhachHang, IdNguoiDungLap, IdDatPhong, NgayLap, TongTien, TrangThai) VALUES (?, ?, ?, ?, ?, ?)";
-    XJdbc.executeUpdate(sql, entity.getIdKhachHang(), entity.getIdNguoiDungLap(), entity.getIdDatPhong(), 
-            entity.getNgayLap(), entity.getTongTien(), entity.getTrangThai());
+    public HoaDon create(HoaDon entity) {
+        String sql = "INSERT INTO HoaDon (IdKhachHang, IdNguoiDungLap, IdDatPhong, NgayLap, TongTien, TrangThai) VALUES (?, ?, ?, ?, ?, ?)";
+        XJdbc.executeUpdate(sql, entity.getIdKhachHang(), entity.getIdNguoiDungLap(), entity.getIdDatPhong(), 
+                entity.getNgayLap(), entity.getTongTien(), entity.getTrangThai());
 
-    // Lấy lại bản ghi vừa tạo để có ID mới nhất
-    String findNewestSql = "SELECT TOP 1 * FROM HoaDon ORDER BY Id DESC";
-    return XQuery.getSingleBean(HoaDon.class, findNewestSql);
-}
+        // Lấy lại bản ghi vừa tạo để có ID mới nhất
+        String findNewestSql = "SELECT TOP 1 * FROM HoaDon ORDER BY Id DESC";
+        return XQuery.getSingleBean(HoaDon.class, findNewestSql);
+    }
 
     @Override
     public void update(HoaDon entity) {
@@ -51,5 +51,14 @@ public HoaDon create(HoaDon entity) {
     public List<HoaDon> findByIdKhachHang(Integer idKhachHang) {
         String sql = "SELECT * FROM HoaDon WHERE IdKhachHang = ?";
         return XQuery.getBeanList(HoaDon.class, sql, idKhachHang);
+    }
+    
+     @Override
+    public void deleteByIdDatPhong(Integer idDatPhong) {
+        String findSql = "SELECT * FROM HoaDon WHERE IdDatPhong = ?";
+        List<HoaDon> hoaDonList = XQuery.getBeanList(HoaDon.class, findSql, idDatPhong);
+        for (HoaDon hoaDon : hoaDonList) {
+            this.deleteById(hoaDon.getId());
+        }
     }
 }

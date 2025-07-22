@@ -10,4 +10,5 @@ public interface ChiTietDichVuDao extends CrudDao<ChiTietDichVu, Integer> {
      * @return Danh sách các chi tiết dịch vụ.
      */
     List<ChiTietDichVu> findByIdHoaDon(Integer idHoaDon);
+    void deleteByIdNguoiDungThem(String idNguoiDungThem);
 }

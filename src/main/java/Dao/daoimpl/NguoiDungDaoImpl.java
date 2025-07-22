@@ -1,22 +1,29 @@
 package Dao.daoimpl;
 
 import Dao.dao.NguoiDungDao;
+import Dao.dao.DatPhongDao;
+import Dao.dao.ChiTietDichVuDao; // Import ChiTietDichVuDao
 import Dao.entity.NguoiDung;
 import Util.XJdbc;
 import Util.XQuery;
+import Util.XStr;
 import java.util.List;
 
 public class NguoiDungDaoImpl implements NguoiDungDao {
 
+    private DatPhongDao datPhongDao = new DatPhongDaoImpl();
+    private ChiTietDichVuDao chiTietDichVuDao = new ChiTietDichVuDaoImpl();
+
     @Override
     public NguoiDung create(NguoiDung entity) {
         String sql = "INSERT INTO NguoiDung (Username, HoVaTen, MatKhau, VaiTro, SDT, Anh, TrangThai) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        XJdbc.executeUpdate(sql, 
-                entity.getUsername(), 
-                entity.getHoVaTen(), 
-                entity.getMatKhau(), 
-                entity.getVaiTro(), 
-                entity.getSdt(), 
+        entity.setAnh(XStr.getKey());
+        XJdbc.executeUpdate(sql,
+                entity.getUsername(),
+                entity.getHoVaTen(),
+                entity.getMatKhau(),
+                entity.getVaiTro(),
+                entity.getSdt(),
                 entity.getAnh(),
                 entity.isTrangThai());
         return entity;
@@ -25,18 +32,20 @@ public class NguoiDungDaoImpl implements NguoiDungDao {
     @Override
     public void update(NguoiDung entity) {
         String sql = "UPDATE NguoiDung SET HoVaTen = ?, MatKhau = ?, VaiTro = ?, SDT = ?, Anh = ?, TrangThai = ? WHERE Username = ?";
-        XJdbc.executeUpdate(sql, 
-                entity.getHoVaTen(), 
-                entity.getMatKhau(), 
-                entity.getVaiTro(), 
-                entity.getSdt(), 
-                entity.getAnh(), 
+        XJdbc.executeUpdate(sql,
+                entity.getHoVaTen(),
+                entity.getMatKhau(),
+                entity.getVaiTro(),
+                entity.getSdt(),
+                entity.getAnh(),
                 entity.isTrangThai(),
                 entity.getUsername());
     }
 
     @Override
     public void deleteById(String username) {
+        chiTietDichVuDao.deleteByIdNguoiDungThem(username);
+        datPhongDao.deleteByIdNguoiDung(username);
         String sql = "DELETE FROM NguoiDung WHERE Username = ?";
         XJdbc.executeUpdate(sql, username);
     }

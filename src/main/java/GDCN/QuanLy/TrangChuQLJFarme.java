@@ -1,4 +1,4 @@
-    package GDCN.QuanLy;
+package GDCN.QuanLy;
 import Dao.dao.LoaiPhongDao;
 import Dao.dao.NguoiDungDao;
 import Dao.dao.PhongDao;
@@ -12,26 +12,36 @@ import GDCN.TiepTan.TrangChu;
 import Util.XAuth;
 import Util.XDialog;
 import Util.XIcon;
+import Util.XStr;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
 public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangChuQLController{
-
+    
     public TrangChuQLJFarme(){
+//      setUndecorated(true); // Đặt dòng này lên đầu tiên
         initComponents();
         openFullScreen();
         open();
     }
+    
+
     int chieungang = 305;
     int chieudai = 712;
     
@@ -1173,14 +1183,29 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         bntNVTaoMoi.setBackground(new java.awt.Color(204, 204, 204));
         bntNVTaoMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bntNVTaoMoi.setText("Tạo Mới");
+        bntNVTaoMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntNVTaoMoiActionPerformed(evt);
+            }
+        });
 
         bntNVLamMoi.setBackground(new java.awt.Color(204, 204, 204));
         bntNVLamMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bntNVLamMoi.setText("Làm Mới");
+        bntNVLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntNVLamMoiActionPerformed(evt);
+            }
+        });
 
         bntNVXoa.setBackground(new java.awt.Color(204, 204, 204));
         bntNVXoa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bntNVXoa.setText("Xóa");
+        bntNVXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntNVXoaActionPerformed(evt);
+            }
+        });
 
         bntNVSua.setBackground(new java.awt.Color(204, 204, 204));
         bntNVSua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1293,6 +1318,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         bntNVTimKiem.setBackground(new java.awt.Color(204, 204, 204));
         bntNVTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bntNVTimKiem.setText("Tìm Kiếm");
+        bntNVTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntNVTimKiemActionPerformed(evt);
+            }
+        });
 
         jScrollPane5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -1310,9 +1340,21 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNVMouseClicked(evt);
             }
         });
         jScrollPane5.setViewportView(tblNV);
@@ -1322,6 +1364,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         bntNVXoaMucChon.setBackground(new java.awt.Color(204, 204, 204));
         bntNVXoaMucChon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bntNVXoaMucChon.setText("Xóa Mục Đã Chọn");
+        bntNVXoaMucChon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntNVXoaMucChonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -1970,6 +2017,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+        laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVienMouseClicked
 
     private void bntQLDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLDoanhThuMouseClicked
@@ -2005,7 +2053,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_bntQLDichVuMouseClicked
 
     private void bntLPSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPSuaActionPerformed
-        this.capNLoaiPhong();
+        capNLoaiPhong();
+        lamMLoaiPhong();
     }//GEN-LAST:event_bntLPSuaActionPerformed
 
     private void bntLPTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPTimKiemActionPerformed
@@ -2042,25 +2091,25 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
     private void tblLoaiPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiPhongMouseClicked
         if (evt.getClickCount() == 2) {
-            this.suaLoaiPhong();
+            suaLoaiPhong();
         }
     }//GEN-LAST:event_tblLoaiPhongMouseClicked
 
     private void bntLPXoaPhongLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPXoaPhongLPActionPerformed
-        this.xoaLoaiPhong();
+        xoaLoaiPhong();
     }//GEN-LAST:event_bntLPXoaPhongLPActionPerformed
 
     private void bntLPLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPLamMoiActionPerformed
-        this.lamMLoaiPhong();
+        lamMLoaiPhong();
     }//GEN-LAST:event_bntLPLamMoiActionPerformed
 
     private void bntLPXoaMucChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPXoaMucChonActionPerformed
-        this.xoaMDCLoaiPhong();
+        xoaMDCLoaiPhong();
     }//GEN-LAST:event_bntLPXoaMucChonActionPerformed
 
     private void bntLPTimKiem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPTimKiem1ActionPerformed
-        this.lamMLoaiPhong();
-        this.laytblLoaiphong();
+        lamMLoaiPhong();
+        laytblLoaiphong();
     }//GEN-LAST:event_bntLPTimKiem1ActionPerformed
 
     private void rdoPPhongSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoPPhongSua1ActionPerformed
@@ -2073,12 +2122,12 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
     private void tblPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongMouseClicked
         if (evt.getClickCount() == 2) {
-            this.suaPhong();
+            suaPhong();
         }
     }//GEN-LAST:event_tblPhongMouseClicked
 
     private void bntPXoaPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPXoaPhongActionPerformed
-        this.xoaPhong();
+        xoaPhong();
     }//GEN-LAST:event_bntPXoaPhongActionPerformed
 
     private void bntPLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPLamMoiActionPerformed
@@ -2086,25 +2135,19 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_bntPLamMoiActionPerformed
 
     private void bntPTaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPTaoMoiActionPerformed
-        this.taoPhong();
+        taoPhong();
     }//GEN-LAST:event_bntPTaoMoiActionPerformed
 
     private void bntPTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPTimKiemActionPerformed
-        this.timKiemPhong();
+        timKiemPhong();
     }//GEN-LAST:event_bntPTimKiemActionPerformed
 
     private void bntPXoaMucDaChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPXoaMucDaChonActionPerformed
-        this.xoaMDCPhong();
+        xoaMDCPhong();
     }//GEN-LAST:event_bntPXoaMucDaChonActionPerformed
 
     private void NVAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NVAnhMouseClicked
-        if(ChonAnh.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-            File file = XIcon.copyTo(ChonAnh.getSelectedFile(), this.folder);
-            this.setIcon(file.getName());
-            if(this.fileChanged != null){
-                this.fileChanged.accept(file);
-            }
-        }
+        chonAnhNV();
     }//GEN-LAST:event_NVAnhMouseClicked
 
     private void bntQLLoaiPhong1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLLoaiPhong1MouseClicked
@@ -2120,7 +2163,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
-        this.laytblLoaiphong();
+        laytblLoaiphong();
     }//GEN-LAST:event_bntQLLoaiPhong1MouseClicked
 
     private void bntQLPhong1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLPhong1MouseClicked
@@ -2136,9 +2179,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
-        this.laytblPhong();
-        this.fillLoaiPhongToCbo();
-        this.laytblPhong();
+        laytblPhong();
+        fillLoaiPhongToCbo();
+        laytblPhong();
     }//GEN-LAST:event_bntQLPhong1MouseClicked
 
     private void bntQLNhanVien1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLNhanVien1MouseClicked
@@ -2154,6 +2197,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+        laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVien1MouseClicked
 
     private void bntQLDoanhThu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLDoanhThu1MouseClicked
@@ -2196,9 +2240,34 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_btnDoiMKMouseClicked
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-        // TODO add your handling code here:
         DX();
     }//GEN-LAST:event_btnDangXuatMouseClicked
+
+    private void bntNVTaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVTaoMoiActionPerformed
+        taoNguoiDung();
+    }//GEN-LAST:event_bntNVTaoMoiActionPerformed
+
+    private void bntNVLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVLamMoiActionPerformed
+        lamMNguoiDung();
+    }//GEN-LAST:event_bntNVLamMoiActionPerformed
+
+    private void tblNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNVMouseClicked
+        if (evt.getClickCount() == 2) { // Kích hoạt khi nhấp đúp
+            suaNguoiDung();
+        }
+    }//GEN-LAST:event_tblNVMouseClicked
+
+    private void bntNVTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVTimKiemActionPerformed
+        timKiemNguoiDung();
+    }//GEN-LAST:event_bntNVTimKiemActionPerformed
+
+    private void bntNVXoaMucChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVXoaMucChonActionPerformed
+        xoaMDCNguoiDung();
+    }//GEN-LAST:event_bntNVXoaMucChonActionPerformed
+
+    private void bntNVXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVXoaActionPerformed
+        xoaNguoiDung();
+    }//GEN-LAST:event_bntNVXoaActionPerformed
 
 
     /**
@@ -2393,11 +2462,20 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     // End of variables declaration//GEN-END:variables
     void open() {
         this.setLocationRelativeTo(null);
-        this.setIconImage(XIcon.getIcon("avata1.png").getImage());
+        this.setIconImage(XIcon.getIcon("Logo.png").getImage()); // Sử dụng Logo mặc định
         this.setLocationRelativeTo(null);
 
-        XIcon.setIcon(Anh, "photos/" + XAuth.user.getAnh());
-        txtTenNV.setText(XAuth.user.getHoVaTen());
+        // Hiển thị tên và ảnh của người dùng đang đăng nhập nếu có
+        if (XAuth.user != null) {
+            txtTenNV.setText(XAuth.user.getHoVaTen());
+            // Đảm bảo ảnh của người dùng đang đăng nhập cũng được tải đúng cách
+            // Giả sử ảnh của user đăng nhập cũng nằm trong folder "images"
+            if (XAuth.user.getAnh() != null && !XAuth.user.getAnh().isEmpty()) {
+                XIcon.setIcon(Anh, new File(folder, XAuth.user.getAnh()));
+            } else {
+                XIcon.setIcon(Anh, "/Icon/Logo.png"); // Ảnh mặc định nếu không có
+            }
+        }
     }
     
     /**
@@ -2411,6 +2489,20 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     
     public LoaiPhong layLoaiPhong() {
         LoaiPhong entity = new LoaiPhong();
+        
+        // Lấy ID loại phòng từ text field (chỉ khi có giá trị, tức là đang sửa)
+        // txtLPID là trường hiển thị ID, được điền khi chọn từ bảng.
+        if (!txtLPID.getText().isEmpty()) {
+            try {
+                entity.setId(Integer.parseInt(txtLPID.getText()));
+            } catch (NumberFormatException e) {
+                // Trường hợp này không nên xảy ra nếu txtLPID chỉ được thiết lập bằng chương trình
+                // nhưng là một kiểm tra mạnh mẽ để đảm bảo tính toàn vẹn dữ liệu.
+                JOptionPane.showMessageDialog(this, "ID Loại Phòng không hợp lệ. Vui lòng làm mới và chọn lại.", "Lỗi dữ liệu", JOptionPane.ERROR_MESSAGE);
+                throw new RuntimeException("ID Loai Phong is not a valid number.", e); // Ném ngoại lệ để dừng thao tác nếu ID không hợp lệ
+            }
+        }
+        
         // Lấy tên loại phòng từ text field tương ứng
         entity.setTenLoaiPhong(txtLPLoaiPhong.getText()); 
 
@@ -2448,10 +2540,23 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         });
     }
     
-     void suaLoaiPhong() {
-        LoaiPhong entity = items.get(tblLoaiPhong.getSelectedRow());
-        this.setFromLP(entity);
-        this.suatblLP(true);
+    void suaLoaiPhong() {
+        int selectedIndex = tblLoaiPhong.getSelectedRow(); // Lấy chỉ số hàng được chọn
+        
+        // Thêm kiểm tra để đảm bảo một hàng thực sự được chọn
+        if (selectedIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một loại phòng để sửa."); // Thông báo cho người dùng
+            return; // Thoát khỏi phương thức nếu không có hàng nào được chọn
+        }
+
+        try {
+            LoaiPhong entity = items.get(selectedIndex); // Sử dụng chỉ số đã được xác thực
+            this.setFromLP(entity);
+            this.suatblLP(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi chọn loại phòng để sửa: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     void setFromLP(LoaiPhong entity){
@@ -2531,13 +2636,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             entity.setIdLoaiPhong(loaiPhongChon.getId());
         }
 
-        String trangThai = "Phòng trống";
+        String trangThai = "Trống";
         if (rdoPPhongDuocThue.isSelected()) {
-            trangThai = "Phòng đang được thuê";
+            trangThai = "Đang thuê";
         } else if (rdoPPhongSua1.isSelected()) {
-            trangThai = "Phòng đang sửa chữa";
+            trangThai = "Đang sửa chữa";
         } else if (rdoPPhongDonDep.isSelected()){
-            trangThai = "Phòng đang dọn dẹp";
+            trangThai = "Đang dọn dẹp";
         }
         entity.setTrangThai(trangThai);
         return entity;
@@ -2608,11 +2713,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
         }
 
-        String trangThai = entity.getTrangThai() != null ? entity.getTrangThai() : "Phòng trống";
+        String trangThai = entity.getTrangThai() != null ? entity.getTrangThai() : "Trống";
         switch (trangThai) {
-            case "Phòng đang được thuê" -> rdoPPhongDuocThue.setSelected(true);
-            case "Phòng đang dọn dẹp" -> rdoPPhongSua1.setSelected(true);
-            case "phòng đang xửa" -> rdoPPhongDonDep.setSelected(true);
+            case "Đang thuê" -> rdoPPhongDuocThue.setSelected(true);
+            case "Đang sửa chữa" -> rdoPPhongSua1.setSelected(true);
+            case "Đang dọn dẹp" -> rdoPPhongDonDep.setSelected(true);
             default -> rdoPPhongTrong.setSelected(true);
         }
     }
@@ -2798,6 +2903,12 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
      * ==============================================================================================================================
      */
     
+    private String selectedLocalImagePath = null; // Lưu đường dẫn tạm thời của ảnh đã chọn từ máy tính
+    private NguoiDungDao NVdao = new NguoiDungDaoImpl();
+    private List<NguoiDung> NVitems;
+    private DefaultTableModel modelNV; // Khai báo cho bảng nhân viên
+    private boolean isClearingForm = false;
+    
     String folder = "images";
     Consumer<File> fileChanged;
 
@@ -2819,32 +2930,403 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         return NVAnh.getToolTipText();
     }
     
-    
-    NguoiDungDao NVdao = new NguoiDungDaoImpl();
-    java.util.List<NguoiDung> NVitems;
-    
     public NguoiDung layNguoiDung(){
-        NguoiDung entity = new NguoiDung();
-        entity.setAnh(this.getFolder());
-        entity.setUsername(txtNVTenDangNhap.getText());
-        entity.setHoVaTen(txtNVHoVaTen.getText());
-        entity.setMatKhau(txtNVMatKhau.getText());
-        entity.setSdt(txtNVSDT.getText());
+        NguoiDung entity = new NguoiDung.Builder()
+                .username(txtNVTenDangNhap.getText())
+                .hoVaTen(txtNVHoVaTen.getText())
+                .matKhau(txtNVMatKhau.getText())
+                .sdt(txtNVSDT.getText())
+                .build();
+        
+        // Đặt vai trò
         if (rdoNVQuanLy.isSelected()) {
             entity.setVaiTro("Quản lý");
         } else if (rdoNVTiepTan.isSelected()) {
             entity.setVaiTro("Tiếp tân");
-        } else {
+        } else if (rdoNVDichVu.isSelected()) {
             entity.setVaiTro("Dịch vụ");
         }
+
+        // Đặt trạng thái
         entity.setTrangThai(rdoNVHoatDong.isSelected());
         
+        // Tên ảnh sẽ được đặt sau khi tạo hoặc cập nhật, không lấy trực tiếp từ tooltip
+        // Do DAO sẽ tự generate key hoặc sử dụng key đã có
         
         return entity;
     }
     
+    void taoNguoiDung(){
+        // Thêm kiểm tra này ở đầu phương thức
+        if (isClearingForm) { 
+            return; // Nếu form đang được xóa, không thực hiện xác thực lại
+        }
+
+        NguoiDung newNguoiDung = this.layNguoiDung();
+        StringBuilder err = new StringBuilder();
+
+        // Phần xác thực dữ liệu (không thay đổi)
+        if(newNguoiDung.getUsername().isEmpty()){
+            err.append("Tên đăng nhập không được để trống.\n");
+        }
+        if(newNguoiDung.getMatKhau().isEmpty()){
+            err.append("Mật khẩu không được để trống.\n");
+        }
+        if(newNguoiDung.getHoVaTen().isEmpty()){
+            err.append("Họ và tên không được để trống.\n");
+        }
+        if(newNguoiDung.getSdt().isEmpty()){
+            err.append("Số điện thoại không được để trống.\n");
+        } else if (!newNguoiDung.getSdt().matches("\\d+")) {
+            err.append("Số điện thoại chỉ được chứa ký tự số.\n");
+        }
+        if(newNguoiDung.getVaiTro() == null || newNguoiDung.getVaiTro().isEmpty()){
+            err.append("Vui lòng chọn vai trò.\n");
+        }
+        
+        if (err.length() > 0) {
+            // Đây là thông báo lỗi mà bạn thấy, nó sẽ không xuất hiện
+            // nếu isClearingForm là true và phương thức được gọi lại không mong muốn.
+            JOptionPane.showMessageDialog(this, err.toString()); 
+            return; 
+        }
+
+        try {
+            // Kiểm tra trùng tên đăng nhập (không thay đổi)
+            NguoiDung existingUser = NVdao.findById(newNguoiDung.getUsername());
+            if (existingUser != null) {
+                JOptionPane.showMessageDialog(this, "Tên đăng nhập đã tồn tại!");
+                return;
+            }
+            
+            // Xử lý tạo mới người dùng và sao chép ảnh (không thay đổi)
+            newNguoiDung.setAnh(null); 
+            newNguoiDung = NVdao.create(newNguoiDung); 
+
+            if (selectedLocalImagePath != null && newNguoiDung.getAnh() != null && !newNguoiDung.getAnh().isEmpty()) {
+                try {
+                    Path source = Paths.get(selectedLocalImagePath);
+                    Path destination = Paths.get(this.folder, newNguoiDung.getAnh());
+                    Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Lỗi khi sao chép ảnh: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            // Làm mới bảng và xóa form trước khi thông báo thành công
+            this.laytblNhanVien(); 
+            this.lamMNguoiDung(); 
+            JOptionPane.showMessageDialog(this, "Tạo người dùng thành công!"); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Tạo người dùng thất bại! Lỗi: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    void laytblNhanVien(){
+        DefaultTableModel model = (DefaultTableModel) tblNV.getModel();
+        model.setRowCount(0);
+        try {
+            NVitems = NVdao.findAll();
+            for (NguoiDung item : NVitems) {
+                Object[] rowData = {
+                    item.getUsername(),
+                    item.getHoVaTen(),
+                    item.getMatKhau(),
+                    item.getSdt(),
+                    item.getVaiTro(),
+                    item.isTrangThai() ? "Hoạt Động" : "Tạm Dừng",
+                    false
+                };
+                model.addRow(rowData);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi tải dữ liệu nhân viên!"); // Sử dụng JOptionPane
+            e.printStackTrace();
+        }
+    }
+
+     void lamMNguoiDung(){
+        isClearingForm = true; // Bắt đầu quá trình xóa form
+        txtNVTenDangNhap.setText("");
+        txtNVMatKhau.setText("");
+        txtNVHoVaTen.setText("");
+        txtNVSDT.setText("");
+        cboNVVaitro.clearSelection();
+        cboNVTrangThai.clearSelection();
+        
+        // Đặt ảnh về logo mặc định
+        XIcon.setIcon(NVAnh, "/Icon/Logo.png");
+        NVAnh.setToolTipText("Logo.png"); // Reset tooltip
+        
+        selectedLocalImagePath = null; // Xóa đường dẫn ảnh tạm
+        
+        bntNVTaoMoi.setEnabled(true);
+        bntNVSua.setEnabled(false);
+        bntNVXoa.setEnabled(false);
+        txtNVTenDangNhap.setEditable(true); // Cho phép sửa Username khi thêm mới
+        isClearingForm = false; // Kết thúc quá trình xóa form
+    }
+    
+    void suaNguoiDung() {
+        try {
+            int selectedIndex = tblNV.getSelectedRow();
+            if (selectedIndex >= 0) {
+                NguoiDung entity = NVitems.get(selectedIndex);
+                this.setFromNV(entity);
+                this.suatblNV(true);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi chọn nhân viên để sửa!");
+            e.printStackTrace();
+        }
+    }
+
+    void setFromNV(NguoiDung entity) {
+        txtNVTenDangNhap.setText(entity.getUsername());
+        txtNVMatKhau.setText(entity.getMatKhau());
+        txtNVHoVaTen.setText(entity.getHoVaTen());
+        txtNVSDT.setText(entity.getSdt());
+
+        // Xử lý tải ảnh:
+        String imageFileNameFromDB = entity.getAnh();
+        if (imageFileNameFromDB != null && !imageFileNameFromDB.isEmpty()) {
+            // Hiển thị ảnh từ thư mục 'images' dựa vào tên file từ DB
+            XIcon.setIcon(NVAnh, new File(this.folder, imageFileNameFromDB)); 
+            NVAnh.setToolTipText(imageFileNameFromDB); // Đặt tooltip thành tên tệp thực tế
+        } else {
+            // Trường hợp không có ảnh: đặt ảnh mặc định
+            XIcon.setIcon(NVAnh, "/Icon/Logo.png"); 
+            NVAnh.setToolTipText("Logo.png"); 
+        }
+
+        // Đặt các nút radio cho Vai Trò
+        if ("Quản lý".equals(entity.getVaiTro())) {
+            rdoNVQuanLy.setSelected(true);
+        } else if ("Tiếp tân".equals(entity.getVaiTro())) {
+            rdoNVTiepTan.setSelected(true);
+        } else if ("Dịch vụ".equals(entity.getVaiTro())) {
+            rdoNVDichVu.setSelected(true);
+        } else {
+            cboNVVaitro.clearSelection();
+        }
+
+        // Đặt các nút radio cho Trạng Thái
+        if (entity.isTrangThai()) {
+            rdoNVHoatDong.setSelected(true);
+        } else {
+            rdoNVTamDung.setSelected(true);
+        }
+        
+        txtNVTenDangNhap.setEditable(false); // Không cho phép sửa Username khi chỉnh sửa
+        selectedLocalImagePath = null; // Đảm bảo reset khi tải user mới lên form
+    }
+
+    void suatblNV(boolean suaNV){
+        bntNVSua.setEnabled(suaNV);
+        bntNVXoa.setEnabled(suaNV);
+        bntNVTaoMoi.setEnabled(!suaNV);
+    }
+    
+    void capNguoiDung(){
+        NguoiDung updatedNguoiDung = this.layNguoiDung();
+        // Lấy username của người dùng đang được chỉnh sửa
+        String currentUsername = txtNVTenDangNhap.getText(); 
+        updatedNguoiDung.setUsername(currentUsername); // Đảm bảo cập nhật đúng người dùng
+
+        // Lấy tên ảnh hiện tại từ DB của người dùng này để giữ lại nếu không có ảnh mới
+        NguoiDung originalUser = NVdao.findById(currentUsername);
+        String oldImageFileName = (originalUser != null) ? originalUser.getAnh() : null;
+
+        try {
+            // Nếu có ảnh mới được chọn từ máy tính
+            if (selectedLocalImagePath != null) {
+                String fileNameToSave = oldImageFileName; // Mặc định giữ tên ảnh cũ
+                if (fileNameToSave == null || fileNameToSave.isEmpty()) {
+                    // Nếu người dùng chưa có ảnh, tạo tên mới bằng XStr.getKey()
+                    fileNameToSave = XStr.getKey(); 
+                }
+                updatedNguoiDung.setAnh(fileNameToSave); // Gán tên ảnh mới/cũ cho đối tượng cập nhật
+
+                // Sao chép ảnh mới vào thư mục
+                Path source = Paths.get(selectedLocalImagePath);
+                Path destination = Paths.get(this.folder, fileNameToSave);
+                Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                selectedLocalImagePath = null; // Reset
+            } else {
+                // Nếu không chọn ảnh mới, giữ nguyên tên ảnh cũ từ DB
+                updatedNguoiDung.setAnh(oldImageFileName);
+            }
+
+            NVdao.update(updatedNguoiDung);
+            this.laytblNhanVien();
+            this.lamMNguoiDung();
+            JOptionPane.showMessageDialog(this, "Cập nhật người dùng thành công!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cập nhật người dùng thất bại! Lỗi: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    void xoaNguoiDung(){
+        int selectedIndex = tblNV.getSelectedRow();
+        if (selectedIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn người dùng cần xóa!");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa người dùng này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            String username = (String) tblNV.getValueAt(selectedIndex, 0);
+            try {
+                // Lấy thông tin người dùng để tìm tên ảnh và xóa ảnh vật lý
+                NguoiDung ndToDelete = NVdao.findById(username);
+                
+                // Gọi DAO để xóa người dùng. Logic xóa DatPhong liên quan đã có trong NguoiDungDaoImpl
+                NVdao.deleteById(username); //
+
+                // Xóa ảnh vật lý sau khi xóa thành công trong DB
+                if (ndToDelete != null && ndToDelete.getAnh() != null && !ndToDelete.getAnh().isEmpty()) {
+                    Path imagePath = Paths.get(this.folder, ndToDelete.getAnh());
+                    if (Files.exists(imagePath)) {
+                        Files.delete(imagePath);
+                    }
+                }
+                
+                this.laytblNhanVien();
+                this.lamMNguoiDung();
+                JOptionPane.showMessageDialog(this, "Xóa người dùng thành công!");
+            } catch (Exception e) {
+                // Log lỗi chi tiết để debug
+                Logger.getLogger(TrangChuQLJFarme.class.getName()).log(Level.SEVERE, "Lỗi khi xóa người dùng: " + username, e);
+                
+                // Hiển thị thông báo lỗi rõ ràng hơn cho người dùng
+                String errorMessage = "Xóa người dùng thất bại! ";
+                if (e.getMessage() != null && e.getMessage().contains("REFERENCE constraint")) {
+                    errorMessage += "Không thể xóa người dùng này vì có các dữ liệu khác đang tham chiếu đến (ví dụ: các đơn đặt phòng). Vui lòng xóa các dữ liệu liên quan trước.";
+                } else {
+                    errorMessage += "Lỗi: " + e.getMessage();
+                }
+                JOptionPane.showMessageDialog(this, errorMessage, "Lỗi Xóa", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    void xoaMDCNguoiDung() {
+        int countSelected = 0;
+        for (int i = 0; i < tblNV.getRowCount(); i++) {
+            Boolean isSelected = (Boolean) tblNV.getValueAt(i, 6);
+            if (isSelected != null && isSelected) {
+                countSelected++;
+            }
+        }
+
+        if (countSelected == 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ít nhất một người dùng để xóa.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa " + countSelected + " người dùng đã chọn?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            int successCount = 0;
+            int failCount = 0;
+            StringBuilder errorMessages = new StringBuilder("Xóa các mục đã chọn thất bại:\n");
+
+            for (int i = 0; i < tblNV.getRowCount(); i++) {
+                Boolean isSelected = (Boolean) tblNV.getValueAt(i, 6);
+                if (isSelected != null && isSelected) {
+                    String username = (String) tblNV.getValueAt(i, 0);
+                    try {
+                        NguoiDung ndToDelete = NVdao.findById(username);
+                        
+                        // Gọi DAO để xóa người dùng. Logic xóa DatPhong liên quan đã có trong NguoiDungDaoImpl
+                        NVdao.deleteById(username); //
+
+                        // Xóa ảnh vật lý sau khi xóa thành công trong DB
+                        if (ndToDelete != null && ndToDelete.getAnh() != null && !ndToDelete.getAnh().isEmpty()) {
+                            Path imagePath = Paths.get(this.folder, ndToDelete.getAnh());
+                            if (Files.exists(imagePath)) {
+                                Files.delete(imagePath);
+                            }
+                        }
+                        successCount++;
+                    } catch (Exception e) {
+                        failCount++;
+                        errorMessages.append("- Người dùng ").append(username).append(": ").append(e.getMessage()).append("\n");
+                        Logger.getLogger(TrangChuQLJFarme.class.getName()).log(Level.SEVERE, "Lỗi khi xóa người dùng: " + username, e);
+                    }
+                }
+            }
+            this.laytblNhanVien();
+            this.lamMNguoiDung();
+
+            if (failCount == 0) {
+                JOptionPane.showMessageDialog(this, "Đã xóa thành công " + successCount + " người dùng.");
+            } else {
+                JOptionPane.showMessageDialog(this, errorMessages.toString(), "Lỗi Xóa", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    void timKiemNguoiDung() {
+        String keyword = txtNVTimKiem.getText().trim();
+        DefaultTableModel model = (DefaultTableModel) tblNV.getModel();
+        model.setRowCount(0); // Clear table
+        try {
+            // Lấy tất cả và lọc bằng tay
+            List<NguoiDung> list = NVdao.findAll(); 
+            for (NguoiDung nd : list) {
+                if (nd.getUsername().toLowerCase().contains(keyword.toLowerCase()) ||
+                    nd.getHoVaTen().toLowerCase().contains(keyword.toLowerCase()) ||
+                    nd.getSdt().contains(keyword) ||
+                    (nd.getVaiTro() != null && nd.getVaiTro().toLowerCase().contains(keyword.toLowerCase()))) {
+                    Object[] rowData = {
+                        nd.getUsername(),
+                        nd.getHoVaTen(),
+                        nd.getMatKhau(),
+                        nd.getSdt(),
+                        nd.getVaiTro(),
+                        nd.isTrangThai() ? "Hoạt Động" : "Tạm Dừng",
+                        false
+                    };
+                    model.addRow(rowData);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi tìm kiếm: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    void chonAnhNV(){
+        if(ChonAnh.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            File selectedFile = ChonAnh.getSelectedFile();
+            selectedLocalImagePath = selectedFile.getAbsolutePath(); // Lưu đường dẫn tạm thời
+
+            // Hiển thị ảnh tạm thời lên JLabel để người dùng xem trước
+            try {
+                ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+                Image image = imageIcon.getImage();
+                Image scaledImage = image.getScaledInstance(NVAnh.getWidth(), NVAnh.getHeight(), Image.SCALE_SMOOTH);
+                NVAnh.setIcon(new ImageIcon(scaledImage));
+                NVAnh.setToolTipText(selectedFile.getName()); // Tooltip cho mục đích debug/hiển thị tạm
+            } catch (Exception e) {
+                NVAnh.setIcon(null);
+                NVAnh.setText("Lỗi tải ảnh");
+                selectedLocalImagePath = null; // Reset nếu có lỗi
+            }
+        }
+    }
+    
+    /**
+     * ==============================================================================================================================
+     * ==================================================== Dang Xuat ==============================================================
+     * ==============================================================================================================================
+     */
+
     void DX(){
-    this.dispose();
-    this.showDX(this);
-}
+        this.dispose();
+        this.showDX(this);
+    }
 }
