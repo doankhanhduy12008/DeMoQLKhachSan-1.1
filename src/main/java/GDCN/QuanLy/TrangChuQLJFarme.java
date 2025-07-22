@@ -15,6 +15,7 @@ import Util.XIcon;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -826,6 +827,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         cmbPLoaiPhong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbPLoaiPhong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn Loại Phòng" }));
         cmbPLoaiPhong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        cmbPLoaiPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPLoaiPhongActionPerformed(evt);
+            }
+        });
 
         bntPSua.setBackground(new java.awt.Color(204, 204, 204));
         bntPSua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -2169,6 +2175,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         pnlQLDichVu.setVisible(true);
     }//GEN-LAST:event_bntQLDichVu1MouseClicked
 
+    private void cmbPLoaiPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPLoaiPhongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPLoaiPhongActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2499,13 +2509,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
             entity.setIdLoaiPhong(loaiPhongChon.getId());
         }
 
-        String trangThai = "Trống";
+        String trangThai = "Phòng trống";
         if (rdoPPhongDuocThue.isSelected()) {
-            trangThai = "Đang thuê";
+            trangThai = "Phòng đang được thuê";
         } else if (rdoPPhongSua1.isSelected()) {
-            trangThai = "Đang sửa chữa";
+            trangThai = "Phòng đang sửa chữa";
         } else if (rdoPPhongDonDep.isSelected()){
-            trangThai = "Đang dọn dẹp";
+            trangThai = "Phòng đang dọn dẹp";
         }
         entity.setTrangThai(trangThai);
         return entity;
@@ -2576,11 +2586,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
             }
         }
 
-        String trangThai = entity.getTrangThai() != null ? entity.getTrangThai() : "Trống";
+        String trangThai = entity.getTrangThai() != null ? entity.getTrangThai() : "Phòng trống";
         switch (trangThai) {
-            case "Đang thuê" -> rdoPPhongDuocThue.setSelected(true);
-            case "Đang sửa chữa" -> rdoPPhongSua1.setSelected(true);
-            case "Đang dọn dẹp" -> rdoPPhongDonDep.setSelected(true);
+            case "Phòng đang được thuê" -> rdoPPhongDuocThue.setSelected(true);
+            case "Phòng đang dọn dẹp" -> rdoPPhongSua1.setSelected(true);
+            case "phòng đang xửa" -> rdoPPhongDonDep.setSelected(true);
             default -> rdoPPhongTrong.setSelected(true);
         }
     }
