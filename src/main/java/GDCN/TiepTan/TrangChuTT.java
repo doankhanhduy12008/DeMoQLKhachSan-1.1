@@ -42,7 +42,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -181,15 +185,12 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         txtTenKH = new javax.swing.JTextField();
         txtSocmt = new javax.swing.JTextField();
         txtSDT = new javax.swing.JTextField();
-        txtCheckInNgay = new javax.swing.JTextField();
         txtCheckOut = new javax.swing.JTextField();
         txtTienTong = new javax.swing.JTextField();
         txtTrangThai = new javax.swing.JTextField();
         btnKHCu = new javax.swing.JButton();
         btmThemKHDP = new javax.swing.JButton();
-        txtCheckInThang = new javax.swing.JTextField();
-        txtCheckInNam = new javax.swing.JTextField();
-        btnLuuDP = new javax.swing.JButton();
+        txtCheckIn = new javax.swing.JTextField();
         jpnXemLS = new javax.swing.JPanel();
         txtTimSDT = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -649,7 +650,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         btnCheckIn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCheckIn.setText("Check in");
         btnCheckIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnCheckIn.setEnabled(false);
         btnCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckInActionPerformed(evt);
@@ -795,14 +795,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             }
         });
 
-        txtCheckInNgay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtCheckInNgay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtCheckInNgay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCheckInNgayActionPerformed(evt);
-            }
-        });
-
         txtCheckOut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtCheckOut.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         txtCheckOut.setEnabled(false);
@@ -860,29 +852,12 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             }
         });
 
-        txtCheckInThang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtCheckInThang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtCheckInThang.addActionListener(new java.awt.event.ActionListener() {
+        txtCheckIn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtCheckIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtCheckIn.setEnabled(false);
+        txtCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCheckInThangActionPerformed(evt);
-            }
-        });
-
-        txtCheckInNam.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtCheckInNam.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtCheckInNam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCheckInNamActionPerformed(evt);
-            }
-        });
-
-        btnLuuDP.setBackground(new java.awt.Color(204, 204, 204));
-        btnLuuDP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnLuuDP.setText("Lưu");
-        btnLuuDP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnLuuDP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuuDPActionPerformed(evt);
+                txtCheckInActionPerformed(evt);
             }
         });
 
@@ -945,26 +920,19 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                                     .addGroup(jpnDatPLayout.createSequentialGroup()
                                         .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jpnDatPLayout.createSequentialGroup()
-                                                .addComponent(jLabel9)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(txtCheckInNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(txtCheckInThang, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jLabel9))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnDatPLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnDatPLayout.createSequentialGroup()
-                                        .addComponent(btnXoaMCDCDV, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnThemDV, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtCheckInNam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnXoaMCDCDV, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnThemDV, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnDatPLayout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(txtCheckIn))))
                     .addGroup(jpnDatPLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLuuDP, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -983,9 +951,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                             .addGroup(jpnDatPLayout.createSequentialGroup()
                                 .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9)
-                                    .addComponent(txtCheckInNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCheckInThang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCheckInNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel10)
@@ -1031,8 +997,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLuuDP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
 
@@ -1564,7 +1529,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDatPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatPMouseClicked
         // TODO add your handling code here:
-        lamMoiFormDatPhong();
+        lamMoiFormDatPhong1();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1624,7 +1589,17 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
         // TODO add your handling code here:
-        checkIn();
+ if (currentHoaDon == null) {
+            // Đây là đặt phòng mới, thực hiện hành động Check-in ban đầu
+            performInitialCheckInAction();
+        } else if ("Đã đặt".equals(currentHoaDon.getTrangThai())) {
+            // Đây là hóa đơn đã "Đã đặt" từ trước, thực hiện chuyển trạng thái sang "Đang sử dụng"
+            checkIn(); // Phương thức checkIn() cũ của bạn
+        } else {
+            XDialog.alert("Không thể Check-in hóa đơn này ở trạng thái hiện tại.");
+        }
+ btnXoaMCDCP.setEnabled(false);
+ btnXoaMCDCDV.setEnabled(false);
     }//GEN-LAST:event_btnCheckInActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
@@ -1634,6 +1609,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
+        updateHoaDon();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemPMouseClicked
@@ -1693,10 +1669,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSDTActionPerformed
 
-    private void txtCheckInNgayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCheckInNgayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCheckInNgayActionPerformed
-
     private void txtCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCheckOutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCheckOutActionPerformed
@@ -1749,7 +1721,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDatP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatP1MouseClicked
         // TODO add your handling code here:
-        lamMoiFormDatPhong();
+        lamMoiFormDatPhong1();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1868,22 +1840,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnTDKhachHang.setVisible(true);
     }//GEN-LAST:event_btnKHMouseClicked
 
-    private void txtCheckInThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCheckInThangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCheckInThangActionPerformed
-
-    private void txtCheckInNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCheckInNamActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCheckInNamActionPerformed
-
-    private void btnLuuDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuDPActionPerformed
-        // TODO add your handling code here:
-        LuuCheckDP();
-        lamMoiFormDatPhong();
-        btnCheckIn.setEnabled(true);
-        btnCheckOut.setEnabled(true);
-    }//GEN-LAST:event_btnLuuDPActionPerformed
-
     private void tabLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabLSMouseClicked
         // TODO add your handling code here:
          if (evt.getClickCount() == 2) { // Kiểm tra nhấp đúp
@@ -1898,9 +1854,15 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             jpnDatP.setVisible(true);
             jpnTDDatP.setVisible(true);
             jpnChonPhong.setVisible(false); // Ẩn panel chọn phòng
+            btnXoaMCDCDV.setEnabled(false);
+            btnXoaMCDCP.setEnabled(false);
         }
     }
     }//GEN-LAST:event_tabLSMouseClicked
+
+    private void txtCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCheckInActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCheckInActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1956,7 +1918,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnLamMSDMK;
     private javax.swing.JButton btnLamMoiKH;
     private javax.swing.JButton btnLoc;
-    private javax.swing.JButton btnLuuDP;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnSuaKH;
     private javax.swing.JButton btnTaoMoiKH;
@@ -2018,9 +1979,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JTable tabKhachHang;
     private javax.swing.JTable tabLS;
     private javax.swing.JTable tabPhong;
-    private javax.swing.JTextField txtCheckInNam;
-    private javax.swing.JTextField txtCheckInNgay;
-    private javax.swing.JTextField txtCheckInThang;
+    private javax.swing.JTextField txtCheckIn;
     private javax.swing.JTextField txtCheckOut;
     private javax.swing.JLabel txtDMK;
     private javax.swing.JLabel txtDMK1;
@@ -2581,8 +2540,9 @@ private void updateTongTien() {
 
 
 //===Luu CheckIn===
-    // Lấy ngày, tháng, năm từ các ô text
-void LuuCheckDP() {
+
+
+void performInitialCheckInAction() {
     // 1. Lấy và xác thực thông tin khách hàng
     String tenKH = txtTenKH.getText().trim();
     String cmt = txtSocmt.getText().trim();
@@ -2593,32 +2553,13 @@ void LuuCheckDP() {
         return;
     }
 
-    // 2. Lấy và xác thực ngày Check-in
-    String ngayStr = txtCheckInNgay.getText().trim();
-    String thangStr = txtCheckInThang.getText().trim();
-    String namStr = txtCheckInNam.getText().trim();
-
-    if (ngayStr.isEmpty() || thangStr.isEmpty() || namStr.isEmpty()) {
-        XDialog.alert("Vui lòng nhập đầy đủ ngày check-in.");
-        return;
-    }
-
-    Date ngayCheckIn = null;
-    try {
-        String dateString = ngayStr + "-" + thangStr + "-" + namStr;
-        ngayCheckIn = XDate.parse(dateString, "dd-MM-yyyy");
-        if (ngayCheckIn == null) {
-            throw new Exception();
-        }
-    } catch (Exception e) {
-        XDialog.alert("Ngày check-in không hợp lệ. Vui lòng nhập đúng định dạng (ngày, tháng, năm).");
-        return;
-    }
+    // Gán ngayCheckIn là ngày hiện tại (thay vì đọc từ các ô nhập liệu)
+    Date ngayCheckIn = new Date();
 
     // 3. Kiểm tra xem có phòng nào được chọn không
     DefaultTableModel phongModel = (DefaultTableModel) tabPhong.getModel();
     if (phongModel.getRowCount() == 0) {
-        XDialog.alert("Vui lòng chọn ít nhất một phòng để check-in.");
+        XDialog.alert("Vui lòng chọn ít nhất một phòng để Check-in.");
         return;
     }
 
@@ -2628,7 +2569,7 @@ void LuuCheckDP() {
         KhachHang kh = khDao.findBySDT(sdt);
         if (kh == null) {
                 XDialog.alert("Khách hàng với số điện thoại này chưa tồn tại!");
-                return; // Dừng thực hiện phương thức
+                return; 
             }
 
         // 5. Tạo bản ghi Đặt phòng
@@ -2637,8 +2578,8 @@ void LuuCheckDP() {
         dp.setIdKhachHang(kh.getId());
         dp.setIdNguoiDung(XAuth.user.getUsername());
         dp.setNgayDat(new Date());
-        dp.setNgayNhanPhongDuKien(ngayCheckIn);
-        dp.setTrangThai("Đã đặt");
+        dp.setNgayNhanPhongDuKien(ngayCheckIn); // Sử dụng ngày hiện tại
+        dp.setTrangThai("Đang sử dụng"); 
         DatPhong datPhongMoi = dpDao.create(dp);
 
         // 6. Tạo Hóa đơn
@@ -2649,10 +2590,11 @@ void LuuCheckDP() {
         hd.setIdDatPhong(datPhongMoi.getId());
         hd.setNgayLap(new Date());
         hd.setTongTien(Double.parseDouble(txtTienTong.getText()));
-        hd.setTrangThai("Đã đặt");
+        hd.setTrangThai("Đang sử dụng"); 
         HoaDon hoaDonMoi = hdDao.create(hd);
+        currentHoaDon = hoaDonMoi; 
 
-        // 7. Tạo Chi tiết thuê phòng cho mỗi phòng đã chọn
+        // 7. Tạo Chi tiết thuê phòng và cập nhật trạng thái phòng
         ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
         PhongDao phongDao = new PhongDaoImpl();
 
@@ -2661,23 +2603,22 @@ void LuuCheckDP() {
             Phong phong = phongDao.findBySoPhong(soPhong);
 
             if (phong != null) {
-                // Tạo chi tiết thuê phòng
                 ChiTietThuePhong cttp = new ChiTietThuePhong();
                 cttp.setIdHoaDon(hoaDonMoi.getId());
                 cttp.setIdPhong(phong.getId());
-                cttp.setThoiGianNhanPhong(ngayCheckIn);
+                cttp.setThoiGianNhanPhong(ngayCheckIn); // Sử dụng ngày hiện tại
                 cttpDao.create(cttp);
 
-                // Cập nhật trạng thái phòng thành "Đang sử dụng"
-                phong.setTrangThai("Đang sử dụng");
+                phong.setTrangThai("Đang sử dụng"); 
                 phongDao.update(phong);
             }
         }
-     ChiTietDichVuDao ctdvDao = new ChiTietDichVuDaoImpl();
-        DichVuDao dvDao = new DichVuDaoImpl(); 
 
+        // 8. Thêm Chi tiết dịch vụ
+        ChiTietDichVuDao ctdvDao = new ChiTietDichVuDaoImpl();
+        DichVuDao dvDao = new DichVuDaoImpl(); 
         DefaultTableModel dichVuModel = (DefaultTableModel) tabDichVu.getModel();
-        List<DichVu> allDichVu = dvDao.findAll(); // Lấy tất cả dịch vụ
+        List<DichVu> allDichVu = dvDao.findAll();
 
         for (int i = 0; i < dichVuModel.getRowCount(); i++) {
             String tenDichVu = dichVuModel.getValueAt(i, 0).toString();
@@ -2685,34 +2626,33 @@ void LuuCheckDP() {
             double tongTienDichVuItem = (double) dichVuModel.getValueAt(i, 2);
 
             DichVu foundDichVu = null;
-            // Tìm kiếm dịch vụ trong danh sách tất cả dịch vụ
             for (DichVu dv : allDichVu) {
                 if (dv.getTenDichVu().equals(tenDichVu)) {
                     foundDichVu = dv;
                     break;
                 }
             }
-                                                              
             if (foundDichVu != null) {
                 ChiTietDichVu ctdv = new ChiTietDichVu();
                 ctdv.setIdHoaDon(hoaDonMoi.getId());
                 ctdv.setIdDichVu(foundDichVu.getId());
                 ctdv.setSoLuong(soLuong);
                 ctdv.setTongTien(tongTienDichVuItem);
-                ctdv.setThoiGian(new Date()); 
-                ctdv.setIdNguoiDungThem(XAuth.user.getUsername()); // THÊM DÒNG NÀY ĐỂ GÁN ID NGƯỜI DÙNG
+                ctdv.setThoiGian(new Date());
+                ctdv.setIdNguoiDungThem(XAuth.user.getUsername());
                 ctdvDao.create(ctdv);
             } else {
                 System.err.println("Dịch vụ với tên '" + tenDichVu + "' không tìm thấy trong cơ sở dữ liệu.");
             }
         }
 
-        XDialog.alert("Lưu thành công!");
-        lamMoiFormDatPhong(); // Làm mới giao diện
-        loadAllRoomsToPanel(); // Tải lại danh sách phòng
+        XDialog.alert("Check-in thành công cho hóa đơn ID: " + currentHoaDon.getId());
+        hienThiChiTietHoaDon(currentHoaDon); 
+        fillTableLichSu(); 
+        loadAllRoomsToPanel(); 
 
     } catch (Exception e) {
-        XDialog.alert("Đã xảy ra lỗi trong quá trình check-in!");
+        XDialog.alert("Đã xảy ra lỗi trong quá trình Check-in!");
         e.printStackTrace();
     }
 }
@@ -2720,15 +2660,16 @@ private void lamMoiFormDatPhong() {
     txtTenKH.setText("");
     txtSocmt.setText("");
     txtSDT.setText("");
-    txtCheckInNgay.setText("");
-    txtCheckInThang.setText("");
-    txtCheckInNam.setText("");
+    txtCheckIn.setText("");
     txtCheckOut.setText("");
     txtTrangThai.setText("");
     txtTienTong.setText("0");
     btmThemKHDP.setEnabled(true);
     btnKHCu.setEnabled(true);
-    btnLuuDP.setEnabled(true);
+    btnThemP.setEnabled(true);
+    btnThemDV.setEnabled(true);
+    btnXoaMCDCDV.setEnabled(true);
+    btnXoaMCDCP.setEnabled(true);
     btnSua.setEnabled(false);
 
     // Bật các trường thông tin khách hàng cho đặt phòng mới
@@ -2737,11 +2678,45 @@ private void lamMoiFormDatPhong() {
     txtSDT.setEnabled(true);
 
     // Bật các trường ngày Check-in cho đặt phòng mới
-    txtCheckInNgay.setEnabled(true);
-    txtCheckInThang.setEnabled(true);
-    txtCheckInNam.setEnabled(true);
+    txtCheckIn.setEnabled(false);
 
-    btnCheckIn.setEnabled(false);
+    btnCheckIn.setEnabled(true);
+    btnCheckOut.setEnabled(false);
+    
+    DefaultTableModel phongModel = (DefaultTableModel) tabPhong.getModel();
+    phongModel.setRowCount(0);
+
+    DefaultTableModel dichVuModel = (DefaultTableModel) tabDichVu.getModel();
+    dichVuModel.setRowCount(0);
+
+    
+}
+
+private void lamMoiFormDatPhong1() {
+    txtTenKH.setText("");
+    txtSocmt.setText("");
+    txtSDT.setText("");
+    txtCheckIn.setText("");
+    txtCheckOut.setText("");
+    txtTrangThai.setText("");
+    txtTienTong.setText("0");
+    btmThemKHDP.setEnabled(true);
+    btnKHCu.setEnabled(true);
+    btnThemP.setEnabled(true);
+    btnThemDV.setEnabled(true);
+    btnXoaMCDCDV.setEnabled(true);
+    btnXoaMCDCP.setEnabled(true);
+    btnSua.setEnabled(false);
+
+    // Bật các trường thông tin khách hàng cho đặt phòng mới
+    txtTenKH.setEnabled(true);
+    txtSocmt.setEnabled(true);
+    txtSDT.setEnabled(true);
+
+    // Bật các trường ngày Check-in cho đặt phòng mới
+    txtCheckIn.setEnabled(false);
+
+    btnCheckIn.setEnabled(true);
     btnCheckOut.setEnabled(false);
     
     DefaultTableModel phongModel = (DefaultTableModel) tabPhong.getModel();
@@ -2756,9 +2731,7 @@ void lamMoiDuLieuDP(){
      txtTenKH.setText("");
     txtSocmt.setText("");
     txtSDT.setText("");
-    txtCheckInNgay.setText("");
-    txtCheckInThang.setText("");
-    txtCheckInNam.setText("");
+    txtCheckIn.setText("");
 }
 
 //===Lịch sử===
@@ -2826,12 +2799,10 @@ void hienThiChiTietHoaDon(HoaDon hd) {
             });
         }
         if (cttp.getThoiGianNhanPhong() != null) {
-            txtCheckInNgay.setText(XDate.format(cttp.getThoiGianNhanPhong(), "dd"));
-            txtCheckInThang.setText(XDate.format(cttp.getThoiGianNhanPhong(), "MM"));
-            txtCheckInNam.setText(XDate.format(cttp.getThoiGianNhanPhong(), "yyyy"));
+            txtCheckIn.setText(XDate.format(cttp.getThoiGianNhanPhong(), "dd/MM/yyyy HH:mm:ss"));
         }
         if (cttp.getThoiGianTraPhong() != null) {
-            txtCheckOut.setText(XDate.format(cttp.getThoiGianTraPhong()));
+            txtCheckOut.setText(XDate.format(cttp.getThoiGianTraPhong(), "dd/MM/yyyy HH:mm:ss"));
         }
     }
 
@@ -2860,7 +2831,6 @@ void hienThiChiTietHoaDon(HoaDon hd) {
     // Điều khiển trạng thái của các nút và các trường ngày Check-in
     btmThemKHDP.setEnabled(false);
     btnKHCu.setEnabled(false);
-    btnLuuDP.setEnabled(false); 
     btnSua.setEnabled(true);     
 
     if ("Đã đặt".equals(hd.getTrangThai())) {
@@ -2869,9 +2839,7 @@ void hienThiChiTietHoaDon(HoaDon hd) {
         txtCheckOut.setText(""); 
 
         // Bật các trường ngày Check-in cho trạng thái "Đã đặt"
-        txtCheckInNgay.setEnabled(true);
-        txtCheckInThang.setEnabled(true);
-        txtCheckInNam.setEnabled(true);
+        txtCheckIn.setEnabled(false);
 
         // Bật các nút thêm/xóa phòng/dịch vụ và bảng cho trạng thái "Đã đặt"
         btnThemP.setEnabled(true);
@@ -2886,9 +2854,7 @@ void hienThiChiTietHoaDon(HoaDon hd) {
         btnCheckOut.setEnabled(true);
 
         // Tắt các trường ngày Check-in cho trạng thái "Đang sử dụng"
-        txtCheckInNgay.setEnabled(false);
-        txtCheckInThang.setEnabled(false);
-        txtCheckInNam.setEnabled(false);
+        txtCheckIn.setEnabled(false);
 
         // Bật các nút thêm/xóa phòng/dịch vụ và bảng cho trạng thái "Đang sử dụng" (nếu cho phép sửa đổi khi đang sử dụng)
         // Nếu không muốn cho phép thêm/xóa khi đang sử dụng, hãy đặt thành false.
@@ -2912,12 +2878,10 @@ void hienThiChiTietHoaDon(HoaDon hd) {
         btnXoaMCDCDV.setEnabled(false);
         btnKHCu.setEnabled(false); // Vô hiệu hóa nút Khách hàng cũ
         btmThemKHDP.setEnabled(false); // Vô hiệu hóa nút Thêm khách hàng mới
-        btnLuuDP.setEnabled(false); // Vô hiệu hóa nút Lưu
+      
 
         // Tắt các trường ngày Check-in
-        txtCheckInNgay.setEnabled(false);
-        txtCheckInThang.setEnabled(false);
-        txtCheckInNam.setEnabled(false);
+        txtCheckIn.setEnabled(false);
 
         // Vô hiệu hóa các bảng
         tabPhong.setEnabled(false);
@@ -3008,6 +2972,123 @@ void checkOut() {
 
     } catch (Exception e) {
         XDialog.alert("Lỗi khi thực hiện Check-out: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+//===Sửa===
+void updateHoaDon() {
+    if (currentHoaDon == null) {
+        XDialog.alert("Không có hóa đơn nào đang được chọn để sửa.");
+        return;
+    }
+
+    try {
+        // 1. Cập nhật Tổng Tiền của Hóa Đơn
+        double newTongTien = Double.parseDouble(txtTienTong.getText());
+        currentHoaDon.setTongTien(newTongTien);
+        hoaDonDao.update(currentHoaDon);
+
+        // 2. Xử lý Chi Tiết Thuê Phòng (Phòng)
+        ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+        PhongDao phongDao = new PhongDaoImpl();
+
+        // Lấy danh sách các ID Phòng hiện tại trong DB cho hóa đơn này
+        List<ChiTietThuePhong> dbCtpList = cttpDao.findByIdHoaDon(currentHoaDon.getId());
+        Set<Integer> dbPhongIdsSet = new HashSet<>();
+        for (ChiTietThuePhong cttp : dbCtpList) {
+            dbPhongIdsSet.add(cttp.getIdPhong());
+        }
+
+        // Duyệt qua các phòng trên UI để THÊM MỚI hoặc CẬP NHẬT TRẠNG THÁI
+        DefaultTableModel phongModel = (DefaultTableModel) tabPhong.getModel();
+        for (int i = 0; i < phongModel.getRowCount(); i++) {
+            String soPhongUI = phongModel.getValueAt(i, 0).toString();
+            Phong phong = phongDao.findBySoPhong(soPhongUI);
+
+            if (phong != null) {
+                if (!dbPhongIdsSet.contains(phong.getId())) {
+                    // Phòng này có trên UI nhưng KHÔNG có trong DB cho hóa đơn này -> Thêm mới
+                    ChiTietThuePhong newCtp = new ChiTietThuePhong();
+                    newCtp.setIdHoaDon(currentHoaDon.getId());
+                    newCtp.setIdPhong(phong.getId());
+                    // Nếu hóa đơn đang ở trạng thái 'Đang sử dụng' hoặc 'Đã đặt', set ngày nhận phòng
+                    if ("Đang sử dụng".equals(currentHoaDon.getTrangThai()) || "Đã đặt".equals(currentHoaDon.getTrangThai())) {
+                        newCtp.setThoiGianNhanPhong(new Date());
+                    }
+                    cttpDao.create(newCtp);
+                }
+                
+                // Luôn cập nhật trạng thái của phòng thành "Đang sử dụng" nếu hóa đơn đang active
+                if (!"Hoàn thiện".equals(currentHoaDon.getTrangThai())) {
+                    phong.setTrangThai("Đang sử dụng");
+                    phongDao.update(phong);
+                }
+            }
+        }
+
+        // 3. Xử lý Chi Tiết Dịch Vụ
+        ChiTietDichVuDao ctdvDao = new ChiTietDichVuDaoImpl();
+        DichVuDao dvDao = new DichVuDaoImpl();
+
+        // Lấy danh sách các ChiTietDichVu hiện tại trong DB cho hóa đơn này
+        List<ChiTietDichVu> dbCtdvList = ctdvDao.findByIdHoaDon(currentHoaDon.getId());
+        Map<Integer, ChiTietDichVu> dbCtdvMap = new HashMap<>(); // ID Dịch Vụ -> ChiTietDichVu
+        for (ChiTietDichVu ctdv : dbCtdvList) {
+            dbCtdvMap.put(ctdv.getIdDichVu(), ctdv);
+        }
+
+        // Duyệt qua các dịch vụ trên UI để THÊM MỚI hoặc CẬP NHẬT
+        DefaultTableModel dichVuModel = (DefaultTableModel) tabDichVu.getModel();
+        List<DichVu> allDichVu = dvDao.findAll(); // Lấy tất cả dịch vụ để tìm theo tên
+
+        for (int i = 0; i < dichVuModel.getRowCount(); i++) {
+            String tenDichVuUI = dichVuModel.getValueAt(i, 0).toString();
+            int soLuongUI = (int) dichVuModel.getValueAt(i, 1);
+            double tongTienUI = (double) dichVuModel.getValueAt(i, 2);
+
+            DichVu foundDichVu = null;
+            for (DichVu dv : allDichVu) {
+                if (dv.getTenDichVu().equals(tenDichVuUI)) {
+                    foundDichVu = dv;
+                    break;
+                }
+            }
+
+            if (foundDichVu != null) {
+                ChiTietDichVu existingCtdv = dbCtdvMap.get(foundDichVu.getId());
+
+                if (existingCtdv == null) {
+                    // Dịch vụ này có trên UI nhưng KHÔNG có trong DB cho hóa đơn này -> Thêm mới
+                    ChiTietDichVu newCtdv = new ChiTietDichVu();
+                    newCtdv.setIdHoaDon(currentHoaDon.getId());
+                    newCtdv.setIdDichVu(foundDichVu.getId());
+                    newCtdv.setSoLuong(soLuongUI);
+                    newCtdv.setTongTien(tongTienUI);
+                    newCtdv.setThoiGian(new Date());
+                    newCtdv.setIdNguoiDungThem(XAuth.user.getUsername());
+                    ctdvDao.create(newCtdv);
+                } else {
+                    // Dịch vụ này có trên cả UI và DB -> Cập nhật số lượng và tổng tiền nếu thay đổi
+                    if (existingCtdv.getSoLuong() != soLuongUI || existingCtdv.getTongTien() != tongTienUI) {
+                        existingCtdv.setSoLuong(soLuongUI);
+                        existingCtdv.setTongTien(tongTienUI);
+                        ctdvDao.update(existingCtdv);
+                    }
+                }
+            } else {
+                System.err.println("Dịch vụ với tên '" + tenDichVuUI + "' không tìm thấy trong cơ sở dữ liệu khi cập nhật.");
+            }
+        }
+        
+        XDialog.alert("Cập nhật hóa đơn thành công!");
+        fillTableLichSu(); // Cập nhật lại bảng lịch sử
+        hienThiChiTietHoaDon(currentHoaDon); // Hiển thị lại chi tiết hóa đơn đã cập nhật
+        loadAllRoomsToPanel(); // Cập nhật lại trạng thái phòng trên giao diện chính
+
+    } catch (NumberFormatException e) {
+        XDialog.alert("Tổng tiền không hợp lệ. Vui lòng kiểm tra lại.");
+    } catch (Exception e) {
+        XDialog.alert("Lỗi khi cập nhật hóa đơn: " + e.getMessage());
         e.printStackTrace();
     }
 }

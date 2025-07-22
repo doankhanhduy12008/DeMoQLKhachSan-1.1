@@ -46,4 +46,5 @@ public class ChiTietDichVuDaoImpl implements ChiTietDichVuDao {
         String sql = "SELECT * FROM ChiTietDichVu WHERE IdHoaDon = ?";
         return XQuery.getBeanList(ChiTietDichVu.class, sql, idHoaDon);
     }
+    
 }
