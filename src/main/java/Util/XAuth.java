@@ -1,6 +1,8 @@
 package Util;
 
 import Dao.entity.NguoiDung;
+import Dao.entity.Phong;
+import java.math.BigDecimal;
 
 
 /*
@@ -22,4 +24,16 @@ public class XAuth {
                         .anh("avatar.png")
                         .trangThai(true)
                         .build();
+    
+ 
+   public static Phong phong = new Phong.Builder()
+    .id(101)
+    .soPhong("VIP01")
+    .idLoaiPhong(1)
+    .tang(10)
+    .trangThai("Trống")
+    .giaTien(new BigDecimal("500000.0"))
+    .giamGia(0.1) // Giảm 10%
+    .ghiChu("Phòng có view biển đẹp")
+    .build();             
 }

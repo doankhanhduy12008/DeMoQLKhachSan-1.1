@@ -9,7 +9,7 @@ import java.util.Date;
 public class DatPhong {
     private int id;
     private int idKhachHang;
-    private int idNguoiDung;
+    private String idNguoiDung;
     private Date ngayDat;
     private Date ngayNhanPhongDuKien;
     private Date ngayTraPhongDuKien;
@@ -19,7 +19,7 @@ public class DatPhong {
     public DatPhong() {
     }
 
-    public DatPhong(int id, int idKhachHang, int idNguoiDung, Date ngayDat, Date ngayNhanPhongDuKien, Date ngayTraPhongDuKien, String trangThai, String ghiChu) {
+    public DatPhong(int id, int idKhachHang, String idNguoiDung, Date ngayDat, Date ngayNhanPhongDuKien, Date ngayTraPhongDuKien, String trangThai, String ghiChu) {
         this.id = id;
         this.idKhachHang = idKhachHang;
         this.idNguoiDung = idNguoiDung;
@@ -46,11 +46,11 @@ public class DatPhong {
         this.idKhachHang = idKhachHang;
     }
 
-    public int getIdNguoiDung() {
+    public String getIdNguoiDung() {
         return idNguoiDung;
     }
 
-    public void setIdNguoiDung(int idNguoiDung) {
+    public void setIdNguoiDung(String idNguoiDung) {
         this.idNguoiDung = idNguoiDung;
     }
 

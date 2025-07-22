@@ -10,11 +10,14 @@ import Dao.daoimpl.LoaiPhongDaoImpl;
 import Dao.daoimpl.PhongDaoImpl;
 import Dao.entity.LoaiPhong;
 import Dao.entity.Phong;
+import Util.XAuth;
+import Util.XDialog;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 /**
@@ -22,7 +25,7 @@ import javax.swing.JButton;
  * @author Acer
  */
 public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongController{
-
+private Phong phongDaChon = null;
     /**
      * Creates new form ChonLoaiPhong
      */
@@ -30,6 +33,12 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
+            cboLoaiPhong.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cboLoaiPhongActionPerformed(evt);
+        }
+    });
     }
 
     /**
@@ -42,14 +51,14 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        pnlLoai = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         pnlPhong = new javax.swing.JPanel();
+        cboLoaiPhong = new javax.swing.JComboBox<>();
+        txtTimKiemP = new javax.swing.JTextField();
+        btnTimKiemP = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -59,39 +68,41 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-        jScrollPane1.setBorder(null);
-
-        pnlLoai.setBackground(new java.awt.Color(255, 255, 255));
-        pnlLoai.setLayout(new java.awt.GridLayout(0, 6, 5, 5));
-        jScrollPane1.setViewportView(pnlLoai);
-
         jScrollPane2.setBorder(null);
 
         pnlPhong.setBackground(new java.awt.Color(255, 255, 255));
         pnlPhong.setLayout(new java.awt.GridLayout(0, 6, 5, 5));
         jScrollPane2.setViewportView(pnlPhong);
 
+        cboLoaiPhong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnTimKiemP.setText("Tìm kiếm");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTimKiemP)
+                .addGap(18, 18, 18)
+                .addComponent(txtTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiemP, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -139,6 +150,7 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
             java.util.logging.Logger.getLogger(ChonLoaiPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -156,84 +168,132 @@ public class ChonLoaiPhong extends javax.swing.JDialog implements ChonLoaiPhongC
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnTimKiemP;
+    private javax.swing.JComboBox<String> cboLoaiPhong;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel pnlLoai;
     private javax.swing.JPanel pnlPhong;
+    private javax.swing.JTextField txtTimKiemP;
     // End of variables declaration//GEN-END:variables
+
+@Override
+public void showThemPhong(int Id) {
+    
+}
 @Override
 public void open() {
     this.setLocationRelativeTo(null);
-    loadCards();
+    pnlPhong.setLayout(new java.awt.GridLayout(0, 6, 5, 5)); // Đảm bảo layout cho pnlPhong
+    loadAllRoomsToPanel();
+    fillComboBoxLoaiPhong();
 }
-@Override
-public void showThemPhong(int Id) {
-    PhongDao dao = new PhongDaoImpl();
-    Phong bill = dao.findById(Id);
 
-    ThemPhong dialog = new ThemPhong((Frame) this.getOwner(), true);
-    dialog.setPhong(bill);
-    dialog.setVisible(true);
-}
-private void loadCards() {
-    LoaiPhongDao dao = new LoaiPhongDaoImpl();
-    List<LoaiPhong> LP = dao.findAll();
+private void loadAllRoomsToPanel() {
+    PhongDao phongDao = new PhongDaoImpl();
+    List<Phong> allRooms = phongDao.findAll();
+    pnlPhong.removeAll();
 
-    pnlLoai.removeAll();
-    LP.forEach(card -> {
-        pnlLoai.add(this.createButton(card));
-    });
-}
-int Id;
-private JButton createButton(LoaiPhong lp) {
-    JButton btnCard = new JButton();
-    btnCard.setText(String.format("%s", lp.getTenLoaiPhong()));
-    btnCard.setPreferredSize(new Dimension(150, 80));
-    btnCard.setActionCommand(String.valueOf(lp.getId()));
-    btnCard.addActionListener((ActionEvent e) -> {
-        Id = Integer.parseInt(e.getActionCommand());
-        showThemPhong();
-        System.out.println(Id);
-        jScrollPane1.setVisible(false);
-    }); 
-    return btnCard;
-    
-}
-public void showThemPhong() {
-    PhongDao dao = new PhongDaoImpl();
-    
-    // Lấy danh sách các Phòng theo mã Loại Phòng
-    List<Phong> listPhong = dao.findByIdLoaiPhong(Id); // HÀM NÀY PHẢI CÓ TRONG DAO
-    pnlPhong.removeAll(); // Xóa các nút cũ trước khi hiển thị
-
-    for (Phong p : listPhong) {
-        JButton btn = new JButton("Phòng " + p.getSoPhong());
-        btn.setPreferredSize(new Dimension(120, 60));
-        if(p.getTrangThai().equals("Trống")){
-            btn.setBackground(Color.GREEN);
-        }else if(p.getTrangThai().equals("Đang thuê")){
-            btn.setBackground(Color.red);
-        }else if(p.getTrangThai().equals("Đang dọn")){
-            btn.setBackground(Color.YELLOW);
-        }else{
-            btn.setBackground(Color.PINK);
-        }
-
-        btn.setActionCommand(String.valueOf(p.getId()));
-
-        btn.addActionListener(e -> {
-            int idPhong = Integer.parseInt(e.getActionCommand());
-            Phong selected = dao.findById(idPhong); // Tải lại nếu cần
-
-//            ThemPhong dialog = new ThemPhong((Frame) this.getOwner(), true, selected);
-//            dialog.setVisible(true);
-        });
-
+    for (Phong p : allRooms) {
+        JButton btn = createRoomButton(p);
         pnlPhong.add(btn);
     }
 
     pnlPhong.revalidate();
     pnlPhong.repaint();
 }
+
+private JButton createRoomButton(Phong p) {
+    LoaiPhongDao loaiPhongDao = new LoaiPhongDaoImpl();
+    LoaiPhong loaiPhong = loaiPhongDao.findById(p.getIdLoaiPhong());
+    String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không xác định";
+
+    String buttonText = "<html><center>"
+                      + "Phòng " + p.getSoPhong() + "<br>"
+                      + "Tầng: " + p.getTang() + "<br>"
+                      + "Loại: " + tenLoaiPhong + "<br>"
+                      + "(" + p.getTrangThai() + ")"
+                      + "</center></html>";
+
+    JButton btn = new JButton(buttonText);
+    btn.setPreferredSize(new Dimension(100, 80));
+    btn.setActionCommand(String.valueOf(p.getId()));
+
+    if ("Trống".equals(p.getTrangThai())) {
+        btn.setBackground(Color.GREEN);
+        btn.addActionListener(e -> {
+            int idPhong = Integer.parseInt(e.getActionCommand());
+            PhongDao dao = new PhongDaoImpl();
+            Phong selected = dao.findById(idPhong);
+
+            if (selected != null) {
+                selected.setTrangThai("Đang sử dụng");
+                dao.update(selected);
+                this.phongDaChon = selected;
+                this.dispose(); // Đóng dialog sau khi chọn
+            }
+        });
+    } else if ("Đang sử dụng".equals(p.getTrangThai())) {
+        btn.setBackground(Color.RED);
+        btn.addActionListener(e -> XDialog.alert("Phòng này đã có người thuê, vui lòng chọn phòng khác!"));
+    } else if ("Đang dọn".equals(p.getTrangThai())) {
+        btn.setBackground(Color.YELLOW);
+        btn.addActionListener(e -> XDialog.alert("Phòng này đang được dọn dẹp!"));
+    } else {
+        btn.setBackground(Color.PINK);
+        btn.setEnabled(false);
+    }
+    return btn;
 }
+
+    public Phong getSelectedPhong() {
+        return this.phongDaChon;
+    }
+    
+    LoaiPhongDao loaiPhongDao = new LoaiPhongDaoImpl();
+
+// Thêm phương thức này vào trong lớp TrangChuTT
+private void fillComboBoxLoaiPhong() {
+    DefaultComboBoxModel model = (DefaultComboBoxModel) cboLoaiPhong.getModel();
+    model.removeAllElements();
+    model.addElement("Tất cả"); // Thêm mục để hiển thị tất cả các phòng
+    try {
+        List<LoaiPhong> list = loaiPhongDao.findAll();
+        for (LoaiPhong lp : list) {
+            model.addElement(lp);
+        }
+    } catch (Exception e) {
+        XDialog.alert("Lỗi truy vấn dữ liệu loại phòng!");
+    }
+}
+
+
+// Thêm phương thức này để lọc phòng theo loại phòng
+private void loadRoomsByLoaiPhong(int idLoaiPhong) {
+    pnlPhong.removeAll();
+    PhongDao phongDao = new PhongDaoImpl();
+    List<Phong> rooms = phongDao.findByIdLoaiPhong(idLoaiPhong);
+    for (Phong p : rooms) {
+        JButton btn = createRoomButton(p);
+        pnlPhong.add(btn);
+    }
+    pnlPhong.revalidate();
+    pnlPhong.repaint();
+}
+
+
+
+// Thêm phương thức xử lý sự kiện cboLoaiPhongActionPerformed
+private void cboLoaiPhongActionPerformed(java.awt.event.ActionEvent evt) {
+    Object selectedItem = cboLoaiPhong.getSelectedItem();
+    if (selectedItem == null) {
+        return;
+    }
+    if (selectedItem.toString().equals("Tất cả")) {
+        loadAllRoomsToPanel();
+    } else {
+        LoaiPhong selectedLoaiPhong = (LoaiPhong) selectedItem;
+        loadRoomsByLoaiPhong(selectedLoaiPhong.getId());
+    }
+}
+}
+

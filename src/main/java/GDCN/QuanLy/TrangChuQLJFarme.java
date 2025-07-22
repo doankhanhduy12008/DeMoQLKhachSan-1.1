@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
-public final class TrangChuQLJFarme extends javax.swing.JFrame {
+public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangChuQLController{
 
     public TrangChuQLJFarme(){
         initComponents();
@@ -235,6 +235,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         txtDichVu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -342,6 +343,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         btnDoiMK.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnDoiMK.setMinimumSize(new java.awt.Dimension(291, 40));
         btnDoiMK.setPreferredSize(new java.awt.Dimension(91, 40));
+        btnDoiMK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDoiMKMouseClicked(evt);
+            }
+        });
 
         btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDangXuat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -349,6 +355,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         btnDangXuat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnDangXuat.setMinimumSize(new java.awt.Dimension(291, 40));
         btnDangXuat.setPreferredSize(new java.awt.Dimension(70, 40));
+        btnDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDangXuatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlMenuBarLayout = new javax.swing.GroupLayout(pnlMenuBar);
         pnlMenuBar.setLayout(pnlMenuBarLayout);
@@ -2175,9 +2186,20 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         pnlQLDichVu.setVisible(true);
     }//GEN-LAST:event_bntQLDichVu1MouseClicked
 
+
     private void cmbPLoaiPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPLoaiPhongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPLoaiPhongActionPerformed
+
+    private void btnDoiMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMKMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDoiMKMouseClicked
+
+    private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
+        // TODO add your handling code here:
+        DX();
+    }//GEN-LAST:event_btnDangXuatMouseClicked
+
 
     /**
      * @param args the command line arguments
@@ -2501,7 +2523,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         Phong entity = new Phong();
         entity.setSoPhong(txtPSoPhong.getText());
         entity.setTang(Integer.parseInt(txtPTang.getText()));
-        entity.setGiaTien(Double.parseDouble(txtPGiaThue.getText()));
+        entity.setGiaTien(new java.math.BigDecimal(txtPGiaThue.getText()));
         entity.setGhiChu(txaPGhiChu.getText());
 
         LoaiPhong loaiPhongChon = (LoaiPhong) cmbPLoaiPhong.getSelectedItem();
@@ -2820,4 +2842,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame {
         
         return entity;
     }
+    
+    void DX(){
+    this.dispose();
+    this.showDX(this);
+}
 }

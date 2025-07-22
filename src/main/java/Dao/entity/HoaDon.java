@@ -9,24 +9,25 @@ import java.util.Date;
 public class HoaDon {
     private int id;
     private int idKhachHang;
-    private int idNguoiDungLap;
+    private String idNguoiDungLap;
     private int idDatPhong;
-    private Date ngayLap;
+    private java.util.Date ngayLap = new java.util.Date();
     private double tongTien;
     private String trangThai;
 
     public HoaDon() {
     }
 
-    public HoaDon(int id, int idKhachHang, int idNguoiDungLap, int idDatPhong, Date ngayLap, double tongTien, String trangThai) {
+    public HoaDon(int id, int idKhachHang, String idNguoiDungLap, int idDatPhong, double tongTien, String trangThai) {
         this.id = id;
         this.idKhachHang = idKhachHang;
         this.idNguoiDungLap = idNguoiDungLap;
         this.idDatPhong = idDatPhong;
-        this.ngayLap = ngayLap;
         this.tongTien = tongTien;
         this.trangThai = trangThai;
     }
+
+
 
     public int getId() {
         return id;
@@ -44,11 +45,11 @@ public class HoaDon {
         this.idKhachHang = idKhachHang;
     }
 
-    public int getIdNguoiDungLap() {
+    public String getIdNguoiDungLap() {
         return idNguoiDungLap;
     }
 
-    public void setIdNguoiDungLap(int idNguoiDungLap) {
+    public void setIdNguoiDungLap(String idNguoiDungLap) {
         this.idNguoiDungLap = idNguoiDungLap;
     }
 
@@ -83,4 +84,8 @@ public class HoaDon {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
+
+         public static final String DATE_PATTERN = "HH:mm:ss dd-MM-yyyy";
+    
+ 
 }
