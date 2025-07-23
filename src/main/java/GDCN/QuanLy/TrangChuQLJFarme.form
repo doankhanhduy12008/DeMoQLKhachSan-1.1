@@ -1275,7 +1275,7 @@
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="cboPTrangThai"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Ph&#xf2;ng &#x110;ang &#x110;&#x1b0;&#x1ee3;c Thu&#xea;"/>
+                        <Property name="text" type="java.lang.String" value="Ph&#xf2;ng S&#x1eed; D&#x1ee5;ng"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdoPPhongDuocThueActionPerformed"/>

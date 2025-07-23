@@ -75,6 +75,16 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             cboLoaiPhongActionPerformed(evt);
         }
     });
+         cboTang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTangActionPerformed(evt);
+            }
+        });
+        cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTrangThaiActionPerformed(evt);
+            }
+        });
     }
 
     int chieungang = 305;
@@ -150,9 +160,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jPanel4 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         pnlPhong = new javax.swing.JPanel();
-        txtTimKiemP = new javax.swing.JTextField();
-        btnTimKiemP = new javax.swing.JToggleButton();
         cboLoaiPhong = new javax.swing.JComboBox<>();
+        cboTang = new javax.swing.JComboBox<>();
+        cboTrangThai = new javax.swing.JComboBox<>();
         jpnDMK = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtTenDN = new javax.swing.JTextField();
@@ -464,9 +474,26 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         pnlPhong.setLayout(new java.awt.GridLayout(0, 6, 5, 5));
         jScrollPane6.setViewportView(pnlPhong);
 
-        btnTimKiemP.setText("Tìm kiếm");
-
         cboLoaiPhong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboLoaiPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboLoaiPhongActionPerformed(evt);
+            }
+        });
+
+        cboTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTangActionPerformed(evt);
+            }
+        });
+
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTrangThaiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -476,20 +503,20 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTimKiemP)
                 .addGap(18, 18, 18)
-                .addComponent(txtTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addComponent(cboTang, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 508, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiemP)
-                    .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1068,7 +1095,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel15.setText("Số cmt/hộ chiếu:");
+        jLabel15.setText("Số cmt:");
 
         btnLoc.setBackground(new java.awt.Color(204, 204, 204));
         btnLoc.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1815,6 +1842,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         txtTenKH.setEnabled(false);
         txtSocmt.setEnabled(false);
         txtSDT.setEnabled(false);
+       
+        btmThemKHDP.setEnabled(false);
     }//GEN-LAST:event_btnKHCuActionPerformed
 
     private void btmThemKHDPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btmThemKHDPMouseClicked
@@ -1824,6 +1853,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void btmThemKHDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmThemKHDPActionPerformed
         // TODO add your handling code here:
         btnTaoMoiKHDP();
+        
     }//GEN-LAST:event_btmThemKHDPActionPerformed
 
     private void btnKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKHMouseClicked
@@ -1865,6 +1895,21 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void txtCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCheckInActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCheckInActionPerformed
+
+    private void cboTangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTangActionPerformed
+        // TODO add your handling code here:
+        filterRooms();
+    }//GEN-LAST:event_cboTangActionPerformed
+
+    private void cboTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrangThaiActionPerformed
+        // TODO add your handling code here:
+        filterRooms();
+    }//GEN-LAST:event_cboTrangThaiActionPerformed
+
+    private void cboLoaiPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLoaiPhongActionPerformed
+        // TODO add your handling code here:
+        filterRooms();
+    }//GEN-LAST:event_cboLoaiPhongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1926,7 +1971,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnThemDV;
     private javax.swing.JButton btnThemP;
     private javax.swing.JButton btnTimKiemCMT;
-    private javax.swing.JToggleButton btnTimKiemP;
     private javax.swing.JButton btnTimKiemSDT;
     private javax.swing.JLabel btnTrangChu;
     private javax.swing.JLabel btnXemLS;
@@ -1935,6 +1979,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnXoaMCDCDV;
     private javax.swing.JButton btnXoaMCDCP;
     private javax.swing.JComboBox<String> cboLoaiPhong;
+    private javax.swing.JComboBox<String> cboTang;
+    private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1998,7 +2044,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JTextField txtTenKH;
     private javax.swing.JTextField txtTenKHT;
     private javax.swing.JTextField txtTienTong;
-    private javax.swing.JTextField txtTimKiemP;
     private javax.swing.JTextField txtTimSCMT;
     private javax.swing.JTextField txtTimSDT;
     private javax.swing.JTextField txtTimTheoNgayBD;
@@ -2013,6 +2058,9 @@ public void open() {
     this.fillTableKhachHang();
     loadAllRoomsToPanel();
     fillComboBoxLoaiPhong();
+     fillComboBoxTang(); // Thêm dòng này để điền dữ liệu cho cboTang
+    fillComboBoxTrangThai(); // Thêm dòng này để điền dữ liệu cho cboTrangThai
+    filterRooms(); // Gọi phương thức lọc để hiển thị phòng ban đầu
     pnlPhong.setLayout(new java.awt.GridLayout(6, 1, 50, 5));
 }
 
@@ -2304,6 +2352,8 @@ KhachHang getFormKHDP() {
         txtTenKH.setEnabled(false);
         txtSocmt.setEnabled(false);
         txtSDT.setEnabled(false);
+        btnKHCu.setEnabled(false);
+        btmThemKHDP.setEnabled(false);
     } catch (Exception e) {
         XDialog.alert("Thêm mới khách hàng thất bại!");
         e.printStackTrace();
@@ -2453,7 +2503,7 @@ private JButton createRoomButton(Phong p) {
     } else if ("Đang sử dụng".equals(p.getTrangThai())) {
         btn.setBackground(Color.RED);
         btn.addActionListener(e -> XDialog.alert("Phòng này đã có người thuê, vui lòng chọn phòng khác!"));
-    } else if ("Đang dọn".equals(p.getTrangThai())) {
+    } else if ("Đang dọn dẹp".equals(p.getTrangThai())) {
         btn.setBackground(Color.YELLOW);
         btn.addActionListener(e -> XDialog.alert("Phòng này đang được dọn dẹp!"));
     } else {
@@ -2479,6 +2529,87 @@ private void fillComboBoxLoaiPhong() {
         XDialog.alert("Lỗi truy vấn dữ liệu loại phòng!");
     }
 }
+private void fillComboBoxTang() {
+    DefaultComboBoxModel model = (DefaultComboBoxModel) cboTang.getModel();
+    model.removeAllElements();
+    model.addElement("Tất cả"); // Thêm mục để hiển thị tất cả các tầng
+    try {
+        PhongDao phongDao = new PhongDaoImpl();
+        List<Phong> list = phongDao.findAll();
+        Set<Integer> uniqueTangs = new HashSet<>();
+        for (Phong p : list) {
+            uniqueTangs.add(p.getTang());
+        }
+        List<Integer> sortedTangs = new ArrayList<>(uniqueTangs);
+        sortedTangs.sort(null); // Sắp xếp theo thứ tự tăng dần
+        for (Integer tang : sortedTangs) {
+            model.addElement(tang);
+        }
+    } catch (Exception e) {
+        XDialog.alert("Lỗi truy vấn dữ liệu tầng!");
+        e.printStackTrace();
+    }
+}
+
+// Thêm phương thức này vào trong lớp TrangChuTT
+private void fillComboBoxTrangThai() {
+    DefaultComboBoxModel model = (DefaultComboBoxModel) cboTrangThai.getModel();
+    model.removeAllElements();
+    model.addElement("Tất cả"); // Thêm mục để hiển thị tất cả các trạng thái
+    try {
+        PhongDao phongDao = new PhongDaoImpl();
+        List<Phong> list = phongDao.findAll();
+        Set<String> uniqueTrangThais = new HashSet<>();
+        for (Phong p : list) {
+            uniqueTrangThais.add(p.getTrangThai());
+        }
+        List<String> sortedTrangThais = new ArrayList<>(uniqueTrangThais);
+        sortedTrangThais.sort(null); // Sắp xếp theo thứ tự bảng chữ cái
+        for (String trangThai : sortedTrangThais) {
+            model.addElement(trangThai);
+        }
+    } catch (Exception e) {
+        XDialog.alert("Lỗi truy vấn dữ liệu trạng thái!");
+        e.printStackTrace();
+    }
+}
+
+private void filterRooms() {
+    pnlPhong.removeAll();
+    PhongDao phongDao = new PhongDaoImpl();
+    List<Phong> filteredRooms = new ArrayList<>();
+
+    // Lấy tất cả phòng từ database
+    List<Phong> allRooms = phongDao.findAll();
+
+    // Lấy các giá trị được chọn từ combobox
+    Object selectedLoaiPhong = cboLoaiPhong.getSelectedItem();
+    Object selectedTang = cboTang.getSelectedItem();
+    Object selectedTrangThai = cboTrangThai.getSelectedItem();
+
+    // Lọc danh sách phòng
+    for (Phong p : allRooms) {
+        boolean matchesLoaiPhong = (selectedLoaiPhong == null || selectedLoaiPhong.toString().equals("Tất cả") || 
+                                    (selectedLoaiPhong instanceof LoaiPhong && ((LoaiPhong) selectedLoaiPhong).getId() == p.getIdLoaiPhong()));
+        boolean matchesTang = (selectedTang == null || selectedTang.toString().equals("Tất cả") || 
+                               (selectedTang instanceof Integer && ((Integer) selectedTang) == p.getTang()));
+        boolean matchesTrangThai = (selectedTrangThai == null || selectedTrangThai.toString().equals("Tất cả") || 
+                                    p.getTrangThai().equals(selectedTrangThai.toString()));
+
+        if (matchesLoaiPhong && matchesTang && matchesTrangThai) {
+            filteredRooms.add(p);
+        }
+    }
+
+    // Thêm các nút phòng đã lọc vào panel
+    for (Phong p : filteredRooms) {
+        JButton btn = createRoomButton(p);
+        pnlPhong.add(btn);
+    }
+
+    pnlPhong.revalidate();
+    pnlPhong.repaint();
+}
 
 
 // Thêm phương thức này để lọc phòng theo loại phòng
@@ -2497,18 +2628,7 @@ private void loadRoomsByLoaiPhong(int idLoaiPhong) {
 
 
 // Thêm phương thức xử lý sự kiện cboLoaiPhongActionPerformed
-private void cboLoaiPhongActionPerformed(java.awt.event.ActionEvent evt) {
-    Object selectedItem = cboLoaiPhong.getSelectedItem();
-    if (selectedItem == null) {
-        return;
-    }
-    if (selectedItem.toString().equals("Tất cả")) {
-        loadAllRoomsToPanel();
-    } else {
-        LoaiPhong selectedLoaiPhong = (LoaiPhong) selectedItem;
-        loadRoomsByLoaiPhong(selectedLoaiPhong.getId());
-    }
-}
+
 //===Thêm Dịch Vụ===
 public void addOrUpdateDichVu(DichVu dichVu, int soLuong) {
     DefaultTableModel model = (DefaultTableModel) tabDichVu.getModel();
@@ -2778,13 +2898,27 @@ void fillTableLichSu() {
             List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
 
             if (kh != null && !cttpList.isEmpty()) {
-                ChiTietThuePhong cttp = cttpList.get(0); // Lấy chi tiết đầu tiên để hiển thị ngày
+                StringBuilder roomNumbers = new StringBuilder();
+                PhongDao phongDao = new PhongDaoImpl();
+                // Lặp qua tất cả các chi tiết thuê phòng để lấy số phòng
+                for (int i = 0; i < cttpList.size(); i++) {
+                    ChiTietThuePhong currentCtp = cttpList.get(i);
+                    Phong phong = phongDao.findById(currentCtp.getIdPhong());
+                    if (phong != null) {
+                        roomNumbers.append(phong.getSoPhong());
+                        // Thêm dấu phẩy nếu không phải là phòng cuối cùng
+                        if (i < cttpList.size() - 1) {
+                            roomNumbers.append("trúc,");
+                        }
+                    }
+                }
+
+                ChiTietThuePhong firstCtp = cttpList.get(0); // Vẫn cần cái này cho ngày check-in/out
                 Object[] row = {
-                    // Bạn có thểปรับđể hiển thị nhiều phòng nếu muốn
-                    cttpDao.findByIdHoaDon(hd.getId()).get(0).getIdPhong(), 
+                    roomNumbers.toString(), // Hiển thị chuỗi số phòng đã nối
                     kh.getHoTen(),
-                    XDate.format(cttp.getThoiGianNhanPhong()),
-                    cttp.getThoiGianTraPhong() != null ? XDate.format(cttp.getThoiGianTraPhong()) : "Chưa trả",
+                    XDate.format(firstCtp.getThoiGianNhanPhong()),
+                    firstCtp.getThoiGianTraPhong() != null ? XDate.format(firstCtp.getThoiGianTraPhong()) : "Chưa trả",
                     hd.getTongTien(),
                     false
                 };
@@ -2889,9 +3023,9 @@ void hienThiChiTietHoaDon(HoaDon hd) {
         // Bật các nút thêm/xóa phòng/dịch vụ và bảng cho trạng thái "Đang sử dụng" (nếu cho phép sửa đổi khi đang sử dụng)
         // Nếu không muốn cho phép thêm/xóa khi đang sử dụng, hãy đặt thành false.
         btnThemP.setEnabled(true);
-        btnXoaMCDCP.setEnabled(true);
+        btnXoaMCDCP.setEnabled(false);
         btnThemDV.setEnabled(true);
-        btnXoaMCDCDV.setEnabled(true);
+        btnXoaMCDCDV.setEnabled(false);
         tabPhong.setEnabled(true);
         tabDichVu.setEnabled(true);
 
@@ -2990,7 +3124,7 @@ void checkOut() {
             cttpDao.update(cttp);
             Phong phong = phongDao.findById(cttp.getIdPhong());
             if (phong != null) {
-                phong.setTrangThai("Trống"); 
+                phong.setTrangThai("Đang dọn dẹp"); 
                 phongDao.update(phong);
             }
         }

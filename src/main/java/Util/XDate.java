@@ -3,6 +3,8 @@ package Util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class XDate {
 
@@ -44,5 +46,19 @@ public class XDate {
         Date date = XDate.parse("Jan 21, 2024", "MMM dd, yyyy");
         String text = XDate.format(date, "dd-MMM-yyyy");
         System.out.println(text); // => 21-Jan-2024
+    }
+    
+    public static Date removeTime(Date date) {
+        if (date == null) {
+            return null;
+        }
+        try {
+            // Định dạng chỉ lấy ngày, tháng, năm
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            return sdf.parse(sdf.format(date));
+        } catch (ParseException ex) {
+            Logger.getLogger(XDate.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }

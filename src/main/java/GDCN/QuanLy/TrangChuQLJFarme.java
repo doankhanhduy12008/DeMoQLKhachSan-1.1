@@ -827,7 +827,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         rdoPPhongTrong.setText("Phòng Trống");
 
         cboPTrangThai.add(rdoPPhongDuocThue);
-        rdoPPhongDuocThue.setText("Phòng Đang Được Thuê");
+        rdoPPhongDuocThue.setText("Phòng Sử Dụng");
         rdoPPhongDuocThue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdoPPhongDuocThueActionPerformed(evt);
@@ -2648,7 +2648,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         String trangThai = "Trống";
         if (rdoPPhongDuocThue.isSelected()) {
-            trangThai = "Đang thuê";
+            trangThai = "Đang sử dụng";
         } else if (rdoPPhongSua1.isSelected()) {
             trangThai = "Đang sửa chữa";
         } else if (rdoPPhongDonDep.isSelected()){
@@ -2725,7 +2725,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         String trangThai = entity.getTrangThai() != null ? entity.getTrangThai() : "Trống";
         switch (trangThai) {
-            case "Đang thuê" -> rdoPPhongDuocThue.setSelected(true);
+            case "Đang sử dụng" -> rdoPPhongDuocThue.setSelected(true);
             case "Đang sửa chữa" -> rdoPPhongSua1.setSelected(true);
             case "Đang dọn dẹp" -> rdoPPhongDonDep.setSelected(true);
             default -> rdoPPhongTrong.setSelected(true);
