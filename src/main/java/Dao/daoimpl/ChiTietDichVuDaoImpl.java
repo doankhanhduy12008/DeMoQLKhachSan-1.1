@@ -46,10 +46,11 @@ public class ChiTietDichVuDaoImpl implements ChiTietDichVuDao {
         String sql = "SELECT * FROM ChiTietDichVu WHERE IdHoaDon = ?";
         return XQuery.getBeanList(ChiTietDichVu.class, sql, idHoaDon);
     }
-    
+
     @Override
     public void deleteByIdNguoiDungThem(String idNguoiDungThem) {
         String sql = "DELETE FROM ChiTietDichVu WHERE IdNguoiDungThem = ?";
         XJdbc.executeUpdate(sql, idNguoiDungThem);
     }
+
 }
