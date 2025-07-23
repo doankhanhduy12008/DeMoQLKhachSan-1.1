@@ -1210,6 +1210,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         bntNVSua.setBackground(new java.awt.Color(204, 204, 204));
         bntNVSua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bntNVSua.setText("Sửa");
+        bntNVSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntNVSuaActionPerformed(evt);
+            }
+        });
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -2269,6 +2274,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         xoaNguoiDung();
     }//GEN-LAST:event_bntNVXoaActionPerformed
 
+    private void bntNVSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVSuaActionPerformed
+
+        capNguoiDung();
+    }//GEN-LAST:event_bntNVSuaActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -2906,7 +2916,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private String selectedLocalImagePath = null; // Lưu đường dẫn tạm thời của ảnh đã chọn từ máy tính
     private NguoiDungDao NVdao = new NguoiDungDaoImpl();
     private List<NguoiDung> NVitems;
-    private DefaultTableModel modelNV; // Khai báo cho bảng nhân viên
+    private DefaultTableModel modelNV;
     private boolean isClearingForm = false;
     
     String folder = "images";
@@ -3135,25 +3145,21 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         String currentUsername = txtNVTenDangNhap.getText(); 
         updatedNguoiDung.setUsername(currentUsername); // Đảm bảo cập nhật đúng người dùng
 
-        // Lấy tên ảnh hiện tại từ DB của người dùng này để giữ lại nếu không có ảnh mới
+        // Lấy thông tin người dùng gốc từ DB để giữ lại tên ảnh cũ nếu không chọn ảnh mới
         NguoiDung originalUser = NVdao.findById(currentUsername);
         String oldImageFileName = (originalUser != null) ? originalUser.getAnh() : null;
 
         try {
             // Nếu có ảnh mới được chọn từ máy tính
             if (selectedLocalImagePath != null) {
-                String fileNameToSave = oldImageFileName; // Mặc định giữ tên ảnh cũ
-                if (fileNameToSave == null || fileNameToSave.isEmpty()) {
-                    // Nếu người dùng chưa có ảnh, tạo tên mới bằng XStr.getKey()
-                    fileNameToSave = XStr.getKey(); 
-                }
-                updatedNguoiDung.setAnh(fileNameToSave); // Gán tên ảnh mới/cũ cho đối tượng cập nhật
+                String fileNameToSave = XStr.getKey() + ".jpg"; // Tạo tên file mới
+                updatedNguoiDung.setAnh(fileNameToSave); // Gán tên ảnh mới cho đối tượng cập nhật
 
                 // Sao chép ảnh mới vào thư mục
                 Path source = Paths.get(selectedLocalImagePath);
                 Path destination = Paths.get(this.folder, fileNameToSave);
                 Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-                selectedLocalImagePath = null; // Reset
+                selectedLocalImagePath = null; // Reset đường dẫn tạm thời sau khi lưu
             } else {
                 // Nếu không chọn ảnh mới, giữ nguyên tên ảnh cũ từ DB
                 updatedNguoiDung.setAnh(oldImageFileName);
@@ -3302,19 +3308,21 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     void chonAnhNV(){
         if(ChonAnh.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
             File selectedFile = ChonAnh.getSelectedFile();
-            selectedLocalImagePath = selectedFile.getAbsolutePath(); // Lưu đường dẫn tạm thời
+            selectedLocalImagePath = selectedFile.getAbsolutePath(); // Lưu đường dẫn tuyệt đối của ảnh đã chọn
 
             // Hiển thị ảnh tạm thời lên JLabel để người dùng xem trước
             try {
                 ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
                 Image image = imageIcon.getImage();
+                // Scale ảnh để vừa với JLabel
                 Image scaledImage = image.getScaledInstance(NVAnh.getWidth(), NVAnh.getHeight(), Image.SCALE_SMOOTH);
                 NVAnh.setIcon(new ImageIcon(scaledImage));
-                NVAnh.setToolTipText(selectedFile.getName()); // Tooltip cho mục đích debug/hiển thị tạm
+                NVAnh.setToolTipText(selectedFile.getName()); // Tooltip hiển thị tên file
             } catch (Exception e) {
                 NVAnh.setIcon(null);
                 NVAnh.setText("Lỗi tải ảnh");
                 selectedLocalImagePath = null; // Reset nếu có lỗi
+                e.printStackTrace(); // In lỗi để debug
             }
         }
     }
