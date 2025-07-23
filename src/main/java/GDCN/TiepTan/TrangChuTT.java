@@ -4,6 +4,7 @@
  */
 package GDCN.TiepTan;
 
+import Dao.dao.ChiTietDichVuDao;
 import Dao.dao.ChiTietThuePhongDao;
 import Dao.dao.DatPhongDao;
 import Dao.dao.DichVuDao;
@@ -12,6 +13,7 @@ import Dao.dao.KhachHangDao;
 import Dao.dao.LoaiPhongDao;
 import Dao.dao.NguoiDungDao;
 import Dao.dao.PhongDao;
+import Dao.daoimpl.ChiTietDichVuDaoImpl;
 import Dao.daoimpl.ChiTietThuePhongDaoImpl;
 import Dao.daoimpl.DatPhongDaoImpl;
 import Dao.daoimpl.DichVuDaoImpl;
@@ -20,6 +22,7 @@ import Dao.daoimpl.KhachHangDaoImpl;
 import Dao.daoimpl.LoaiPhongDaoImpl;
 import Dao.daoimpl.NguoiDungDaoImpl;
 import Dao.daoimpl.PhongDaoImpl;
+import Dao.entity.ChiTietDichVu;
 import Dao.entity.ChiTietThuePhong;
 import Dao.entity.DatPhong;
 import Dao.entity.DichVu;
@@ -55,6 +58,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     /**
      * Creates new form TrangChuTT
      */
+    HoaDonDao hoaDonDao = new HoaDonDaoImpl();
+    List<HoaDon> danhSachHoaDon = new ArrayList<>();
     public TrangChuTT() {
         initComponents();
         openFullScreen();
@@ -168,7 +173,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jScrollPane2 = new javax.swing.JScrollPane();
         tabDichVu = new javax.swing.JTable();
         btnCheckOut = new javax.swing.JButton();
-        btnLamMoiDP = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnThemP = new javax.swing.JButton();
         btnXoaMCDCP = new javax.swing.JButton();
@@ -645,6 +649,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         btnCheckIn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCheckIn.setText("Check in");
         btnCheckIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnCheckIn.setEnabled(false);
         btnCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckInActionPerformed(evt);
@@ -703,19 +708,10 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         btnCheckOut.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCheckOut.setText("Check out");
         btnCheckOut.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnCheckOut.setEnabled(false);
         btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckOutActionPerformed(evt);
-            }
-        });
-
-        btnLamMoiDP.setBackground(new java.awt.Color(204, 204, 204));
-        btnLamMoiDP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnLamMoiDP.setText("Làm mới");
-        btnLamMoiDP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnLamMoiDP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLamMoiDPActionPerformed(evt);
             }
         });
 
@@ -968,8 +964,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnLamMoiDP, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btnLuuDP, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1037,7 +1031,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLamMoiDP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuuDP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
@@ -1068,6 +1061,11 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tabLS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabLSMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(tabLS);
@@ -1566,6 +1564,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDatPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatPMouseClicked
         // TODO add your handling code here:
+        lamMoiFormDatPhong();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1594,6 +1593,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        fillTableLichSu(); 
     }//GEN-LAST:event_btnXemLSMouseClicked
 
     private void OpenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OpenMouseClicked
@@ -1624,17 +1624,13 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
         // TODO add your handling code here:
-       
+        checkIn();
     }//GEN-LAST:event_btnCheckInActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
+        checkOut();
     }//GEN-LAST:event_btnCheckOutActionPerformed
-
-    private void btnLamMoiDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiDPActionPerformed
-        // TODO add your handling code here:
-        lamMoiDuLieuDP();
-    }//GEN-LAST:event_btnLamMoiDPActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
@@ -1753,6 +1749,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDatP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatP1MouseClicked
         // TODO add your handling code here:
+        lamMoiFormDatPhong();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1769,6 +1766,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnXemLS1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLS1MouseClicked
         // TODO add your handling code here:
+        
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1781,6 +1779,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        fillTableLichSu(); 
     }//GEN-LAST:event_btnXemLS1MouseClicked
 
     private void txtTenKHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenKHTActionPerformed
@@ -1880,7 +1879,28 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void btnLuuDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuDPActionPerformed
         // TODO add your handling code here:
         LuuCheckDP();
+        lamMoiFormDatPhong();
+        btnCheckIn.setEnabled(true);
+        btnCheckOut.setEnabled(true);
     }//GEN-LAST:event_btnLuuDPActionPerformed
+
+    private void tabLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabLSMouseClicked
+        // TODO add your handling code here:
+         if (evt.getClickCount() == 2) { // Kiểm tra nhấp đúp
+        int row = tabLS.getSelectedRow();
+        if (row >= 0) {
+            HoaDon selectedHD = danhSachHoaDon.get(row);
+            hienThiChiTietHoaDon(selectedHD);
+
+            // Chuyển sang tab Đặt phòng
+            jpnXemLS.setVisible(false);
+            jpnTDXemLS.setVisible(false);
+            jpnDatP.setVisible(true);
+            jpnTDDatP.setVisible(true);
+            jpnChonPhong.setVisible(false); // Ẩn panel chọn phòng
+        }
+    }
+    }//GEN-LAST:event_tabLSMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1934,7 +1954,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JLabel btnKH;
     private javax.swing.JButton btnKHCu;
     private javax.swing.JButton btnLamMSDMK;
-    private javax.swing.JButton btnLamMoiDP;
     private javax.swing.JButton btnLamMoiKH;
     private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnLuuDP;
@@ -2630,7 +2649,7 @@ void LuuCheckDP() {
         hd.setIdDatPhong(datPhongMoi.getId());
         hd.setNgayLap(new Date());
         hd.setTongTien(Double.parseDouble(txtTienTong.getText()));
-        hd.setTrangThai("Chưa thanh toán");
+        hd.setTrangThai("Đã đặt");
         HoaDon hoaDonMoi = hdDao.create(hd);
 
         // 7. Tạo Chi tiết thuê phòng cho mỗi phòng đã chọn
@@ -2654,8 +2673,41 @@ void LuuCheckDP() {
                 phongDao.update(phong);
             }
         }
+     ChiTietDichVuDao ctdvDao = new ChiTietDichVuDaoImpl();
+        DichVuDao dvDao = new DichVuDaoImpl(); 
 
-        XDialog.alert("Check-in thành công!");
+        DefaultTableModel dichVuModel = (DefaultTableModel) tabDichVu.getModel();
+        List<DichVu> allDichVu = dvDao.findAll(); // Lấy tất cả dịch vụ
+
+        for (int i = 0; i < dichVuModel.getRowCount(); i++) {
+            String tenDichVu = dichVuModel.getValueAt(i, 0).toString();
+            int soLuong = (int) dichVuModel.getValueAt(i, 1);
+            double tongTienDichVuItem = (double) dichVuModel.getValueAt(i, 2);
+
+            DichVu foundDichVu = null;
+            // Tìm kiếm dịch vụ trong danh sách tất cả dịch vụ
+            for (DichVu dv : allDichVu) {
+                if (dv.getTenDichVu().equals(tenDichVu)) {
+                    foundDichVu = dv;
+                    break;
+                }
+            }
+                                                              
+            if (foundDichVu != null) {
+                ChiTietDichVu ctdv = new ChiTietDichVu();
+                ctdv.setIdHoaDon(hoaDonMoi.getId());
+                ctdv.setIdDichVu(foundDichVu.getId());
+                ctdv.setSoLuong(soLuong);
+                ctdv.setTongTien(tongTienDichVuItem);
+                ctdv.setThoiGian(new Date()); 
+                ctdv.setIdNguoiDungThem(XAuth.user.getUsername()); // THÊM DÒNG NÀY ĐỂ GÁN ID NGƯỜI DÙNG
+                ctdvDao.create(ctdv);
+            } else {
+                System.err.println("Dịch vụ với tên '" + tenDichVu + "' không tìm thấy trong cơ sở dữ liệu.");
+            }
+        }
+
+        XDialog.alert("Lưu thành công!");
         lamMoiFormDatPhong(); // Làm mới giao diện
         loadAllRoomsToPanel(); // Tải lại danh sách phòng
 
@@ -2674,14 +2726,32 @@ private void lamMoiFormDatPhong() {
     txtCheckOut.setText("");
     txtTrangThai.setText("");
     txtTienTong.setText("0");
+    btmThemKHDP.setEnabled(true);
+    btnKHCu.setEnabled(true);
+    btnLuuDP.setEnabled(true);
+    btnSua.setEnabled(false);
 
+    // Bật các trường thông tin khách hàng cho đặt phòng mới
+    txtTenKH.setEnabled(true);
+    txtSocmt.setEnabled(true);
+    txtSDT.setEnabled(true);
+
+    // Bật các trường ngày Check-in cho đặt phòng mới
+    txtCheckInNgay.setEnabled(true);
+    txtCheckInThang.setEnabled(true);
+    txtCheckInNam.setEnabled(true);
+
+    btnCheckIn.setEnabled(false);
+    btnCheckOut.setEnabled(false);
+    
     DefaultTableModel phongModel = (DefaultTableModel) tabPhong.getModel();
     phongModel.setRowCount(0);
 
     DefaultTableModel dichVuModel = (DefaultTableModel) tabDichVu.getModel();
     dichVuModel.setRowCount(0);
-}
 
+    this.currentHoaDon = null;
+}
 void lamMoiDuLieuDP(){
      txtTenKH.setText("");
     txtSocmt.setText("");
@@ -2689,6 +2759,257 @@ void lamMoiDuLieuDP(){
     txtCheckInNgay.setText("");
     txtCheckInThang.setText("");
     txtCheckInNam.setText("");
+}
+
+//===Lịch sử===
+void fillTableLichSu() {
+    DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
+    model.setRowCount(0);
+    try {
+        danhSachHoaDon = hoaDonDao.findAll(); // Lấy tất cả hóa đơn và lưu vào danh sách
+        KhachHangDao khDao = new KhachHangDaoImpl();
+        ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+
+        for (HoaDon hd : danhSachHoaDon) {
+            KhachHang kh = khDao.findById(hd.getIdKhachHang());
+            List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
+
+            if (kh != null && !cttpList.isEmpty()) {
+                ChiTietThuePhong cttp = cttpList.get(0); // Lấy chi tiết đầu tiên để hiển thị ngày
+                Object[] row = {
+                    // Bạn có thểปรับđể hiển thị nhiều phòng nếu muốn
+                    cttpDao.findByIdHoaDon(hd.getId()).get(0).getIdPhong(), 
+                    kh.getHoTen(),
+                    XDate.format(cttp.getThoiGianNhanPhong()),
+                    cttp.getThoiGianTraPhong() != null ? XDate.format(cttp.getThoiGianTraPhong()) : "Chưa trả",
+                    hd.getTongTien(),
+                    false
+                };
+                model.addRow(row);
+            }
+        }
+    } catch (Exception e) {
+        XDialog.alert("Lỗi truy vấn dữ liệu lịch sử!");
+        e.printStackTrace();
+    }
+}
+
+private HoaDon currentHoaDon;
+
+void hienThiChiTietHoaDon(HoaDon hd) {
+    this.currentHoaDon = hd; 
+    lamMoiFormDatPhong(); // Làm mới form trước khi hiển thị dữ liệu mới
+
+    // Lấy thông tin khách hàng và hiển thị
+    KhachHangDao khDao = new KhachHangDaoImpl();
+    KhachHang kh = khDao.findById(hd.getIdKhachHang());
+    if (kh != null) {
+        txtTenKH.setText(kh.getHoTen());
+        txtSocmt.setText(kh.getCmt());
+        txtSDT.setText(kh.getSdt());
+    }
+
+    // Lấy và hiển thị thông tin phòng đã thuê
+    ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+    PhongDao phongDao = new PhongDaoImpl();
+    List<ChiTietThuePhong> listPhongThue = cttpDao.findByIdHoaDon(hd.getId());
+
+    DefaultTableModel phongModel = (DefaultTableModel) tabPhong.getModel();
+    phongModel.setRowCount(0); 
+    for (ChiTietThuePhong cttp : listPhongThue) {
+        Phong phong = phongDao.findById(cttp.getIdPhong());
+        if (phong != null) {
+            phongModel.addRow(new Object[]{
+                phong.getSoPhong(),
+                phong.getGiaTien().doubleValue(),
+                false
+            });
+        }
+        if (cttp.getThoiGianNhanPhong() != null) {
+            txtCheckInNgay.setText(XDate.format(cttp.getThoiGianNhanPhong(), "dd"));
+            txtCheckInThang.setText(XDate.format(cttp.getThoiGianNhanPhong(), "MM"));
+            txtCheckInNam.setText(XDate.format(cttp.getThoiGianNhanPhong(), "yyyy"));
+        }
+        if (cttp.getThoiGianTraPhong() != null) {
+            txtCheckOut.setText(XDate.format(cttp.getThoiGianTraPhong()));
+        }
+    }
+
+    // Lấy và hiển thị thông tin dịch vụ đã sử dụng
+    ChiTietDichVuDao ctdvDao = new ChiTietDichVuDaoImpl();
+    DichVuDao dvDao = new DichVuDaoImpl();
+    List<ChiTietDichVu> listDichVu = ctdvDao.findByIdHoaDon(hd.getId());
+
+    DefaultTableModel dichVuModel = (DefaultTableModel) tabDichVu.getModel();
+    dichVuModel.setRowCount(0); 
+    for (ChiTietDichVu ctdv : listDichVu) {
+        DichVu dv = dvDao.findById(ctdv.getIdDichVu());
+        if (dv != null) {
+            dichVuModel.addRow(new Object[]{
+                dv.getTenDichVu(),
+                ctdv.getSoLuong(),
+                ctdv.getTongTien(),
+                false
+            });
+        }
+    }
+
+    txtTienTong.setText(String.valueOf(hd.getTongTien()));
+    txtTrangThai.setText(hd.getTrangThai());
+
+    // Điều khiển trạng thái của các nút và các trường ngày Check-in
+    btmThemKHDP.setEnabled(false);
+    btnKHCu.setEnabled(false);
+    btnLuuDP.setEnabled(false); 
+    btnSua.setEnabled(true);     
+
+    if ("Đã đặt".equals(hd.getTrangThai())) {
+        btnCheckIn.setEnabled(true);
+        btnCheckOut.setEnabled(false);
+        txtCheckOut.setText(""); 
+
+        // Bật các trường ngày Check-in cho trạng thái "Đã đặt"
+        txtCheckInNgay.setEnabled(true);
+        txtCheckInThang.setEnabled(true);
+        txtCheckInNam.setEnabled(true);
+
+        // Bật các nút thêm/xóa phòng/dịch vụ và bảng cho trạng thái "Đã đặt"
+        btnThemP.setEnabled(true);
+        btnXoaMCDCP.setEnabled(true);
+        btnThemDV.setEnabled(true);
+        btnXoaMCDCDV.setEnabled(true);
+        tabPhong.setEnabled(true);
+        tabDichVu.setEnabled(true);
+
+    } else if ("Đang sử dụng".equals(hd.getTrangThai())) {
+        btnCheckIn.setEnabled(false);
+        btnCheckOut.setEnabled(true);
+
+        // Tắt các trường ngày Check-in cho trạng thái "Đang sử dụng"
+        txtCheckInNgay.setEnabled(false);
+        txtCheckInThang.setEnabled(false);
+        txtCheckInNam.setEnabled(false);
+
+        // Bật các nút thêm/xóa phòng/dịch vụ và bảng cho trạng thái "Đang sử dụng" (nếu cho phép sửa đổi khi đang sử dụng)
+        // Nếu không muốn cho phép thêm/xóa khi đang sử dụng, hãy đặt thành false.
+        btnThemP.setEnabled(true);
+        btnXoaMCDCP.setEnabled(true);
+        btnThemDV.setEnabled(true);
+        btnXoaMCDCDV.setEnabled(true);
+        tabPhong.setEnabled(true);
+        tabDichVu.setEnabled(true);
+
+
+    } else { // Trạng thái "Hoàn thiện" hoặc các trạng thái khác
+        btnCheckIn.setEnabled(false);
+        btnCheckOut.setEnabled(false);
+        btnSua.setEnabled(false); // Vô hiệu hóa nút Sửa khi hóa đơn đã hoàn thiện
+        
+        // Tắt tất cả các nút thêm/xóa và bảng khi hóa đơn đã hoàn thiện
+        btnThemP.setEnabled(false);
+        btnXoaMCDCP.setEnabled(false);
+        btnThemDV.setEnabled(false);
+        btnXoaMCDCDV.setEnabled(false);
+        btnKHCu.setEnabled(false); // Vô hiệu hóa nút Khách hàng cũ
+        btmThemKHDP.setEnabled(false); // Vô hiệu hóa nút Thêm khách hàng mới
+        btnLuuDP.setEnabled(false); // Vô hiệu hóa nút Lưu
+
+        // Tắt các trường ngày Check-in
+        txtCheckInNgay.setEnabled(false);
+        txtCheckInThang.setEnabled(false);
+        txtCheckInNam.setEnabled(false);
+
+        // Vô hiệu hóa các bảng
+        tabPhong.setEnabled(false);
+        tabDichVu.setEnabled(false);
+    }
+
+    // Vô hiệu hóa các trường thông tin khách hàng khi xem hóa đơn đã tồn tại
+    // (Đoạn này đã có sẵn và đảm bảo các trường này bị tắt khi xem hóa đơn)
+    txtTenKH.setEnabled(false);
+    txtSocmt.setEnabled(false);
+    txtSDT.setEnabled(false);
+}
+//===Check in và check out===
+
+void checkIn() {
+
+
+    if (!"Đã đặt".equals(currentHoaDon.getTrangThai())) {
+        XDialog.alert("Hóa đơn này không ở trạng thái 'Đã đặt' để Check-in.");
+        return;
+    }
+
+    try {
+        // Cập nhật trạng thái Hóa đơn
+        currentHoaDon.setTrangThai("Đang sử dụng");
+        hoaDonDao.update(currentHoaDon);
+        
+        // Cập nhật trạng thái ChiTietThuePhong và Phong
+        ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+        PhongDao phongDao = new PhongDaoImpl();
+        List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(currentHoaDon.getId());
+
+        for (ChiTietThuePhong cttp : cttpList) {
+            // Cập nhật thời gian nhận phòng nếu chưa được đặt
+            if (cttp.getThoiGianNhanPhong() == null) {
+                 cttp.setThoiGianNhanPhong(new Date()); // Đặt thời gian hiện tại làm thời gian nhận phòng
+                 cttpDao.update(cttp);
+            }
+            
+            Phong phong = phongDao.findById(cttp.getIdPhong());
+            if (phong != null) {
+                phong.setTrangThai("Đang sử dụng");
+                phongDao.update(phong);
+            }
+        }
+
+        XDialog.alert("Check-in thành công cho hóa đơn ID: " + currentHoaDon.getId());
+        hienThiChiTietHoaDon(currentHoaDon); // Xóa form
+        fillTableLichSu(); // Cập nhật lại bảng lịch sử
+        loadAllRoomsToPanel(); // Cập nhật lại trạng thái phòng trên giao diện chính
+    } catch (Exception e) {
+        XDialog.alert("Lỗi khi thực hiện Check-in: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+void checkOut() {
+
+    if (!"Đang sử dụng".equals(currentHoaDon.getTrangThai())) {
+        XDialog.alert("Hóa đơn này không ở trạng thái 'Đang sử dụng' để Check-out.");
+        return;
+    }
+
+    try {
+        // Cập nhật trạng thái Hóa đơn thành "Hoàn thiện"
+        currentHoaDon.setTrangThai("Hoàn thiện");
+        currentHoaDon.setTongTien(Double.parseDouble(txtTienTong.getText())); 
+        hoaDonDao.update(currentHoaDon); // Lưu trạng thái mới vào DB
+
+        // Cập nhật thời gian trả phòng trong ChiTietThuePhong và trạng thái phòng
+        ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+        PhongDao phongDao = new PhongDaoImpl();
+        List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(currentHoaDon.getId());
+
+        for (ChiTietThuePhong cttp : cttpList) {
+            cttp.setThoiGianTraPhong(new Date()); 
+            cttpDao.update(cttp);
+            Phong phong = phongDao.findById(cttp.getIdPhong());
+            if (phong != null) {
+                phong.setTrangThai("Trống"); 
+                phongDao.update(phong);
+            }
+        }
+        
+        XDialog.alert("Check-out thành công cho hóa đơn ID: " + currentHoaDon.getId());
+        hienThiChiTietHoaDon(currentHoaDon); // Gọi lại để hiển thị dữ liệu đã cập nhật
+        fillTableLichSu(); // Cập nhật lại bảng lịch sử
+        loadAllRoomsToPanel(); // Cập nhật lại trạng thái phòng trên giao diện chính
+
+    } catch (Exception e) {
+        XDialog.alert("Lỗi khi thực hiện Check-out: " + e.getMessage());
+        e.printStackTrace();
+    }
 }
 }
 

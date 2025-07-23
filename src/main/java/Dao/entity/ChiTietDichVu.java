@@ -9,7 +9,7 @@ import java.util.Date;
 public class ChiTietDichVu {
     private int idHoaDon;
     private int idDichVu;
-    private int idNguoiDungThem;
+    private String idNguoiDungThem;
     private int soLuong;
     private double tongTien;
     private Date thoiGian;
@@ -17,7 +17,7 @@ public class ChiTietDichVu {
     public ChiTietDichVu() {
     }
 
-    public ChiTietDichVu(int idHoaDon, int idDichVu, int idNguoiDungThem, int soLuong, double tongTien, Date thoiGian) {
+    public ChiTietDichVu(int idHoaDon, int idDichVu, String idNguoiDungThem, int soLuong, double tongTien, Date thoiGian) {
         this.idHoaDon = idHoaDon;
         this.idDichVu = idDichVu;
         this.idNguoiDungThem = idNguoiDungThem;
@@ -26,6 +26,7 @@ public class ChiTietDichVu {
         this.thoiGian = thoiGian;
     }
 
+    
     public int getIdHoaDon() {
         return idHoaDon;
     }
@@ -42,11 +43,11 @@ public class ChiTietDichVu {
         this.idDichVu = idDichVu;
     }
 
-    public int getIdNguoiDungThem() {
+    public String getIdNguoiDungThem() {
         return idNguoiDungThem;
     }
 
-    public void setIdNguoiDungThem(int idNguoiDungThem) {
+    public void setIdNguoiDungThem(String idNguoiDungThem) {
         this.idNguoiDungThem = idNguoiDungThem;
     }
 
@@ -73,4 +74,6 @@ public class ChiTietDichVu {
     public void setThoiGian(Date thoiGian) {
         this.thoiGian = thoiGian;
     }
+
+    
 }
