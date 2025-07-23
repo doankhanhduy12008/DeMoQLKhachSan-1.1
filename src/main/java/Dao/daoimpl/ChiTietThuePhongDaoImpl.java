@@ -17,8 +17,9 @@ public class ChiTietThuePhongDaoImpl implements ChiTietThuePhongDao {
 
     @Override
     public void update(ChiTietThuePhong entity) {
-        String sql = "UPDATE ChiTietThuePhong SET IdPhong = ?, ThoiGianNhanPhong = ?, ThoiGianTraPhong = ? WHERE IdHoaDon = ?";
-        XJdbc.executeUpdate(sql, entity.getIdPhong(), entity.getThoiGianNhanPhong(), entity.getThoiGianTraPhong(), entity.getIdHoaDon());
+        // Sửa đổi câu lệnh UPDATE để sử dụng cả IdHoaDon và IdPhong trong mệnh đề WHERE
+        String sql = "UPDATE ChiTietThuePhong SET ThoiGianNhanPhong = ?, ThoiGianTraPhong = ? WHERE IdHoaDon = ? AND IdPhong = ?";
+        XJdbc.executeUpdate(sql, entity.getThoiGianNhanPhong(), entity.getThoiGianTraPhong(), entity.getIdHoaDon(), entity.getIdPhong());
     }
 
     @Override
@@ -35,6 +36,7 @@ public class ChiTietThuePhongDaoImpl implements ChiTietThuePhongDao {
 
     @Override
     public ChiTietThuePhong findById(Integer id) {
+        // Lưu ý: findById chỉ tìm theo IdHoaDon, có thể cần một phương thức findByCompoundId nếu khóa chính là composite
         String sql = "SELECT * FROM ChiTietThuePhong WHERE IdHoaDon = ?";
         return XQuery.getSingleBean(ChiTietThuePhong.class, sql, id);
     }

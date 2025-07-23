@@ -40,6 +40,7 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -2013,13 +2015,41 @@ public void open() {
     fillComboBoxLoaiPhong();
     pnlPhong.setLayout(new java.awt.GridLayout(6, 1, 50, 5));
 }
+
+        String folder = "images";
+    Consumer<File> fileChanged;
+
+    public String getFolder() {
+        return folder;
+    }
+
+    public void setFolder(String folder) {
+        this.folder = folder;
+    }
+    
+    public void setIcon(String icon) {
+        Anh.setText("");
+        Anh.setToolTipText(icon);
+        XIcon.setIcon(Anh, new File(this.folder, icon));
+    }
+     
+    public String getIcon() {
+        return Anh.getToolTipText();
+    }
+    
 @Override
 public void anh(){
-    this.setIconImage(XIcon.getIcon("trump-small.png").getImage());
-    this.setLocationRelativeTo(null);
-    
-    XIcon.setIcon(Anh, "photos/" + XAuth.user.getAnh());
-    txtTen.setText(XAuth.user.getHoVaTen());
+    this.setIconImage(XIcon.getIcon("Logo.png").getImage());
+    if (XAuth.user != null) {
+            txtTen.setText(XAuth.user.getHoVaTen());
+            // Đảm bảo ảnh của người dùng đang đăng nhập cũng được tải đúng cách
+            // Giả sử ảnh của user đăng nhập cũng nằm trong folder "images"
+            if (XAuth.user.getAnh() != null && !XAuth.user.getAnh().isEmpty()) {
+                XIcon.setIcon(Anh, new File(folder, XAuth.user.getAnh()));
+            } else {
+                XIcon.setIcon(Anh, "/Icon/Logo.png"); // Ảnh mặc định nếu không có
+            }
+        }
 }
 
     public NguoiDung getForm() {
