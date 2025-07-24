@@ -708,9 +708,16 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Double.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tabPhong);
@@ -726,9 +733,16 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(tabDichVu);
@@ -1052,9 +1066,16 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tabLS.addMouseListener(new java.awt.event.MouseAdapter() {
