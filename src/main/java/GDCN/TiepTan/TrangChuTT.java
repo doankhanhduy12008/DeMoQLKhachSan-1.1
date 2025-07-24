@@ -2908,7 +2908,7 @@ void fillTableLichSu() {
                         roomNumbers.append(phong.getSoPhong());
                         // Thêm dấu phẩy nếu không phải là phòng cuối cùng
                         if (i < cttpList.size() - 1) {
-                            roomNumbers.append("trúc,");
+                            roomNumbers.append(",");
                         }
                     }
                 }
