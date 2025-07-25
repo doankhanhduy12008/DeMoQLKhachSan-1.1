@@ -2170,6 +2170,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+         pnlChat.setVisible(false);
         this.laytblLoaiphong();
     }//GEN-LAST:event_bntQLLoaiPhongMouseClicked
 
@@ -2187,6 +2188,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+         pnlChat.setVisible(false);
         this.laytblPhong();
         this.fillLoaiPhongToCbo();
         this.laytblPhong();
@@ -2206,6 +2208,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+         pnlChat.setVisible(false);
         laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVienMouseClicked
 
@@ -2223,6 +2226,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(true);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+         pnlChat.setVisible(false);
         fillTablePhong();
         fillTableDTTiepTan();
     }//GEN-LAST:event_bntQLDoanhThuMouseClicked
@@ -2241,6 +2245,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(true);
         pnlQLDichVu.setVisible(true);
+         pnlChat.setVisible(false);
         laytblDichVu();
     }//GEN-LAST:event_bntQLDichVuMouseClicked
 
@@ -2356,6 +2361,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         Open.setVisible(true);
+         pnlChat.setVisible(false);
         laytblLoaiphong();
     }//GEN-LAST:event_bntQLLoaiPhong1MouseClicked
 
@@ -2373,6 +2379,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         Open.setVisible(true);
+         pnlChat.setVisible(false);
         laytblPhong();
         fillLoaiPhongToCbo();
         laytblPhong();
@@ -2392,6 +2399,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         Open.setVisible(true);
+         pnlChat.setVisible(false);
         laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVien1MouseClicked
 
@@ -2409,6 +2417,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         Open.setVisible(true);
+         pnlChat.setVisible(false);
         fillTablePhong();
         fillTableDTTiepTan();
     }//GEN-LAST:event_bntQLDoanhThu1MouseClicked
@@ -2427,6 +2436,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(true);
         pnlQLDichVu.setVisible(true);
         Open.setVisible(true);
+         pnlChat.setVisible(false);
         laytblDichVu();
     }//GEN-LAST:event_bntQLDichVu1MouseClicked
 
