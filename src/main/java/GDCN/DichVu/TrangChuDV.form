@@ -116,7 +116,7 @@
                               <Component id="jLabel1" min="-2" pref="44" max="-2" attributes="0"/>
                           </Group>
                           <Component id="btnDangXuat" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnTrangChu" alignment="0" pref="291" max="32767" attributes="0"/>
+                          <Component id="btnTrangChu" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnDichV" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnDoiMK" alignment="0" max="32767" attributes="0"/>
                           <Component id="bntChat" alignment="1" max="32767" attributes="0"/>
@@ -136,7 +136,7 @@
                       <Component id="btnDichV" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="bntChat" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="402" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnDoiMK" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnDangXuat" min="-2" max="-2" attributes="0"/>

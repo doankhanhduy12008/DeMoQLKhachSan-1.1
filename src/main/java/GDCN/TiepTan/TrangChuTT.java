@@ -1630,6 +1630,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnTrangChuMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -1651,6 +1652,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnDoiMKMouseClicked
 
     private void btnDatPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatPMouseClicked
@@ -1668,6 +1670,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(true);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnDatPMouseClicked
 
     private void btnXemLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLSMouseClicked
@@ -1684,6 +1687,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
         fillTableLichSu(); 
     }//GEN-LAST:event_btnXemLSMouseClicked
 
@@ -1860,6 +1864,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(true);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnDatP1MouseClicked
 
     private void btnXemLS1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLS1MouseClicked
@@ -1877,6 +1882,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
         fillTableLichSu(); 
     }//GEN-LAST:event_btnXemLS1MouseClicked
 
@@ -1967,6 +1973,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(true);
         jpnTDKhachHang.setVisible(true);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnKHMouseClicked
 
     private void tabLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabLSMouseClicked
