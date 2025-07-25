@@ -2121,6 +2121,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         Open.setVisible(true);
     }//GEN-LAST:event_bntTroChuyen1MouseClicked TrungBeo
 
+    
+    //a
+    
     /**
      * @param args the command line arguments
      */
