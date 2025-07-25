@@ -6,10 +6,13 @@ package GDCN.DichVu;
 
 import Dao.dao.LoaiPhongDao;
 import Dao.dao.NguoiDungDao;
+import Dao.dao.PhongDao;
 import Dao.daoimpl.LoaiPhongDaoImpl;
 import Dao.daoimpl.NguoiDungDaoImpl;
+import Dao.daoimpl.PhongDaoImpl;
 import Dao.entity.LoaiPhong;
 import Dao.entity.NguoiDung;
+import Dao.entity.Phong;
 import GDCN.TiepTan.TrangChu;
 import Util.XAuth;
 import Util.XDialog;
@@ -17,10 +20,14 @@ import Util.XIcon;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -28,6 +35,8 @@ import javax.swing.JButton;
  */
 public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVController{
 
+    // Khai báo một thể hiện của PhongDao
+    private PhongDao phongDao = new PhongDaoImpl();
     /**
      * Creates new form TrangChuDV
      */
@@ -622,6 +631,8 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnDichVu.setVisible(true);
         jpnTDDichVu.setVisible(true);
         Open.setVisible(true);
+        loadRoomsByStatus();
+        
     }//GEN-LAST:event_btnDichV1MouseClicked
 
     /**
@@ -700,13 +711,39 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
 public void open() {
     this.setLocationRelativeTo(null);
 }
+    String folder = "images";
+    Consumer<File> fileChanged;
+
+    public String getFolder() {
+        return folder;
+    }
+
+    public void setFolder(String folder) {
+        this.folder = folder;
+    }
+    
+    public void setIcon(String icon) {
+        Anh.setText("");
+        Anh.setToolTipText(icon);
+        XIcon.setIcon(Anh, new File(this.folder, icon));
+    }
+     
+    public String getIcon() {
+        return Anh.getToolTipText();
+    }
 @Override
 public void anh(){
-    this.setIconImage(XIcon.getIcon("trump-small.png").getImage());
-    this.setLocationRelativeTo(null);
-    
-    XIcon.setIcon(Anh, "photos/" + XAuth.user.getAnh());
-    txtTen.setText(XAuth.user.getHoVaTen());
+    this.setIconImage(XIcon.getIcon("Logo.png").getImage());
+    if (XAuth.user != null) {
+            txtTen.setText(XAuth.user.getHoVaTen());
+            // Đảm bảo ảnh của người dùng đang đăng nhập cũng được tải đúng cách
+            // Giả sử ảnh của user đăng nhập cũng nằm trong folder "images"
+            if (XAuth.user.getAnh() != null && !XAuth.user.getAnh().isEmpty()) {
+                XIcon.setIcon(Anh, new File(folder, XAuth.user.getAnh()));
+            } else {
+                XIcon.setIcon(Anh, "/Icon/Logo.png"); // Ảnh mặc định nếu không có
+            }
+        }
 }
 
 private void loadCards() {
@@ -717,6 +754,65 @@ private void loadCards() {
     LP.forEach(card -> {
         pnlTang.add(this.createButton(card));
     });
+}
+// Phương thức mới để tải và hiển thị các phòng có trạng thái "Đang dọn dẹp" hoặc "Đang có dịch vụ"
+private void loadRoomsByStatus() {
+    pnlTang.removeAll(); // Xóa các nút phòng cũ
+
+    List<Phong> allRooms = phongDao.findAll(); // Lấy tất cả các phòng
+    for (Phong room : allRooms) {
+        String status = room.getTrangThai();
+        if ("Đang dọn dẹp".equals(status) || "Đang có dịch vụ".equals(status)) {
+            pnlTang.add(createRoomButton(room)); // Thêm nút cho các phòng phù hợp
+        }
+    }
+    pnlTang.revalidate(); // Cập nhật lại giao diện
+    pnlTang.repaint(); // Vẽ lại giao diện
+}
+
+// Phương thức mới để tạo nút cho từng đối tượng Phong
+private JButton createRoomButton(Phong phong) {
+   JButton btnRoom = new JButton();
+    // Hiển thị số phòng và trạng thái trên các dòng riêng biệt bằng HTML
+    btnRoom.setText(String.format("<html>Phòng: %s<br>Trạng thái: %s</html>", phong.getSoPhong(), phong.getTrangThai()));
+    btnRoom.setPreferredSize(new Dimension(150, 80)); // Đặt kích thước tương tự các nút khác
+    btnRoom.setActionCommand(String.valueOf(phong.getId())); // Đặt ID phòng làm action command
+    
+    // Đặt màu nền của button thành màu vàng
+    btnRoom.setBackground(java.awt.Color.YELLOW);
+    btnRoom.addActionListener((ActionEvent e) -> {
+        int roomId = Integer.parseInt(e.getActionCommand());
+        System.out.println("Đã nhấp phòng với ID: " + roomId);
+
+        // Hiển thị thông báo xác nhận
+        int confirmResult = JOptionPane.showConfirmDialog(
+            this, // Parent component
+            "Bạn có muốn đổi trạng thái phòng " + phong.getSoPhong() + " sang 'Trống' không?",
+            "Xác nhận đổi trạng thái",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (confirmResult == JOptionPane.YES_OPTION) {
+            // Người dùng đã xác nhận muốn đổi trạng thái
+            // Thêm logic để cập nhật trạng thái phòng ở đây
+            // Ví dụ:
+            PhongDao phongDao = new PhongDaoImpl(); // Khởi tạo lại hoặc sử dụng thể hiện đã có
+            Phong phongCanCapNhat = phongDao.findById(roomId); // Lấy đối tượng phòng từ DB
+            if (phongCanCapNhat != null) {
+                phongCanCapNhat.setTrangThai("Phòng trống"); // Đặt trạng thái mới
+                phongDao.update(phongCanCapNhat); // Cập nhật vào cơ sở dữ liệu
+                JOptionPane.showMessageDialog(this, "Đã đổi trạng thái phòng " + phong.getSoPhong() + " thành 'Trống'.");
+                loadRoomsByStatus(); // Tải lại danh sách phòng để cập nhật giao diện
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy phòng để cập nhật.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Người dùng chọn "Không" hoặc đóng hộp thoại
+            System.out.println("Người dùng đã hủy thao tác đổi trạng thái.");
+        }
+    });
+    return btnRoom;
 }
 
 private JButton createButton(LoaiPhong lp) {
