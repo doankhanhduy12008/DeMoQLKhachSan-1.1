@@ -6,10 +6,13 @@ package GDCN.DichVu;
 
 import Dao.dao.LoaiPhongDao;
 import Dao.dao.NguoiDungDao;
+import Dao.dao.PhongDao;
 import Dao.daoimpl.LoaiPhongDaoImpl;
 import Dao.daoimpl.NguoiDungDaoImpl;
+import Dao.daoimpl.PhongDaoImpl;
 import Dao.entity.LoaiPhong;
 import Dao.entity.NguoiDung;
+import Dao.entity.Phong;
 import GDCN.TiepTan.TrangChu;
 import Util.XAuth;
 import Util.XDialog;
@@ -17,10 +20,14 @@ import Util.XIcon;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -28,6 +35,8 @@ import javax.swing.JButton;
  */
 public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVController{
 
+    // Khai báo một thể hiện của PhongDao
+    private PhongDao phongDao = new PhongDaoImpl();
     /**
      * Creates new form TrangChuDV
      */
@@ -96,6 +105,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jLabel1 = new javax.swing.JLabel();
         btnDoiMK = new javax.swing.JLabel();
         btnDichV = new javax.swing.JLabel();
+        bntChat = new javax.swing.JLabel();
         Open = new javax.swing.JLabel();
         KhungTrang = new javax.swing.JPanel();
         jpnTrangChu = new javax.swing.JPanel();
@@ -103,6 +113,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         txtTen = new javax.swing.JLabel();
         Anh = new javax.swing.JLabel();
         btnDichV1 = new javax.swing.JLabel();
+        bntChat1 = new javax.swing.JLabel();
         jpnDMK = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtTenDN = new javax.swing.JTextField();
@@ -117,6 +128,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnDichVu = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlTang = new javax.swing.JPanel();
+        pnlChat = new javax.swing.JPanel();
         Tieude = new javax.swing.JPanel();
         jpnTDTrangChu = new javax.swing.JPanel();
         txtTrangChu = new javax.swing.JLabel();
@@ -124,6 +136,8 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         txtDMK = new javax.swing.JLabel();
         jpnTDDichVu = new javax.swing.JPanel();
         txtDMK1 = new javax.swing.JLabel();
+        pnlTDChat = new javax.swing.JPanel();
+        txtDMK4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -194,6 +208,18 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
             }
         });
 
+        bntChat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bntChat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bntChat.setText("Trò Chuyện");
+        bntChat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bntChat.setMinimumSize(new java.awt.Dimension(291, 40));
+        bntChat.setPreferredSize(new java.awt.Dimension(91, 40));
+        bntChat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntChatMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlMenuBarLayout = new javax.swing.GroupLayout(pnlMenuBar);
         pnlMenuBar.setLayout(pnlMenuBarLayout);
         pnlMenuBarLayout.setHorizontalGroup(
@@ -205,9 +231,10 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTrangChu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTrangChu, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                     .addComponent(btnDichV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDoiMK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDoiMK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bntChat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlMenuBarLayout.setVerticalGroup(
@@ -219,7 +246,9 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
                 .addComponent(btnTrangChu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(btnDichV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bntChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 402, Short.MAX_VALUE)
                 .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,6 +292,18 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
             }
         });
 
+        bntChat1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bntChat1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bntChat1.setText("Trò Chuyện");
+        bntChat1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bntChat1.setMinimumSize(new java.awt.Dimension(291, 40));
+        bntChat1.setPreferredSize(new java.awt.Dimension(91, 40));
+        bntChat1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntChat1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnTrangChuLayout = new javax.swing.GroupLayout(jpnTrangChu);
         jpnTrangChu.setLayout(jpnTrangChuLayout);
         jpnTrangChuLayout.setHorizontalGroup(
@@ -277,8 +318,10 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
                     .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(500, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnTrangChuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDichV1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(438, Short.MAX_VALUE)
+                .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bntChat1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                    .addComponent(btnDichV1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(465, 465, 465))
         );
         jpnTrangChuLayout.setVerticalGroup(
@@ -290,7 +333,9 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
                 .addComponent(txtTen)
                 .addGap(18, 18, 18)
                 .addComponent(btnDichV1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(bntChat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpnKhungAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(149, 149, 149))
         );
@@ -430,6 +475,19 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
 
         KhungTrang.add(jpnDichVu, "card4");
 
+        javax.swing.GroupLayout pnlChatLayout = new javax.swing.GroupLayout(pnlChat);
+        pnlChat.setLayout(pnlChatLayout);
+        pnlChatLayout.setHorizontalGroup(
+            pnlChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1194, Short.MAX_VALUE)
+        );
+        pnlChatLayout.setVerticalGroup(
+            pnlChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 653, Short.MAX_VALUE)
+        );
+
+        KhungTrang.add(pnlChat, "card5");
+
         Tieude.setBackground(new java.awt.Color(255, 255, 255));
         Tieude.setLayout(new java.awt.CardLayout());
 
@@ -495,6 +553,28 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         );
 
         Tieude.add(jpnTDDichVu, "card2");
+
+        pnlTDChat.setBackground(new java.awt.Color(204, 204, 204));
+
+        txtDMK4.setBackground(new java.awt.Color(204, 204, 204));
+        txtDMK4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtDMK4.setText("Trò Chuyện");
+
+        javax.swing.GroupLayout pnlTDChatLayout = new javax.swing.GroupLayout(pnlTDChat);
+        pnlTDChat.setLayout(pnlTDChatLayout);
+        pnlTDChatLayout.setHorizontalGroup(
+            pnlTDChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtDMK4, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+        );
+        pnlTDChatLayout.setVerticalGroup(
+            pnlTDChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTDChatLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtDMK4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        Tieude.add(pnlTDChat, "card6");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -622,7 +702,33 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnDichVu.setVisible(true);
         jpnTDDichVu.setVisible(true);
         Open.setVisible(true);
+        loadRoomsByStatus();
+        
     }//GEN-LAST:event_btnDichV1MouseClicked
+
+    private void bntChatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntChatMouseClicked
+        jpnTrangChu.setVisible(false);
+        jpnTDTrangChu.setVisible(false);
+        jpnDMK.setVisible(false);
+        jpnTDDMK.setVisible(false);
+        jpnDichVu.setVisible(false);
+        jpnTDDichVu.setVisible(false);
+        Open.setVisible(true);
+        pnlChat.setVisible(true);
+        pnlTDChat.setVisible(true);
+    }//GEN-LAST:event_bntChatMouseClicked
+
+    private void bntChat1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntChat1MouseClicked
+        jpnTrangChu.setVisible(false);
+        jpnTDTrangChu.setVisible(false);
+        jpnDMK.setVisible(false);
+        jpnTDDMK.setVisible(false);
+        jpnDichVu.setVisible(false);
+        jpnTDDichVu.setVisible(false);
+        Open.setVisible(true);
+        pnlChat.setVisible(true);
+        pnlTDChat.setVisible(true);
+    }//GEN-LAST:event_bntChat1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -664,6 +770,8 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
     private javax.swing.JPanel KhungTrang;
     private javax.swing.JLabel Open;
     private javax.swing.JPanel Tieude;
+    private javax.swing.JLabel bntChat;
+    private javax.swing.JLabel bntChat1;
     private javax.swing.JLabel btnDangXuat;
     private javax.swing.JLabel btnDichV;
     private javax.swing.JLabel btnDichV1;
@@ -685,10 +793,13 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
     private javax.swing.JPanel jpnTDDichVu;
     private javax.swing.JPanel jpnTDTrangChu;
     private javax.swing.JPanel jpnTrangChu;
+    private javax.swing.JPanel pnlChat;
     private javax.swing.JPanel pnlMenuBar;
+    private javax.swing.JPanel pnlTDChat;
     private javax.swing.JPanel pnlTang;
     private javax.swing.JLabel txtDMK;
     private javax.swing.JLabel txtDMK1;
+    private javax.swing.JLabel txtDMK4;
     private javax.swing.JPasswordField txtMKHT;
     private javax.swing.JPasswordField txtMKM;
     private javax.swing.JLabel txtTen;
@@ -700,13 +811,39 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
 public void open() {
     this.setLocationRelativeTo(null);
 }
+    String folder = "images";
+    Consumer<File> fileChanged;
+
+    public String getFolder() {
+        return folder;
+    }
+
+    public void setFolder(String folder) {
+        this.folder = folder;
+    }
+    
+    public void setIcon(String icon) {
+        Anh.setText("");
+        Anh.setToolTipText(icon);
+        XIcon.setIcon(Anh, new File(this.folder, icon));
+    }
+     
+    public String getIcon() {
+        return Anh.getToolTipText();
+    }
 @Override
 public void anh(){
-    this.setIconImage(XIcon.getIcon("trump-small.png").getImage());
-    this.setLocationRelativeTo(null);
-    
-    XIcon.setIcon(Anh, "photos/" + XAuth.user.getAnh());
-    txtTen.setText(XAuth.user.getHoVaTen());
+    this.setIconImage(XIcon.getIcon("Logo.png").getImage());
+    if (XAuth.user != null) {
+            txtTen.setText(XAuth.user.getHoVaTen());
+            // Đảm bảo ảnh của người dùng đang đăng nhập cũng được tải đúng cách
+            // Giả sử ảnh của user đăng nhập cũng nằm trong folder "images"
+            if (XAuth.user.getAnh() != null && !XAuth.user.getAnh().isEmpty()) {
+                XIcon.setIcon(Anh, new File(folder, XAuth.user.getAnh()));
+            } else {
+                XIcon.setIcon(Anh, "/Icon/Logo.png"); // Ảnh mặc định nếu không có
+            }
+        }
 }
 
 private void loadCards() {
@@ -717,6 +854,65 @@ private void loadCards() {
     LP.forEach(card -> {
         pnlTang.add(this.createButton(card));
     });
+}
+// Phương thức mới để tải và hiển thị các phòng có trạng thái "Đang dọn dẹp" hoặc "Đang có dịch vụ"
+private void loadRoomsByStatus() {
+    pnlTang.removeAll(); // Xóa các nút phòng cũ
+
+    List<Phong> allRooms = phongDao.findAll(); // Lấy tất cả các phòng
+    for (Phong room : allRooms) {
+        String status = room.getTrangThai();
+        if ("Đang dọn dẹp".equals(status) || "Đang có dịch vụ".equals(status)) {
+            pnlTang.add(createRoomButton(room)); // Thêm nút cho các phòng phù hợp
+        }
+    }
+    pnlTang.revalidate(); // Cập nhật lại giao diện
+    pnlTang.repaint(); // Vẽ lại giao diện
+}
+
+// Phương thức mới để tạo nút cho từng đối tượng Phong
+private JButton createRoomButton(Phong phong) {
+   JButton btnRoom = new JButton();
+    // Hiển thị số phòng và trạng thái trên các dòng riêng biệt bằng HTML
+    btnRoom.setText(String.format("<html>Phòng: %s<br>Trạng thái: %s</html>", phong.getSoPhong(), phong.getTrangThai()));
+    btnRoom.setPreferredSize(new Dimension(150, 80)); // Đặt kích thước tương tự các nút khác
+    btnRoom.setActionCommand(String.valueOf(phong.getId())); // Đặt ID phòng làm action command
+    
+    // Đặt màu nền của button thành màu vàng
+    btnRoom.setBackground(java.awt.Color.YELLOW);
+    btnRoom.addActionListener((ActionEvent e) -> {
+        int roomId = Integer.parseInt(e.getActionCommand());
+        System.out.println("Đã nhấp phòng với ID: " + roomId);
+
+        // Hiển thị thông báo xác nhận
+        int confirmResult = JOptionPane.showConfirmDialog(
+            this, // Parent component
+            "Bạn có muốn đổi trạng thái phòng " + phong.getSoPhong() + " sang 'Trống' không?",
+            "Xác nhận đổi trạng thái",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (confirmResult == JOptionPane.YES_OPTION) {
+            // Người dùng đã xác nhận muốn đổi trạng thái
+            // Thêm logic để cập nhật trạng thái phòng ở đây
+            // Ví dụ:
+            PhongDao phongDao = new PhongDaoImpl(); // Khởi tạo lại hoặc sử dụng thể hiện đã có
+            Phong phongCanCapNhat = phongDao.findById(roomId); // Lấy đối tượng phòng từ DB
+            if (phongCanCapNhat != null) {
+                phongCanCapNhat.setTrangThai("Trống"); // Đặt trạng thái mới
+                phongDao.update(phongCanCapNhat); // Cập nhật vào cơ sở dữ liệu
+                JOptionPane.showMessageDialog(this, "Đã đổi trạng thái phòng " + phong.getSoPhong() + " thành 'Trống'.");
+                loadRoomsByStatus(); // Tải lại danh sách phòng để cập nhật giao diện
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy phòng để cập nhật.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Người dùng chọn "Không" hoặc đóng hộp thoại
+            System.out.println("Người dùng đã hủy thao tác đổi trạng thái.");
+        }
+    });
+    return btnRoom;
 }
 
 private JButton createButton(LoaiPhong lp) {
