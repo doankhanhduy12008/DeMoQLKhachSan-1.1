@@ -1850,9 +1850,9 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtSDTT" min="-2" pref="551" max="-2" attributes="0"/>
-                                          <Component id="txtSocmtT" min="-2" pref="551" max="-2" attributes="0"/>
-                                          <Component id="txtTenKHT" min="-2" pref="551" max="-2" attributes="0"/>
+                                          <Component id="txtTenKHT" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtSocmtT" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtSDTT" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jScrollPane4" pref="1024" max="32767" attributes="0"/>
