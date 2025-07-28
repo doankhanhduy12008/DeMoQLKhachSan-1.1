@@ -71,32 +71,34 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="pnlMenuBar" min="-2" pref="0" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="TieuDe" min="-2" pref="1030" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="pnlMenuBar" min="-2" pref="0" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          <Component id="Open" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="TieuDe" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="NoiDung" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="NoiDung" min="-2" max="-2" attributes="0"/>
                   </Group>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="Open" min="-2" pref="72" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="pnlMenuBar" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="TieuDe" alignment="1" min="-2" pref="52" max="-2" attributes="0"/>
-                      <Component id="Open" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="TieuDe" alignment="1" max="32767" attributes="0"/>
+                      <Component id="pnlMenuBar" alignment="1" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="Open" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="NoiDung" pref="642" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -127,8 +129,14 @@
                 <LineBorder/>
               </Border>
             </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[32767, 52]"/>
+            </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[305, 0]"/>
+              <Dimension value="[1100, 52]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1220, 52]"/>
             </Property>
           </Properties>
 
@@ -137,49 +145,48 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="bntDong" min="-2" pref="44" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="btnDangXuat" alignment="0" max="32767" attributes="0"/>
-                          <Component id="bntTrangChu" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnDoiMK" alignment="0" max="32767" attributes="0"/>
-                          <Component id="bntQLLoaiPhong" alignment="0" max="32767" attributes="0"/>
-                          <Component id="bntQLPhong" alignment="0" max="32767" attributes="0"/>
-                          <Component id="bntQLNhanVien" alignment="0" max="32767" attributes="0"/>
-                          <Component id="bntQLDichVu" alignment="0" max="32767" attributes="0"/>
-                          <Component id="bntQLDoanhThu" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnTroChuyen" alignment="1" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="bntTrangChu" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="bntQLLoaiPhong" min="-2" pref="142" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="bntQLPhong" min="-2" pref="110" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="bntQLNhanVien" min="-2" pref="128" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="bntQLDoanhThu" min="-2" pref="134" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="bntQLDichVu" min="-2" pref="116" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnTroChuyen" min="-2" pref="94" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnDoiMK" min="-2" pref="101" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnDangXuat" min="-2" pref="87" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="bntDong" min="-2" pref="44" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntDong" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntTrangChu" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntQLLoaiPhong" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntQLPhong" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntQLNhanVien" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntQLDoanhThu" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntQLDichVu" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnTroChuyen" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="bntTrangChu" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bntQLLoaiPhong" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bntQLPhong" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bntQLNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bntQLDoanhThu" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bntQLDichVu" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnTroChuyen" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnDoiMK" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnDangXuat" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="bntDong" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnDoiMK" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnDangXuat" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -3036,7 +3043,10 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtTrangChu" alignment="0" pref="1030" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="txtTrangChu" min="-2" pref="1110" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -3075,7 +3085,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtLoaiPhong" alignment="0" pref="1030" max="32767" attributes="0"/>
+                      <Component id="txtLoaiPhong" alignment="0" pref="1139" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -3114,7 +3124,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtPhong" alignment="0" pref="1030" max="32767" attributes="0"/>
+                      <Component id="txtPhong" alignment="0" pref="1139" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -3153,7 +3163,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtNhanVien" alignment="0" pref="1030" max="32767" attributes="0"/>
+                      <Component id="txtNhanVien" alignment="0" pref="1139" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -3192,7 +3202,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtDoanhThu" alignment="0" pref="1030" max="32767" attributes="0"/>
+                      <Component id="txtDoanhThu" alignment="0" pref="1139" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -3231,7 +3241,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtDichVu" alignment="0" pref="1030" max="32767" attributes="0"/>
+                      <Component id="txtDichVu" alignment="0" pref="1139" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -3270,7 +3280,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtChoChuyen" alignment="0" pref="1030" max="32767" attributes="0"/>
+                      <Component id="txtChoChuyen" alignment="0" pref="1139" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">

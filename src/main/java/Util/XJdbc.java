@@ -38,13 +38,37 @@ public class XJdbc {
      *
      * @return Kết nối đã sẵn sàng
      */
+//    public static Connection openConnection() {
+//    // Thông số kết nối
+//    // 116.99.33.177 ip cong cong
+//    // check ip ipconfig
+//    final String url  = "jdbc:sqlserver://116.99.33.177:1433;" 
+//                      + "databaseName=QLKhachSan;"
+//                      + "encrypt=true;trustServerCertificate=true;";
+//    final String user = "QLKhachSan";
+//    final String pass = "Duy12@";
+//
+//    try {
+//        if (connection == null || connection.isClosed()) {
+//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//            connection = DriverManager.getConnection(url, user, pass);
+//        }
+//    } catch (ClassNotFoundException | SQLException ex) {
+//        throw new RuntimeException("Không thể kết nối SQL Server", ex);
+//    }
+//
+//    return connection;
+//}
+    
     public static Connection openConnection() {
     // Thông số kết nối
     // 116.99.33.177 ip cong cong
     // check ip ipconfig
-    final String url  = "jdbc:sqlserver://116.99.33.177:1433;" 
+    final String url  = "jdbc:sqlserver://26.164.194.236:20000;" 
                       + "databaseName=QLKhachSan;"
                       + "encrypt=true;trustServerCertificate=true;";
+//    final String url = "jdbc:sqlserver://192.168.1.3:1433;databaseName=QLKhachSan;encrypt=true;trustServerCertificate=true;";
+//    final String url = "jdbc:sqlserver://26.162.30.188:1433;databaseName=QLKhachSan;encrypt=true;trustServerCertificate=true;";
     final String user = "QLKhachSan";
     final String pass = "Duy12@";
 
@@ -58,7 +82,7 @@ public class XJdbc {
     }
 
     return connection;
-}
+    }
 
     /**
      * Đóng kết nối
