@@ -37,6 +37,8 @@ public class XDate {
         formater.applyPattern(pattern);
         return formater.format(dateTime);
     }
+    
+    
 
     public static String format(Date dateTime){
         return format(dateTime, PATTERN_SHORT);
