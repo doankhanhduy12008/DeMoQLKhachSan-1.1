@@ -24,6 +24,7 @@ GDCN\TiepTan\TrangChu$17.class
 Util\XIcon.class
 GDCN\QuanLy\TrangChuQLJFarme$30.class
 GDCN\QuanLy\TrangChuQLJFarme$50.class
+GDCN\QuanLy\TrangChuQLJFarme$70.class
 GDCN\QuanLy\TrangChuQLJFarme$10.class
 Dao\daoimpl\KhachHangDaoImpl.class
 GDCN\TiepTan\TrangChu$37.class
@@ -38,6 +39,7 @@ GDCN\QuanLy\TrangChuQLJFarme$42.class
 GDCN\QuanLy\TrangChuQLJFarme$62.class
 GDCN\TiepTan\TrangChu.class
 GDCN\TiepTan\TrangChuTT$37.class
+GDCN\QuanLy\TrangChuQLJFarme$76.class
 GDCN\TiepTan\TrangChu$7.class
 GDCN\QuanLy\TrangChuQLJFarme$23.class
 GDCN\DichVu\TrangChuDV$2.class
@@ -64,6 +66,7 @@ GDCN\TiepTan\TrangChuTT$31.class
 GDCN\TiepTan\ChonLoaiPhong$2.class
 Dao\dao\CrudDao.class
 GDCN\TiepTan\TrangChu$20.class
+GDCN\QuanLy\TrangChuQLJFarme$75.class
 GDCN\TiepTan\ThemPhong$1.class
 GDCN\Chung\DangNhapJDialog$2.class
 GDCN\DichVu\TrangChuDV$18.class
@@ -84,12 +87,14 @@ GDCN\TiepTan\TrangChu$2.class
 GDCN\TiepTan\ChonLoaiPhong$1.class
 GDCN\QuanLy\TrangChuJDialog$23.class
 GDCN\TiepTan\TrangChu$16.class
+GDCN\QuanLy\TrangChuQLJFarme$71.class
 GDCN\TiepTan\TrangChuTT$22.class
 GDCN\QuanLy\TrangChuQLJFarme$21.class
 GDCN\QuanLy\TrangChuQLJFarme$41.class
 GDCN\QuanLy\TrangChuQLJFarme$51.class
 Dao\dao\NguoiDungDao.class
 GDCN\QuanLy\TrangChuQLJFarme$8.class
+GDCN\QuanLy\TrangChuQLJFarme$74.class
 GDCN\TiepTan\KhachHangCuJDiaLog$4$1.class
 GDCN\QuanLy\TrangChuJDialog$8.class
 Dao\entity\DatPhong.class
@@ -109,6 +114,7 @@ GDCN\TiepTan\ThongTinPhong$3.class
 Util\XStr.class
 GDCN\TiepTan\TrangChuTT$4.class
 GDCN\QuanLy\TrangChuQLJFarme$14.class
+GDCN\QuanLy\TrangChuQLJFarme$69.class
 GDCN\DichVu\TrangChuJDialog$4.class
 GDCN\DichVu\TrangChuDV$13.class
 GDCN\DichVu\TrangChuJDialog$12.class
@@ -131,6 +137,7 @@ GDCN\QuanLy\TrangChuJDialog$9.class
 GDCN\DichVu\TrangChuJDialog$1.class
 GDCN\QuanLy\TrangChuQLJFarme$16.class
 Dao\daoimpl\TinNhanDaoImpl.class
+GDCN\QuanLy\TrangChuQLJFarme$73.class
 GDCN\TiepTan\TrangChuTT$24.class
 GDCN\QuanLy\TrangChuQLJFarme$43.class
 GDCN\TiepTan\TrangChuTT$6.class
@@ -158,11 +165,13 @@ GDCN\QuanLy\TrangChuQLJFarme$15.class
 GDCN\QuanLy\TrangChuJDialog$18.class
 GDCN\TiepTan\TrangChuTT$23.class
 GDCN\DichVu\TrangChuJDialog$2.class
+GDCN\QuanLy\TrangChuQLJFarme$72.class
 GDCN\TiepTan\TrangChuTT$5.class
 GDCN\QuanLy\TrangChuQLJFarme$38.class
 GDCN\QuanLy\TrangChuQLJFarme$58.class
 GDCN\QuanLy\TrangChuQLJFarme$18.class
 GDCN\DichVu\TrangChuDV$15.class
+GDCN\QuanLy\TrangChuQLJFarme$78.class
 GDCN\DichVu\TrangChuJDialog$3.class
 GDCN\TiepTan\TrangChuTT$39.class
 GDCN\TiepTan\TrangChuTT$19.class
@@ -223,6 +232,7 @@ GDCN\TiepTan\TrangChu$21.class
 Util\XAuth.class
 GDCN\QuanLy\TrangChuQLJFarme$19.class
 GDCN\TiepTan\TrangChuTT$66.class
+GDCN\QuanLy\TrangChuQLJFarme$80.class
 GDCN\TiepTan\TrangChu$15.class
 Util\TimeRange.class
 Dao\entity\NguoiDung$Builder.class
@@ -278,6 +288,7 @@ GDCN\TiepTan\TrangChu$36.class
 GDCN\DichVu\TrangChuDV$3.class
 GDCN\TiepTan\TrangChuTT$28.class
 GDCN\QuanLy\TrangChuQLJFarme$57.class
+GDCN\QuanLy\TrangChuQLJFarme$77.class
 GDCN\TiepTan\ThemDichVu$3.class
 GDCN\QuanLy\TrangChuJDialog$5.class
 GDCN\TiepTan\TrangChu$10.class
@@ -328,6 +339,7 @@ GDCN\DichVu\TrangChuJDialog$9.class
 GDCN\QuanLy\TrangChuJDialog$12.class
 GDCN\TiepTan\ThemDichVu$1.class
 GDCN\QuanLy\TrangChuQLJFarme$60.class
+GDCN\QuanLy\TrangChuQLJFarme$79.class
 GDCN\TiepTan\TrangChuTT$11.class
 Dao\entity\Phong$Builder.class
 GDCN\TiepTan\TrangChuTT$63.class

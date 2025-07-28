@@ -373,7 +373,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTrangChu, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                    .addComponent(btnTrangChu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDatP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnXemLS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDoiMK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -396,7 +396,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(btnKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bntTroChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1391,9 +1391,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(31, 31, 31)
                             .addGroup(jpnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtSDTT, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSocmtT, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTenKHT, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtTenKHT)
+                                .addComponent(txtSocmtT)
+                                .addComponent(txtSDTT)))
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
@@ -1630,6 +1630,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnTrangChuMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -1651,6 +1652,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnDoiMKMouseClicked
 
     private void btnDatPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatPMouseClicked
@@ -1668,6 +1670,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(true);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnDatPMouseClicked
 
     private void btnXemLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLSMouseClicked
@@ -1684,6 +1687,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
         fillTableLichSu(); 
     }//GEN-LAST:event_btnXemLSMouseClicked
 
@@ -1860,6 +1864,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(true);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnDatP1MouseClicked
 
     private void btnXemLS1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLS1MouseClicked
@@ -1877,6 +1882,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
         fillTableLichSu(); 
     }//GEN-LAST:event_btnXemLS1MouseClicked
 
@@ -1967,6 +1973,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(true);
         jpnTDKhachHang.setVisible(true);
+        pnlChat.setVisible(false);
     }//GEN-LAST:event_btnKHMouseClicked
 
     private void tabLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabLSMouseClicked

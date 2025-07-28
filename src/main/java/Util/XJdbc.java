@@ -40,11 +40,13 @@ public class XJdbc {
      */
     public static Connection openConnection() {
     // Thông số kết nối
-    // 116.99.33.177 ip cong cong
+    // 26.164.194.236 ip cong cong
     // check ip ipconfig
-    final String url  = "jdbc:sqlserver://116.99.33.177:1433;" 
+    final String url  = "jdbc:sqlserver://26.164.194.236:20000;" 
                       + "databaseName=QLKhachSan;"
                       + "encrypt=true;trustServerCertificate=true;";
+//    final String url = "jdbc:sqlserver://192.168.1.3:1433;databaseName=QLKhachSan;encrypt=true;trustServerCertificate=true;";
+//    final String url = "jdbc:sqlserver://26.162.30.188:1433;databaseName=QLKhachSan;encrypt=true;trustServerCertificate=true;";
     final String user = "QLKhachSan";
     final String pass = "Duy12@";
 

@@ -627,6 +627,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnTDDMK.setVisible(false);
         jpnDichVu.setVisible(false);
         jpnTDDichVu.setVisible(false);
+         pnlChat.setVisible(false);
         Open.setVisible(true);
     }//GEN-LAST:event_btnTrangChuMouseClicked
 
@@ -643,6 +644,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnTDDMK.setVisible(true);
         jpnDichVu.setVisible(false);
         jpnTDDichVu.setVisible(false);
+         pnlChat.setVisible(false);
         Open.setVisible(true);
     }//GEN-LAST:event_btnDoiMKMouseClicked
 
@@ -654,6 +656,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnTDDMK.setVisible(false);
         jpnDichVu.setVisible(true);
         jpnTDDichVu.setVisible(true);
+         pnlChat.setVisible(false);
         Open.setVisible(true);
     }//GEN-LAST:event_btnDichVMouseClicked
 
@@ -702,6 +705,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnDichVu.setVisible(true);
         jpnTDDichVu.setVisible(true);
         Open.setVisible(true);
+         pnlChat.setVisible(false);
         loadRoomsByStatus();
         
     }//GEN-LAST:event_btnDichV1MouseClicked
