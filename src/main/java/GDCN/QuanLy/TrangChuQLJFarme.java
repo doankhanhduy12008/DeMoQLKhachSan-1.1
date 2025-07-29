@@ -17,6 +17,7 @@ import Dao.entity.KhachHang;
 import Dao.entity.LoaiPhong;
 import Dao.entity.NguoiDung;
 import Dao.entity.Phong;
+import GDCN.Chung.ChonTG;
 import GDCN.TiepTan.TrangChu;
 import Util.XAuth;
 import Util.XDialog;
@@ -57,6 +58,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlChat.add(new GDCN.Chat.ChatJPanel()); 
         pnlChat.revalidate();
         pnlChat.repaint();
+//        ChonTG.setLayout(new java.awt.BorderLayout());
+//        ChonTG.add(new GDCN.Chung.ChonTG());
+//        ChonTG.revalidate();
+//        ChonTG.repaint();
+        this.phongDao = new PhongDaoImpl();
+        
+        
     }
     
     
@@ -233,12 +241,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         txtDTTTTimKiem = new javax.swing.JTextField();
         bntDTTTTimKiem = new javax.swing.JButton();
         bntDTTTDungTimKiem = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
-        txtDTNgayBatDau = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        txtDTNgayKetThuc = new javax.swing.JTextField();
-        bntDTLoc = new javax.swing.JButton();
-        cmbDTLocNgay = new javax.swing.JComboBox<>();
         pnlQLDichVu = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -1697,64 +1699,19 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel18.setText("Từ Ngày:");
-
-        txtDTNgayBatDau.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel19.setText("Đến Ngày:");
-
-        txtDTNgayKetThuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtDTNgayKetThuc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDTNgayKetThucActionPerformed(evt);
-            }
-        });
-
-        bntDTLoc.setBackground(new java.awt.Color(204, 204, 204));
-        bntDTLoc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        bntDTLoc.setText("Lọc");
-
-        cmbDTLocNgay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm Nay", "Tuần Này", "Tháng Này", "Quý Này", "Năm Nay" }));
-
         javax.swing.GroupLayout pnlQLDoanhThuLayout = new javax.swing.GroupLayout(pnlQLDoanhThu);
         pnlQLDoanhThu.setLayout(pnlQLDoanhThuLayout);
         pnlQLDoanhThuLayout.setHorizontalGroup(
             pnlQLDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlQLDoanhThuLayout.createSequentialGroup()
-                .addGroup(pnlQLDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlQLDoanhThuLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlQLDoanhThuLayout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDTNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDTNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(bntDTLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbDTLocNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(831, Short.MAX_VALUE))
         );
         pnlQLDoanhThuLayout.setVerticalGroup(
             pnlQLDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlQLDoanhThuLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(pnlQLDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bntDTLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlQLDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDTNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cmbDTLocNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDTNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addContainerGap(86, Short.MAX_VALUE)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74))
         );
@@ -2569,10 +2526,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoNVTamDungActionPerformed
 
-    private void txtDTNgayKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDTNgayKetThucActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDTNgayKetThucActionPerformed
-
     private void bntDVTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDVTimKiemActionPerformed
         laytblDichVu();
     }//GEN-LAST:event_bntDVTimKiemActionPerformed
@@ -3056,7 +3009,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JPanel NoiDung;
     private javax.swing.JLabel Open;
     private javax.swing.JPanel TieuDe;
-    private javax.swing.JButton bntDTLoc;
     private javax.swing.JButton bntDTPDungTimKiem;
     private javax.swing.JButton bntDTPTimKiem;
     private javax.swing.JButton bntDTTTDungTimKiem;
@@ -3113,7 +3065,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.ButtonGroup cboNVTrangThai;
     private javax.swing.ButtonGroup cboNVVaitro;
     private javax.swing.ButtonGroup cboPTrangThai;
-    private javax.swing.JComboBox<String> cmbDTLocNgay;
     private javax.swing.JComboBox<String> cmbPLoaiPhong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -3123,8 +3074,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -3201,8 +3150,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JTextArea txaPGhiChu;
     private javax.swing.JLabel txtChoChuyen;
     private javax.swing.JLabel txtChoChuyen1;
-    private javax.swing.JTextField txtDTNgayBatDau;
-    private javax.swing.JTextField txtDTNgayKetThuc;
     private javax.swing.JTextField txtDTPTimKiem;
     private javax.swing.JTextField txtDTTTTimKiem;
     private javax.swing.JTextField txtDVGia;
@@ -4137,6 +4084,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
      * ==============================================================================================================================
      */
     
+
     ChiTietThuePhongDao ChiTietThuePhongDao = new ChiTietThuePhongDaoImpl();
     private PhongDaoImpl phongDao;
     
