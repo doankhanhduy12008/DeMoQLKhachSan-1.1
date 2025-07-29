@@ -38,4 +38,10 @@ public class DichVuDaoImpl implements DichVuDao {
         String sql = "SELECT * FROM DichVu WHERE Id = ?";
         return XQuery.getSingleBean(DichVu.class, sql, id);
     }
+    
+    @Override
+    public DichVu findByTenDichVu(String tenDichVu) throws Exception {
+        String sql = "SELECT * FROM DichVu WHERE TenDichVu = ?";
+        return XQuery.getSingleBean(DichVu.class, sql, tenDichVu);
+    }
 }

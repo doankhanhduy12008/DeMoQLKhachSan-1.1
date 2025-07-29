@@ -16,10 +16,10 @@ import javax.swing.JFrame;
  */
 public interface TrangChuQLController {
     default void showJDialog(JDialog dialog){
-dialog.setLocationRelativeTo(null);
-dialog.setVisible(true);
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
 }
 default void showDX(JFrame frame){
-this.showJDialog(new DangNhapJDialog(frame, true));
-}
+    this.showJDialog(new DangNhapJDialog(frame, true));
+    }
 }

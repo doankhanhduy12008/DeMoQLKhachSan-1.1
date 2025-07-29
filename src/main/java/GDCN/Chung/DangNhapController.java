@@ -5,7 +5,6 @@
 package GDCN.Chung;
 
 import GDCN.DichVu.TrangChuDV;
-import GDCN.QuanLy.TrangChuJDialog;
 import GDCN.QuanLy.TrangChuQLJFarme;
 import GDCN.TiepTan.TrangChuTT;
 import Util.XDialog;

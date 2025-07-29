@@ -1,16 +1,19 @@
 package GDCN.QuanLy;
 import Dao.dao.ChiTietThuePhongDao;
 import Dao.dao.HoaDonDao;
+import Dao.dao.KhachHangDao;
 import Dao.dao.LoaiPhongDao;
 import Dao.dao.NguoiDungDao;
 import Dao.dao.PhongDao;
 import Dao.daoimpl.ChiTietThuePhongDaoImpl;
 import Dao.daoimpl.HoaDonDaoImpl;
+import Dao.daoimpl.KhachHangDaoImpl;
 import Dao.daoimpl.LoaiPhongDaoImpl;
 import Dao.daoimpl.NguoiDungDaoImpl;
 import Dao.daoimpl.PhongDaoImpl;
 import Dao.entity.ChiTietThuePhong;
 import Dao.entity.HoaDon;
+import Dao.entity.KhachHang;
 import Dao.entity.LoaiPhong;
 import Dao.entity.NguoiDung;
 import Dao.entity.Phong;
@@ -29,6 +32,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -123,6 +128,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         btnDoiMK = new javax.swing.JLabel();
         btnDangXuat = new javax.swing.JLabel();
         btnTroChuyen = new javax.swing.JLabel();
+        bntQlKhachhang1 = new javax.swing.JLabel();
+        bntQlKhachhang2 = new javax.swing.JLabel();
         NoiDung = new javax.swing.JPanel();
         pnlTrangChu = new javax.swing.JPanel();
         txtTenNV = new javax.swing.JLabel();
@@ -130,10 +137,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Anh = new javax.swing.JLabel();
         bntQLLoaiPhong1 = new javax.swing.JLabel();
         bntQLPhong1 = new javax.swing.JLabel();
-        bntQLNhanVien1 = new javax.swing.JLabel();
+        bntQlKhachhang = new javax.swing.JLabel();
         bntQLDoanhThu1 = new javax.swing.JLabel();
         bntQLDichVu1 = new javax.swing.JLabel();
         btnTroChuyen1 = new javax.swing.JLabel();
+        bntQLNhanVien1 = new javax.swing.JLabel();
         pnlQLLoaiPhong = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -203,7 +211,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         rdoNVTamDung = new javax.swing.JRadioButton();
         bntNVTaoMoi = new javax.swing.JButton();
         bntNVLamMoi = new javax.swing.JButton();
-        bntNVXoa = new javax.swing.JButton();
         bntNVSua = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
@@ -211,7 +218,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         jScrollPane5 = new javax.swing.JScrollPane();
         tblNV = new javax.swing.JTable();
         txtNVTimKiem = new javax.swing.JTextField();
-        bntNVXoaMucChon = new javax.swing.JButton();
         pnlQLDoanhThu = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
@@ -252,6 +258,23 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         bntDVXoaMucChon = new javax.swing.JButton();
         bntDVDungTK = new javax.swing.JButton();
         pnlChat = new javax.swing.JPanel();
+        pnlQLKhachHang = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        txtTenKH = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        txtSocmt = new javax.swing.JTextField();
+        txtSDT = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tabKhachHang = new javax.swing.JTable();
+        jSeparator5 = new javax.swing.JSeparator();
+        btnSuaKH = new javax.swing.JButton();
+        btnLamMoiKH = new javax.swing.JButton();
+        btnTaoMoiKH = new javax.swing.JButton();
+        btnXoaKH = new javax.swing.JButton();
+        txtTimKiemKH = new javax.swing.JTextField();
+        bntTimKiemKH = new javax.swing.JButton();
+        btnTaoMoiKH1 = new javax.swing.JButton();
         TieuDe = new javax.swing.JPanel();
         pnlTDTrangChu = new javax.swing.JPanel();
         txtTrangChu = new javax.swing.JLabel();
@@ -265,6 +288,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         txtDoanhThu = new javax.swing.JLabel();
         pnlTTQLDichVu = new javax.swing.JPanel();
         txtDichVu = new javax.swing.JLabel();
+        pnlTDQLKhachHang = new javax.swing.JPanel();
+        txtChoChuyen1 = new javax.swing.JLabel();
         pnlTDTroChuyen = new javax.swing.JPanel();
         txtChoChuyen = new javax.swing.JLabel();
 
@@ -315,7 +340,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         bntQLLoaiPhong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bntQLLoaiPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bntQLLoaiPhong.setText("Quản Lý Loại Phòng");
+        bntQLLoaiPhong.setText("Loại Phòng");
         bntQLLoaiPhong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         bntQLLoaiPhong.setMinimumSize(new java.awt.Dimension(291, 40));
         bntQLLoaiPhong.setPreferredSize(new java.awt.Dimension(91, 40));
@@ -327,7 +352,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         bntQLPhong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bntQLPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bntQLPhong.setText("Quản Lý Phòng");
+        bntQLPhong.setText("Phòng");
         bntQLPhong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         bntQLPhong.setMinimumSize(new java.awt.Dimension(291, 40));
         bntQLPhong.setPreferredSize(new java.awt.Dimension(91, 40));
@@ -339,7 +364,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         bntQLNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bntQLNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bntQLNhanVien.setText("Quản Lý Nhân Viên");
+        bntQLNhanVien.setText("Nhân Viên");
         bntQLNhanVien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         bntQLNhanVien.setMinimumSize(new java.awt.Dimension(291, 40));
         bntQLNhanVien.setPreferredSize(new java.awt.Dimension(91, 40));
@@ -351,7 +376,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         bntQLDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bntQLDoanhThu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bntQLDoanhThu.setText("Quản Lý Doanh Thu");
+        bntQLDoanhThu.setText("Doanh Thu");
         bntQLDoanhThu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         bntQLDoanhThu.setMinimumSize(new java.awt.Dimension(291, 40));
         bntQLDoanhThu.setPreferredSize(new java.awt.Dimension(91, 40));
@@ -363,7 +388,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         bntQLDichVu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bntQLDichVu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bntQLDichVu.setText("Quản Lý Dịch Vụ");
+        bntQLDichVu.setText("Dịch Vụ");
         bntQLDichVu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         bntQLDichVu.setMinimumSize(new java.awt.Dimension(291, 40));
         bntQLDichVu.setPreferredSize(new java.awt.Dimension(91, 40));
@@ -409,6 +434,29 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
         });
 
+        bntQlKhachhang1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bntQlKhachhang1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bntQlKhachhang1.setText("Khách Hàng");
+        bntQlKhachhang1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bntQlKhachhang1.setMinimumSize(new java.awt.Dimension(291, 40));
+        bntQlKhachhang1.setPreferredSize(new java.awt.Dimension(91, 40));
+        bntQlKhachhang1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntQlKhachhang1MouseClicked(evt);
+            }
+        });
+
+        bntQlKhachhang2.setBackground(new java.awt.Color(204, 204, 204));
+        bntQlKhachhang2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bntQlKhachhang2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bntQlKhachhang2.setMinimumSize(new java.awt.Dimension(291, 40));
+        bntQlKhachhang2.setPreferredSize(new java.awt.Dimension(91, 40));
+        bntQlKhachhang2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntQlKhachhang2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlMenuBarLayout = new javax.swing.GroupLayout(pnlMenuBar);
         pnlMenuBar.setLayout(pnlMenuBarLayout);
         pnlMenuBarLayout.setHorizontalGroup(
@@ -417,30 +465,34 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 .addContainerGap()
                 .addComponent(bntTrangChu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntQLLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bntQLLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntQLPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bntQLPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntQLNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bntQLNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntQLDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bntQLDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntQLDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bntQLDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bntQlKhachhang1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bntQlKhachhang2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTroChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntDong, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112))
+                .addComponent(bntDong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnlMenuBarLayout.setVerticalGroup(
             pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bntTrangChu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(bntQLLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -450,7 +502,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                         .addComponent(bntQLDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnTroChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bntQlKhachhang1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bntQlKhachhang2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(bntDong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -516,15 +570,15 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
         });
 
-        bntQLNhanVien1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        bntQLNhanVien1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bntQLNhanVien1.setText("Quản Lý Nhân Viên");
-        bntQLNhanVien1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        bntQLNhanVien1.setMinimumSize(new java.awt.Dimension(291, 40));
-        bntQLNhanVien1.setPreferredSize(new java.awt.Dimension(91, 40));
-        bntQLNhanVien1.addMouseListener(new java.awt.event.MouseAdapter() {
+        bntQlKhachhang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bntQlKhachhang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bntQlKhachhang.setText("Quản Lý Khách Hàng");
+        bntQlKhachhang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bntQlKhachhang.setMinimumSize(new java.awt.Dimension(291, 40));
+        bntQlKhachhang.setPreferredSize(new java.awt.Dimension(91, 40));
+        bntQlKhachhang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bntQLNhanVien1MouseClicked(evt);
+                bntQlKhachhangMouseClicked(evt);
             }
         });
 
@@ -564,41 +618,60 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
         });
 
+        bntQLNhanVien1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bntQLNhanVien1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bntQLNhanVien1.setText("Quản Lý Nhân Viên");
+        bntQLNhanVien1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bntQLNhanVien1.setMinimumSize(new java.awt.Dimension(291, 40));
+        bntQLNhanVien1.setPreferredSize(new java.awt.Dimension(91, 40));
+        bntQLNhanVien1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntQLNhanVien1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                bntQLNhanVien1MouseEntered(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlTrangChuLayout = new javax.swing.GroupLayout(pnlTrangChu);
         pnlTrangChu.setLayout(pnlTrangChuLayout);
         pnlTrangChuLayout.setHorizontalGroup(
             pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTrangChuLayout.createSequentialGroup()
+                .addContainerGap(259, Short.MAX_VALUE)
+                .addGroup(pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bntQLPhong1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bntQLLoaiPhong1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                    .addComponent(bntQlKhachhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(62, 62, 62)
+                .addGroup(pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bntQLDoanhThu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bntQLDichVu1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                    .addComponent(btnTroChuyen1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(245, 245, 245))
             .addComponent(txtTenNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlTrangChuLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTrangChuLayout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTrangChuLayout.createSequentialGroup()
-                        .addGap(0, 267, Short.MAX_VALUE)
-                        .addGroup(pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bntQLPhong1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bntQLLoaiPhong1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                            .addComponent(bntQLNhanVien1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(62, 62, 62)
-                        .addGroup(pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnTroChuyen1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(bntQLDoanhThu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bntQLDichVu1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(245, 245, 245))))
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTrangChuLayout.createSequentialGroup()
+                        .addGap(437, 437, 437)
+                        .addComponent(bntQLNhanVien1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlTrangChuLayout.setVerticalGroup(
             pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTrangChuLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTenNV)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bntQLNhanVien1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bntQLNhanVien1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntQlKhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTroChuyen1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -610,7 +683,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                         .addComponent(bntQLDoanhThu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bntQLDichVu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         NoiDung.add(pnlTrangChu, "card1");
@@ -1250,15 +1323,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
         });
 
-        bntNVXoa.setBackground(new java.awt.Color(204, 204, 204));
-        bntNVXoa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        bntNVXoa.setText("Xóa");
-        bntNVXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntNVXoaActionPerformed(evt);
-            }
-        });
-
         bntNVSua.setBackground(new java.awt.Color(204, 204, 204));
         bntNVSua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bntNVSua.setText("Sửa");
@@ -1304,12 +1368,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                                 .addComponent(rdoNVHoatDong, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)
                                 .addComponent(rdoNVTamDung, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(148, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bntNVSua, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bntNVXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bntNVLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
@@ -1359,7 +1421,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bntNVSua, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bntNVXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bntNVLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bntNVTaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20))
@@ -1418,32 +1479,18 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         txtNVTimKiem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        bntNVXoaMucChon.setBackground(new java.awt.Color(204, 204, 204));
-        bntNVXoaMucChon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        bntNVXoaMucChon.setText("Xóa Mục Đã Chọn");
-        bntNVXoaMucChon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntNVXoaMucChonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addGap(0, 970, Short.MAX_VALUE)
-                        .addComponent(bntNVXoaMucChon, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(txtNVTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bntNVTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addComponent(txtNVTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bntNVTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -1454,10 +1501,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                     .addComponent(bntNVTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNVTimKiem))
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bntNVXoaMucChon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlQLNhanVienLayout = new javax.swing.GroupLayout(pnlQLNhanVien);
@@ -1937,6 +1982,212 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         NoiDung.add(pnlChat, "card8");
 
+        pnlQLKhachHang.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel22.setText("Tên Khách Hàng:");
+
+        txtTenKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTenKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtTenKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenKHActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel23.setText("Số cmt:");
+
+        txtSocmt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtSocmt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtSocmt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSocmtActionPerformed(evt);
+            }
+        });
+
+        txtSDT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtSDT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtSDT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSDTActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel24.setText("Số điện thoại:");
+
+        tabKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Khách Hàng", "Số cmt", "Số điện thoại", ""
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabKhachHang.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabKhachHangMouseClicked(evt);
+            }
+        });
+        jScrollPane9.setViewportView(tabKhachHang);
+
+        btnSuaKH.setBackground(new java.awt.Color(204, 204, 204));
+        btnSuaKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnSuaKH.setText("Sửa");
+        btnSuaKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnSuaKH.setEnabled(false);
+        btnSuaKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaKHActionPerformed(evt);
+            }
+        });
+
+        btnLamMoiKH.setBackground(new java.awt.Color(204, 204, 204));
+        btnLamMoiKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnLamMoiKH.setText("Làm mới");
+        btnLamMoiKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnLamMoiKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiKHActionPerformed(evt);
+            }
+        });
+
+        btnTaoMoiKH.setBackground(new java.awt.Color(204, 204, 204));
+        btnTaoMoiKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnTaoMoiKH.setText("Tạo mới");
+        btnTaoMoiKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnTaoMoiKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaoMoiKHActionPerformed(evt);
+            }
+        });
+
+        btnXoaKH.setBackground(new java.awt.Color(204, 204, 204));
+        btnXoaKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnXoaKH.setText("Xóa");
+        btnXoaKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnXoaKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaKHActionPerformed(evt);
+            }
+        });
+
+        txtTimKiemKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTimKiemKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtTimKiemKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemKHActionPerformed(evt);
+            }
+        });
+
+        bntTimKiemKH.setBackground(new java.awt.Color(204, 204, 204));
+        bntTimKiemKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        bntTimKiemKH.setText("Tìm Kiếm");
+        bntTimKiemKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        bntTimKiemKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntTimKiemKHActionPerformed(evt);
+            }
+        });
+
+        btnTaoMoiKH1.setBackground(new java.awt.Color(204, 204, 204));
+        btnTaoMoiKH1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnTaoMoiKH1.setText("Xóa Mục Đã Chọn");
+        btnTaoMoiKH1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnTaoMoiKH1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaoMoiKH1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlQLKhachHangLayout = new javax.swing.GroupLayout(pnlQLKhachHang);
+        pnlQLKhachHang.setLayout(pnlQLKhachHangLayout);
+        pnlQLKhachHangLayout.setHorizontalGroup(
+            pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlQLKhachHangLayout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlQLKhachHangLayout.createSequentialGroup()
+                        .addComponent(btnSuaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLamMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnXoaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTaoMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jSeparator5)
+                        .addGroup(pnlQLKhachHangLayout.createSequentialGroup()
+                            .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel22)
+                                .addComponent(jLabel23)
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(31, 31, 31)
+                            .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTenKH)
+                                .addComponent(txtSocmt)
+                                .addComponent(txtSDT)))
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+                        .addGroup(pnlQLKhachHangLayout.createSequentialGroup()
+                            .addComponent(txtTimKiemKH, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(bntTimKiemKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnTaoMoiKH1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(86, Short.MAX_VALUE))
+        );
+        pnlQLKhachHangLayout.setVerticalGroup(
+            pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlQLKhachHangLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(txtTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(txtSocmt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLamMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSuaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTaoMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bntTimKiemKH, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(txtTimKiemKH))
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnTaoMoiKH1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        NoiDung.add(pnlQLKhachHang, "card9");
+
         TieuDe.setBackground(new java.awt.Color(255, 255, 255));
         TieuDe.setLayout(new java.awt.CardLayout());
 
@@ -2068,6 +2319,27 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         TieuDe.add(pnlTTQLDichVu, "card6");
 
+        pnlTDQLKhachHang.setBackground(new java.awt.Color(204, 204, 204));
+
+        txtChoChuyen1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtChoChuyen1.setText("Khách Hàng");
+
+        javax.swing.GroupLayout pnlTDQLKhachHangLayout = new javax.swing.GroupLayout(pnlTDQLKhachHang);
+        pnlTDQLKhachHang.setLayout(pnlTDQLKhachHangLayout);
+        pnlTDQLKhachHangLayout.setHorizontalGroup(
+            pnlTDQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtChoChuyen1, javax.swing.GroupLayout.DEFAULT_SIZE, 1139, Short.MAX_VALUE)
+        );
+        pnlTDQLKhachHangLayout.setVerticalGroup(
+            pnlTDQLKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTDQLKhachHangLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtChoChuyen1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        TieuDe.add(pnlTDQLKhachHang, "card2");
+
         pnlTDTroChuyen.setBackground(new java.awt.Color(204, 204, 204));
 
         txtChoChuyen.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2158,6 +2430,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
     }//GEN-LAST:event_bntTrangChuMouseClicked
 
     private void bntQLLoaiPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLLoaiPhongMouseClicked
@@ -2174,7 +2450,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
-        this.laytblLoaiphong();
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
+        laytblLoaiphong();
     }//GEN-LAST:event_bntQLLoaiPhongMouseClicked
 
     private void bntQLPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLPhongMouseClicked
@@ -2191,9 +2471,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
-        this.laytblPhong();
-        this.fillLoaiPhongToCbo();
-        this.laytblPhong();
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
+        laytblPhong();
+        fillLoaiPhongToCbo();
+        laytblPhong();
     }//GEN-LAST:event_bntQLPhongMouseClicked
 
     private void bntQLNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLNhanVienMouseClicked
@@ -2210,6 +2494,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
         laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVienMouseClicked
 
@@ -2227,6 +2515,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(true);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
         fillTablePhong();
         fillTableDTTiepTan();
     }//GEN-LAST:event_bntQLDoanhThuMouseClicked
@@ -2245,6 +2537,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(true);
         pnlQLDichVu.setVisible(true);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
         laytblDichVu();
     }//GEN-LAST:event_bntQLDichVuMouseClicked
 
@@ -2360,6 +2656,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         Open.setVisible(true);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
         laytblLoaiphong();
     }//GEN-LAST:event_bntQLLoaiPhong1MouseClicked
 
@@ -2377,27 +2677,35 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         Open.setVisible(true);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
         laytblPhong();
         fillLoaiPhongToCbo();
         laytblPhong();
     }//GEN-LAST:event_bntQLPhong1MouseClicked
 
-    private void bntQLNhanVien1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLNhanVien1MouseClicked
+    private void bntQlKhachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQlKhachhangMouseClicked
         pnlTDTrangChu.setVisible(false);
         pnlTrangChu.setVisible(false);
         pnlTTQLLoaiPhong.setVisible(false);
         pnlQLLoaiPhong.setVisible(false);
         pnlTTQLPhong.setVisible(false);
         pnlQLPhong.setVisible(false);
-        pnlTTQLNhanVien.setVisible(true);
-        pnlQLNhanVien.setVisible(true);
+        pnlTTQLNhanVien.setVisible(false);
+        pnlQLNhanVien.setVisible(false);
         pnlTTQLDoanhThu.setVisible(false);
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         Open.setVisible(true);
-        laytblNhanVien();
-    }//GEN-LAST:event_bntQLNhanVien1MouseClicked
+        pnlQLKhachHang.setVisible(true);
+        pnlTDQLKhachHang.setVisible(true);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
+        fillTableKhachHang();
+    }//GEN-LAST:event_bntQlKhachhangMouseClicked
 
     private void bntQLDoanhThu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLDoanhThu1MouseClicked
         pnlTDTrangChu.setVisible(false);
@@ -2413,6 +2721,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         Open.setVisible(true);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
         fillTablePhong();
         fillTableDTTiepTan();
     }//GEN-LAST:event_bntQLDoanhThu1MouseClicked
@@ -2431,6 +2743,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(true);
         pnlQLDichVu.setVisible(true);
         Open.setVisible(true);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
         laytblDichVu();
     }//GEN-LAST:event_bntQLDichVu1MouseClicked
 
@@ -2464,14 +2780,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private void bntNVTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVTimKiemActionPerformed
         timKiemNguoiDung();
     }//GEN-LAST:event_bntNVTimKiemActionPerformed
-
-    private void bntNVXoaMucChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVXoaMucChonActionPerformed
-        xoaMDCNguoiDung();
-    }//GEN-LAST:event_bntNVXoaMucChonActionPerformed
-
-    private void bntNVXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVXoaActionPerformed
-        xoaNguoiDung();
-    }//GEN-LAST:event_bntNVXoaActionPerformed
 
     private void bntNVSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVSuaActionPerformed
 
@@ -2557,8 +2865,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlChat.setVisible(true);
         pnlTDTroChuyen.setVisible(true);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        
     }//GEN-LAST:event_btnTroChuyenMouseClicked
-
+        
     private void btnTroChuyen1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTroChuyen1MouseClicked
         Open.setVisible(true);
         pnlTDTrangChu.setVisible(false);
@@ -2575,7 +2886,132 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlChat.setVisible(true);
         pnlTDTroChuyen.setVisible(true);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
     }//GEN-LAST:event_btnTroChuyen1MouseClicked
+
+    private void bntQLNhanVien1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLNhanVien1MouseClicked
+        Open.setVisible(true);
+        pnlTDTrangChu.setVisible(false);
+        pnlTrangChu.setVisible(false);
+        pnlTTQLLoaiPhong.setVisible(false);
+        pnlQLLoaiPhong.setVisible(false);
+        pnlTTQLPhong.setVisible(false);
+        pnlQLPhong.setVisible(false);
+        pnlTTQLNhanVien.setVisible(true);
+        pnlQLNhanVien.setVisible(true);
+        pnlTTQLDoanhThu.setVisible(false);
+        pnlQLDoanhThu.setVisible(false);
+        pnlTTQLDichVu.setVisible(false);
+        pnlQLDichVu.setVisible(false);
+        pnlQLKhachHang.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
+        laytblNhanVien();
+    }//GEN-LAST:event_bntQLNhanVien1MouseClicked
+
+    private void bntQlKhachhang1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQlKhachhang1MouseClicked
+        pnlTDTrangChu.setVisible(false);
+        pnlTrangChu.setVisible(false);
+        pnlTTQLLoaiPhong.setVisible(false);
+        pnlQLLoaiPhong.setVisible(false);
+        pnlTTQLPhong.setVisible(false);
+        pnlQLPhong.setVisible(false);
+        pnlTTQLNhanVien.setVisible(false);
+        pnlQLNhanVien.setVisible(false);
+        pnlTTQLDoanhThu.setVisible(false);
+        pnlQLDoanhThu.setVisible(false);
+        pnlTTQLDichVu.setVisible(false);
+        pnlQLDichVu.setVisible(false);
+        Open.setVisible(true);
+        pnlQLKhachHang.setVisible(true);
+        pnlTDQLKhachHang.setVisible(true);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
+        fillTableKhachHang();
+    }//GEN-LAST:event_bntQlKhachhang1MouseClicked
+
+    private void bntQlKhachhang2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQlKhachhang2MouseClicked
+        pnlTDTrangChu.setVisible(false);
+        pnlTrangChu.setVisible(false);
+        pnlTTQLLoaiPhong.setVisible(false);
+        pnlQLLoaiPhong.setVisible(false);
+        pnlTTQLPhong.setVisible(false);
+        pnlQLPhong.setVisible(false);
+        pnlTTQLNhanVien.setVisible(false);
+        pnlQLNhanVien.setVisible(false);
+        pnlTTQLDoanhThu.setVisible(false);
+        pnlQLDoanhThu.setVisible(false);
+        pnlTTQLDichVu.setVisible(false);
+        pnlQLDichVu.setVisible(false);
+        Open.setVisible(true);
+        pnlQLKhachHang.setVisible(true);
+        pnlTDQLKhachHang.setVisible(true);
+        pnlChat.setVisible(false);
+        pnlTDTroChuyen.setVisible(false);
+        fillTableKhachHang();
+    }//GEN-LAST:event_bntQlKhachhang2MouseClicked
+
+    private void txtTenKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTenKHActionPerformed
+
+    private void txtSocmtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSocmtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSocmtActionPerformed
+
+    private void txtSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSDTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSDTActionPerformed
+
+    private void tabKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabKhachHangMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1) { // Kiểm tra nhấp đúp chuột
+            int selectedRow = tabKhachHang.getSelectedRow();
+            if (selectedRow >= 0) {
+                KhachHang kh = kh_items.get(selectedRow); // Lấy khách hàng từ danh sách
+                setFormKH(kh); // Điền thông tin lên form
+                suatblKH(true); // Bật nút "Sửa", tắt nút "Tạo Mới"
+            }
+        }
+    }//GEN-LAST:event_tabKhachHangMouseClicked
+
+    private void btnSuaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaKHActionPerformed
+        // TODO add your handling code here:
+        updateKH();
+    }//GEN-LAST:event_btnSuaKHActionPerformed
+
+    private void btnLamMoiKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiKHActionPerformed
+        // TODO add your handling code here:
+        clearFormKH();
+    }//GEN-LAST:event_btnLamMoiKHActionPerformed
+
+    private void btnTaoMoiKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiKHActionPerformed
+        // TODO add your handling code here:
+        btnTaoMoiKH();
+    }//GEN-LAST:event_btnTaoMoiKHActionPerformed
+
+    private void btnXoaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKHActionPerformed
+        // TODO add your handling code here:
+        deleteKH();
+    }//GEN-LAST:event_btnXoaKHActionPerformed
+
+    private void bntQLNhanVien1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLNhanVien1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bntQLNhanVien1MouseEntered
+
+    private void txtTimKiemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemKHActionPerformed
+
+    private void bntTimKiemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntTimKiemKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bntTimKiemKHActionPerformed
+
+    private void btnTaoMoiKH1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiKH1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTaoMoiKH1ActionPerformed
 
 
     /**
@@ -2644,8 +3080,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JButton bntNVSua;
     private javax.swing.JButton bntNVTaoMoi;
     private javax.swing.JButton bntNVTimKiem;
-    private javax.swing.JButton bntNVXoa;
-    private javax.swing.JButton bntNVXoaMucChon;
     private javax.swing.JButton bntPLamMoi;
     private javax.swing.JButton bntPSua;
     private javax.swing.JButton bntPTaoMoi;
@@ -2662,11 +3096,20 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JLabel bntQLNhanVien1;
     private javax.swing.JLabel bntQLPhong;
     private javax.swing.JLabel bntQLPhong1;
+    private javax.swing.JLabel bntQlKhachhang;
+    private javax.swing.JLabel bntQlKhachhang1;
+    private javax.swing.JLabel bntQlKhachhang2;
+    private javax.swing.JButton bntTimKiemKH;
     private javax.swing.JLabel bntTrangChu;
     private javax.swing.JLabel btnDangXuat;
     private javax.swing.JLabel btnDoiMK;
+    private javax.swing.JButton btnLamMoiKH;
+    private javax.swing.JButton btnSuaKH;
+    private javax.swing.JButton btnTaoMoiKH;
+    private javax.swing.JButton btnTaoMoiKH1;
     private javax.swing.JLabel btnTroChuyen;
     private javax.swing.JLabel btnTroChuyen1;
+    private javax.swing.JButton btnXoaKH;
     private javax.swing.ButtonGroup cboNVTrangThai;
     private javax.swing.ButtonGroup cboNVVaitro;
     private javax.swing.ButtonGroup cboPTrangThai;
@@ -2684,6 +3127,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2710,18 +3156,22 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JPanel pnlChat;
     private javax.swing.JPanel pnlMenuBar;
     private javax.swing.JPanel pnlQLDichVu;
     private javax.swing.JPanel pnlQLDoanhThu;
+    private javax.swing.JPanel pnlQLKhachHang;
     private javax.swing.JPanel pnlQLLoaiPhong;
     private javax.swing.JPanel pnlQLNhanVien;
     private javax.swing.JPanel pnlQLPhong;
+    private javax.swing.JPanel pnlTDQLKhachHang;
     private javax.swing.JPanel pnlTDTrangChu;
     private javax.swing.JPanel pnlTDTroChuyen;
     private javax.swing.JPanel pnlTTQLDichVu;
@@ -2740,6 +3190,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JRadioButton rdoPPhongSua1;
     private javax.swing.JRadioButton rdoPPhongTrong;
     private javax.swing.JPanel tabDoanhThu;
+    private javax.swing.JTable tabKhachHang;
     private javax.swing.JPanel tabPhong;
     private javax.swing.JTable tblDTPhong;
     private javax.swing.JTable tblDTTiepTan;
@@ -2749,6 +3200,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JTable tblPhong;
     private javax.swing.JTextArea txaPGhiChu;
     private javax.swing.JLabel txtChoChuyen;
+    private javax.swing.JLabel txtChoChuyen1;
     private javax.swing.JTextField txtDTNgayBatDau;
     private javax.swing.JTextField txtDTNgayKetThuc;
     private javax.swing.JTextField txtDTPTimKiem;
@@ -2773,7 +3225,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JTextField txtPTang;
     private javax.swing.JTextField txtPTimKiem;
     private javax.swing.JLabel txtPhong;
+    private javax.swing.JTextField txtSDT;
+    private javax.swing.JTextField txtSocmt;
+    private javax.swing.JTextField txtTenKH;
     private javax.swing.JLabel txtTenNV;
+    private javax.swing.JTextField txtTimKiemKH;
     private javax.swing.JLabel txtTrangChu;
     // End of variables declaration//GEN-END:variables
     void open() {
@@ -2937,220 +3393,50 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
      * ==============================================================================================================================
      */
     
-    PhongDao Phongdao = new PhongDaoImpl();
+    PhongDao Phongdao = new PhongDaoImpl(); 
     java.util.List<Phong> Phongitems;
+    private Integer currentPhongId = null;
 
-    public Phong layPhong() {
-        Phong entity = new Phong();
-        entity.setSoPhong(txtPSoPhong.getText());
-        entity.setTang(Integer.parseInt(txtPTang.getText()));
-        entity.setGiaTien(new java.math.BigDecimal(txtPGiaThue.getText()));
-        entity.setGhiChu(txaPGhiChu.getText());
+    public Phong layPhong() { 
+        Phong entity = new Phong(); 
+        entity.setSoPhong(txtPSoPhong.getText()); 
 
-        LoaiPhong loaiPhongChon = (LoaiPhong) cmbPLoaiPhong.getSelectedItem();
-        if (loaiPhongChon != null) {
-            entity.setIdLoaiPhong(loaiPhongChon.getId());
-        }
+        entity.setTang(Integer.parseInt(txtPTang.getText())); 
+        entity.setGiaTien(new java.math.BigDecimal(txtPGiaThue.getText())); 
 
-        String trangThai = "Trống";
-        if (rdoPPhongDuocThue.isSelected()) {
-            trangThai = "Đang sử dụng";
-        } else if (rdoPPhongSua1.isSelected()) {
-            trangThai = "Đang sửa chữa";
-        } else if (rdoPPhongDonDep.isSelected()){
-            trangThai = "Đang dọn dẹp";
-        }
-        entity.setTrangThai(trangThai);
-        return entity;
+        entity.setGhiChu(txaPGhiChu.getText()); 
+
+        LoaiPhong loaiPhongChon = (LoaiPhong) cmbPLoaiPhong.getSelectedItem(); 
+        if (loaiPhongChon != null) { 
+            entity.setIdLoaiPhong(loaiPhongChon.getId()); 
+        } 
+
+        String trangThai = "Trống"; 
+        if (rdoPPhongDuocThue.isSelected()) { 
+            trangThai = "Đang sử dụng"; 
+        } else if (rdoPPhongSua1.isSelected()) { 
+            trangThai = "Đang sửa chữa"; 
+        } else if (rdoPPhongDonDep.isSelected()){ 
+            trangThai = "Đang dọn dẹp"; 
+        } 
+        entity.setTrangThai(trangThai); 
+        return entity; 
+    } 
+
+    void fillLoaiPhongToCbo() { 
+        javax.swing.DefaultComboBoxModel model = (javax.swing.DefaultComboBoxModel) cmbPLoaiPhong.getModel(); 
+        model.removeAllElements(); 
+        try { 
+            java.util.List<LoaiPhong> list = new LoaiPhongDaoImpl().findAll(); 
+            for (LoaiPhong lp : list) { 
+                model.addElement(lp); 
+            } 
+        } catch (Exception e) { 
+            XDialog.alert("Lỗi tải dữ liệu loại phòng!"); 
+        } 
     }
-
-    void fillLoaiPhongToCbo() {
-        javax.swing.DefaultComboBoxModel model = (javax.swing.DefaultComboBoxModel) cmbPLoaiPhong.getModel();
-        model.removeAllElements();
-        try {
-            java.util.List<LoaiPhong> list = new LoaiPhongDaoImpl().findAll();
-            for (LoaiPhong lp : list) {
-                model.addElement(lp);
-            }
-        } catch (Exception e) {
-            XDialog.alert("Lỗi tải dữ liệu loại phòng!");
-        }
-    }
-
-    void laytblPhong() {
-        DefaultTableModel model = (DefaultTableModel) tblPhong.getModel();
-        model.setRowCount(0);
-        try {
-            Phongitems = Phongdao.findAll();
-            for (Phong item : Phongitems) {
-                LoaiPhong loaiPhong = new LoaiPhongDaoImpl().findById(item.getIdLoaiPhong());
-                String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không rõ";
-                model.addRow(new Object[]{
-                    item.getSoPhong(),
-                    item.getTang(),
-                    item.getGiaTien(),
-                    tenLoaiPhong,
-                    item.getTrangThai(),
-                    false
-                });
-            }
-        } catch (Exception e) {
-            XDialog.alert("Lỗi tải dữ liệu phòng!");
-            e.printStackTrace();
-        }
-    }
-
-    void suaPhong() {
-        try {
-            int selectedIndex = tblPhong.getSelectedRow();
-            if (selectedIndex >= 0) {
-                Phong entity = Phongitems.get(selectedIndex);
-                this.setFromP(entity);
-                this.suatblP(true);
-            }
-        } catch (Exception e) {
-            XDialog.alert("Lỗi khi chọn phòng để sửa!");
-            e.printStackTrace();
-        }
-    }
-
-    void setFromP(Phong entity) {
-        txtPSoPhong.setText(entity.getSoPhong());
-        txtPTang.setText(String.valueOf(entity.getTang()));
-        txtPGiaThue.setText(String.valueOf(entity.getGiaTien()));
-        txaPGhiChu.setText(entity.getGhiChu());
-
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cmbPLoaiPhong.getModel();
-        for (int i = 0; i < model.getSize(); i++) {
-            LoaiPhong lp = (LoaiPhong) model.getElementAt(i);
-            if (lp.getId() == entity.getIdLoaiPhong()) {
-                cmbPLoaiPhong.setSelectedIndex(i);
-                break;
-            }
-        }
-
-        String trangThai = entity.getTrangThai() != null ? entity.getTrangThai() : "Trống";
-        switch (trangThai) {
-            case "Đang sử dụng" -> rdoPPhongDuocThue.setSelected(true);
-            case "Đang sửa chữa" -> rdoPPhongSua1.setSelected(true);
-            case "Đang dọn dẹp" -> rdoPPhongDonDep.setSelected(true);
-            default -> rdoPPhongTrong.setSelected(true);
-        }
-    }
-
-
-    void suatblP(boolean suaP) {
-        bntPSua.setEnabled(suaP);
-        bntPTaoMoi.setEnabled(!suaP);
-    }
-    /**
-     * Cập nhật thông tin phòng trong CSDL.
-     */
-    void capNPhong() {
-        int selectedIndex = tblPhong.getSelectedRow();
-        if (selectedIndex < 0) {
-            XDialog.alert("Vui lòng chọn một phòng để cập nhật.");
-            return;
-        }
-        if (XDialog.confirm("Bạn có chắc chắn muốn cập nhật thông tin phòng này không?")) {
-            try {
-                Phong entity = this.layPhong();
-                // Lấy ID từ đối tượng phòng đã được chọn trong danh sách
-                Phong selectedPhong = Phongitems.get(selectedIndex);
-                entity.setId(selectedPhong.getId()); 
-
-                Phongdao.update(entity);
-                this.laytblPhong(); // Tải lại dữ liệu bảng
-                XDialog.alert("Cập nhật phòng thành công!");
-            } catch (Exception e) {
-                XDialog.alert("Cập nhật phòng thất bại!");
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    /**
-     * Xóa phòng được chọn trên form.
-     */
-    void xoaPhong() {
-        int selectedIndex = tblPhong.getSelectedRow();
-        // Kiểm tra xem có hàng nào được chọn không
-        if (selectedIndex < 0) {
-            XDialog.alert("Vui lòng chọn một phòng để xóa.");
-            return;
-        }
-
-        if (XDialog.confirm("Bạn thực sự muốn xóa phòng này?")) {
-            try {
-                // Lấy ID từ đối tượng phòng đã được chọn trong danh sách
-                Phong phongToDelete = Phongitems.get(selectedIndex);
-                Phongdao.deleteById(phongToDelete.getId());
-
-                this.laytblPhong(); // Tải lại dữ liệu bảng
-                this.lamMPhong(); // Làm mới form
-                XDialog.alert("Xóa phòng thành công!");
-            } catch (Exception e) {
-                XDialog.alert("Xóa phòng thất bại! Lỗi: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Xóa các phòng đã được chọn trong bảng.
-     */
-    void xoaMDCPhong() {
-        if (XDialog.confirm("Bạn thực sự muốn xóa các mục đã chọn?")) {
-            int successCount = 0;
-            for (int i = 0; i < tblPhong.getRowCount(); i++) {
-                if ((Boolean) tblPhong.getValueAt(i, 5)) {
-                    try {
-                        Phongdao.deleteById(Phongitems.get(i).getId());
-                        successCount++;
-                    } catch (Exception e) {
-                    }
-                }
-            }
-            this.laytblPhong();
-            XDialog.alert("Đã xóa thành công " + successCount + " mục.");
-        }
-    }
-
-
-    void lamMPhong() {
-        this.setFromP(new Phong());
-        this.suatblP(false);
-    }
-
-
-    void timKiemPhong() {
-        DefaultTableModel model = (DefaultTableModel) tblPhong.getModel();
-        model.setRowCount(0);
-        String soPhongKeyword = txtPTimKiem.getText();
-        try {
-            java.util.List<Phong> list = Phongdao.findAll(); // Lấy tất cả và lọc
-            for (Phong item : list) {
-                if (item.getSoPhong().contains(soPhongKeyword)) {
-                    LoaiPhong loaiPhong = new LoaiPhongDaoImpl().findById(item.getIdLoaiPhong());
-                    String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không rõ";
-                    model.addRow(new Object[]{
-                        item.getSoPhong(),
-                        item.getTang(),
-                        item.getGiaTien(),
-                        tenLoaiPhong,
-                        item.getTrangThai(),
-                        false
-                    });
-                }
-            }
-        } catch (Exception e) {
-            XDialog.alert("Lỗi tìm kiếm phòng!");
-        }
-    }
-
-
-    void taoPhong() {
+    
+    private boolean validatePhongData() {
         String soPhongStr = txtPSoPhong.getText().trim();
         String tangStr = txtPTang.getText().trim();
         String giaTienStr = txtPGiaThue.getText().trim();
@@ -3158,59 +3444,307 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         StringBuilder err = new StringBuilder();
 
+        // 1. Kiểm tra Số phòng không trống và là số nguyên dương
         if (soPhongStr.isEmpty()) {
-            err.append("Vui lòng không để trống số phòng.\n");
+            err.append("Vui lòng không để trống Số phòng.\n");
         } else {
             try {
-                Integer.parseInt(soPhongStr);
+                int soPhongInt = Integer.parseInt(soPhongStr);
+                if (soPhongInt <= 0) {
+                    err.append("Số phòng phải là một số nguyên dương.\n");
+                } else {
+                    // 2. Kiểm tra Số phòng bị trùng
+                    try {
+                        Phong existingPhong = Phongdao.findBySoPhong(soPhongStr);
+                        // Nếu tìm thấy phòng có số phòng này
+                        if (existingPhong != null) {
+                            // Kiểm tra nếu đang ở chế độ THÊM MỚI (currentPhongId == null)
+                            // hoặc nếu đang ở chế độ CẬP NHẬT nhưng ID của phòng tìm thấy
+                            // không phải là ID của phòng đang được chỉnh sửa
+                            if (currentPhongId == null || !currentPhongId.equals(existingPhong.getId())) {
+                                err.append("Số phòng này đã tồn tại. Vui lòng nhập số phòng khác.\n");
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Lỗi khi kiểm tra số phòng trùng lặp: " + e.getMessage());
+                        // Có thể thêm XDialog.alert("Lỗi hệ thống khi kiểm tra số phòng.");
+                    }
+                }
             } catch (NumberFormatException e) {
                 err.append("Số phòng phải là một số hợp lệ.\n");
             }
         }
 
+        // 3. Kiểm tra Tầng không trống và là số nguyên dương
         if (tangStr.isEmpty()) {
-            err.append("Vui lòng không để trống tầng.\n");
+            err.append("Vui lòng không để trống Tầng.\n");
         } else {
             try {
-                Integer.parseInt(tangStr);
+                int tangInt = Integer.parseInt(tangStr);
+                if (tangInt <= 0) {
+                    err.append("Tầng phải là một số nguyên dương.\n");
+                }
             } catch (NumberFormatException e) {
                 err.append("Tầng phải là một số hợp lệ.\n");
             }
         }
 
+        // 4. Kiểm tra Giá thuê không trống và là số dương
         if (giaTienStr.isEmpty()) {
-            err.append("Vui lòng không để trống giá thuê.\n");
+            err.append("Vui lòng không để trống Giá thuê.\n");
         } else {
             try {
-                Double.parseDouble(giaTienStr);
+                double giaTienDouble = Double.parseDouble(giaTienStr);
+                if (giaTienDouble <= 0) {
+                    err.append("Giá thuê phải là một số dương.\n");
+                }
             } catch (NumberFormatException e) {
                 err.append("Giá thuê phải là một số hợp lệ.\n");
             }
         }
 
+        // 5. Kiểm tra Loại phòng đã chọn
         if (loaiPhongChon == null) {
-             err.append("Vui lòng chọn loại phòng.\n");
+            err.append("Vui lòng chọn Loại phòng.\n");
         }
 
-        if (cboPTrangThai.getSelection() == null) {
-            err.append("Vui lòng chọn trạng thái phòng.\n");
+        // 6. Kiểm tra Trạng thái phòng đã chọn
+        if (!rdoPPhongDuocThue.isSelected() && !rdoPPhongSua1.isSelected() && 
+            !rdoPPhongDonDep.isSelected() && !rdoPPhongTrong.isSelected()) {
+            err.append("Vui lòng chọn Trạng thái phòng.\n");
         }
 
         if (err.length() > 0) {
             XDialog.alert(err.toString());
-            return;
+            return false; 
+        }
+        return true; 
+    }
+
+
+    void laytblPhong() { 
+        DefaultTableModel model = (DefaultTableModel) tblPhong.getModel(); 
+        model.setRowCount(0); 
+        try { 
+            Phongitems = Phongdao.findAll(); 
+            for (Phong item : Phongitems) { 
+                LoaiPhong loaiPhong = new LoaiPhongDaoImpl().findById(item.getIdLoaiPhong()); 
+                String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không rõ"; 
+
+                java.text.DecimalFormat formatter = new java.text.DecimalFormat("#,##0 VNĐ");
+                String giaTienFormatted = formatter.format(item.getGiaTien());
+
+                model.addRow(new Object[]{ 
+                     item.getSoPhong(), 
+                     item.getTang(), 
+                     giaTienFormatted,
+                     tenLoaiPhong, 
+                     item.getTrangThai(), 
+                     false 
+                 }); 
+             } 
+         } catch (Exception e) { 
+             XDialog.alert("Lỗi tải dữ liệu phòng!"); 
+             e.printStackTrace(); 
+         } 
+     } 
+
+    void suaPhong() { 
+        try { 
+            int selectedIndex = tblPhong.getSelectedRow(); 
+            if (selectedIndex >= 0) { 
+                Phong entity = Phongitems.get(selectedIndex); 
+                this.setFromP(entity); 
+                this.suatblP(true); 
+                // Lưu ID của phòng đang được chỉnh sửa
+                this.currentPhongId = entity.getId(); // Giả sử Phong có phương thức getId()
+            } 
+        } catch (Exception e) { 
+            XDialog.alert("Lỗi khi chọn phòng để sửa!"); 
+            e.printStackTrace(); 
+        } 
+    } 
+
+    void setFromP(Phong entity) { 
+        txtPSoPhong.setText(entity.getSoPhong()); 
+        txtPTang.setText(String.valueOf(entity.getTang())); 
+
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#"); 
+        txtPGiaThue.setText(df.format(entity.getGiaTien())); 
+
+        txaPGhiChu.setText(entity.getGhiChu()); 
+
+        javax.swing.DefaultComboBoxModel model = (javax.swing.DefaultComboBoxModel) cmbPLoaiPhong.getModel(); 
+        for (int i = 0; i < model.getSize(); i++) { 
+            LoaiPhong lp = (LoaiPhong) model.getElementAt(i); 
+            if (lp.getId() == entity.getIdLoaiPhong()) { 
+                cmbPLoaiPhong.setSelectedIndex(i); 
+                break; 
+            } 
+        } 
+
+        String trangThai = entity.getTrangThai() != null ? entity.getTrangThai() : "Trống"; 
+        switch (trangThai) { 
+            case "Đang sử dụng" -> rdoPPhongDuocThue.setSelected(true); 
+            case "Đang sửa chữa" -> rdoPPhongSua1.setSelected(true); 
+            case "Đang dọn dẹp" -> rdoPPhongDonDep.setSelected(true); 
+            default -> rdoPPhongTrong.setSelected(true); 
+        } 
+    }
+
+    void suatblP(boolean suaP) { 
+        bntPSua.setEnabled(suaP); 
+        bntPTaoMoi.setEnabled(!suaP); 
+    } 
+     
+    void capNPhong() { 
+        int selectedIndex = tblPhong.getSelectedRow(); 
+        if (selectedIndex < 0) { 
+            XDialog.alert("Vui lòng chọn một phòng để cập nhật."); 
+            return; 
+        } 
+
+        // Kiểm tra dữ liệu đầu vào trước khi cập nhật
+        // currentPhongId sẽ chứa ID của phòng đang sửa, nên validatePhongData sẽ bỏ qua kiểm tra trùng lặp với chính nó
+        if (!validatePhongData()) {
+            return; 
         }
 
-        Phong newPhong = this.layPhong();
-        try {
-            Phongdao.create(newPhong);
-            this.laytblPhong();
-            this.lamMPhong();
-            XDialog.alert("Tạo mới phòng thành công!");
-        } catch (Exception e) {
-            XDialog.alert("Tạo mới phòng thất bại!");
-            e.printStackTrace();
+        if (XDialog.confirm("Bạn có chắc chắn muốn cập nhật thông tin phòng này không?")) { 
+            try { 
+                Phong entity = this.layPhong(); 
+                Phong selectedPhong = Phongitems.get(selectedIndex); 
+                entity.setId(selectedPhong.getId()); 
+
+                Phongdao.update(entity); 
+                this.laytblPhong(); 
+                XDialog.alert("Cập nhật phòng thành công!"); 
+                this.currentPhongId = null; 
+            } catch (Exception e) { 
+                XDialog.alert("Cập nhật phòng thất bại! " + e.getMessage()); 
+                e.printStackTrace(); 
+            } 
+        } 
+    } 
+
+
+
+     /** * Xóa phòng được chọn trên form. 
+      */ 
+     void xoaPhong() { 
+         int selectedIndex = tblPhong.getSelectedRow(); 
+         // Kiểm tra xem có hàng nào được chọn không 
+         if (selectedIndex < 0) { 
+             XDialog.alert("Vui lòng chọn một phòng để xóa."); 
+             return; 
+         } 
+
+         if (XDialog.confirm("Bạn thực sự muốn xóa phòng này?")) { 
+             try { 
+                 // Lấy ID từ đối tượng phòng đã được chọn trong danh sách 
+                 Phong phongToDelete = Phongitems.get(selectedIndex); 
+                 Phongdao.deleteById(phongToDelete.getId()); 
+
+                 this.laytblPhong(); // Tải lại dữ liệu bảng 
+                 this.lamMPhong(); // Làm mới form 
+                 XDialog.alert("Xóa phòng thành công!"); 
+             } catch (Exception e) { 
+                 XDialog.alert("Xóa phòng thất bại! Lỗi: " + e.getMessage()); 
+                 e.printStackTrace(); 
+             } 
+         } 
+     } 
+
+     /** * Xóa các phòng đã được chọn trong bảng. 
+      */ 
+     void xoaMDCPhong() { 
+         if (XDialog.confirm("Bạn thực sự muốn xóa các mục đã chọn?")) { 
+             int successCount = 0; 
+             for (int i = 0; i < tblPhong.getRowCount(); i++) { 
+                 if ((Boolean) tblPhong.getValueAt(i, 5)) { 
+                     try { 
+                         // Lấy ID từ đối tượng Phongitems tại vị trí i. 
+                         // Cần đảm bảo rằng chỉ mục i của bảng khớp với chỉ mục trong Phongitems.
+                         // Cân nhắc thêm một cột ID ẩn hoặc cách khác để lấy ID chính xác.
+                         // Hiện tại, giả định rằng thứ tự trong bảng và Phongitems là như nhau.
+                         Phongdao.deleteById(Phongitems.get(i).getId()); 
+                         successCount++; 
+                     } catch (Exception e) { 
+                         // Ghi log lỗi cho các mục không xóa được nếu cần
+                         System.err.println("Lỗi khi xóa phòng: " + e.getMessage());
+                     } 
+                 } 
+             } 
+             this.laytblPhong(); 
+             XDialog.alert("Đã xóa thành công " + successCount + " mục."); 
+         } 
+     } 
+
+
+    void lamMPhong() { 
+        Phong emptyPhong = new Phong(); 
+        emptyPhong.setGiaTien(java.math.BigDecimal.ZERO); 
+        emptyPhong.setSoPhong(""); 
+        emptyPhong.setTang(0); 
+        emptyPhong.setGhiChu(""); 
+
+        this.setFromP(emptyPhong); 
+        this.suatblP(false); 
+        rdoPPhongTrong.setSelected(true);
+        this.currentPhongId = null; 
+    } 
+
+
+     void timKiemPhong() { 
+         DefaultTableModel model = (DefaultTableModel) tblPhong.getModel(); 
+         model.setRowCount(0); 
+         String soPhongKeyword = txtPTimKiem.getText().trim(); 
+         try { 
+             java.util.List<Phong> list = Phongdao.findAll(); // Lấy tất cả và lọc 
+             for (Phong item : list) { 
+                 // So sánh số phòng chứa từ khóa, không phân biệt hoa thường
+                 if (item.getSoPhong().toLowerCase().contains(soPhongKeyword.toLowerCase())) { 
+                     LoaiPhong loaiPhong = new LoaiPhongDaoImpl().findById(item.getIdLoaiPhong()); 
+                     String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không rõ"; 
+
+                     // Định dạng giá tiền: bỏ .00 và thêm VNĐ
+                     java.text.DecimalFormat formatter = new java.text.DecimalFormat("#,##0 VNĐ");
+                     String giaTienFormatted = formatter.format(item.getGiaTien());
+
+                     model.addRow(new Object[]{ 
+                         item.getSoPhong(), 
+                         item.getTang(), 
+                         giaTienFormatted, // Sử dụng giá tiền đã định dạng
+                         tenLoaiPhong, 
+                         item.getTrangThai(), 
+                         false 
+                     }); 
+                 } 
+             } 
+         } catch (Exception e) { 
+             XDialog.alert("Lỗi tìm kiếm phòng!"); 
+             e.printStackTrace(); // In lỗi để dễ debug
+         } 
+     } 
+
+
+    void taoPhong() { 
+        // Kiểm tra dữ liệu đầu vào trước khi tạo mới
+        // currentPhongId sẽ là null khi tạo mới, nên validatePhongData sẽ kiểm tra trùng lặp
+        if (!validatePhongData()) {
+            return; 
         }
+
+        try { 
+            Phong newPhong = this.layPhong(); 
+            Phongdao.create(newPhong); 
+            this.laytblPhong(); 
+            this.lamMPhong(); 
+            XDialog.alert("Tạo mới phòng thành công!"); 
+        } catch (Exception e) { 
+            XDialog.alert("Tạo mới phòng thất bại! " + e.getMessage()); 
+            e.printStackTrace(); 
+        } 
     }
     
      /**
@@ -3235,17 +3769,18 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     public void setFolder(String folder) {
         this.folder = folder;
     }
-    
+
     public void setIcon(String icon) {
         NVAnh.setText("");
         NVAnh.setToolTipText(icon);
         XIcon.setIcon(NVAnh, new File(this.folder, icon));
     }
-     
+
     public String getIcon() {
         return NVAnh.getToolTipText();
     }
-    
+
+    // Hàm lấy dữ liệu từ form, không thực hiện validation ở đây
     public NguoiDung layNguoiDung(){
         NguoiDung entity = new NguoiDung.Builder()
                 .username(txtNVTenDangNhap.getText())
@@ -3253,7 +3788,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 .matKhau(txtNVMatKhau.getText())
                 .sdt(txtNVSDT.getText())
                 .build();
-        
+
         // Đặt vai trò
         if (rdoNVQuanLy.isSelected()) {
             entity.setVaiTro("Quản lý");
@@ -3261,84 +3796,143 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             entity.setVaiTro("Tiếp tân");
         } else if (rdoNVDichVu.isSelected()) {
             entity.setVaiTro("Dịch vụ");
+        } else {
+            entity.setVaiTro(""); // Đảm bảo vai trò là rỗng nếu không chọn
         }
 
         // Đặt trạng thái
         entity.setTrangThai(rdoNVHoatDong.isSelected());
         
-        // Tên ảnh sẽ được đặt sau khi tạo hoặc cập nhật, không lấy trực tiếp từ tooltip
-        // Do DAO sẽ tự generate key hoặc sử dụng key đã có
+        // Ảnh sẽ được xử lý riêng trong tao/capNguoiDung
+        // entity.setAnh() sẽ được gọi sau khi validation và xử lý file ảnh
         
         return entity;
     }
     
-    void taoNguoiDung(){
-        // Thêm kiểm tra này ở đầu phương thức
-        if (isClearingForm) { 
-            return; // Nếu form đang được xóa, không thực hiện xác thực lại
-        }
 
-        NguoiDung newNguoiDung = this.layNguoiDung();
+    private boolean validateNguoiDungData(boolean isNewUser) {
+        NguoiDung nguoiDung = this.layNguoiDung(); // Lấy dữ liệu thô từ form
         StringBuilder err = new StringBuilder();
 
-        // Phần xác thực dữ liệu (không thay đổi)
-        if(newNguoiDung.getUsername().isEmpty()){
+        String username = nguoiDung.getUsername();
+        if (username.isEmpty()) {
             err.append("Tên đăng nhập không được để trống.\n");
+        } else if (username.contains(" ") || !username.matches("^[a-zA-Z0-9]+$")) {
+            err.append("Tên đăng nhập không được chứa ký tự trống và không dấu (chỉ chữ và số).\n");
+        } else if (isNewUser) { // Chỉ kiểm tra trùng lặp khi tạo mới
+            try {
+                NguoiDung existingUser = NVdao.findById(username);
+                if (existingUser != null) {
+                    err.append("Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.\n");
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi kiểm tra tên đăng nhập trùng lặp: " + e.getMessage());
+                // Không thông báo lỗi ra ngoài cho người dùng cuối
+            }
         }
-        if(newNguoiDung.getMatKhau().isEmpty()){
+
+        String password = nguoiDung.getMatKhau();
+        if (password.isEmpty()) {
             err.append("Mật khẩu không được để trống.\n");
+        } else if (password.equals(username)) {
+            err.append("Mật khẩu không được trùng với tên đăng nhập.\n");
+        } else if (password.contains(" ")) { // Kiểm tra khoảng trống
+            err.append("Mật khẩu không được chứa khoảng trống.\n");
+        } else if (!password.matches("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?`~]+$")) {
+            // Regex này cho phép chữ cái (hoa/thường), số, và một số ký tự đặc biệt phổ biến.
+            // Loại bỏ các ký tự có dấu.
+            err.append("Mật khẩu chỉ được chứa chữ cái (không dấu), số và các ký tự đặc biệt.\n");
         }
-        if(newNguoiDung.getHoVaTen().isEmpty()){
+
+
+        String hoVaTen = nguoiDung.getHoVaTen();
+        if (hoVaTen.isEmpty()) {
             err.append("Họ và tên không được để trống.\n");
+        } else {
+            if (!Character.isUpperCase(hoVaTen.charAt(0))) {
+                err.append("Họ và tên phải viết hoa chữ cái đầu tiên.\n");
+            }
+            if (!hoVaTen.matches("^[\\p{L}\\s.'-]+$")) { 
+                 err.append("Họ và tên chỉ được chứa chữ cái, khoảng trắng, dấu chấm, dấu gạch ngang, dấu nháy đơn.\n");
+            }
         }
-        if(newNguoiDung.getSdt().isEmpty()){
+
+        String sdt = nguoiDung.getSdt();
+        if (sdt.isEmpty()) {
             err.append("Số điện thoại không được để trống.\n");
-        } else if (!newNguoiDung.getSdt().matches("\\d+")) {
-            err.append("Số điện thoại chỉ được chứa ký tự số.\n");
+        } else if (!sdt.matches("^0[0-9]{6,14}$")) { 
+            err.append("Số điện thoại phải bắt đầu bằng số 0 và có từ 7 đến 15 chữ số.\n");
         }
-        if(newNguoiDung.getVaiTro() == null || newNguoiDung.getVaiTro().isEmpty()){
+
+        if (nguoiDung.getVaiTro() == null || nguoiDung.getVaiTro().isEmpty()) {
             err.append("Vui lòng chọn vai trò.\n");
         }
         
+        if (!rdoNVHoatDong.isSelected() && !rdoNVTamDung.isSelected()) {
+            err.append("Vui lòng chọn trạng thái.\n");
+        }
+
         if (err.length() > 0) {
-            // Đây là thông báo lỗi mà bạn thấy, nó sẽ không xuất hiện
-            // nếu isClearingForm là true và phương thức được gọi lại không mong muốn.
-            JOptionPane.showMessageDialog(this, err.toString()); 
+            JOptionPane.showMessageDialog(this, err.toString(), "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+
+    void taoNguoiDung(){
+        if (!validateNguoiDungData(true)) {
             return; 
         }
 
-        try {
-            // Kiểm tra trùng tên đăng nhập (không thay đổi)
-            NguoiDung existingUser = NVdao.findById(newNguoiDung.getUsername());
-            if (existingUser != null) {
-                JOptionPane.showMessageDialog(this, "Tên đăng nhập đã tồn tại!");
-                return;
-            }
-            
-            // Xử lý tạo mới người dùng và sao chép ảnh (không thay đổi)
-            newNguoiDung.setAnh(null); 
-            newNguoiDung = NVdao.create(newNguoiDung); 
+        NguoiDung newNguoiDung = this.layNguoiDung();
 
-            if (selectedLocalImagePath != null && newNguoiDung.getAnh() != null && !newNguoiDung.getAnh().isEmpty()) {
+        try {
+            String fileNameToSave = null;
+            if (selectedLocalImagePath != null) {
+                fileNameToSave = XStr.getKey() + ".jpg";
+                newNguoiDung.setAnh(fileNameToSave);
+            } else {
+                newNguoiDung.setAnh("avata.jpg");
+            }
+
+            // Thực hiện tạo mới người dùng
+            // Nếu DAO của bạn trả về đối tượng có ID (tự sinh) hoặc tên ảnh (nếu được DB generate)
+            // thì bạn có thể gán lại newNguoiDung = NVdao.create(newNguoiDung);
+            // Ở đây, tôi giả định create() chỉ thực hiện insert và không trả về ID
+            NVdao.create(newNguoiDung); // Thêm người dùng vào DB
+
+            // Nếu bạn muốn lấy ID tự sinh hoặc tên ảnh tự sinh từ DB sau khi tạo
+            // (nếu DB có trigger hoặc sequence cho ảnh), bạn cần fetch lại đối tượng
+            // Ví dụ, nếu Username là unique và có thể dùng để fetch:
+            NguoiDung createdUser = NVdao.findById(newNguoiDung.getUsername());
+
+            // Xử lý sao chép ảnh CHỈ KHI CÓ selectedLocalImagePath
+            // và đảm bảo rằng createdUser đã có tên ảnh (nếu DB tự đặt tên)
+            // HOẶC dùng fileNameToSave đã tạo ở trên.
+            if (selectedLocalImagePath != null && createdUser != null) { // Đảm bảo có người dùng đã được tạo và có ảnh được chọn
                 try {
                     Path source = Paths.get(selectedLocalImagePath);
-                    Path destination = Paths.get(this.folder, newNguoiDung.getAnh());
+                    // Sử dụng tên file đã gán cho newNguoiDung (hoặc createdUser.getAnh() nếu DAO trả về)
+                    Path destination = Paths.get(this.folder, newNguoiDung.getAnh()); 
                     Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                    selectedLocalImagePath = null; // Xóa đường dẫn tạm thời sau khi lưu
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(this, "Lỗi khi sao chép ảnh: " + e.getMessage());
+                    JOptionPane.showMessageDialog(this, "Lỗi khi sao chép ảnh: " + e.getMessage(), "Lỗi ảnh", JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace();
                 }
             }
 
             // Làm mới bảng và xóa form trước khi thông báo thành công
-            this.laytblNhanVien(); 
-            this.lamMNguoiDung(); 
-            JOptionPane.showMessageDialog(this, "Tạo người dùng thành công!"); 
+            this.laytblNhanVien();
+            this.lamMNguoiDung();
+            JOptionPane.showMessageDialog(this, "Tạo người dùng thành công!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Tạo người dùng thất bại! Lỗi: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Tạo người dùng thất bại! Lỗi: " + e.getMessage(), "Lỗi hệ thống", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
+
 
     void laytblNhanVien(){
         DefaultTableModel model = (DefaultTableModel) tblNV.getModel();
@@ -3358,31 +3952,29 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 model.addRow(rowData);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi tải dữ liệu nhân viên!"); // Sử dụng JOptionPane
+            JOptionPane.showMessageDialog(this, "Lỗi tải dữ liệu nhân viên!", "Lỗi", JOptionPane.ERROR_MESSAGE); 
             e.printStackTrace();
         }
     }
 
-     void lamMNguoiDung(){
-        isClearingForm = true; // Bắt đầu quá trình xóa form
+    void lamMNguoiDung(){
         txtNVTenDangNhap.setText("");
         txtNVMatKhau.setText("");
         txtNVHoVaTen.setText("");
         txtNVSDT.setText("");
-        cboNVVaitro.clearSelection();
-        cboNVTrangThai.clearSelection();
-        
+        cboNVVaitro.clearSelection(); // Xóa lựa chọn của ButtonGroup
+        cboNVTrangThai.clearSelection(); // Xóa lựa chọn của ButtonGroup
+        rdoNVHoatDong.setSelected(true); // Đặt mặc định trạng thái hoạt động khi làm mới
+
         // Đặt ảnh về logo mặc định
-        XIcon.setIcon(NVAnh, "/Icon/Logo.png");
+        XIcon.setIcon(NVAnh, "/Icon/Logo.png"); // Đường dẫn này phải là resource path
         NVAnh.setToolTipText("Logo.png"); // Reset tooltip
         
         selectedLocalImagePath = null; // Xóa đường dẫn ảnh tạm
         
         bntNVTaoMoi.setEnabled(true);
         bntNVSua.setEnabled(false);
-        bntNVXoa.setEnabled(false);
         txtNVTenDangNhap.setEditable(true); // Cho phép sửa Username khi thêm mới
-        isClearingForm = false; // Kết thúc quá trình xóa form
     }
     
     void suaNguoiDung() {
@@ -3394,7 +3986,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 this.suatblNV(true);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi chọn nhân viên để sửa!");
+            JOptionPane.showMessageDialog(this, "Lỗi khi chọn nhân viên để sửa!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
@@ -3409,10 +4001,12 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         String imageFileNameFromDB = entity.getAnh();
         if (imageFileNameFromDB != null && !imageFileNameFromDB.isEmpty()) {
             // Hiển thị ảnh từ thư mục 'images' dựa vào tên file từ DB
+            // XIcon.setIcon(JLabel, File)
             XIcon.setIcon(NVAnh, new File(this.folder, imageFileNameFromDB)); 
             NVAnh.setToolTipText(imageFileNameFromDB); // Đặt tooltip thành tên tệp thực tế
         } else {
             // Trường hợp không có ảnh: đặt ảnh mặc định
+            // XIcon.setIcon(JLabel, String) cho resource path
             XIcon.setIcon(NVAnh, "/Icon/Logo.png"); 
             NVAnh.setToolTipText("Logo.png"); 
         }
@@ -3436,26 +4030,30 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         }
         
         txtNVTenDangNhap.setEditable(false); // Không cho phép sửa Username khi chỉnh sửa
-        selectedLocalImagePath = null; // Đảm bảo reset khi tải user mới lên form
+        selectedLocalImagePath = null; // Đảm bảo reset khi tải user mới lên form, không có ảnh mới được chọn
     }
 
     void suatblNV(boolean suaNV){
         bntNVSua.setEnabled(suaNV);
-        bntNVXoa.setEnabled(suaNV);
         bntNVTaoMoi.setEnabled(!suaNV);
     }
     
     void capNguoiDung(){
-        NguoiDung updatedNguoiDung = this.layNguoiDung();
-        // Lấy username của người dùng đang được chỉnh sửa
-        String currentUsername = txtNVTenDangNhap.getText(); 
-        updatedNguoiDung.setUsername(currentUsername); // Đảm bảo cập nhật đúng người dùng
+        // Gọi hàm validation trước khi tiếp tục
+        if (!validateNguoiDungData(false)) { // isNewUser = false
+            return; 
+        }
 
-        // Lấy thông tin người dùng gốc từ DB để giữ lại tên ảnh cũ nếu không chọn ảnh mới
-        NguoiDung originalUser = NVdao.findById(currentUsername);
-        String oldImageFileName = (originalUser != null) ? originalUser.getAnh() : null;
+        NguoiDung updatedNguoiDung = this.layNguoiDung();
+        // Username không thay đổi khi cập nhật
+        String currentUsername = txtNVTenDangNhap.getText(); 
+        updatedNguoiDung.setUsername(currentUsername); 
 
         try {
+            // Lấy thông tin người dùng gốc từ DB để giữ lại tên ảnh cũ nếu không chọn ảnh mới
+            NguoiDung originalUser = NVdao.findById(currentUsername);
+            String oldImageFileName = (originalUser != null) ? originalUser.getAnh() : null;
+
             // Nếu có ảnh mới được chọn từ máy tính
             if (selectedLocalImagePath != null) {
                 String fileNameToSave = XStr.getKey() + ".jpg"; // Tạo tên file mới
@@ -3476,108 +4074,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             this.lamMNguoiDung();
             JOptionPane.showMessageDialog(this, "Cập nhật người dùng thành công!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Cập nhật người dùng thất bại! Lỗi: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Cập nhật người dùng thất bại! Lỗi: " + e.getMessage(), "Lỗi hệ thống", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
-        }
-    }
-    
-    void xoaNguoiDung(){
-        int selectedIndex = tblNV.getSelectedRow();
-        if (selectedIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn người dùng cần xóa!");
-            return;
-        }
-
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa người dùng này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            String username = (String) tblNV.getValueAt(selectedIndex, 0);
-            try {
-                // Lấy thông tin người dùng để tìm tên ảnh và xóa ảnh vật lý
-                NguoiDung ndToDelete = NVdao.findById(username);
-                
-                // Gọi DAO để xóa người dùng. Logic xóa DatPhong liên quan đã có trong NguoiDungDaoImpl
-                NVdao.deleteById(username); //
-
-                // Xóa ảnh vật lý sau khi xóa thành công trong DB
-                if (ndToDelete != null && ndToDelete.getAnh() != null && !ndToDelete.getAnh().isEmpty()) {
-                    Path imagePath = Paths.get(this.folder, ndToDelete.getAnh());
-                    if (Files.exists(imagePath)) {
-                        Files.delete(imagePath);
-                    }
-                }
-                
-                this.laytblNhanVien();
-                this.lamMNguoiDung();
-                JOptionPane.showMessageDialog(this, "Xóa người dùng thành công!");
-            } catch (Exception e) {
-                // Log lỗi chi tiết để debug
-                Logger.getLogger(TrangChuQLJFarme.class.getName()).log(Level.SEVERE, "Lỗi khi xóa người dùng: " + username, e);
-                
-                // Hiển thị thông báo lỗi rõ ràng hơn cho người dùng
-                String errorMessage = "Xóa người dùng thất bại! ";
-                if (e.getMessage() != null && e.getMessage().contains("REFERENCE constraint")) {
-                    errorMessage += "Không thể xóa người dùng này vì có các dữ liệu khác đang tham chiếu đến (ví dụ: các đơn đặt phòng). Vui lòng xóa các dữ liệu liên quan trước.";
-                } else {
-                    errorMessage += "Lỗi: " + e.getMessage();
-                }
-                JOptionPane.showMessageDialog(this, errorMessage, "Lỗi Xóa", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
-    void xoaMDCNguoiDung() {
-        int countSelected = 0;
-        for (int i = 0; i < tblNV.getRowCount(); i++) {
-            Boolean isSelected = (Boolean) tblNV.getValueAt(i, 6);
-            if (isSelected != null && isSelected) {
-                countSelected++;
-            }
-        }
-
-        if (countSelected == 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn ít nhất một người dùng để xóa.");
-            return;
-        }
-
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa " + countSelected + " người dùng đã chọn?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            int successCount = 0;
-            int failCount = 0;
-            StringBuilder errorMessages = new StringBuilder("Xóa các mục đã chọn thất bại:\n");
-
-            for (int i = 0; i < tblNV.getRowCount(); i++) {
-                Boolean isSelected = (Boolean) tblNV.getValueAt(i, 6);
-                if (isSelected != null && isSelected) {
-                    String username = (String) tblNV.getValueAt(i, 0);
-                    try {
-                        NguoiDung ndToDelete = NVdao.findById(username);
-                        
-                        // Gọi DAO để xóa người dùng. Logic xóa DatPhong liên quan đã có trong NguoiDungDaoImpl
-                        NVdao.deleteById(username); //
-
-                        // Xóa ảnh vật lý sau khi xóa thành công trong DB
-                        if (ndToDelete != null && ndToDelete.getAnh() != null && !ndToDelete.getAnh().isEmpty()) {
-                            Path imagePath = Paths.get(this.folder, ndToDelete.getAnh());
-                            if (Files.exists(imagePath)) {
-                                Files.delete(imagePath);
-                            }
-                        }
-                        successCount++;
-                    } catch (Exception e) {
-                        failCount++;
-                        errorMessages.append("- Người dùng ").append(username).append(": ").append(e.getMessage()).append("\n");
-                        Logger.getLogger(TrangChuQLJFarme.class.getName()).log(Level.SEVERE, "Lỗi khi xóa người dùng: " + username, e);
-                    }
-                }
-            }
-            this.laytblNhanVien();
-            this.lamMNguoiDung();
-
-            if (failCount == 0) {
-                JOptionPane.showMessageDialog(this, "Đã xóa thành công " + successCount + " người dùng.");
-            } else {
-                JOptionPane.showMessageDialog(this, errorMessages.toString(), "Lỗi Xóa", JOptionPane.ERROR_MESSAGE);
-            }
         }
     }
     
@@ -3586,7 +4084,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         DefaultTableModel model = (DefaultTableModel) tblNV.getModel();
         model.setRowCount(0); // Clear table
         try {
-            // Lấy tất cả và lọc bằng tay
             List<NguoiDung> list = NVdao.findAll(); 
             for (NguoiDung nd : list) {
                 if (nd.getUsername().toLowerCase().contains(keyword.toLowerCase()) ||
@@ -3606,7 +4103,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi tìm kiếm: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Lỗi tìm kiếm: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
@@ -3628,7 +4125,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 NVAnh.setIcon(null);
                 NVAnh.setText("Lỗi tải ảnh");
                 selectedLocalImagePath = null; // Reset nếu có lỗi
-                e.printStackTrace(); // In lỗi để debug
+                JOptionPane.showMessageDialog(this, "Không thể tải ảnh đã chọn. Vui lòng kiểm tra định dạng tệp.", "Lỗi tải ảnh", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace(); 
             }
         }
     }
@@ -3803,46 +4301,47 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     
     private Dao.dao.DichVuDao DVdao = new Dao.daoimpl.DichVuDaoImpl();
     List<Dao.entity.DichVu> DichVuitems;
+    private Integer currentDichVuId = null; 
     
     public Dao.entity.DichVu layDichVu() {
         Dao.entity.DichVu entity = new Dao.entity.DichVu();
-        entity.setTenDichVu(txtDVTen.getText().trim()); // Lấy tên dịch vụ và loại bỏ khoảng trắng thừa
+        entity.setTenDichVu(txtDVTen.getText().trim());
         try {
-            entity.setDonGia(Double.parseDouble(txtDVGia.getText().trim())); // Lấy giá tiền
+            // Chỉ lấy giá trị, việc kiểm tra NumberFormatException sẽ ở validateDichVuData()
+            entity.setDonGia(Double.parseDouble(txtDVGia.getText().trim())); 
         } catch (NumberFormatException e) {
-            // Sẽ được xử lý bởi phần kiểm tra hợp lệ trong taoDichVu()
+            // Bỏ qua lỗi ở đây, vì validateDichVuData sẽ xử lý
         }
         return entity;
     }
-    
+
     void lamMDichVu() {
         txtDVTen.setText("");
         txtDVGia.setText("");
-        // Đặt lại trạng thái của các nút
-        bntDVTaoMoi.setEnabled(true); // Cho phép tạo mới
-        bntDVSua.setEnabled(false);   // Vô hiệu hóa sửa
-        bntDVXoa.setEnabled(false);   // Vô hiệu hóa xóa
-        laytblDichVu(); // Tải lại bảng dịch vụ để hiển thị dữ liệu mới nhất
+        bntDVTaoMoi.setEnabled(true);
+        bntDVSua.setEnabled(false);
+        bntDVXoa.setEnabled(false);
+        laytblDichVu(); // Tải lại bảng dịch vụ
+        this.currentDichVuId = null; // Reset ID dịch vụ đang chỉnh sửa
     }
-    
 
     void laytblDichVu() {
         DefaultTableModel model = (DefaultTableModel) tblDV.getModel();
-        model.setRowCount(0); // Xóa tất cả các hàng hiện có
+        model.setRowCount(0); 
 
-        // Lấy từ khóa tìm kiếm từ txtDVTimKiem và chuyển sang chữ thường để tìm kiếm không phân biệt chữ hoa/thường
         String tenDichVuKeyword = txtDVTimKiem.getText().trim().toLowerCase(); 
 
         try {
-            DichVuitems = DVdao.findAll(); // Lấy tất cả dịch vụ
+            DichVuitems = DVdao.findAll(); 
+            DecimalFormat formatter = new DecimalFormat("#,##0 VNĐ"); // Định dạng giá tiền giống Phòng
+
             for (Dao.entity.DichVu dv : DichVuitems) {
-                // Áp dụng bộ lọc tìm kiếm: kiểm tra xem tên dịch vụ có chứa từ khóa không
                 if (dv.getTenDichVu().toLowerCase().contains(tenDichVuKeyword)) {
                     model.addRow(new Object[]{
                         dv.getId(),
                         dv.getTenDichVu(),
-                        dv.getDonGia(),
-                        false // Cột "Chọn" cho các chức năng xóa nhiều
+                        formatter.format(dv.getDonGia()), // Định dạng giá tiền
+                        false 
                     });
                 }
             }
@@ -3852,20 +4351,38 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         }
     }
     
-    void taoDichVu() {
-        Dao.entity.DichVu newDichVu = layDichVu();
+    // --- Bắt đầu hàm validation mới ---
+    private boolean validateDichVuData(boolean isNewService) {
+        Dao.entity.DichVu dichVu = layDichVu();
         StringBuilder errors = new StringBuilder();
 
-        // Kiểm tra hợp lệ dữ liệu nhập vào
-        if (newDichVu.getTenDichVu().isEmpty()) {
+        // 1. Kiểm tra Tên dịch vụ
+        String tenDichVu = dichVu.getTenDichVu();
+        if (tenDichVu.isEmpty()) {
             errors.append("Tên dịch vụ không được để trống.\n");
+        } else {
+            try {
+                Dao.entity.DichVu existingService = DVdao.findByTenDichVu(tenDichVu);
+                if (existingService != null) {
+                    // Nếu đang tạo mới HOẶC (đang cập nhật VÀ ID của dịch vụ tìm thấy không phải là ID của dịch vụ đang sửa)
+                    if (isNewService || (currentDichVuId != null && !currentDichVuId.equals(existingService.getId()))) {
+                        errors.append("Tên dịch vụ đã tồn tại. Vui lòng chọn tên khác.\n");
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi kiểm tra tên dịch vụ trùng lặp: " + e.getMessage());
+                // Không thông báo lỗi hệ thống cho người dùng cuối
+            }
         }
-        if (txtDVGia.getText().trim().isEmpty()) {
+
+        // 2. Kiểm tra Giá tiền
+        String giaText = txtDVGia.getText().trim();
+        if (giaText.isEmpty()) {
             errors.append("Giá tiền không được để trống.\n");
         } else {
             try {
-                double gia = Double.parseDouble(txtDVGia.getText().trim());
-                if (gia < 0) {
+                double gia = Double.parseDouble(giaText);
+                if (gia <= 0) { // Giá tiền phải là số dương (lớn hơn 0)
                     errors.append("Giá tiền phải là số dương.\n");
                 }
             } catch (NumberFormatException e) {
@@ -3875,22 +4392,22 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         if (errors.length() > 0) {
             Util.XDialog.alert(errors.toString());
+            return false;
+        }
+        return true;
+    }
+    // --- Kết thúc hàm validation mới ---
+
+    void taoDichVu() {
+        if (!validateDichVuData(true)) { // isNewService = true
             return;
         }
 
+        Dao.entity.DichVu newDichVu = layDichVu();
         try {
-            // Kiểm tra trùng lặp tên dịch vụ (nếu cần)
-            List<Dao.entity.DichVu> existingServices = DVdao.findAll();
-            for (Dao.entity.DichVu dv : existingServices) {
-                if (dv.getTenDichVu().equalsIgnoreCase(newDichVu.getTenDichVu())) {
-                    Util.XDialog.alert("Tên dịch vụ đã tồn tại. Vui lòng chọn tên khác.");
-                    return;
-                }
-            }
-
-            DVdao.create(newDichVu); // Gọi DAO để thêm dịch vụ vào DB
+            DVdao.create(newDichVu);
             Util.XDialog.alert("Thêm dịch vụ mới thành công!");
-            lamMDichVu(); // Làm mới form và bảng sau khi thêm thành công
+            lamMDichVu(); 
         } catch (Exception e) {
             Util.XDialog.alert("Thêm dịch vụ mới thất bại! Lỗi: " + e.getMessage());
             e.printStackTrace();
@@ -3899,16 +4416,18 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     
     void setFromDV(Dao.entity.DichVu entity) {
         txtDVTen.setText(entity.getTenDichVu());
-        txtDVGia.setText(String.valueOf(entity.getDonGia()));
-        // Trong trường hợp này, Id của dịch vụ không được hiển thị trực tiếp trên form
-        // nhưng nó được lưu trữ ngầm trong danh sách DichVuitems và sẽ được truy xuất
-        // khi cần cho các chức năng Sửa/Xóa.
+        // Định dạng lại giá tiền khi hiển thị lên ô nhập liệu
+        DecimalFormat df = new DecimalFormat("#"); // Không có .00 và không có VNĐ
+        txtDVGia.setText(df.format(entity.getDonGia()));
+        
+        // Lưu ID của dịch vụ đang được chỉnh sửa
+        this.currentDichVuId = entity.getId();
     }
     
     void suatblDV(boolean isEditing) {
-        bntDVTaoMoi.setEnabled(!isEditing); // Khi sửa/xóa, vô hiệu hóa nút "Tạo Mới"
-        bntDVSua.setEnabled(isEditing);     // Khi sửa/xóa, kích hoạt nút "Sửa"
-        bntDVXoa.setEnabled(isEditing);     // Khi sửa/xóa, kích hoạt nút "Xóa"
+        bntDVTaoMoi.setEnabled(!isEditing); 
+        bntDVSua.setEnabled(isEditing);    
+        bntDVXoa.setEnabled(isEditing);    
     }
     
     void capNDichVu() {
@@ -3917,48 +4436,20 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             Util.XDialog.alert("Vui lòng chọn một dịch vụ để cập nhật.");
             return;
         }
-
-        Dao.entity.DichVu updatedDichVu = layDichVu(); // Lấy dữ liệu cập nhật từ form
-        // Lấy dịch vụ gốc từ danh sách để có ID của dịch vụ cần cập nhật
-        Dao.entity.DichVu originalDichVu = DichVuitems.get(selectedRow); 
-        updatedDichVu.setId(originalDichVu.getId()); // Gán ID cho đối tượng cập nhật
-
-        StringBuilder errors = new StringBuilder();
-        // Kiểm tra hợp lệ dữ liệu
-        if (updatedDichVu.getTenDichVu().isEmpty()) {
-            errors.append("Tên dịch vụ không được để trống.\n");
-        }
-        if (txtDVGia.getText().trim().isEmpty()) {
-            errors.append("Giá tiền không được để trống.\n");
-        } else {
-            try {
-                double gia = Double.parseDouble(txtDVGia.getText().trim());
-                if (gia < 0) {
-                    errors.append("Giá tiền phải là số dương.\n");
-                }
-            } catch (NumberFormatException e) {
-                errors.append("Giá tiền phải là một số hợp lệ.\n");
-            }
-        }
-
-        if (errors.length() > 0) {
-            Util.XDialog.alert(errors.toString());
+        
+        if (!validateDichVuData(false)) { // isNewService = false
             return;
         }
 
+        Dao.entity.DichVu updatedDichVu = layDichVu();
+        Dao.entity.DichVu originalDichVu = DichVuitems.get(selectedRow); 
+        updatedDichVu.setId(originalDichVu.getId()); 
+
         if (Util.XDialog.confirm("Bạn thực sự muốn cập nhật dịch vụ này?")) {
             try {
-                // Kiểm tra tên dịch vụ có bị trùng với dịch vụ khác (không phải dịch vụ đang sửa)
-                for (int i = 0; i < DichVuitems.size(); i++) {
-                    if (i != selectedRow && DichVuitems.get(i).getTenDichVu().equalsIgnoreCase(updatedDichVu.getTenDichVu())) {
-                        Util.XDialog.alert("Tên dịch vụ đã tồn tại cho dịch vụ khác. Vui lòng chọn tên khác.");
-                        return;
-                    }
-                }
-
-                DVdao.update(updatedDichVu); // Gọi DAO để cập nhật
+                DVdao.update(updatedDichVu);
                 Util.XDialog.alert("Cập nhật dịch vụ thành công!");
-                lamMDichVu(); // Làm mới bảng và form
+                lamMDichVu(); 
             } catch (Exception e) {
                 Util.XDialog.alert("Cập nhật dịch vụ thất bại! Lỗi: " + e.getMessage());
                 e.printStackTrace();
@@ -3976,34 +4467,32 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         if (Util.XDialog.confirm("Bạn thực sự muốn xóa dịch vụ này?")) {
             try {
                 int serviceIdToDelete = DichVuitems.get(selectedRow).getId();
-                DVdao.deleteById(serviceIdToDelete); // Lệnh này có thể gây ra RuntimeException
+                DVdao.deleteById(serviceIdToDelete);
                 Util.XDialog.alert("Xóa dịch vụ thành công!");
-                lamMDichVu(); // Làm mới bảng và form
+                lamMDichVu();
             } catch (RuntimeException e) {
-                Throwable cause = e.getCause(); // Lấy ngoại lệ gốc
-                if (cause instanceof SQLServerException sqlEx) {
-                    // Kiểm tra mã lỗi SQL Server cho lỗi ràng buộc khóa ngoại (thường là 547)
+                // Đảm bảo bạn đã import SQLServerException nếu bạn muốn sử dụng nó
+                // import com.microsoft.sqlserver.jdbc.SQLServerException;
+                Throwable cause = e.getCause();
+                if (cause instanceof com.microsoft.sqlserver.jdbc.SQLServerException sqlEx) { // Kiểm tra SQLServerException
                     if (sqlEx.getErrorCode() == 547) {
                         Util.XDialog.alert("Không thể xóa dịch vụ này vì nó đã được sử dụng trong các hóa đơn hoặc chi tiết dịch vụ khác.", "Lỗi Xóa Dịch Vụ");
                     } else {
-                        // Các lỗi SQL khác
                         Util.XDialog.alert("Xóa dịch vụ thất bại! Lỗi cơ sở dữ liệu: " + sqlEx.getMessage(), "Lỗi Xóa Dịch Vụ");
-                        sqlEx.printStackTrace(); // In stack trace để gỡ lỗi chi tiết
+                        sqlEx.printStackTrace();
                     }
                 } else {
-                    // Các loại RuntimeException khác
                     Util.XDialog.alert("Xóa dịch vụ thất bại! Lỗi không xác định: " + e.getMessage(), "Lỗi Xóa Dịch Vụ");
-                    e.printStackTrace(); // In stack trace để gỡ lỗi chi tiết
+                    e.printStackTrace();
                 }
             }
         }
-}
+    }
 
-    // Phương thức để xóa nhiều dịch vụ đã chọn
     void xoaMDCDichVu() {
         int countSelected = 0;
         for (int i = 0; i < tblDV.getRowCount(); i++) {
-            Boolean isSelected = (Boolean) tblDV.getValueAt(i, 3); // Cột thứ 3 là checkbox "Chọn"
+            Boolean isSelected = (Boolean) tblDV.getValueAt(i, 3);
             if (isSelected != null && isSelected) {
                 countSelected++;
             }
@@ -4017,21 +4506,20 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         if (Util.XDialog.confirm("Bạn có chắc muốn xóa " + countSelected + " dịch vụ đã chọn?")) {
             int successCount = 0;
             int failCount = 0;
-            StringBuilder errorMessages = new StringBuilder("Các dịch vụ sau không thể xóa được:\n"); // Thay đổi thông báo cho rõ ràng hơn
+            StringBuilder errorMessages = new StringBuilder("Các dịch vụ sau không thể xóa được:\n");
 
-            // Lặp ngược để tránh lỗi chỉ số hàng khi xóa
             for (int i = tblDV.getRowCount() - 1; i >= 0; i--) {
-                Boolean isSelected = (Boolean) tblDV.getValueAt(i, 3); // Cột "Chọn"
+                Boolean isSelected = (Boolean) tblDV.getValueAt(i, 3);
                 if (isSelected != null && isSelected) {
                     try {
-                        int serviceIdToDelete = DichVuitems.get(i).getId(); // Lấy ID dịch vụ từ danh sách
-                        DVdao.deleteById(serviceIdToDelete); // Lệnh này có thể gây ra RuntimeException
+                        int serviceIdToDelete = DichVuitems.get(i).getId(); 
+                        DVdao.deleteById(serviceIdToDelete);
                         successCount++;
                     } catch (RuntimeException e) {
                         failCount++;
-                        String serviceName = (String) tblDV.getValueAt(i, 1); // Lấy tên dịch vụ
-                        Throwable cause = e.getCause(); // Lấy ngoại lệ gốc
-                        if (cause instanceof SQLServerException sqlEx) {
+                        String serviceName = (String) tblDV.getValueAt(i, 1);
+                        Throwable cause = e.getCause();
+                        if (cause instanceof com.microsoft.sqlserver.jdbc.SQLServerException sqlEx) {
                             if (sqlEx.getErrorCode() == 547) {
                                 errorMessages.append("- '").append(serviceName).append("': Đã được sử dụng trong các hóa đơn.\n");
                             } else {
@@ -4040,20 +4528,323 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                         } else {
                             errorMessages.append("- '").append(serviceName).append("': Lỗi không xác định: ").append(e.getMessage()).append("\n");
                         }
-                        e.printStackTrace(); // In stack trace để gỡ lỗi chi tiết
+                        e.printStackTrace();
                     }
                 }
             }
 
-            lamMDichVu(); // Làm mới bảng và form sau khi xóa
+            lamMDichVu(); 
 
             if (successCount > 0) {
                 Util.XDialog.alert("Đã xóa thành công " + successCount + " dịch vụ.");
             }
             if (failCount > 0) {
-                Util.XDialog.alert(errorMessages.toString(), "Lỗi Xóa Dịch Vụ"); // Sử dụng tiêu đề cụ thể cho thông báo lỗi
+                Util.XDialog.alert(errorMessages.toString(), "Lỗi Xóa Dịch Vụ"); 
             }
         }
+    }
+    
+    /**
+     * ==============================================================================================================================
+     * ==================================================== Khach Hang ==============================================================
+     * ==============================================================================================================================
+     */
+    
+    public void setKhachHangInfo(KhachHang kh) {
+        txtTenKH.setText(kh.getHoTen());
+        txtSocmt.setText(kh.getCmt());
+        txtSDT.setText(kh.getSdt());
+    }
+ 
+    List<KhachHang> kh_items = new ArrayList<>();
+    void fillTableKhachHang() {
+        DefaultTableModel model = (DefaultTableModel) tabKhachHang.getModel();
+        model.setRowCount(0); 
+        try {
+            KhachHangDao dao = new KhachHangDaoImpl();
+            kh_items = dao.findAll(); // Lưu danh sách khách hàng
+            for (KhachHang kh : kh_items) {
+                Object[] row = {
+                    kh.getHoTen(),
+                    kh.getCmt(),
+                    kh.getSdt(),
+                    false 
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            XDialog.alert("Lỗi truy vấn dữ liệu khách hàng!");
+        }
+    }
+
+    void setFormKH(KhachHang kh) {
+        txtTenKH.setText(kh.getHoTen());
+        txtSocmt.setText(kh.getCmt());
+        txtSDT.setText(kh.getSdt());
+    }
+    void setFormKHDP(KhachHang kh) {
+        txtTenKH.setText(kh.getHoTen());
+        txtSocmt.setText(kh.getCmt());
+        txtSDT.setText(kh.getSdt());
+    }
+
+    void suatblKH(boolean sua) {
+        btnSuaKH.setEnabled(sua);
+        btnTaoMoiKH.setEnabled(!sua);
+    }
+
+    KhachHang getFormKH() {
+        KhachHang kh = new KhachHang();
+        kh.setHoTen(txtTenKH.getText());
+        kh.setCmt(txtSocmt.getText());
+        kh.setSdt(txtSDT.getText());
+        return kh;
+    }
+
+    KhachHang getFormKHDP() {
+        KhachHang kh = new KhachHang();
+        kh.setHoTen(txtTenKH.getText());
+        kh.setCmt(txtSocmt.getText());
+        kh.setSdt(txtSDT.getText());
+        return kh;
+    }
+
+    void btnTaoMoiKH() {                                           
+        String tenKH = txtTenKH.getText().trim();
+        String cmt = txtSocmt.getText().trim();
+        String sdt = txtSDT.getText().trim();
+
+        // 1. Kiểm tra định dạng cơ bản của các trường
+        if (!validateCustomerName(tenKH)) {
+            return;
+        }
+        if (!validateIDNumber(cmt)) {
+            return;
+        }
+        if (!validatePhoneNumber(sdt)) {
+            return;
+        }
+
+        // 2. Kiểm tra trùng lặp (truyền null vì đây là khách hàng mới)
+        if (isDuplicateKhachHang(tenKH, cmt, sdt, null)) {
+            return;
+        }
+
+        try {
+            KhachHangDao khDao = new KhachHangDaoImpl();
+            KhachHang kh = getFormKH();
+            khDao.create(kh);
+            this.fillTableKhachHang();
+            this.clearFormKH();
+            XDialog.alert("Thêm mới khách hàng thành công!");
+        } catch (Exception e) {
+            XDialog.alert("Thêm mới khách hàng thất bại!");
+            e.printStackTrace();
+        }
+    }
+ 
+    void btnTaoMoiKHDP() {                                           
+     String tenKH = txtTenKH.getText().trim();
+      String cmt = txtSocmt.getText().trim();
+      String sdt = txtSDT.getText().trim();
+
+      // 1. Kiểm tra định dạng cơ bản của các trường
+      if (!validateCustomerName(tenKH)) {
+          return;
+      }
+      if (!validateIDNumber(cmt)) {
+          return;
+      }
+      if (!validatePhoneNumber(sdt)) {
+          return;
+      }
+
+      // 2. Kiểm tra trùng lặp (truyền null vì đây là khách hàng mới)
+      if (isDuplicateKhachHang(tenKH, cmt, sdt, null)) {
+          return;
+      }
+
+      try {
+          KhachHangDao khDao = new KhachHangDaoImpl();
+          KhachHang kh = getFormKHDP();
+          khDao.create(kh);
+          this.fillTableKhachHang();
+          this.clearFormKH(); // Có thể cần một hàm clear riêng cho jpnDatPhong nếu cần
+          XDialog.alert("Thêm mới khách hàng thành công!");
+          // Vô hiệu hóa các trường và nút sau khi thêm thành công để tránh nhập lại
+//          txtTenKH.setEnabled(false);
+//          txtSocmt.setEnabled(false);
+//          txtSDT.setEnabled(false);
+////          btnKHCu.setEnabled(false);
+////          btmThemKHDP.setEnabled(false);
+      } catch (Exception e) {
+          XDialog.alert("Thêm mới khách hàng thất bại!");
+          e.printStackTrace();
+      }
+  }
+ 
+    void updateKH() {
+        int selectedRow = tabKhachHang.getSelectedRow();
+        if (selectedRow < 0) {
+            XDialog.alert("Bạn chưa chọn khách hàng nào để sửa.");
+            return;
+        }
+
+       KhachHang khToUpdate = kh_items.get(selectedRow);
+
+       String tenKH = txtTenKH.getText().trim();
+       String cmt = txtSocmt.getText().trim();
+       String sdt = txtSDT.getText().trim();
+
+       // 1. Kiểm tra định dạng cơ bản của các trường
+       if (!validateCustomerName(tenKH)) {
+           return;
+       }
+       if (!validateIDNumber(cmt)) {
+           return;
+       }
+       if (!validatePhoneNumber(sdt)) {
+           return;
+       }
+
+       // 2. Kiểm tra trùng lặp (truyền ID của khách hàng hiện tại để bỏ qua chính nó)
+       if (isDuplicateKhachHang(tenKH, cmt, sdt, khToUpdate.getId())) {
+           return;
+       }
+
+       // Cập nhật thông tin cho đối tượng khách hàng
+       khToUpdate.setHoTen(tenKH);
+       khToUpdate.setCmt(cmt);
+       khToUpdate.setSdt(sdt);
+
+       try {
+           KhachHangDao khDao = new KhachHangDaoImpl();
+           khDao.update(khToUpdate);
+           this.fillTableKhachHang();
+           XDialog.alert("Cập nhật khách hàng thành công!");
+       } catch (Exception e) {
+           XDialog.alert("Cập nhật khách hàng thất bại!");
+           e.printStackTrace();
+       }
+   }
+
+    void deleteKH() {
+       int selectedRow = tabKhachHang.getSelectedRow();
+       if (selectedRow < 0) {
+           XDialog.alert("Bạn chưa chọn khách hàng nào để xóa.");
+           return;
+       }
+
+       if (XDialog.confirm("Bạn có chắc chắn muốn xóa khách hàng này không?")) {
+           try {
+               // Lấy ID của khách hàng từ danh sách
+               KhachHang kh = kh_items.get(selectedRow);
+
+               KhachHangDao khDao = new KhachHangDaoImpl();
+               khDao.deleteById(kh.getId()); // Xóa khách hàng
+
+               this.fillTableKhachHang(); // Tải lại bảng
+               this.clearFormKH(); // Xóa trắng form và reset các nút
+               XDialog.alert("Xóa khách hàng thành công!");
+           } catch (Exception e) {
+               XDialog.alert("Xóa khách hàng thất bại!");
+               e.printStackTrace();
+           }
+       }
+   }
+ 
+    void clearFormKH() {
+       txtTenKH.setText("");
+       txtSocmt.setText("");
+       txtSDT.setText("");
+       this.fillTableKhachHang();
+       suatblKH(false);
+   }
+ 
+ 
+    private boolean validateCustomerName(String name) {
+       if (name == null || name.trim().isEmpty()) {
+           XDialog.alert("Tên khách hàng không được để trống!");
+           return false;
+       }
+       String trimmedName = name.trim();
+       // Kiểm tra chỉ chứa chữ cái, dấu cách, dấu chấm, dấu nháy đơn và dấu gạch nối
+       if (!trimmedName.matches("[\\p{L} .'-]+")) {
+           XDialog.alert("Tên khách hàng chỉ được chứa chữ cái, dấu cách, dấu chấm, dấu nháy đơn và dấu gạch nối.");
+           return false;
+       }
+       // Kiểm tra chữ cái đầu của mỗi từ phải viết hoa
+       String[] words = trimmedName.split("\\s+");
+       for (String word : words) {
+           if (!word.isEmpty() && !Character.isUpperCase(word.charAt(0))) {
+               XDialog.alert("Chữ cái đầu của mỗi từ trong tên khách hàng phải viết hoa.");
+               return false;
+           }
+       }
+       return true;
+   }
+
+    // Phương thức kiểm tra số CMT
+    private boolean validateIDNumber(String cmt) {
+        if (cmt == null || cmt.trim().isEmpty()) {
+            XDialog.alert("Số CMT không được để trống!");
+            return false;
+        }
+        // Kiểm tra chỉ chứa chữ số
+        if (!cmt.trim().matches("\\d+")) {
+            XDialog.alert("Số CMT chỉ được chứa chữ số.");
+            return false;
+        }
+        return true;
+    }
+
+    // Phương thức kiểm tra số điện thoại
+    private boolean validatePhoneNumber(String sdt) {
+        if (sdt == null || sdt.trim().isEmpty()) {
+            XDialog.alert("Số điện thoại không được để trống!");
+            return false;
+        }
+        String trimmedSdt = sdt.trim();
+        // Kiểm tra bắt đầu bằng số 0
+        if (!trimmedSdt.startsWith("0")) {
+            XDialog.alert("Số điện thoại phải bắt đầu bằng số 0.");
+            return false;
+        }
+        // Kiểm tra độ dài từ 7 đến 11 chữ số và chỉ chứa chữ số
+        if (!trimmedSdt.matches("\\d{7,11}")) {
+            XDialog.alert("Số điện thoại phải có từ 7 đến 11 chữ số và chỉ chứa chữ số.");
+            return false;
+        }
+        return true;
+    }
+
+    // Phương thức kiểm tra trùng lặp cho CMT, SĐT và Tên (chỉ cho thêm mới khách hàng)
+    private boolean isDuplicateKhachHang(String tenKH, String cmt, String sdt, Integer currentKhachHangId) {
+        // Đảm bảo danh sách khách hàng được cập nhật trước khi kiểm tra
+        fillTableKhachHang();
+
+        for (KhachHang kh : kh_items) {
+            // Bỏ qua việc so sánh với chính đối tượng đang được cập nhật
+            // Sửa lỗi: So sánh giá trị nguyên thủy của ID, kiểm tra null cho đối tượng Integer.
+            if (currentKhachHangId != null && kh.getId() == currentKhachHangId) { // Dòng được sửa
+                continue;
+            }
+
+            if (kh.getCmt().equalsIgnoreCase(cmt.trim())) {
+                XDialog.alert("Số CMT đã tồn tại trong hệ thống!");
+                return true;
+            }
+            if (kh.getSdt().equalsIgnoreCase(sdt.trim())) {
+                XDialog.alert("Số điện thoại đã tồn tại trong hệ thống!");
+                return true;
+            }
+            // Kiểm tra trùng tên chỉ khi thêm mới (currentKhachHangId == null)
+            if (currentKhachHangId == null && kh.getHoTen().equalsIgnoreCase(tenKH.trim())) {
+                XDialog.alert("Tên khách hàng đã tồn tại trong hệ thống!");
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -4061,7 +4852,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
      * ==================================================== Dang Xuat ==============================================================
      * ==============================================================================================================================
      */
-
+    
     void DX(){
         this.dispose();
         this.showDX(this);
