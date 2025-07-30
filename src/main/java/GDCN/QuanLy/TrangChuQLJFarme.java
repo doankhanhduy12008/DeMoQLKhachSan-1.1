@@ -2020,6 +2020,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         btnLamMoiKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLamMoiKH.setText("Làm mới");
         btnLamMoiKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnLamMoiKH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLamMoiKHMouseClicked(evt);
+            }
+        });
         btnLamMoiKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiKHActionPerformed(evt);
@@ -2959,12 +2964,17 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_txtTimKiemKHActionPerformed
 
     private void bntTimKiemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntTimKiemKHActionPerformed
-        // TODO add your handling code here:
+        fillTableKhachHang(txtTimKiemKH.getText());
     }//GEN-LAST:event_bntTimKiemKHActionPerformed
 
     private void btnTaoMoiKH1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiKH1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTaoMoiKH1ActionPerformed
+
+    private void btnLamMoiKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiKHMouseClicked
+        txtTimKiemKH.setText("");
+        fillTableKhachHang(null);
+    }//GEN-LAST:event_btnLamMoiKHMouseClicked
 
 
     /**
@@ -4498,20 +4508,29 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
      * ==============================================================================================================================
      */
     
-    public void setKhachHangInfo(KhachHang kh) {
-        txtTenKH.setText(kh.getHoTen());
-        txtSocmt.setText(kh.getCmt());
-        txtSDT.setText(kh.getSdt());
-    }
- 
     List<KhachHang> kh_items = new ArrayList<>();
-    void fillTableKhachHang() {
+    
+    void fillTableKhachHang(String keyword) { // Thêm tham số keyword
         DefaultTableModel model = (DefaultTableModel) tabKhachHang.getModel();
         model.setRowCount(0); 
         try {
             KhachHangDao dao = new KhachHangDaoImpl();
-            kh_items = dao.findAll(); // Lưu danh sách khách hàng
-            for (KhachHang kh : kh_items) {
+            List<KhachHang> all_kh_items_from_db = dao.findAll(); // Lấy tất cả khách hàng từ DB
+            kh_items = new ArrayList<>(); // Khởi tạo lại danh sách sẽ hiển thị trên bảng
+            
+            // Lọc danh sách nếu có từ khóa
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                String lowerCaseKeyword = keyword.trim().toLowerCase();
+                for (KhachHang kh : all_kh_items_from_db) {
+                    if (kh.getHoTen().toLowerCase().contains(lowerCaseKeyword)) {
+                        kh_items.add(kh); // Thêm khách hàng phù hợp vào danh sách hiển thị
+                    }
+                }
+            } else {
+                kh_items = all_kh_items_from_db; // Nếu không có từ khóa, hiển thị tất cả
+            }
+
+            for (KhachHang kh : kh_items) { // Sử dụng danh sách đã lọc/toàn bộ để điền vào bảng
                 Object[] row = {
                     kh.getHoTen(),
                     kh.getCmt(),
@@ -4522,7 +4541,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
         } catch (Exception e) {
             XDialog.alert("Lỗi truy vấn dữ liệu khách hàng!");
+            e.printStackTrace(); 
         }
+    }
+    
+    // Thêm phương thức overload không tham số để các lệnh gọi cũ vẫn hoạt động
+    void fillTableKhachHang() {
+        fillTableKhachHang(null); // Mặc định gọi với null để hiển thị tất cả
     }
 
     void setFormKH(KhachHang kh) {
@@ -4530,7 +4555,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         txtSocmt.setText(kh.getCmt());
         txtSDT.setText(kh.getSdt());
     }
-    void setFormKHDP(KhachHang kh) {
+    void setFormKHDP(KhachHang kh) { // Giữ nguyên nếu có sử dụng ở nơi khác
         txtTenKH.setText(kh.getHoTen());
         txtSocmt.setText(kh.getCmt());
         txtSDT.setText(kh.getSdt());
@@ -4549,7 +4574,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         return kh;
     }
 
-    KhachHang getFormKHDP() {
+    KhachHang getFormKHDP() { // Giữ nguyên nếu có sử dụng ở nơi khác
         KhachHang kh = new KhachHang();
         kh.setHoTen(txtTenKH.getText());
         kh.setCmt(txtSocmt.getText());
@@ -4562,7 +4587,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         String cmt = txtSocmt.getText().trim();
         String sdt = txtSDT.getText().trim();
 
-        // 1. Kiểm tra định dạng cơ bản của các trường
         if (!validateCustomerName(tenKH)) {
             return;
         }
@@ -4573,7 +4597,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             return;
         }
 
-        // 2. Kiểm tra trùng lặp (truyền null vì đây là khách hàng mới)
         if (isDuplicateKhachHang(tenKH, cmt, sdt, null)) {
             return;
         }
@@ -4582,7 +4605,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             KhachHangDao khDao = new KhachHangDaoImpl();
             KhachHang kh = getFormKH();
             khDao.create(kh);
-            this.fillTableKhachHang();
+            this.fillTableKhachHang(); // Gọi lại fillTableKhachHang không tham số để hiển thị tất cả sau khi thêm
             this.clearFormKH();
             XDialog.alert("Thêm mới khách hàng thành công!");
         } catch (Exception e) {
@@ -4591,12 +4614,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         }
     }
  
-    void btnTaoMoiKHDP() {                                           
-     String tenKH = txtTenKH.getText().trim();
+    void btnTaoMoiKHDP() { // Giữ nguyên nếu có sử dụng ở nơi khác                                           
+      String tenKH = txtTenKH.getText().trim();
       String cmt = txtSocmt.getText().trim();
       String sdt = txtSDT.getText().trim();
 
-      // 1. Kiểm tra định dạng cơ bản của các trường
       if (!validateCustomerName(tenKH)) {
           return;
       }
@@ -4607,7 +4629,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
           return;
       }
 
-      // 2. Kiểm tra trùng lặp (truyền null vì đây là khách hàng mới)
       if (isDuplicateKhachHang(tenKH, cmt, sdt, null)) {
           return;
       }
@@ -4616,15 +4637,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
           KhachHangDao khDao = new KhachHangDaoImpl();
           KhachHang kh = getFormKHDP();
           khDao.create(kh);
-          this.fillTableKhachHang();
-          this.clearFormKH(); // Có thể cần một hàm clear riêng cho jpnDatPhong nếu cần
+          this.fillTableKhachHang(); // Gọi lại fillTableKhachHang không tham số
+          this.clearFormKH(); 
           XDialog.alert("Thêm mới khách hàng thành công!");
-          // Vô hiệu hóa các trường và nút sau khi thêm thành công để tránh nhập lại
-//          txtTenKH.setEnabled(false);
-//          txtSocmt.setEnabled(false);
-//          txtSDT.setEnabled(false);
-////          btnKHCu.setEnabled(false);
-////          btmThemKHDP.setEnabled(false);
       } catch (Exception e) {
           XDialog.alert("Thêm mới khách hàng thất bại!");
           e.printStackTrace();
@@ -4639,12 +4654,12 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         }
 
        KhachHang khToUpdate = kh_items.get(selectedRow);
+       Integer currentKhachHangId = khToUpdate.getId(); 
 
        String tenKH = txtTenKH.getText().trim();
        String cmt = txtSocmt.getText().trim();
        String sdt = txtSDT.getText().trim();
 
-       // 1. Kiểm tra định dạng cơ bản của các trường
        if (!validateCustomerName(tenKH)) {
            return;
        }
@@ -4655,12 +4670,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
            return;
        }
 
-       // 2. Kiểm tra trùng lặp (truyền ID của khách hàng hiện tại để bỏ qua chính nó)
-       if (isDuplicateKhachHang(tenKH, cmt, sdt, khToUpdate.getId())) {
+       if (isDuplicateKhachHang(tenKH, cmt, sdt, currentKhachHangId)) { 
            return;
        }
 
-       // Cập nhật thông tin cho đối tượng khách hàng
        khToUpdate.setHoTen(tenKH);
        khToUpdate.setCmt(cmt);
        khToUpdate.setSdt(sdt);
@@ -4668,7 +4681,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
        try {
            KhachHangDao khDao = new KhachHangDaoImpl();
            khDao.update(khToUpdate);
-           this.fillTableKhachHang();
+           this.fillTableKhachHang(); // Gọi lại fillTableKhachHang không tham số
+           this.clearFormKH(); 
            XDialog.alert("Cập nhật khách hàng thành công!");
        } catch (Exception e) {
            XDialog.alert("Cập nhật khách hàng thất bại!");
@@ -4685,14 +4699,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
        if (XDialog.confirm("Bạn có chắc chắn muốn xóa khách hàng này không?")) {
            try {
-               // Lấy ID của khách hàng từ danh sách
                KhachHang kh = kh_items.get(selectedRow);
 
                KhachHangDao khDao = new KhachHangDaoImpl();
-               khDao.deleteById(kh.getId()); // Xóa khách hàng
+               khDao.deleteById(kh.getId()); 
 
-               this.fillTableKhachHang(); // Tải lại bảng
-               this.clearFormKH(); // Xóa trắng form và reset các nút
+               this.fillTableKhachHang(); // Gọi lại fillTableKhachHang không tham số
+               this.clearFormKH(); 
                XDialog.alert("Xóa khách hàng thành công!");
            } catch (Exception e) {
                XDialog.alert("Xóa khách hàng thất bại!");
@@ -4701,11 +4714,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
        }
    }
  
+    // Phương thức clearFormKH đã được chỉnh sửa
     void clearFormKH() {
        txtTenKH.setText("");
        txtSocmt.setText("");
        txtSDT.setText("");
-       this.fillTableKhachHang();
+       txtTimKiemKH.setText(""); // Đặt lại ô tìm kiếm
+       this.fillTableKhachHang(); // Hiển thị lại tất cả khách hàng
        suatblKH(false);
    }
  
@@ -4716,12 +4731,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
            return false;
        }
        String trimmedName = name.trim();
-       // Kiểm tra chỉ chứa chữ cái, dấu cách, dấu chấm, dấu nháy đơn và dấu gạch nối
        if (!trimmedName.matches("[\\p{L} .'-]+")) {
            XDialog.alert("Tên khách hàng chỉ được chứa chữ cái, dấu cách, dấu chấm, dấu nháy đơn và dấu gạch nối.");
            return false;
        }
-       // Kiểm tra chữ cái đầu của mỗi từ phải viết hoa
        String[] words = trimmedName.split("\\s+");
        for (String word : words) {
            if (!word.isEmpty() && !Character.isUpperCase(word.charAt(0))) {
@@ -4732,13 +4745,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
        return true;
    }
 
-    // Phương thức kiểm tra số CMT
     private boolean validateIDNumber(String cmt) {
         if (cmt == null || cmt.trim().isEmpty()) {
             XDialog.alert("Số CMT không được để trống!");
             return false;
         }
-        // Kiểm tra chỉ chứa chữ số
         if (!cmt.trim().matches("\\d+")) {
             XDialog.alert("Số CMT chỉ được chứa chữ số.");
             return false;
@@ -4746,19 +4757,16 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         return true;
     }
 
-    // Phương thức kiểm tra số điện thoại
     private boolean validatePhoneNumber(String sdt) {
         if (sdt == null || sdt.trim().isEmpty()) {
             XDialog.alert("Số điện thoại không được để trống!");
             return false;
         }
         String trimmedSdt = sdt.trim();
-        // Kiểm tra bắt đầu bằng số 0
         if (!trimmedSdt.startsWith("0")) {
             XDialog.alert("Số điện thoại phải bắt đầu bằng số 0.");
             return false;
         }
-        // Kiểm tra độ dài từ 7 đến 11 chữ số và chỉ chứa chữ số
         if (!trimmedSdt.matches("\\d{7,11}")) {
             XDialog.alert("Số điện thoại phải có từ 7 đến 11 chữ số và chỉ chứa chữ số.");
             return false;
@@ -4766,15 +4774,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         return true;
     }
 
-    // Phương thức kiểm tra trùng lặp cho CMT, SĐT và Tên (chỉ cho thêm mới khách hàng)
+    // Phương thức isDuplicateKhachHang đã được chỉnh sửa
     private boolean isDuplicateKhachHang(String tenKH, String cmt, String sdt, Integer currentKhachHangId) {
-        // Đảm bảo danh sách khách hàng được cập nhật trước khi kiểm tra
-        fillTableKhachHang();
+        KhachHangDao dao = new KhachHangDaoImpl();
+        List<KhachHang> all_kh_items_for_check = dao.findAll(); // Luôn lấy dữ liệu mới nhất từ DB
 
-        for (KhachHang kh : kh_items) {
-            // Bỏ qua việc so sánh với chính đối tượng đang được cập nhật
-            // Sửa lỗi: So sánh giá trị nguyên thủy của ID, kiểm tra null cho đối tượng Integer.
-            if (currentKhachHangId != null && kh.getId() == currentKhachHangId) { // Dòng được sửa
+        for (KhachHang kh : all_kh_items_for_check) {
+            if (currentKhachHangId != null && kh.getId() == currentKhachHangId) {
                 continue;
             }
 
@@ -4784,11 +4790,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
             if (kh.getSdt().equalsIgnoreCase(sdt.trim())) {
                 XDialog.alert("Số điện thoại đã tồn tại trong hệ thống!");
-                return true;
-            }
-            // Kiểm tra trùng tên chỉ khi thêm mới (currentKhachHangId == null)
-            if (currentKhachHangId == null && kh.getHoTen().equalsIgnoreCase(tenKH.trim())) {
-                XDialog.alert("Tên khách hàng đã tồn tại trong hệ thống!");
                 return true;
             }
         }
