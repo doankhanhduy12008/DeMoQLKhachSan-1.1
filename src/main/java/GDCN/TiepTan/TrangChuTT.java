@@ -1701,14 +1701,15 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
  if (currentHoaDon == null) {
             // Đây là đặt phòng mới, thực hiện hành động Check-in ban đầu
             performInitialCheckInAction();
+
         } else if ("Đã đặt".equals(currentHoaDon.getTrangThai())) {
             // Đây là hóa đơn đã "Đã đặt" từ trước, thực hiện chuyển trạng thái sang "Đang sử dụng"
             checkIn(); // Phương thức checkIn() cũ của bạn
         } else {
             XDialog.alert("Không thể Check-in hóa đơn này ở trạng thái hiện tại.");
         }
- btnXoaMCDCP.setEnabled(false);
- btnXoaMCDCDV.setEnabled(false);
+
+
     }//GEN-LAST:event_btnCheckInActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
@@ -3106,6 +3107,9 @@ void performInitialCheckInAction() {
         }
 
         XDialog.alert("Check-in thành công cho hóa đơn ID: " + currentHoaDon.getId());
+        test = false;
+        btnXoaMCDCP.setEnabled(false);
+        btnXoaMCDCDV.setEnabled(false);
         hienThiChiTietHoaDon(currentHoaDon); 
         fillTableLichSu(); 
         loadAllRoomsToPanel(); 
