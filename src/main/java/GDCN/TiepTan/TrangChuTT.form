@@ -1173,7 +1173,7 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="0">
                             <Column editable="false" title="Ph&#xf2;ng" type="java.lang.Object"/>
-                            <Column editable="false" title="S&#x1ed1; ti&#x1ec1;n" type="java.lang.Double"/>
+                            <Column editable="false" title="S&#x1ed1; ti&#x1ec1;n (VN&#x110;)" type="java.lang.Double"/>
                             <Column editable="true" title="" type="java.lang.Boolean"/>
                           </Table>
                         </Property>
@@ -1219,7 +1219,7 @@
                           <Table columnCount="4" rowCount="0">
                             <Column editable="false" title="T&#xea;n d&#x1ecb;ch v&#x1ee5;" type="java.lang.Object"/>
                             <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Integer"/>
-                            <Column editable="false" title="S&#x1ed1; ti&#x1ec1;n" type="java.lang.Double"/>
+                            <Column editable="false" title="S&#x1ed1; ti&#x1ec1;n (VN&#x110;)" type="java.lang.Double"/>
                             <Column editable="true" title="" type="java.lang.Boolean"/>
                           </Table>
                         </Property>
@@ -1644,7 +1644,7 @@
                             <Column editable="false" title="T&#xea;n Kh&#xe1;ch" type="java.lang.Object"/>
                             <Column editable="false" title="Check In" type="java.lang.Object"/>
                             <Column editable="false" title="Check out" type="java.lang.Object"/>
-                            <Column editable="false" title="T&#xf4;ng ti&#x1ec1;n" type="java.lang.Double"/>
+                            <Column editable="false" title="T&#xf4;ng ti&#x1ec1;n (VN&#x110;)" type="java.lang.Double"/>
                             <Column editable="true" title="" type="java.lang.Boolean"/>
                           </Table>
                         </Property>
