@@ -3050,7 +3050,9 @@ void performInitialCheckInAction() {
         hd.setIdNguoiDungLap(XAuth.user.getUsername());
         hd.setIdDatPhong(datPhongMoi.getId());
         hd.setNgayLap(new Date());
-        hd.setTongTien(Double.parseDouble(txtTienTong.getText()));
+        String rawAmountText = txtTienTong.getText();
+        String cleanedAmountText = rawAmountText.replace(" VNĐ", "").replace(" VN?", "").replace(".", "");
+        hd.setTongTien(Double.parseDouble(cleanedAmountText));
         hd.setTrangThai("Đang sử dụng"); 
         HoaDon hoaDonMoi = hdDao.create(hd);
         currentHoaDon = hoaDonMoi; 
@@ -3303,7 +3305,7 @@ void hienThiChiTietHoaDon(HoaDon hd) {
         }
     }
 
-    txtTienTong.setText(String.valueOf(hd.getTongTien())+ " VNĐ");
+    txtTienTong.setText(String.format("%,.0f VNĐ", hd.getTongTien()));
     txtTrangThai.setText(hd.getTrangThai());
 
     // Điều khiển trạng thái của các nút và các trường ngày Check-in
@@ -3425,7 +3427,8 @@ void checkOut() {
     try {
         // Cập nhật trạng thái Hóa đơn thành "Hoàn thiện"
         currentHoaDon.setTrangThai("Hoàn thiện");
-        currentHoaDon.setTongTien(Double.parseDouble(txtTienTong.getText())); 
+        String rawAmount = txtTienTong.getText().replace(" VNĐ", "").replace(".", "");
+        currentHoaDon.setTongTien(Double.parseDouble(rawAmount));
         hoaDonDao.update(currentHoaDon); // Lưu trạng thái mới vào DB
 
         // Cập nhật thời gian trả phòng trong ChiTietThuePhong và trạng thái phòng
