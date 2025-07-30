@@ -773,7 +773,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
             },
             new String [] {
-                "Tên dịch vụ", "Số lượng", "Giá tiền", ""
+                "Tên dịch vụ", "Số lượng", "Số tiền", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -2990,7 +2990,7 @@ private void updateTongTien() {
     }
 
     // Cập nhật tổng tiền vào txtTienTong
-    txtTienTong.setText(String.valueOf(tongTienPhong + tongTienDichVu));
+    txtTienTong.setText(String.format("%,.0f VNĐ", tongTienPhong + tongTienDichVu));
 }
 
 
@@ -3294,7 +3294,7 @@ void hienThiChiTietHoaDon(HoaDon hd) {
         }
     }
 
-    txtTienTong.setText(String.valueOf(hd.getTongTien()));
+    txtTienTong.setText(String.format("%,.0f VNĐ", hd.getTongTien()));
     txtTrangThai.setText(hd.getTrangThai());
 
     // Điều khiển trạng thái của các nút và các trường ngày Check-in
@@ -3424,17 +3424,36 @@ void checkOut() {
         PhongDao phongDao = new PhongDaoImpl();
         List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(currentHoaDon.getId());
 
-        for (ChiTietThuePhong cttp : cttpList) {
+        StringBuilder roomNumbers = new StringBuilder(); // Để lưu số phòng
+        for (int i = 0; i < cttpList.size(); i++) {
+            ChiTietThuePhong cttp = cttpList.get(i);
             cttp.setThoiGianTraPhong(new Date()); 
             cttpDao.update(cttp);
+
             Phong phong = phongDao.findById(cttp.getIdPhong());
             if (phong != null) {
                 phong.setTrangThai("Đang dọn dẹp"); 
                 phongDao.update(phong);
+                roomNumbers.append(phong.getSoPhong());
+                if (i < cttpList.size() - 1) {
+                    roomNumbers.append(", "); // Thêm dấu phẩy nếu có nhiều phòng
+                }
             }
         }
         
-        XDialog.alert("Check-out thành công cho hóa đơn ID: " + currentHoaDon.getId());
+        // Lấy thông tin khách hàng
+        KhachHangDao khDao = new KhachHangDaoImpl();
+        KhachHang kh = khDao.findById(currentHoaDon.getIdKhachHang());
+        String tenKhachHang = (kh != null) ? kh.getHoTen() : "Không xác định";
+
+        // Tạo thông báo bill
+        String billMessage = "Check-out thành công!\n" +
+                             "ID Hóa đơn: " + currentHoaDon.getId() + "\n" +
+                             "Số phòng: " + roomNumbers.toString() + "\n" +
+                             "Tên khách hàng: " + tenKhachHang + "\n" +
+                             "Tổng tiền: " + String.format("%,.0f", currentHoaDon.getTongTien()) + " VNĐ"; // Định dạng tiền tệ
+
+        XDialog.alert(billMessage); // Hiển thị thông báo bill
         hienThiChiTietHoaDon(currentHoaDon); // Gọi lại để hiển thị dữ liệu đã cập nhật
         fillTableLichSu(); // Cập nhật lại bảng lịch sử
         loadAllRoomsToPanel(); // Cập nhật lại trạng thái phòng trên giao diện chính
