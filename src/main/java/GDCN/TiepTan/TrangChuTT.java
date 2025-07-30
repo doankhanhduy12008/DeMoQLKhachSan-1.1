@@ -65,6 +65,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     /**
      * Creates new form TrangChuTT
      */
+    boolean test = false;
     HoaDonDao hoaDonDao = new HoaDonDaoImpl();
     List<HoaDon> danhSachHoaDon = new ArrayList<>();
     public TrangChuTT() {
@@ -1633,6 +1634,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDatPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatPMouseClicked
         // TODO add your handling code here:
+        test = true;
         xoaDatPhongBtn();
         lamMoiFormDatPhong1();
         loadAllRoomsToPanel();
@@ -2429,10 +2431,12 @@ public void xoadachonP1(){
 
 
 void xoaDatPhongBtn(){
+    if(test = true){
     selectAllRows(tabPhong, 2);
     selectAllRows(tabDichVu, 3);
     xoadachonDV1();
     xoadachonP1();
+    }else{}
 }
 
 
