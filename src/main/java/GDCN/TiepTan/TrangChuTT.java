@@ -2995,7 +2995,7 @@ private void updateTongTien() {
     }
 
     // Cập nhật tổng tiền vào txtTienTong
-    txtTienTong.setText(String.format("%,.0f VNĐ", tongTienPhong + tongTienDichVu));
+    txtTienTong.setText(String.valueOf(tongTienPhong + tongTienDichVu));
 }
 
 
