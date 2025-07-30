@@ -3107,7 +3107,7 @@ void performInitialCheckInAction() {
         }
 
         XDialog.alert("Check-in thành công cho hóa đơn ID: " + currentHoaDon.getId());
-        test = false;
+        
         btnXoaMCDCP.setEnabled(false);
         btnXoaMCDCDV.setEnabled(false);
         hienThiChiTietHoaDon(currentHoaDon); 
@@ -3302,7 +3302,7 @@ void hienThiChiTietHoaDon(HoaDon hd) {
         }
     }
 
-    txtTienTong.setText(String.format("%,.0f VNĐ", hd.getTongTien()));
+    txtTienTong.setText(String.valueOf(hd.getTongTien()));
     txtTrangThai.setText(hd.getTrangThai());
 
     // Điều khiển trạng thái của các nút và các trường ngày Check-in
