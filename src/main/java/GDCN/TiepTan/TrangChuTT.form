@@ -136,17 +136,14 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnTrangChu" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnDatP" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnKH" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnXemLS" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="bntTroChuyen" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnDoiMK" alignment="3" max="32767" attributes="0"/>
-                                  <Component id="btnDangXuat" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnTrangChu" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnDatP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnKH" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnXemLS" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bntTroChuyen" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnDoiMK" alignment="3" max="32767" attributes="0"/>
+                              <Component id="btnDangXuat" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel1" pref="0" max="32767" attributes="0"/>
                       </Group>

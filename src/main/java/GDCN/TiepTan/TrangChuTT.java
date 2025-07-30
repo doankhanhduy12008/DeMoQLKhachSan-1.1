@@ -1715,6 +1715,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
         checkOut();
+        
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -2995,7 +2996,7 @@ private void updateTongTien() {
     }
 
     // Cập nhật tổng tiền vào txtTienTong
-    txtTienTong.setText(String.valueOf(tongTienPhong + tongTienDichVu));
+    txtTienTong.setText(String.format("%,.0f VNĐ", tongTienPhong + tongTienDichVu));
 }
 
 
@@ -3302,7 +3303,7 @@ void hienThiChiTietHoaDon(HoaDon hd) {
         }
     }
 
-    txtTienTong.setText(String.valueOf(hd.getTongTien()));
+    txtTienTong.setText(String.valueOf(hd.getTongTien())+ " VNĐ");
     txtTrangThai.setText(hd.getTrangThai());
 
     // Điều khiển trạng thái của các nút và các trường ngày Check-in
