@@ -62,7 +62,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
                     pnlMenuBar.setSize(i,chieudai);
                     try {
                         //mở từ từ
-                        Thread.sleep(1);
+                        Thread.sleep(0);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -80,7 +80,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
                     pnlMenuBar.setSize(i,chieudai);
                     try {
                         //mở từ từ
-                        Thread.sleep(1);
+                        Thread.sleep(0);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
                     }

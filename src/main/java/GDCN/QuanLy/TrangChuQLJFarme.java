@@ -88,7 +88,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                     pnlMenuBar.setSize(i,chieudai);
                     try {
                         //mở từ từ
-                        Thread.sleep(0,0000001);
+                        Thread.sleep(0);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -106,7 +106,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                     pnlMenuBar.setSize(i,chieudai);
                     try {
                         //mở từ từ
-                        Thread.sleep(1);
+                        Thread.sleep(0);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
                     }
