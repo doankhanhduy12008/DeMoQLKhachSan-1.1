@@ -2432,12 +2432,12 @@ public void xoadachonP1(){
 
 
 void xoaDatPhongBtn(){
-    if(test = true){
+    if(test == true){
     selectAllRows(tabPhong, 2);
     selectAllRows(tabDichVu, 3);
     xoadachonDV1();
     xoadachonP1();
-    }else{}
+    }
 }
 
 
@@ -3465,7 +3465,7 @@ void checkOut() {
         hienThiChiTietHoaDon(currentHoaDon); // Gọi lại để hiển thị dữ liệu đã cập nhật
         fillTableLichSu(); // Cập nhật lại bảng lịch sử
         loadAllRoomsToPanel(); // Cập nhật lại trạng thái phòng trên giao diện chính
-
+        test = false;
     } catch (Exception e) {
         XDialog.alert("Lỗi khi thực hiện Check-out: " + e.getMessage());
         e.printStackTrace();
