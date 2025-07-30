@@ -53,6 +53,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -108,7 +109,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                     pnlMenuBar.setSize(i,chieudai);
                     try {
                         //mở từ từ
-                        Thread.sleep(1);
+                        Thread.sleep(0);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -126,7 +127,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                     pnlMenuBar.setSize(i,chieudai);
                     try {
                         //mở từ từ
-                        Thread.sleep(1);
+                        Thread.sleep(0);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -233,10 +234,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jScrollPane4 = new javax.swing.JScrollPane();
         tabKhachHang = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
-        btnSuaKH = new javax.swing.JButton();
         btnLamMoiKH = new javax.swing.JButton();
         btnTaoMoiKH = new javax.swing.JButton();
-        btnXoaKH = new javax.swing.JButton();
         pnlChat = new javax.swing.JPanel();
         Tieude = new javax.swing.JPanel();
         jpnTDTrangChu = new javax.swing.JPanel();
@@ -401,10 +400,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                             .addComponent(bntTroChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDoiMK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlMenuBarLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(4, 4, 4))
         );
 
         Open.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -761,6 +759,11 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tabPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabPhongMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tabPhong);
@@ -1330,17 +1333,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             tabKhachHang.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        btnSuaKH.setBackground(new java.awt.Color(204, 204, 204));
-        btnSuaKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnSuaKH.setText("Sửa");
-        btnSuaKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnSuaKH.setEnabled(false);
-        btnSuaKH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaKHActionPerformed(evt);
-            }
-        });
-
         btnLamMoiKH.setBackground(new java.awt.Color(204, 204, 204));
         btnLamMoiKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLamMoiKH.setText("Làm mới");
@@ -1361,16 +1353,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             }
         });
 
-        btnXoaKH.setBackground(new java.awt.Color(204, 204, 204));
-        btnXoaKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnXoaKH.setText("Xóa");
-        btnXoaKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnXoaKH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaKHActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jpnKhachHangLayout = new javax.swing.GroupLayout(jpnKhachHang);
         jpnKhachHang.setLayout(jpnKhachHangLayout);
         jpnKhachHangLayout.setHorizontalGroup(
@@ -1379,12 +1361,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addGap(112, 112, 112)
                 .addGroup(jpnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpnKhachHangLayout.createSequentialGroup()
-                        .addComponent(btnSuaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btnLamMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnXoaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnTaoMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jSeparator1)
@@ -1423,9 +1401,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jpnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSuaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTaoMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTaoMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46))
         );
 
@@ -1618,6 +1594,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnTrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrangChuMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(true);
         jpnTDTrangChu.setVisible(true);
         jpnDMK.setVisible(false);
@@ -1639,6 +1616,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDoiMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMKMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(true);
@@ -1655,7 +1633,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDatPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatPMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         lamMoiFormDatPhong1();
+        loadAllRoomsToPanel();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1672,6 +1652,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnXemLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLSMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1842,12 +1823,14 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         DX();
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnDatP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatP1MouseClicked
         // TODO add your handling code here:
         lamMoiFormDatPhong1();
+        loadAllRoomsToPanel();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1892,11 +1875,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSDTTActionPerformed
 
-    private void btnSuaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaKHActionPerformed
-        // TODO add your handling code here:
-        updateKH();
-    }//GEN-LAST:event_btnSuaKHActionPerformed
-
     private void btnLamMoiKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiKHActionPerformed
         // TODO add your handling code here:
         clearFormKH();
@@ -1906,11 +1884,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         // TODO add your handling code here:
         btnTaoMoiKH();
     }//GEN-LAST:event_btnTaoMoiKHActionPerformed
-
-    private void btnXoaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKHActionPerformed
-        // TODO add your handling code here:
-        deleteKH();
-    }//GEN-LAST:event_btnXoaKHActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
@@ -1955,6 +1928,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKHMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -2009,6 +1983,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     }//GEN-LAST:event_cboLoaiPhongActionPerformed
 
     private void bntTroChuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntTroChuyenMouseClicked
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -2041,6 +2016,10 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         pnlTDChat.setVisible(true);
         Open.setVisible(true);
     }//GEN-LAST:event_bntTroChuyen1MouseClicked
+
+    private void tabPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPhongMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabPhongMouseClicked
 
     
     //a
@@ -2102,7 +2081,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnLamMoiKH;
     private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnSua;
-    private javax.swing.JButton btnSuaKH;
     private javax.swing.JButton btnTaoMoiKH;
     private javax.swing.JButton btnThemDV;
     private javax.swing.JButton btnThemP;
@@ -2111,7 +2089,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JLabel btnTrangChu;
     private javax.swing.JLabel btnXemLS;
     private javax.swing.JLabel btnXemLS1;
-    private javax.swing.JButton btnXoaKH;
     private javax.swing.JButton btnXoaMCDCDV;
     private javax.swing.JButton btnXoaMCDCP;
     private javax.swing.JComboBox<String> cboLoaiPhong;
@@ -2321,47 +2298,52 @@ public void addPhongToTable(Phong phong) {
 
 public void xoadachonP(){
     DefaultTableModel model = (DefaultTableModel) tabPhong.getModel();
-        PhongDao dao = new PhongDaoImpl();
-        
-        // Tạo một danh sách để lưu các phòng cần xóa để tránh lỗi khi xóa trực tiếp
-        List<Integer> rowsToRemove = new ArrayList<>();
-        
-        // Vòng lặp để kiểm tra và cập nhật trạng thái
-        for (int i = 0; i < model.getRowCount(); i++) {
-            // Lấy giá trị của checkbox ở cột thứ 2 (chỉ số 2)
-            Boolean isSelected = (Boolean) model.getValueAt(i, 2); 
-            
-            if (isSelected != null && isSelected) {
-                try {
-                    // Lấy số phòng từ cột đầu tiên (chỉ số 0)
-                    String soPhong = model.getValueAt(i, 0).toString();
-                    
-                    // Tìm phòng trong CSDL
-                    Phong phong = dao.findBySoPhong(soPhong);
-                    
-                    if (phong != null) {
-                        // Cập nhật trạng thái thành "Trống"
-                        phong.setTrangThai("Trống");
-                        dao.update(phong);
-                        
-                        // Thêm chỉ số của hàng vào danh sách cần xóa
-                        rowsToRemove.add(i);
-                    }
-                } catch (Exception e) {
-                    XDialog.alert("Lỗi khi cập nhật phòng!");
-                    e.printStackTrace();
+    PhongDao dao = new PhongDaoImpl();
+
+    // Tạo một danh sách để lưu các phòng cần xóa để tránh lỗi khi xóa trực tiếp
+    List<Integer> rowsToRemove = new ArrayList<>();
+    boolean daXoa = false; // Biến cờ để kiểm tra xem có phòng nào được chọn để xóa không
+
+    // Vòng lặp để kiểm tra và cập nhật trạng thái
+    for (int i = 0; i < model.getRowCount(); i++) {
+        // Lấy giá trị của checkbox ở cột thứ 2 (chỉ số 2)
+        Boolean isSelected = (Boolean) model.getValueAt(i, 2);
+
+        if (isSelected != null && isSelected) {
+            try {
+                // Lấy số phòng từ cột đầu tiên (chỉ số 0)
+                String soPhong = model.getValueAt(i, 0).toString();
+
+                // Tìm phòng trong CSDL
+                Phong phong = dao.findBySoPhong(soPhong);
+
+                if (phong != null) {
+                    // Cập nhật trạng thái thành "Trống"
+                    phong.setTrangThai("Trống");
+                    dao.update(phong);
+
+                    // Thêm chỉ số của hàng vào danh sách cần xóa
+                    rowsToRemove.add(i);
+                    daXoa = true; // Đánh dấu là đã có phòng được chọn
                 }
+            } catch (Exception e) {
+                XDialog.alert("Lỗi khi cập nhật phòng!");
+                e.printStackTrace();
             }
         }
-        
-        // Sau khi đã cập nhật xong, tiến hành xóa các hàng khỏi bảng
-        // **Quan trọng:** Phải xóa từ dưới lên để không bị lỗi chỉ số (index)
-        for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
-            model.removeRow(rowsToRemove.get(i));
-        }
+    }
 
-   
-    }   
+    // Sau khi đã cập nhật xong, tiến hành xóa các hàng khỏi bảng
+    // **Quan trọng:** Phải xóa từ dưới lên để không bị lỗi chỉ số (index)
+    for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
+        model.removeRow(rowsToRemove.get(i));
+    }
+
+    // Thêm kiểm tra này để hiển thị thông báo
+    if (!daXoa) {
+        XDialog.alert("Vui lòng chọn ít nhất một phòng để xóa.");
+    }
+}  
 public void xoadachonDV() {
     DefaultTableModel model = (DefaultTableModel) tabDichVu.getModel();
     boolean daXoa = false;
@@ -2382,8 +2364,76 @@ public void xoadachonDV() {
         XDialog.alert("Vui lòng chọn ít nhất một dịch vụ để xóa.");
     }
 }
+public void selectAllRows(JTable table, int checkboxColumnIndex) {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    for (int i = 0; i < model.getRowCount(); i++) {
+        model.setValueAt(true, i, checkboxColumnIndex);
+    }
+}
+
+public void xoadachonDV1() {
+    DefaultTableModel model = (DefaultTableModel) tabDichVu.getModel();
+
+    // Duyệt ngược từ cuối danh sách để tránh lỗi chỉ số khi xóa
+    for (int i = model.getRowCount() - 1; i >= 0; i--) {
+        // Lấy giá trị từ cột checkbox (chỉ số 3)
+        Boolean isSelected = (Boolean) model.getValueAt(i, 3); 
+
+        if (isSelected != null && isSelected) {
+            model.removeRow(i);
+        }
+    }
+}
+public void xoadachonP1(){
+    DefaultTableModel model = (DefaultTableModel) tabPhong.getModel();
+    PhongDao dao = new PhongDaoImpl();
+
+    // Tạo một danh sách để lưu các phòng cần xóa để tránh lỗi khi xóa trực tiếp
+    List<Integer> rowsToRemove = new ArrayList<>();
+
+    // Vòng lặp để kiểm tra và cập nhật trạng thái
+    for (int i = 0; i < model.getRowCount(); i++) {
+        // Lấy giá trị của checkbox ở cột thứ 2 (chỉ số 2)
+        Boolean isSelected = (Boolean) model.getValueAt(i, 2);
+        if (isSelected != null && isSelected) {
+            try {
+                // Lấy số phòng từ cột đầu tiên (chỉ số 0)
+                String soPhong = model.getValueAt(i, 0).toString();
+
+                // Tìm phòng trong CSDL
+                Phong phong = dao.findBySoPhong(soPhong);
+
+                if (phong != null) {
+                    // Cập nhật trạng thái thành "Trống"
+                    phong.setTrangThai("Trống");
+                    dao.update(phong);
+
+                    // Thêm chỉ số của hàng vào danh sách cần xóa
+                    rowsToRemove.add(i);
+                }
+            } catch (Exception e) {
+                XDialog.alert("Lỗi khi cập nhật phòng!");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Sau khi đã cập nhật xong, tiến hành xóa các hàng khỏi bảng
+    // **Quan trọng:** Phải xóa từ dưới lên để không bị lỗi chỉ số (index)
+    for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
+        model.removeRow(rowsToRemove.get(i));
+    }
+
+    // Thêm kiểm tra này để hiển thị thông báo
+}  
 
 
+void xoaDatPhongBtn(){
+    selectAllRows(tabPhong, 2);
+    selectAllRows(tabDichVu, 3);
+    xoadachonDV1();
+    xoadachonP1();
+}
 
 
 
@@ -2428,7 +2478,6 @@ void setFormKHDP(KhachHang kh) {
 }
 
 void suatblKH(boolean sua) {
-    btnSuaKH.setEnabled(sua);
     btnTaoMoiKH.setEnabled(!sua);
 }
 
@@ -2650,8 +2699,8 @@ private boolean validatePhoneNumber(String sdt) {
         return false;
     }
     // Kiểm tra độ dài từ 7 đến 11 chữ số và chỉ chứa chữ số
-    if (!trimmedSdt.matches("\\d{7,11}")) {
-        XDialog.alert("Số điện thoại phải có từ 7 đến 11 chữ số và chỉ chứa chữ số.");
+    if (!trimmedSdt.matches("\\d{7,15}")) {
+        XDialog.alert("Số điện thoại phải có từ 7 đến 15 chữ số và chỉ chứa chữ số.");
         return false;
     }
     return true;
