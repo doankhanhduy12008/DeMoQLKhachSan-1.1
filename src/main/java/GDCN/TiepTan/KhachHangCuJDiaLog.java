@@ -55,6 +55,7 @@ public class KhachHangCuJDiaLog extends javax.swing.JDialog {
         btnTimKiemKH = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         tabKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

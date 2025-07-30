@@ -53,6 +53,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -758,6 +759,11 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tabPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabPhongMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tabPhong);
@@ -1588,6 +1594,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnTrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrangChuMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(true);
         jpnTDTrangChu.setVisible(true);
         jpnDMK.setVisible(false);
@@ -1609,6 +1616,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDoiMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMKMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(true);
@@ -1625,7 +1633,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDatPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatPMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         lamMoiFormDatPhong1();
+        loadAllRoomsToPanel();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1642,6 +1652,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnXemLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLSMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1812,12 +1823,14 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         DX();
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnDatP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDatP1MouseClicked
         // TODO add your handling code here:
         lamMoiFormDatPhong1();
+        loadAllRoomsToPanel();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1915,6 +1928,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKHMouseClicked
         // TODO add your handling code here:
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1969,6 +1983,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     }//GEN-LAST:event_cboLoaiPhongActionPerformed
 
     private void bntTroChuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntTroChuyenMouseClicked
+        xoaDatPhongBtn();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -2001,6 +2016,10 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         pnlTDChat.setVisible(true);
         Open.setVisible(true);
     }//GEN-LAST:event_bntTroChuyen1MouseClicked
+
+    private void tabPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPhongMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabPhongMouseClicked
 
     
     //a
@@ -2279,47 +2298,52 @@ public void addPhongToTable(Phong phong) {
 
 public void xoadachonP(){
     DefaultTableModel model = (DefaultTableModel) tabPhong.getModel();
-        PhongDao dao = new PhongDaoImpl();
-        
-        // Tạo một danh sách để lưu các phòng cần xóa để tránh lỗi khi xóa trực tiếp
-        List<Integer> rowsToRemove = new ArrayList<>();
-        
-        // Vòng lặp để kiểm tra và cập nhật trạng thái
-        for (int i = 0; i < model.getRowCount(); i++) {
-            // Lấy giá trị của checkbox ở cột thứ 2 (chỉ số 2)
-            Boolean isSelected = (Boolean) model.getValueAt(i, 2); 
-            
-            if (isSelected != null && isSelected) {
-                try {
-                    // Lấy số phòng từ cột đầu tiên (chỉ số 0)
-                    String soPhong = model.getValueAt(i, 0).toString();
-                    
-                    // Tìm phòng trong CSDL
-                    Phong phong = dao.findBySoPhong(soPhong);
-                    
-                    if (phong != null) {
-                        // Cập nhật trạng thái thành "Trống"
-                        phong.setTrangThai("Trống");
-                        dao.update(phong);
-                        
-                        // Thêm chỉ số của hàng vào danh sách cần xóa
-                        rowsToRemove.add(i);
-                    }
-                } catch (Exception e) {
-                    XDialog.alert("Lỗi khi cập nhật phòng!");
-                    e.printStackTrace();
+    PhongDao dao = new PhongDaoImpl();
+
+    // Tạo một danh sách để lưu các phòng cần xóa để tránh lỗi khi xóa trực tiếp
+    List<Integer> rowsToRemove = new ArrayList<>();
+    boolean daXoa = false; // Biến cờ để kiểm tra xem có phòng nào được chọn để xóa không
+
+    // Vòng lặp để kiểm tra và cập nhật trạng thái
+    for (int i = 0; i < model.getRowCount(); i++) {
+        // Lấy giá trị của checkbox ở cột thứ 2 (chỉ số 2)
+        Boolean isSelected = (Boolean) model.getValueAt(i, 2);
+
+        if (isSelected != null && isSelected) {
+            try {
+                // Lấy số phòng từ cột đầu tiên (chỉ số 0)
+                String soPhong = model.getValueAt(i, 0).toString();
+
+                // Tìm phòng trong CSDL
+                Phong phong = dao.findBySoPhong(soPhong);
+
+                if (phong != null) {
+                    // Cập nhật trạng thái thành "Trống"
+                    phong.setTrangThai("Trống");
+                    dao.update(phong);
+
+                    // Thêm chỉ số của hàng vào danh sách cần xóa
+                    rowsToRemove.add(i);
+                    daXoa = true; // Đánh dấu là đã có phòng được chọn
                 }
+            } catch (Exception e) {
+                XDialog.alert("Lỗi khi cập nhật phòng!");
+                e.printStackTrace();
             }
         }
-        
-        // Sau khi đã cập nhật xong, tiến hành xóa các hàng khỏi bảng
-        // **Quan trọng:** Phải xóa từ dưới lên để không bị lỗi chỉ số (index)
-        for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
-            model.removeRow(rowsToRemove.get(i));
-        }
+    }
 
-   
-    }   
+    // Sau khi đã cập nhật xong, tiến hành xóa các hàng khỏi bảng
+    // **Quan trọng:** Phải xóa từ dưới lên để không bị lỗi chỉ số (index)
+    for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
+        model.removeRow(rowsToRemove.get(i));
+    }
+
+    // Thêm kiểm tra này để hiển thị thông báo
+    if (!daXoa) {
+        XDialog.alert("Vui lòng chọn ít nhất một phòng để xóa.");
+    }
+}  
 public void xoadachonDV() {
     DefaultTableModel model = (DefaultTableModel) tabDichVu.getModel();
     boolean daXoa = false;
@@ -2340,8 +2364,76 @@ public void xoadachonDV() {
         XDialog.alert("Vui lòng chọn ít nhất một dịch vụ để xóa.");
     }
 }
+public void selectAllRows(JTable table, int checkboxColumnIndex) {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    for (int i = 0; i < model.getRowCount(); i++) {
+        model.setValueAt(true, i, checkboxColumnIndex);
+    }
+}
+
+public void xoadachonDV1() {
+    DefaultTableModel model = (DefaultTableModel) tabDichVu.getModel();
+
+    // Duyệt ngược từ cuối danh sách để tránh lỗi chỉ số khi xóa
+    for (int i = model.getRowCount() - 1; i >= 0; i--) {
+        // Lấy giá trị từ cột checkbox (chỉ số 3)
+        Boolean isSelected = (Boolean) model.getValueAt(i, 3); 
+
+        if (isSelected != null && isSelected) {
+            model.removeRow(i);
+        }
+    }
+}
+public void xoadachonP1(){
+    DefaultTableModel model = (DefaultTableModel) tabPhong.getModel();
+    PhongDao dao = new PhongDaoImpl();
+
+    // Tạo một danh sách để lưu các phòng cần xóa để tránh lỗi khi xóa trực tiếp
+    List<Integer> rowsToRemove = new ArrayList<>();
+
+    // Vòng lặp để kiểm tra và cập nhật trạng thái
+    for (int i = 0; i < model.getRowCount(); i++) {
+        // Lấy giá trị của checkbox ở cột thứ 2 (chỉ số 2)
+        Boolean isSelected = (Boolean) model.getValueAt(i, 2);
+        if (isSelected != null && isSelected) {
+            try {
+                // Lấy số phòng từ cột đầu tiên (chỉ số 0)
+                String soPhong = model.getValueAt(i, 0).toString();
+
+                // Tìm phòng trong CSDL
+                Phong phong = dao.findBySoPhong(soPhong);
+
+                if (phong != null) {
+                    // Cập nhật trạng thái thành "Trống"
+                    phong.setTrangThai("Trống");
+                    dao.update(phong);
+
+                    // Thêm chỉ số của hàng vào danh sách cần xóa
+                    rowsToRemove.add(i);
+                }
+            } catch (Exception e) {
+                XDialog.alert("Lỗi khi cập nhật phòng!");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Sau khi đã cập nhật xong, tiến hành xóa các hàng khỏi bảng
+    // **Quan trọng:** Phải xóa từ dưới lên để không bị lỗi chỉ số (index)
+    for (int i = rowsToRemove.size() - 1; i >= 0; i--) {
+        model.removeRow(rowsToRemove.get(i));
+    }
+
+    // Thêm kiểm tra này để hiển thị thông báo
+}  
 
 
+void xoaDatPhongBtn(){
+    selectAllRows(tabPhong, 2);
+    selectAllRows(tabDichVu, 3);
+    xoadachonDV1();
+    xoadachonP1();
+}
 
 
 
@@ -2607,8 +2699,8 @@ private boolean validatePhoneNumber(String sdt) {
         return false;
     }
     // Kiểm tra độ dài từ 7 đến 11 chữ số và chỉ chứa chữ số
-    if (!trimmedSdt.matches("\\d{7,11}")) {
-        XDialog.alert("Số điện thoại phải có từ 7 đến 11 chữ số và chỉ chứa chữ số.");
+    if (!trimmedSdt.matches("\\d{7,15}")) {
+        XDialog.alert("Số điện thoại phải có từ 7 đến 15 chữ số và chỉ chứa chữ số.");
         return false;
     }
     return true;
