@@ -8,7 +8,7 @@ import java.util.List;
 
 public class KhachHangDaoImpl implements KhachHangDao {
 
-    @Override
+@Override
     public KhachHang create(KhachHang entity) {
         String sql = "INSERT INTO KhachHang (HoTen, SDT, CMT) VALUES (?, ?, ?)";
         XJdbc.executeUpdate(sql, entity.getHoTen(), entity.getSdt(), entity.getCmt());
@@ -49,5 +49,11 @@ public class KhachHangDaoImpl implements KhachHangDao {
     public List<KhachHang> searchBySDT(String sdt) {
         String sql = "SELECT * FROM KhachHang WHERE SDT LIKE ?";
         return XQuery.getBeanList(KhachHang.class, sql, "%" + sdt + "%");
+    }
+
+    @Override
+    public List<KhachHang> searchByCMT(String cmt) { // Thêm phương thức này
+        String sql = "SELECT * FROM KhachHang WHERE CMT LIKE ?";
+        return XQuery.getBeanList(KhachHang.class, sql, "%" + cmt + "%");
     }
 }

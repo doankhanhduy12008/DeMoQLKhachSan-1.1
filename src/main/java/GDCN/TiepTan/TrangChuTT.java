@@ -1839,10 +1839,32 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnTimKiemSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemSDTActionPerformed
         // TODO add your handling code here:
+            String sdt = txtTimSDT.getText().trim();
+    if (sdt.isEmpty()) {
+        Util.XDialog.alert("Vui lòng nhập số điện thoại để tìm kiếm.");
+        return;
+    }
+    // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng SDT
+    txtTimSCMT.setText("");
+    txtTimTheoNgayBD.setText("");
+    txtTimTheoNgayKT.setText("");
+    fillTableLichSu(sdt, null, null, null);
+
+        
     }//GEN-LAST:event_btnTimKiemSDTActionPerformed
 
     private void btnTimKiemCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemCMTActionPerformed
         // TODO add your handling code here:
+         String cmt = txtTimSCMT.getText().trim();
+    if (cmt.isEmpty()) {
+        Util.XDialog.alert("Vui lòng nhập số CMT để tìm kiếm.");
+        return;
+    }
+    // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng CMT
+    txtTimSDT.setText("");
+    txtTimTheoNgayBD.setText("");
+    txtTimTheoNgayKT.setText("");
+    fillTableLichSu(null, cmt, null, null);
     }//GEN-LAST:event_btnTimKiemCMTActionPerformed
 
     private void txtTimSCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimSCMTActionPerformed
@@ -1851,6 +1873,39 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
         // TODO add your handling code here:
+         String sdt = txtTimSDT.getText().trim();
+    String cmt = txtTimSCMT.getText().trim();
+    String ngayBDStr = txtTimTheoNgayBD.getText().trim();
+    String ngayKTStr = txtTimTheoNgayKT.getText().trim();
+
+    java.util.Date startDate = null;
+    java.util.Date endDate = null;
+
+    // Kiểm tra và parse ngày bắt đầu
+    if (!ngayBDStr.isEmpty()) {
+        startDate = parseDate(ngayBDStr, "Ngày bắt đầu");
+        if (startDate == null) return; // Nếu có lỗi parse, dừng lại
+    }
+    // Kiểm tra và parse ngày kết thúc
+    if (!ngayKTStr.isEmpty()) {
+        endDate = parseDate(ngayKTStr, "Ngày kết thúc");
+        if (endDate == null) return; // Nếu có lỗi parse, dừng lại
+    }
+
+    // Kiểm tra điều kiện ngày bắt đầu không được lớn hơn ngày kết thúc
+    if (startDate != null && endDate != null && startDate.after(endDate)) {
+        Util.XDialog.alert("Ngày bắt đầu không được lớn hơn ngày kết thúc.");
+        return;
+    }
+    
+    // Nếu không có bất kỳ tiêu chí nào được nhập
+    if (sdt.isEmpty() && cmt.isEmpty() && ngayBDStr.isEmpty() && ngayKTStr.isEmpty()) {
+        Util.XDialog.alert("Vui lòng nhập ít nhất một tiêu chí tìm kiếm hoặc lọc.");
+        return;
+    }
+
+    // Gọi phương thức fillTableLichSu với các tham số đã lấy được
+    fillTableLichSu(sdt.isEmpty() ? null : sdt, cmt.isEmpty() ? null : cmt, startDate, endDate);
     }//GEN-LAST:event_btnLocActionPerformed
 
     private void txtTimTheoNgayBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimTheoNgayBDActionPerformed
@@ -2230,10 +2285,12 @@ public void open() {
     this.fillTableKhachHang();
     loadAllRoomsToPanel();
     fillComboBoxLoaiPhong();
-     fillComboBoxTang(); // Thêm dòng này để điền dữ liệu cho cboTang
-    fillComboBoxTrangThai(); // Thêm dòng này để điền dữ liệu cho cboTrangThai
-    filterRooms(); // Gọi phương thức lọc để hiển thị phòng ban đầu
+    fillComboBoxTang();
+    fillComboBoxTrangThai();
+    filterRooms();
     pnlPhong.setLayout(new java.awt.GridLayout(6, 1, 50, 5));
+    // Tải dữ liệu lịch sử khi mở cửa sổ, không có bộ lọc ban đầu
+    fillTableLichSu(null, null, null, null); 
 }
 
         String folder = "images";
@@ -3259,6 +3316,19 @@ void lamMoiDuLieuDP(){
 }
 
 //===Lịch sử===
+
+private java.util.Date parseDate(String dateStr, String fieldName) {
+    if (dateStr.isEmpty()) {
+        return null;
+    }
+    try {
+        // Sử dụng định dạng "dd/MM/yyyy" như yêu cầu
+        return Util.XDate.parse(dateStr, "dd/MM/yyyy");
+    } catch (RuntimeException e) { // XDate.parse ném RuntimeException
+        Util.XDialog.alert("Định dạng ngày không hợp lệ cho trường '" + fieldName + "'. Vui lòng nhập theo định dạng dd/MM/yyyy.");
+        return null;
+    }
+}
 void fillTableLichSu() {
     DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
     model.setRowCount(0);
@@ -3301,6 +3371,79 @@ void fillTableLichSu() {
         }
     } catch (Exception e) {
         XDialog.alert("Lỗi truy vấn dữ liệu lịch sử!");
+        e.printStackTrace();
+    }
+}
+
+void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startDate, java.util.Date endDate) {
+    DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
+    model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+    try {
+        danhSachHoaDon = hoaDonDao.findAll(); // Lấy tất cả hóa đơn
+        Dao.dao.KhachHangDao khDao = new Dao.daoimpl.KhachHangDaoImpl();
+        Dao.dao.ChiTietThuePhongDao cttpDao = new Dao.daoimpl.ChiTietThuePhongDaoImpl();
+        Dao.dao.PhongDao phongDao = new Dao.daoimpl.PhongDaoImpl();
+
+        for (Dao.entity.HoaDon hd : danhSachHoaDon) {
+            Dao.entity.KhachHang kh = khDao.findById(hd.getIdKhachHang());
+
+            // Áp dụng bộ lọc theo số điện thoại (nếu có keyword)
+            boolean sdtMatches = (sdtKeyword == null || sdtKeyword.isEmpty() ||
+                                  (kh != null && kh.getSdt().toLowerCase().contains(sdtKeyword.toLowerCase())));
+
+            // Áp dụng bộ lọc theo số CMT (nếu có keyword)
+            boolean cmtMatches = (cmtKeyword == null || cmtKeyword.isEmpty() ||
+                                  (kh != null && kh.getCmt().toLowerCase().contains(cmtKeyword.toLowerCase())));
+
+            // Áp dụng bộ lọc theo ngày (nếu có ngày bắt đầu và kết thúc)
+            boolean dateMatches = true;
+            if (startDate != null && endDate != null) {
+                List<Dao.entity.ChiTietThuePhong> cttpListForDateCheck = cttpDao.findByIdHoaDon(hd.getId());
+                if (!cttpListForDateCheck.isEmpty()) {
+                    java.util.Date checkInTime = cttpListForDateCheck.get(0).getThoiGianNhanPhong();
+                    java.util.Date checkInDateOnly = (checkInTime != null) ? Util.XDate.removeTime(checkInTime) : null;
+
+                    if (checkInDateOnly == null || checkInDateOnly.before(startDate) || checkInDateOnly.after(endDate)) {
+                        dateMatches = false;
+                    }
+                } else {
+                    dateMatches = false; // Nếu không có chi tiết thuê phòng, không khớp ngày
+                }
+            } else if (startDate != null || endDate != null) {
+                // Nếu chỉ có một ngày được nhập (không phải cả hai), coi như không khớp với bộ lọc ngày hoàn chỉnh
+                dateMatches = false;
+            }
+
+
+            // Chỉ thêm hàng vào bảng nếu tất cả các tiêu chí lọc đều khớp
+            if (sdtMatches && cmtMatches && dateMatches && kh != null && !cttpDao.findByIdHoaDon(hd.getId()).isEmpty()) {
+                StringBuilder roomNumbers = new StringBuilder();
+                List<Dao.entity.ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
+                for (int i = 0; i < cttpList.size(); i++) {
+                    Dao.entity.ChiTietThuePhong currentCtp = cttpList.get(i);
+                    Dao.entity.Phong phong = phongDao.findById(currentCtp.getIdPhong());
+                    if (phong != null) {
+                        roomNumbers.append(phong.getSoPhong());
+                        if (i < cttpList.size() - 1) {
+                            roomNumbers.append(",");
+                        }
+                    }
+                }
+
+                Dao.entity.ChiTietThuePhong firstCtp = cttpList.get(0);
+                Object[] row = {
+                    roomNumbers.toString(),
+                    kh.getHoTen(),
+                    Util.XDate.format(firstCtp.getThoiGianNhanPhong(), Util.XDate.PATTERN_FULL),
+                    firstCtp.getThoiGianTraPhong() != null ? Util.XDate.format(firstCtp.getThoiGianTraPhong(), Util.XDate.PATTERN_FULL) : "Chưa trả",
+                    hd.getTongTien(),
+                    false
+                };
+                model.addRow(row);
+            }
+        }
+    } catch (Exception e) {
+        Util.XDialog.alert("Lỗi truy vấn dữ liệu lịch sử!");
         e.printStackTrace();
     }
 }
