@@ -1854,17 +1854,19 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     }//GEN-LAST:event_txtTimSDTActionPerformed
 
     private void btnTimKiemSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemSDTActionPerformed
-        // TODO add your handling code here:
-            String sdt = txtTimSDT.getText().trim();
-    if (sdt.isEmpty()) {
-        Util.XDialog.alert("Vui lòng nhập số điện thoại để tìm kiếm.");
-        return;
-    }
-    // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng SDT
-    txtTimSCMT.setText("");
-    txtTimTheoNgayBD.setText("");
-    txtTimTheoNgayKT.setText("");
-    fillTableLichSu(sdt, null, null, null);
+        String sdt = txtTimSDT.getText().trim();
+        if (sdt.isEmpty()) {
+            Util.XDialog.alert("Vui lòng nhập số điện thoại để tìm kiếm.");
+            return;
+        }
+        if (!validatePhoneNumber(sdt)) {
+            return;
+        }
+        // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng SDT
+        txtTimSCMT.setText("");
+        txtTimTheoNgayBD.setText("");
+        txtTimTheoNgayKT.setText("");
+        fillTableLichSu(sdt, null, null, null);
 
         
     }//GEN-LAST:event_btnTimKiemSDTActionPerformed
@@ -1872,15 +1874,18 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void btnTimKiemCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemCMTActionPerformed
         // TODO add your handling code here:
          String cmt = txtTimSCMT.getText().trim();
-    if (cmt.isEmpty()) {
-        Util.XDialog.alert("Vui lòng nhập số CMT để tìm kiếm.");
-        return;
-    }
-    // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng CMT
-    txtTimSDT.setText("");
-    txtTimTheoNgayBD.setText("");
-    txtTimTheoNgayKT.setText("");
-    fillTableLichSu(null, cmt, null, null);
+        if (cmt.isEmpty()) {
+            Util.XDialog.alert("Vui lòng nhập số CMT để tìm kiếm.");
+            return;
+        }
+        if (!validateIDNumber(cmt)) {
+            return;
+        }
+        // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng CMT
+        txtTimSDT.setText("");
+        txtTimTheoNgayBD.setText("");
+        txtTimTheoNgayKT.setText("");
+        fillTableLichSu(null, cmt, null, null);
     }//GEN-LAST:event_btnTimKiemCMTActionPerformed
 
     private void txtTimSCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimSCMTActionPerformed
@@ -1888,40 +1893,53 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     }//GEN-LAST:event_txtTimSCMTActionPerformed
 
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
-        // TODO add your handling code here:
-         String sdt = txtTimSDT.getText().trim();
-    String cmt = txtTimSCMT.getText().trim();
-    String ngayBDStr = txtTimTheoNgayBD.getText().trim();
-    String ngayKTStr = txtTimTheoNgayKT.getText().trim();
+        String sdt = txtTimSDT.getText().trim();
+        String cmt = txtTimSCMT.getText().trim();
+        String ngayBDStr = txtTimTheoNgayBD.getText().trim();
+        String ngayKTStr = txtTimTheoNgayKT.getText().trim();
 
-    java.util.Date startDate = null;
-    java.util.Date endDate = null;
+        java.util.Date startDate = null;
+        java.util.Date endDate = null;
 
-    // Kiểm tra và parse ngày bắt đầu
-    if (!ngayBDStr.isEmpty()) {
-        startDate = parseDate(ngayBDStr, "Ngày bắt đầu");
-        if (startDate == null) return; // Nếu có lỗi parse, dừng lại
-    }
-    // Kiểm tra và parse ngày kết thúc
-    if (!ngayKTStr.isEmpty()) {
-        endDate = parseDate(ngayKTStr, "Ngày kết thúc");
-        if (endDate == null) return; // Nếu có lỗi parse, dừng lại
-    }
+        // Validate phone number if not empty
+        if (!sdt.isEmpty()) {
+            if (!validatePhoneNumber(sdt)) {
+                return;
+            }
+        }
 
-    // Kiểm tra điều kiện ngày bắt đầu không được lớn hơn ngày kết thúc
-    if (startDate != null && endDate != null && startDate.after(endDate)) {
-        Util.XDialog.alert("Ngày bắt đầu không được lớn hơn ngày kết thúc.");
-        return;
-    }
-    
-    // Nếu không có bất kỳ tiêu chí nào được nhập
-    if (sdt.isEmpty() && cmt.isEmpty() && ngayBDStr.isEmpty() && ngayKTStr.isEmpty()) {
-        Util.XDialog.alert("Vui lòng nhập ít nhất một tiêu chí tìm kiếm hoặc lọc.");
-        return;
-    }
+        // Validate ID number if not empty
+        if (!cmt.isEmpty()) {
+            if (!validateIDNumber(cmt)) {
+                return;
+            }
+        }
 
-    // Gọi phương thức fillTableLichSu với các tham số đã lấy được
-    fillTableLichSu(sdt.isEmpty() ? null : sdt, cmt.isEmpty() ? null : cmt, startDate, endDate);
+        // Kiểm tra và parse ngày bắt đầu
+        if (!ngayBDStr.isEmpty()) {
+            startDate = parseDate(ngayBDStr, "Ngày bắt đầu");
+            if (startDate == null) return; // Nếu có lỗi parse, dừng lại
+        }
+        // Kiểm tra và parse ngày kết thúc
+        if (!ngayKTStr.isEmpty()) {
+            endDate = parseDate(ngayKTStr, "Ngày kết thúc");
+            if (endDate == null) return; // Nếu có lỗi parse, dừng lại
+        }
+
+        // Kiểm tra điều kiện ngày bắt đầu không được lớn hơn ngày kết thúc
+        if (startDate != null && endDate != null && startDate.after(endDate)) {
+            Util.XDialog.alert("Ngày bắt đầu không được lớn hơn ngày kết thúc.");
+            return;
+        }
+        
+        // Nếu không có bất kỳ tiêu chí nào được nhập
+        if (sdt.isEmpty() && cmt.isEmpty() && ngayBDStr.isEmpty() && ngayKTStr.isEmpty()) {
+            Util.XDialog.alert("Vui lòng nhập ít nhất một tiêu chí tìm kiếm hoặc lọc.");
+            return;
+        }
+
+        // Gọi phương thức fillTableLichSu với các tham số đã lấy được
+        fillTableLichSu(sdt.isEmpty() ? null : sdt, cmt.isEmpty() ? null : cmt, startDate, endDate);
     }//GEN-LAST:event_btnLocActionPerformed
 
     private void txtTimTheoNgayBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimTheoNgayBDActionPerformed
@@ -2825,23 +2843,22 @@ private boolean validateIDNumber(String cmt) {
 
 // Phương thức kiểm tra số điện thoại
 private boolean validatePhoneNumber(String sdt) {
-    if (sdt == null || sdt.trim().isEmpty()) {
-        XDialog.alert("Số điện thoại không được để trống!");
-        return false;
+        if (sdt == null || sdt.trim().isEmpty()) {
+            XDialog.alert("Số điện thoại không được để trống!");
+            return false;
+        }
+        String trimmedSdt = sdt.trim();
+        // Kiểm tra bắt đầu bằng số 0
+        if (!trimmedSdt.startsWith("0")) {
+            XDialog.alert("Số điện thoại phải bắt đầu bằng số 0.");
+            return false;
+        }
+        if (!trimmedSdt.matches("\\d{7,15}")) {
+            XDialog.alert("Số điện thoại phải có từ 7 đến 15 chữ số và chỉ chứa chữ số.");
+            return false;
+        }
+        return true;
     }
-    String trimmedSdt = sdt.trim();
-    // Kiểm tra bắt đầu bằng số 0
-    if (!trimmedSdt.startsWith("0")) {
-        XDialog.alert("Số điện thoại phải bắt đầu bằng số 0.");
-        return false;
-    }
-    // Kiểm tra độ dài từ 7 đến 11 chữ số và chỉ chứa chữ số
-    if (!trimmedSdt.matches("\\d{7,15}")) {
-        XDialog.alert("Số điện thoại phải có từ 7 đến 15 chữ số và chỉ chứa chữ số.");
-        return false;
-    }
-    return true;
-}
 
 // Phương thức kiểm tra trùng lặp cho CMT, SĐT và Tên (chỉ cho thêm mới khách hàng)
 private boolean isDuplicateKhachHang(String tenKH, String cmt, String sdt, Integer currentKhachHangId) {
@@ -3340,17 +3357,17 @@ void lamMoiDuLieuDP(){
 //===Lịch sử===
 
 private java.util.Date parseDate(String dateStr, String fieldName) {
-    if (dateStr.isEmpty()) {
-        return null;
+        if (dateStr.isEmpty()) {
+            return null;
+        }
+        try {
+            // Sử dụng định dạng "dd/MM/yyyy" như yêu cầu
+            return Util.XDate.parse(dateStr, "dd/MM/yyyy");
+        } catch (RuntimeException e) { // XDate.parse ném RuntimeException
+            Util.XDialog.alert("Định dạng ngày không hợp lệ cho trường '" + fieldName + "'. Vui lòng nhập theo định dạng dd/MM/yyyy.");
+            return null;
+        }
     }
-    try {
-        // Sử dụng định dạng "dd/MM/yyyy" như yêu cầu
-        return Util.XDate.parse(dateStr, "dd/MM/yyyy");
-    } catch (RuntimeException e) { // XDate.parse ném RuntimeException
-        Util.XDialog.alert("Định dạng ngày không hợp lệ cho trường '" + fieldName + "'. Vui lòng nhập theo định dạng dd/MM/yyyy.");
-        return null;
-    }
-}
 void fillTableLichSu() {
     DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
     model.setRowCount(0);
