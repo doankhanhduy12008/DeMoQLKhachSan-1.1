@@ -3395,28 +3395,32 @@ void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startD
             boolean cmtMatches = (cmtKeyword == null || cmtKeyword.isEmpty() ||
                                   (kh != null && kh.getCmt().toLowerCase().contains(cmtKeyword.toLowerCase())));
 
-            // Áp dụng bộ lọc theo ngày (nếu có ngày bắt đầu và kết thúc)
-            boolean dateMatches = true;
-            if (startDate != null && endDate != null) {
+            // Áp dụng bộ lọc theo ngày (linh hoạt cho cả startDate, endDate hoặc cả hai)
+            boolean dateFilterPassed = true;
+            if (startDate != null || endDate != null) {
                 List<Dao.entity.ChiTietThuePhong> cttpListForDateCheck = cttpDao.findByIdHoaDon(hd.getId());
-                if (!cttpListForDateCheck.isEmpty()) {
+                if (cttpListForDateCheck.isEmpty()) {
+                    dateFilterPassed = false; // Không thể khớp bộ lọc ngày nếu không có bản ghi nhận phòng
+                } else {
                     java.util.Date checkInTime = cttpListForDateCheck.get(0).getThoiGianNhanPhong();
                     java.util.Date checkInDateOnly = (checkInTime != null) ? Util.XDate.removeTime(checkInTime) : null;
 
-                    if (checkInDateOnly == null || checkInDateOnly.before(startDate) || checkInDateOnly.after(endDate)) {
-                        dateMatches = false;
+                    if (checkInDateOnly == null) {
+                        dateFilterPassed = false; // Không thể khớp bộ lọc ngày nếu ngày nhận phòng là null
+                    } else {
+                        if (startDate != null && checkInDateOnly.before(startDate)) {
+                            dateFilterPassed = false;
+                        }
+                        // Chỉ kiểm tra endDate nếu điều kiện startDate đã được thỏa mãn (hoặc không áp dụng)
+                        if (dateFilterPassed && endDate != null && checkInDateOnly.after(endDate)) {
+                            dateFilterPassed = false;
+                        }
                     }
-                } else {
-                    dateMatches = false; // Nếu không có chi tiết thuê phòng, không khớp ngày
                 }
-            } else if (startDate != null || endDate != null) {
-                // Nếu chỉ có một ngày được nhập (không phải cả hai), coi như không khớp với bộ lọc ngày hoàn chỉnh
-                dateMatches = false;
             }
 
-
             // Chỉ thêm hàng vào bảng nếu tất cả các tiêu chí lọc đều khớp
-            if (sdtMatches && cmtMatches && dateMatches && kh != null && !cttpDao.findByIdHoaDon(hd.getId()).isEmpty()) {
+            if (sdtMatches && cmtMatches && dateFilterPassed && kh != null && !cttpDao.findByIdHoaDon(hd.getId()).isEmpty()) {
                 StringBuilder roomNumbers = new StringBuilder();
                 List<Dao.entity.ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
                 for (int i = 0; i < cttpList.size(); i++) {
