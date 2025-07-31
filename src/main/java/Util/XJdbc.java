@@ -64,7 +64,7 @@ public class XJdbc {
     // Thông số kết nối
     // 26.164.194.236 ip cong cong
     // check ip ipconfig
-    final String url  = "jdbc:sqlserver://10.82.70.79:20000;" 
+    final String url  = "jdbc:sqlserver://26.164.194.236:20000;" 
                       + "databaseName=QLKhachSan;"
                       + "encrypt=true;trustServerCertificate=true;";
 //    final String url = "jdbc:sqlserver://192.168.1.3:1433;databaseName=QLKhachSan;encrypt=true;trustServerCertificate=true;";
