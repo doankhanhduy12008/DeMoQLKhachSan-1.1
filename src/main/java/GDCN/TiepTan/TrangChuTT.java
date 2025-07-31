@@ -231,6 +231,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jLabel17 = new javax.swing.JLabel();
         txtTimTheoNgayBD = new javax.swing.JTextField();
         txtTimTheoNgayKT = new javax.swing.JTextField();
+        btnLamMoiLS = new javax.swing.JButton();
         jpnKhachHang = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         txtTenKHT = new javax.swing.JTextField();
@@ -1236,6 +1237,16 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             }
         });
 
+        btnLamMoiLS.setBackground(new java.awt.Color(204, 204, 204));
+        btnLamMoiLS.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnLamMoiLS.setText("Làm Mới");
+        btnLamMoiLS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnLamMoiLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiLSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnXemLSLayout = new javax.swing.GroupLayout(jpnXemLS);
         jpnXemLS.setLayout(jpnXemLSLayout);
         jpnXemLSLayout.setHorizontalGroup(
@@ -1249,7 +1260,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTimSCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnTimKiemCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTimKiemCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLamMoiLS, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpnXemLSLayout.createSequentialGroup()
@@ -1267,39 +1279,42 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         );
         jpnXemLSLayout.setVerticalGroup(
             jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnXemLSLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTimSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnTimKiemSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTimSCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnTimKiemCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
-                        .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpnXemLSLayout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTimSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTimKiemSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTimSCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTimKiemCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLamMoiLS, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnXemLSLayout.createSequentialGroup()
+                        .addContainerGap(45, Short.MAX_VALUE)
+                        .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
                                 .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                    .addComponent(txtTimTheoNgayBD))
-                                .addGap(1, 1, 1)))
-                        .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
-                        .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtTimTheoNgayKT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                                            .addComponent(txtTimTheoNgayBD))
+                                        .addGap(1, 1, 1)))
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
+                                .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtTimTheoNgayKT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
         );
 
@@ -1696,6 +1711,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void btnXemLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLSMouseClicked
         // TODO add your handling code here:
         xoaDatPhongBtn();
+        clearFormLichSu();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -1947,7 +1963,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnXemLS1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemLS1MouseClicked
         // TODO add your handling code here:
-        
+        clearFormLichSu();
         jpnTrangChu.setVisible(false);
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
@@ -2126,6 +2142,11 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         filterRooms();
     }//GEN-LAST:event_btnTimKiemSPActionPerformed
 
+    private void btnLamMoiLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiLSActionPerformed
+        // TODO add your handling code here:
+        clearFormLichSu();
+    }//GEN-LAST:event_btnLamMoiLSActionPerformed
+
     
     //a
     
@@ -2184,6 +2205,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnKHCu;
     private javax.swing.JButton btnLamMSDMK;
     private javax.swing.JButton btnLamMoiKH;
+    private javax.swing.JButton btnLamMoiLS;
     private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaoMoiKH;
@@ -3395,28 +3417,32 @@ void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startD
             boolean cmtMatches = (cmtKeyword == null || cmtKeyword.isEmpty() ||
                                   (kh != null && kh.getCmt().toLowerCase().contains(cmtKeyword.toLowerCase())));
 
-            // Áp dụng bộ lọc theo ngày (nếu có ngày bắt đầu và kết thúc)
-            boolean dateMatches = true;
-            if (startDate != null && endDate != null) {
+            // Áp dụng bộ lọc theo ngày (linh hoạt cho cả startDate, endDate hoặc cả hai)
+            boolean dateFilterPassed = true;
+            if (startDate != null || endDate != null) {
                 List<Dao.entity.ChiTietThuePhong> cttpListForDateCheck = cttpDao.findByIdHoaDon(hd.getId());
-                if (!cttpListForDateCheck.isEmpty()) {
+                if (cttpListForDateCheck.isEmpty()) {
+                    dateFilterPassed = false; // Không thể khớp bộ lọc ngày nếu không có bản ghi nhận phòng
+                } else {
                     java.util.Date checkInTime = cttpListForDateCheck.get(0).getThoiGianNhanPhong();
                     java.util.Date checkInDateOnly = (checkInTime != null) ? Util.XDate.removeTime(checkInTime) : null;
 
-                    if (checkInDateOnly == null || checkInDateOnly.before(startDate) || checkInDateOnly.after(endDate)) {
-                        dateMatches = false;
+                    if (checkInDateOnly == null) {
+                        dateFilterPassed = false; // Không thể khớp bộ lọc ngày nếu ngày nhận phòng là null
+                    } else {
+                        if (startDate != null && checkInDateOnly.before(startDate)) {
+                            dateFilterPassed = false;
+                        }
+                        // Chỉ kiểm tra endDate nếu điều kiện startDate đã được thỏa mãn (hoặc không áp dụng)
+                        if (dateFilterPassed && endDate != null && checkInDateOnly.after(endDate)) {
+                            dateFilterPassed = false;
+                        }
                     }
-                } else {
-                    dateMatches = false; // Nếu không có chi tiết thuê phòng, không khớp ngày
                 }
-            } else if (startDate != null || endDate != null) {
-                // Nếu chỉ có một ngày được nhập (không phải cả hai), coi như không khớp với bộ lọc ngày hoàn chỉnh
-                dateMatches = false;
             }
 
-
             // Chỉ thêm hàng vào bảng nếu tất cả các tiêu chí lọc đều khớp
-            if (sdtMatches && cmtMatches && dateMatches && kh != null && !cttpDao.findByIdHoaDon(hd.getId()).isEmpty()) {
+            if (sdtMatches && cmtMatches && dateFilterPassed && kh != null && !cttpDao.findByIdHoaDon(hd.getId()).isEmpty()) {
                 StringBuilder roomNumbers = new StringBuilder();
                 List<Dao.entity.ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
                 for (int i = 0; i < cttpList.size(); i++) {
@@ -3574,6 +3600,14 @@ void hienThiChiTietHoaDon(HoaDon hd) {
     txtTenKH.setEnabled(false);
     txtSocmt.setEnabled(false);
     txtSDT.setEnabled(false);
+}
+
+void clearFormLichSu() {
+    txtTimSDT.setText("");
+    txtTimSCMT.setText("");
+    txtTimTheoNgayBD.setText("");
+    txtTimTheoNgayKT.setText("");
+    fillTableLichSu(null, null, null, null); // Tải lại toàn bộ lịch sử
 }
 //===Check in và check out===
 
