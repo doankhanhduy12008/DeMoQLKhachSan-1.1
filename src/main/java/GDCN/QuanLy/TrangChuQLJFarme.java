@@ -83,7 +83,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Open.setVisible(false);
+                
                 for (int i=0; i<chieungang; i++){
                     pnlMenuBar.setSize(i,chieudai);
                     try {

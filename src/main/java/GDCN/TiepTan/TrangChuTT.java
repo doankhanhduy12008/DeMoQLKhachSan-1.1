@@ -105,7 +105,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Open.setVisible(false);
+                
                 for (int i=0; i<chieungang; i++){
                     pnlMenuBar.setSize(i,chieudai);
                     try {
@@ -171,6 +171,12 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         cboLoaiPhong = new javax.swing.JComboBox<>();
         cboTang = new javax.swing.JComboBox<>();
         cboTrangThai = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        txtTimKiemSP = new javax.swing.JTextField();
+        btnTimKiemSP = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
         jpnDMK = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtTenDN = new javax.swing.JTextField();
@@ -491,7 +497,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnKhungAnh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnTrangChuLayout.createSequentialGroup()
@@ -535,28 +541,65 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             }
         });
 
+        jLabel13.setText("Loại Phòng");
+
+        jLabel21.setText("Tầng");
+
+        jLabel22.setText("Trạng Thái");
+
+        btnTimKiemSP.setText("Tìm Kiếm");
+        btnTimKiemSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemSPActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setText("Số Phòng");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1210, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addGap(18, 18, 18)
-                .addComponent(cboTang, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboTang, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
                 .addGap(18, 18, 18)
-                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 508, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel23))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTimKiemSP)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtTimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTimKiemSP))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -682,7 +725,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtXNMKM, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addGroup(jpnDMKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDMK, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLamMSDMK, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1075,7 +1118,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                         .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnKHCu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btmThemKHDP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jpnDatPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1239,7 +1282,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(btnTimKiemCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
                         .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1397,7 +1440,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jpnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTaoMoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1416,7 +1459,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         );
         pnlChatLayout.setVerticalGroup(
             pnlChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 679, Short.MAX_VALUE)
+            .addGap(0, 680, Short.MAX_VALUE)
         );
 
         KhungTrang.add(pnlChat, "card8");
@@ -2023,6 +2066,11 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         // TODO add your handling code here:
     }//GEN-LAST:event_tabPhongMouseClicked
 
+    private void btnTimKiemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemSPActionPerformed
+        // TODO add your handling code here:
+        filterRooms();
+    }//GEN-LAST:event_btnTimKiemSPActionPerformed
+
     
     //a
     
@@ -2088,6 +2136,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnThemP;
     private javax.swing.JButton btnTimKiemCMT;
     private javax.swing.JButton btnTimKiemSDT;
+    private javax.swing.JButton btnTimKiemSP;
     private javax.swing.JLabel btnTrangChu;
     private javax.swing.JLabel btnXemLS;
     private javax.swing.JLabel btnXemLS1;
@@ -2100,6 +2149,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -2108,6 +2158,9 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2162,6 +2215,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JTextField txtTenKH;
     private javax.swing.JTextField txtTenKHT;
     private javax.swing.JTextField txtTienTong;
+    private javax.swing.JTextField txtTimKiemSP;
     private javax.swing.JTextField txtTimSCMT;
     private javax.swing.JTextField txtTimSDT;
     private javax.swing.JTextField txtTimTheoNgayBD;
@@ -2883,42 +2937,48 @@ private void fillComboBoxTrangThai() {
     }
 }
 
-private void filterRooms() {
-    pnlPhong.removeAll();
-    PhongDao phongDao = new PhongDaoImpl();
-    List<Phong> filteredRooms = new ArrayList<>();
+   private void filterRooms() {
+        pnlPhong.removeAll();
+        PhongDao phongDao = new PhongDaoImpl();
+        List<Phong> filteredRooms = new ArrayList<>();
 
-    // Lấy tất cả phòng từ database
-    List<Phong> allRooms = phongDao.findAll();
+        // Lấy tất cả phòng từ database
+        List<Phong> allRooms = phongDao.findAll();
 
-    // Lấy các giá trị được chọn từ combobox
-    Object selectedLoaiPhong = cboLoaiPhong.getSelectedItem();
-    Object selectedTang = cboTang.getSelectedItem();
-    Object selectedTrangThai = cboTrangThai.getSelectedItem();
+        // Lấy các giá trị được chọn từ combobox
+        Object selectedLoaiPhong = cboLoaiPhong.getSelectedItem();
+        Object selectedTang = cboTang.getSelectedItem();
+        Object selectedTrangThai = cboTrangThai.getSelectedItem();
+        
+        // NEW: Lấy giá trị từ trường tìm kiếm số phòng
+        String soPhongTimKiem = txtTimKiemSP.getText().trim();
 
-    // Lọc danh sách phòng
-    for (Phong p : allRooms) {
-        boolean matchesLoaiPhong = (selectedLoaiPhong == null || selectedLoaiPhong.toString().equals("Tất cả") || 
-                                    (selectedLoaiPhong instanceof LoaiPhong && ((LoaiPhong) selectedLoaiPhong).getId() == p.getIdLoaiPhong()));
-        boolean matchesTang = (selectedTang == null || selectedTang.toString().equals("Tất cả") || 
-                               (selectedTang instanceof Integer && ((Integer) selectedTang) == p.getTang()));
-        boolean matchesTrangThai = (selectedTrangThai == null || selectedTrangThai.toString().equals("Tất cả") || 
-                                    p.getTrangThai().equals(selectedTrangThai.toString()));
+        // Lọc danh sách phòng
+        for (Phong p : allRooms) {
+            boolean matchesLoaiPhong = (selectedLoaiPhong == null || selectedLoaiPhong.toString().equals("Tất cả") || 
+                                        (selectedLoaiPhong instanceof LoaiPhong && ((LoaiPhong) selectedLoaiPhong).getId() == p.getIdLoaiPhong()));
+            boolean matchesTang = (selectedTang == null || selectedTang.toString().equals("Tất cả") || 
+                                   (selectedTang instanceof Integer && ((Integer) selectedTang) == p.getTang()));
+            boolean matchesTrangThai = (selectedTrangThai == null || selectedTrangThai.toString().equals("Tất cả") || 
+                                        p.getTrangThai().equals(selectedTrangThai.toString()));
+            
+            // NEW: Kiểm tra điều kiện tìm kiếm theo số phòng (không phân biệt hoa thường và tìm kiếm một phần)
+            boolean matchesSoPhong = (soPhongTimKiem.isEmpty() || p.getSoPhong().toLowerCase().contains(soPhongTimKiem.toLowerCase()));
 
-        if (matchesLoaiPhong && matchesTang && matchesTrangThai) {
-            filteredRooms.add(p);
+            if (matchesLoaiPhong && matchesTang && matchesTrangThai && matchesSoPhong) { // Include new condition
+                filteredRooms.add(p);
+            }
         }
-    }
 
-    // Thêm các nút phòng đã lọc vào panel
-    for (Phong p : filteredRooms) {
-        JButton btn = createRoomButton(p);
-        pnlPhong.add(btn);
-    }
+        // Thêm các nút phòng đã lọc vào panel
+        for (Phong p : filteredRooms) {
+            JButton btn = createRoomButton(p);
+            pnlPhong.add(btn);
+        }
 
-    pnlPhong.revalidate();
-    pnlPhong.repaint();
-}
+        pnlPhong.revalidate();
+        pnlPhong.repaint();
+    }
 
 
 // Thêm phương thức này để lọc phòng theo loại phòng

@@ -57,7 +57,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Open.setVisible(false);
+                
                 for (int i=0; i<chieungang; i++){
                     pnlMenuBar.setSize(i,chieudai);
                     try {
