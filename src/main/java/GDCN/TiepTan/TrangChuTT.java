@@ -1860,9 +1860,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             Util.XDialog.alert("Vui lòng nhập số điện thoại để tìm kiếm.");
             return;
         }
-        if (!validatePhoneNumber(sdt)) {
-            return;
-        }
         // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng SDT
         txtTimSCMT.setText("");
         txtTimTheoNgayBD.setText("");
@@ -1877,9 +1874,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
          String cmt = txtTimSCMT.getText().trim();
         if (cmt.isEmpty()) {
             Util.XDialog.alert("Vui lòng nhập số CMT để tìm kiếm.");
-            return;
-        }
-        if (!validateIDNumber(cmt)) {
             return;
         }
         // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng CMT
