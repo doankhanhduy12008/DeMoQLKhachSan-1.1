@@ -70,7 +70,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     
     
 
-    int chieungang = 1120;
+    int chieungang = 1000;
     int chieudai = 52;
     
     private void openFullScreen() {
@@ -133,7 +133,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         bntQLNhanVien = new javax.swing.JLabel();
         bntQLDoanhThu = new javax.swing.JLabel();
         bntQLDichVu = new javax.swing.JLabel();
-        btnDoiMK = new javax.swing.JLabel();
         btnDangXuat = new javax.swing.JLabel();
         btnTroChuyen = new javax.swing.JLabel();
         bntQlKhachhang1 = new javax.swing.JLabel();
@@ -400,18 +399,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
         });
 
-        btnDoiMK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDoiMK.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDoiMK.setText("Đổi mật khẩu");
-        btnDoiMK.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnDoiMK.setMinimumSize(new java.awt.Dimension(291, 40));
-        btnDoiMK.setPreferredSize(new java.awt.Dimension(91, 40));
-        btnDoiMK.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDoiMKMouseClicked(evt);
-            }
-        });
-
         btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDangXuat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnDangXuat.setText("Đăng xuât");
@@ -483,12 +470,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTroChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bntDong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(107, 107, 107))
         );
         pnlMenuBarLayout.setVerticalGroup(
             pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -503,7 +488,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                         .addComponent(bntQLDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(bntQLDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnTroChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(bntQlKhachhang1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(bntQlKhachhang2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2713,10 +2697,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPLoaiPhongActionPerformed
 
-    private void btnDoiMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMKMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDoiMKMouseClicked
-
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
         DX();
     }//GEN-LAST:event_btnDangXuatMouseClicked
@@ -3064,7 +3044,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JButton bntTimKiemKH;
     private javax.swing.JLabel bntTrangChu;
     private javax.swing.JLabel btnDangXuat;
-    private javax.swing.JLabel btnDoiMK;
     private javax.swing.JButton btnLamMoiKH;
     private javax.swing.JButton btnSuaKH;
     private javax.swing.JButton btnTaoMoiKH;
