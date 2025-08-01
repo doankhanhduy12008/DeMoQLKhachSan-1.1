@@ -2380,45 +2380,55 @@ void UpdateMK(){
     String MKM = new String(txtMKM.getPassword());
     String MKMM = new String(txtXNMKM.getPassword());
 
-NguoiDungDao dao = new NguoiDungDaoImpl();
-if (username.isEmpty()) {
-    XDialog.alert("Chưa nhập tên đăng nhập\n");
-    return;
-}
-if (password.isEmpty()) {
-    XDialog.alert("Chưa nhập mật khẩu cũ\n");
-    return;
-}
-if (MKM.isEmpty()) {
-    XDialog.alert("Chưa nhập mật khẩu mới\n");
-    return;
-}
-if (!MKM.equals(MKMM)) {
-    XDialog.alert("2 mật khẩu đang khác nhau\n");
-    return;
-}
+    // Thêm kiểm tra dấu cách vào đây
+    if (MKM.contains(" ")) {
+        XDialog.alert("Mật khẩu mới không được chứa dấu cách!");
+        return; // Dừng thực thi nếu có lỗi
+    }
+    if (MKMM.contains(" ")) {
+        XDialog.alert("Xác nhận mật khẩu mới không được chứa dấu cách!");
+        return; // Dừng thực thi nếu có lỗi
+    }
 
-// Sau khi kiểm tra xong đầu vào mới truy vấn user
-NguoiDung user = dao.findById(username); // ví dụ, tuỳ bạn đặt tên hàm
+    NguoiDungDao dao = new NguoiDungDaoImpl();
+    if (username.isEmpty()) {
+        XDialog.alert("Chưa nhập tên đăng nhập\n");
+        return;
+    }
+    if (password.isEmpty()) {
+        XDialog.alert("Chưa nhập mật khẩu cũ\n");
+        return;
+    }
+    if (MKM.isEmpty()) {
+        XDialog.alert("Chưa nhập mật khẩu mới\n");
+        return;
+    }
+    if (!MKM.equals(MKMM)) {
+        XDialog.alert("2 mật khẩu đang khác nhau\n");
+        return;
+    }
 
-if (user == null) {
-    XDialog.alert("Sai tên đăng nhập!");
-    return;
-}
-if (!password.equals(user.getMatKhau())) {
-    XDialog.alert("Sai mật khẩu hiện tại!");
-    return;
-}
-if (MKM.equals(user.getMatKhau())) {
-    XDialog.alert("Mật khẩu mới không được giống mật khẩu cũ!");
-    return;
-}
+    // Sau khi kiểm tra xong đầu vào mới truy vấn user
+    NguoiDung user = dao.findById(username); // ví dụ, tuỳ bạn đặt tên hàm
 
-// Đến đây thì hợp lệ -> cập nhật mật khẩu
-user.setMatKhau(MKM);
-dao.update(user);
-XDialog.alert("Đổi mật khẩu thành công!");
-clearDMK();
+    if (user == null) {
+        XDialog.alert("Sai tên đăng nhập!");
+        return;
+    }
+    if (!password.equals(user.getMatKhau())) {
+        XDialog.alert("Sai mật khẩu hiện tại!");
+        return;
+    }
+    if (MKM.equals(user.getMatKhau())) {
+        XDialog.alert("Mật khẩu mới không được giống mật khẩu cũ!");
+        return;
+    }
+
+    // Đến đây thì hợp lệ -> cập nhật mật khẩu
+    user.setMatKhau(MKM);
+    dao.update(user);
+    XDialog.alert("Đổi mật khẩu thành công!");
+    clearDMK();
 }
 
 void clearDMK(){
@@ -2830,12 +2840,11 @@ int selectedRow = tabKhachHang.getSelectedRow();
 // Phương thức kiểm tra số CMT
 private boolean validateIDNumber(String cmt) {
     if (cmt == null || cmt.trim().isEmpty()) {
-        XDialog.alert("Số CMT không được để trống!");
-        return false;
+        return true; // Cho phép để trống (không nhập)
     }
-    // Kiểm tra chỉ chứa chữ số
-    if (!cmt.trim().matches("\\d+")) {
-        XDialog.alert("Số CMT chỉ được chứa chữ số.");
+    // Kiểm tra chỉ chứa chữ số và độ dài phải là 12
+    if (!cmt.trim().matches("\\d{12}")) {
+        XDialog.alert("Số CMT phải là 12 chữ số và chỉ chứa chữ số.");
         return false;
     }
     return true;
