@@ -2385,7 +2385,7 @@ public void anh(){
     this.setIconImage(XIcon.getIcon("Logo.png").getImage());
     if (XAuth.user != null) {
             txtTen.setText(XAuth.user.getHoVaTen());
-            txtTenDN.setText(XAuth.user.getHoVaTen());
+            txtTenDN.setText(XAuth.user.getUsername());
             // Đảm bảo ảnh của người dùng đang đăng nhập cũng được tải đúng cách
             // Giả sử ảnh của user đăng nhập cũng nằm trong folder "images"
             if (XAuth.user.getAnh() != null && !XAuth.user.getAnh().isEmpty()) {
@@ -2459,7 +2459,6 @@ void UpdateMK(){
 }
 
 void clearDMK(){
-  txtTenDN.setText("");
 txtMKHT.setText("");
 txtMKM.setText("");
 txtXNMKM.setText("");  
