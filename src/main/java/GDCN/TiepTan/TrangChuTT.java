@@ -3163,58 +3163,46 @@ private void updateTongTien() {
     PhongDao phongDao = new PhongDaoImpl();
     ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
 
-    // Tính tổng tiền phòng
+    // Tính tổng tiền phòng (phần này đã được sửa đổi trước đó)
     if (currentHoaDon != null) {
-        // Lấy tất cả ChiTietThuePhong cho hóa đơn hiện tại một lần để tối ưu
         List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(currentHoaDon.getId());
-        // Tạo một Map để tìm kiếm nhanh ChiTietThuePhong theo IdPhong
         Map<Integer, ChiTietThuePhong> cttpMap = new HashMap<>();
         for (ChiTietThuePhong cttp : cttpList) {
             cttpMap.put(cttp.getIdPhong(), cttp);
         }
 
         for (int i = 0; i < phongModel.getRowCount(); i++) {
-            String soPhong = (String) phongModel.getValueAt(i, 0); // Lấy Số phòng từ bảng
+            String soPhong = (String) phongModel.getValueAt(i, 0);
             try {
-                Phong phong = phongDao.findBySoPhong(soPhong); // Lấy đối tượng Phong bằng Số phòng
+                Phong phong = phongDao.findBySoPhong(soPhong);
                 if (phong != null) {
-                    ChiTietThuePhong cttp = cttpMap.get(phong.getId()); // Lấy ChiTietThuePhong tương ứng
+                    ChiTietThuePhong cttp = cttpMap.get(phong.getId());
                     
-                    // Chỉ tính toán nếu có ChiTietThuePhong và ngày nhận phòng hợp lệ
                     if (cttp != null && cttp.getThoiGianNhanPhong() != null) {
                         Date checkInDate = cttp.getThoiGianNhanPhong();
-                        Date currentDate = new Date(); // Lấy ngày hiện tại
+                        Date currentDate = new Date();
 
-                        // Bỏ phần thời gian để tính số ngày chính xác
                         Date checkInOnlyDate = Util.XDate.removeTime(checkInDate);
                         Date currentOnlyDate = Util.XDate.removeTime(currentDate);
 
                         long diffMillis = currentOnlyDate.getTime() - checkInOnlyDate.getTime();
                         long daysStayed = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
 
-                        // Logic tính số ngày: nếu cùng ngày check-in/out là 1 ngày, nếu qua ngày thì cộng thêm 1
                         if (daysStayed == 0 && diffMillis >= 0) {
                             daysStayed = 1;
                         } else if (daysStayed > 0) {
-                            daysStayed++; // Bao gồm cả ngày cuối cùng
+                            daysStayed++;
                         } else {
-                            daysStayed = 0; // Trường hợp không hợp lệ (ví dụ: ngày nhận phòng trong tương lai)
+                            daysStayed = 0;
                         }
-
                         tongTienPhong += phong.getGiaTien().doubleValue() * daysStayed;
-                    } else {
-                        // Nếu không tìm thấy ChiTietThuePhong hoặc ngày nhận phòng null,
-                        // thì tiền phòng sẽ là 0 hoặc có thể lấy giá tiền mặc định từ cột nếu bạn muốn
-                        // Ở đây, nếu không có thông tin chi tiết thuê phòng, tiền phòng sẽ không được cộng.
                     }
                 }
             } catch (Exception e) {
                 System.err.println("Lỗi khi tính toán tiền phòng cho phòng: " + soPhong + ". Chi tiết: " + e.getMessage());
-                // Trong trường hợp lỗi, có thể chọn bỏ qua hoặc cộng giá trị mặc định nếu có
             }
         }
-    } else { // Nếu currentHoaDon là null (ví dụ: đang tạo hóa đơn mới chưa check-in)
-        // Vẫn giữ cách tính cũ: chỉ cộng dồn giá tiền hiển thị trên bảng (thường là giá tiền/ngày)
+    } else {
         for (int i = 0; i < phongModel.getRowCount(); i++) {
             Object giaTriPhong = phongModel.getValueAt(i, 1);
             if (giaTriPhong instanceof Number) {
@@ -3223,7 +3211,7 @@ private void updateTongTien() {
         }
     }
 
-    // Tính tổng tiền dịch vụ (phần này không thay đổi)
+    // Tính tổng tiền dịch vụ (không thay đổi)
     for (int i = 0; i < dichVuModel.getRowCount(); i++) {
         Object giaTriDichVu = dichVuModel.getValueAt(i, 2);
         if (giaTriDichVu instanceof Number) {
@@ -3231,8 +3219,26 @@ private void updateTongTien() {
         }
     }
 
-    // Cập nhật tổng tiền vào txtTienTong
-    txtTienTong.setText(String.format("%,.0f VNĐ", tongTienPhong + tongTienDichVu));
+    double finalTotal = tongTienPhong + tongTienDichVu;
+    // Cập nhật tổng tiền vào txtTienTong trên giao diện
+    txtTienTong.setText(String.format("%,.0f VNĐ", finalTotal));
+
+    // NEW: Cập nhật tổng tiền vào đối tượng currentHoaDon và lưu vào DB
+    // Điều này chỉ xảy ra nếu currentHoaDon không null và đang ở trạng thái "Đang sử dụng"
+    // và giá trị tổng tiền đã thay đổi để tránh cập nhật DB không cần thiết.
+    if (currentHoaDon != null && "Đang sử dụng".equals(currentHoaDon.getTrangThai())) {
+        if (currentHoaDon.getTongTien() != finalTotal) { 
+            currentHoaDon.setTongTien(finalTotal);
+            try {
+                hoaDonDao.update(currentHoaDon); // Lưu tổng tiền đã cập nhật vào cơ sở dữ liệu
+                System.out.println("Hóa đơn ID " + currentHoaDon.getId() + " tổng tiền cập nhật trong DB: " + finalTotal);
+                fillTableLichSu(); // Làm mới bảng lịch sử để hiển thị dữ liệu mới nhất
+            } catch (Exception e) {
+                System.err.println("Lỗi khi cập nhật tổng tiền hóa đơn vào DB: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
 
@@ -3451,6 +3457,7 @@ private java.util.Date parseDate(String dateStr, String fieldName) {
         }
     }
 void fillTableLichSu() {
+    updateTongTien();
     DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
     model.setRowCount(0);
     try {
@@ -3497,6 +3504,7 @@ void fillTableLichSu() {
 }
 
 void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startDate, java.util.Date endDate) {
+    updateTongTien();
     DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
     model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
     try {
