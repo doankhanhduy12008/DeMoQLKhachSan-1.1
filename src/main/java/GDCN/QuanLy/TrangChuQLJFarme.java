@@ -3665,12 +3665,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
 
     void taoPhong() { 
-        // Kiểm tra dữ liệu đầu vào trước khi tạo mới
-        // currentPhongId sẽ là null khi tạo mới, nên validatePhongData sẽ kiểm tra trùng lặp
         if (!validatePhongData()) {
             return; 
         }
-
         try { 
             Phong newPhong = this.layPhong(); 
             Phongdao.create(newPhong); 
