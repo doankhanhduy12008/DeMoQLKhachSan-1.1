@@ -2104,7 +2104,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         if (row >= 0) {
             HoaDon selectedHD = danhSachHoaDon.get(row);
             hienThiChiTietHoaDon(selectedHD);
-
+            
             // Chuyển sang tab Đặt phòng
             jpnXemLS.setVisible(false);
             jpnTDXemLS.setVisible(false);
@@ -2113,6 +2113,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             jpnChonPhong.setVisible(false); // Ẩn panel chọn phòng
             btnXoaMCDCDV.setEnabled(false);
             btnXoaMCDCP.setEnabled(false);
+            updateTongTien();
         }
     }
     }//GEN-LAST:event_tabLSMouseClicked
