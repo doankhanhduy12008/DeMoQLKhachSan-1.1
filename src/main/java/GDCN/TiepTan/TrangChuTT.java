@@ -1167,6 +1167,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 return canEdit [columnIndex];
             }
         });
+        tabLS.setFillsViewportHeight(true);
         tabLS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabLSMouseClicked(evt);
@@ -2080,7 +2081,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void tabLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabLSMouseClicked
         // TODO add your handling code here:
          if (evt.getClickCount() == 2) { // Kiểm tra nhấp đúp
-        int row = tabLS.getSelectedRow();
+        int row = tabLS.getSelectedRow() + 1;
         if (row >= 0) {
             HoaDon selectedHD = danhSachHoaDon.get(row);
             hienThiChiTietHoaDon(selectedHD);
