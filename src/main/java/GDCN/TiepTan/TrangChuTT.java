@@ -3159,15 +3159,70 @@ private void updateTongTien() {
     DefaultTableModel phongModel = (DefaultTableModel) tabPhong.getModel();
     DefaultTableModel dichVuModel = (DefaultTableModel) tabDichVu.getModel();
 
+    PhongDao phongDao = new PhongDaoImpl();
+    ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+
     // Tính tổng tiền phòng
-    for (int i = 0; i < phongModel.getRowCount(); i++) {
-        Object giaTriPhong = phongModel.getValueAt(i, 1);
-        if (giaTriPhong instanceof Number) {
-            tongTienPhong += ((Number) giaTriPhong).doubleValue();
+    if (currentHoaDon != null) {
+        // Lấy tất cả ChiTietThuePhong cho hóa đơn hiện tại một lần để tối ưu
+        List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(currentHoaDon.getId());
+        // Tạo một Map để tìm kiếm nhanh ChiTietThuePhong theo IdPhong
+        Map<Integer, ChiTietThuePhong> cttpMap = new HashMap<>();
+        for (ChiTietThuePhong cttp : cttpList) {
+            cttpMap.put(cttp.getIdPhong(), cttp);
+        }
+
+        for (int i = 0; i < phongModel.getRowCount(); i++) {
+            String soPhong = (String) phongModel.getValueAt(i, 0); // Lấy Số phòng từ bảng
+            try {
+                Phong phong = phongDao.findBySoPhong(soPhong); // Lấy đối tượng Phong bằng Số phòng
+                if (phong != null) {
+                    ChiTietThuePhong cttp = cttpMap.get(phong.getId()); // Lấy ChiTietThuePhong tương ứng
+                    
+                    // Chỉ tính toán nếu có ChiTietThuePhong và ngày nhận phòng hợp lệ
+                    if (cttp != null && cttp.getThoiGianNhanPhong() != null) {
+                        Date checkInDate = cttp.getThoiGianNhanPhong();
+                        Date currentDate = new Date(); // Lấy ngày hiện tại
+
+                        // Bỏ phần thời gian để tính số ngày chính xác
+                        Date checkInOnlyDate = Util.XDate.removeTime(checkInDate);
+                        Date currentOnlyDate = Util.XDate.removeTime(currentDate);
+
+                        long diffMillis = currentOnlyDate.getTime() - checkInOnlyDate.getTime();
+                        long daysStayed = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
+
+                        // Logic tính số ngày: nếu cùng ngày check-in/out là 1 ngày, nếu qua ngày thì cộng thêm 1
+                        if (daysStayed == 0 && diffMillis >= 0) {
+                            daysStayed = 1;
+                        } else if (daysStayed > 0) {
+                            daysStayed++; // Bao gồm cả ngày cuối cùng
+                        } else {
+                            daysStayed = 0; // Trường hợp không hợp lệ (ví dụ: ngày nhận phòng trong tương lai)
+                        }
+
+                        tongTienPhong += phong.getGiaTien().doubleValue() * daysStayed;
+                    } else {
+                        // Nếu không tìm thấy ChiTietThuePhong hoặc ngày nhận phòng null,
+                        // thì tiền phòng sẽ là 0 hoặc có thể lấy giá tiền mặc định từ cột nếu bạn muốn
+                        // Ở đây, nếu không có thông tin chi tiết thuê phòng, tiền phòng sẽ không được cộng.
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tính toán tiền phòng cho phòng: " + soPhong + ". Chi tiết: " + e.getMessage());
+                // Trong trường hợp lỗi, có thể chọn bỏ qua hoặc cộng giá trị mặc định nếu có
+            }
+        }
+    } else { // Nếu currentHoaDon là null (ví dụ: đang tạo hóa đơn mới chưa check-in)
+        // Vẫn giữ cách tính cũ: chỉ cộng dồn giá tiền hiển thị trên bảng (thường là giá tiền/ngày)
+        for (int i = 0; i < phongModel.getRowCount(); i++) {
+            Object giaTriPhong = phongModel.getValueAt(i, 1);
+            if (giaTriPhong instanceof Number) {
+                tongTienPhong += ((Number) giaTriPhong).doubleValue();
+            }
         }
     }
 
-    // Tính tổng tiền dịch vụ
+    // Tính tổng tiền dịch vụ (phần này không thay đổi)
     for (int i = 0; i < dichVuModel.getRowCount(); i++) {
         Object giaTriDichVu = dichVuModel.getValueAt(i, 2);
         if (giaTriDichVu instanceof Number) {
