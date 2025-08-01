@@ -55,7 +55,6 @@ public class KhachHangCuJDiaLog extends javax.swing.JDialog {
         btnTimKiemKH = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
 
         tabKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,6 +81,12 @@ public class KhachHangCuJDiaLog extends javax.swing.JDialog {
             }
         });
         jScrollPane4.setViewportView(tabKhachHang);
+
+        txtTimKiemKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemKHActionPerformed(evt);
+            }
+        });
 
         btnTimKiemKH.setText("Tìm kiếm");
         btnTimKiemKH.setEnabled(false);
@@ -130,6 +135,10 @@ public class KhachHangCuJDiaLog extends javax.swing.JDialog {
     }
             
     }//GEN-LAST:event_tabKhachHangMouseClicked
+
+    private void txtTimKiemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemKHActionPerformed
 
     /**
      * @param args the command line arguments

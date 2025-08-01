@@ -20,6 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import java.util.ArrayList; // Đảm bảo có nếu chưa có
+import java.util.HashSet;   // Đảm bảo có nếu chưa có
+import java.util.Set;       // Đảm bảo có nếu chưa có
+import java.util.List;      // Đảm bảo có nếu chưa có
+import javax.swing.DefaultComboBoxModel; // Đảm bảo có nếu chưa có
+import java.awt.event.ActionEvent; // Đảm bảo có nếu chưa có
+import java.awt.event.ActionListener; // Đảm bảo có nếu chưa có
+
 
 /**
  *
@@ -40,6 +48,24 @@ private Phong phongDaChon = null;
             cboLoaiPhongActionPerformed(evt);
         }
     });
+                  // NEW: Thêm action listener cho cboTang
+        cboTang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTangActionPerformed(evt); // Phương thức xử lý mới
+            }
+        });
+        // NEW: Thêm action listener cho cboTrangThai
+        cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTrangThaiActionPerformed(evt); // Phương thức xử lý mới
+            }
+        });
+        // NEW: Thêm action listener cho nút tìm kiếm số phòng
+        btnTimKiemP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemPActionPerformed(evt); // Phương thức xử lý mới
+            }
+        });
     }
 
     /**
@@ -57,6 +83,12 @@ private Phong phongDaChon = null;
         cboLoaiPhong = new javax.swing.JComboBox<>();
         txtTimKiemP = new javax.swing.JTextField();
         btnTimKiemP = new javax.swing.JToggleButton();
+        cboTang = new javax.swing.JComboBox<>();
+        cboTrangThai = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -89,32 +121,82 @@ private Phong phongDaChon = null;
         });
 
         btnTimKiemP.setText("Tìm kiếm");
+        btnTimKiemP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemPActionPerformed(evt);
+            }
+        });
+
+        cboTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTangActionPerformed(evt);
+            }
+        });
+
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTrangThaiActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Loại Phòng");
+
+        jLabel21.setText("Tầng");
+
+        jLabel22.setText("Trạng Thái");
+
+        jLabel23.setText("Số Phòng");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTimKiemP)
-                .addGap(18, 18, 18)
-                .addComponent(txtTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
+                    .addComponent(cboTang, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel23))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cboTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
+                        .addComponent(btnTimKiemP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTimKiemP, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cboLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnTimKiemP, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboTang, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -144,7 +226,22 @@ private Phong phongDaChon = null;
 
     private void txtTimKiemPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemPActionPerformed
         // TODO add your handling code here:
+        filterRooms();
     }//GEN-LAST:event_txtTimKiemPActionPerformed
+
+    private void cboTangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTangActionPerformed
+        // TODO add your handling code here:
+        filterRooms();
+    }//GEN-LAST:event_cboTangActionPerformed
+
+    private void cboTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrangThaiActionPerformed
+        // TODO add your handling code here:
+        filterRooms();
+    }//GEN-LAST:event_cboTrangThaiActionPerformed
+
+    private void btnTimKiemPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimKiemPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,6 +289,12 @@ private Phong phongDaChon = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnTimKiemP;
     private javax.swing.JComboBox<String> cboLoaiPhong;
+    private javax.swing.JComboBox<String> cboTang;
+    private javax.swing.JComboBox<String> cboTrangThai;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pnlPhong;
@@ -208,36 +311,55 @@ public void open() {
     pnlPhong.setLayout(new java.awt.GridLayout(0, 6, 5, 5)); // Đảm bảo layout cho pnlPhong
     filterRooms(); // Gọi phương thức lọc để hiển thị phòng ban đầu
     fillComboBoxLoaiPhong();
+    
+    fillComboBoxTang();
+    fillComboBoxTrangThai();
+
+    filterRooms();
 }
 
 private void filterRooms() {
     pnlPhong.removeAll();
     PhongDao phongDao = new PhongDaoImpl();
-    List<Phong> allRooms = phongDao.findAll(); // Lấy tất cả phòng
     List<Phong> filteredRooms = new ArrayList<>();
 
-    // Lấy giá trị được chọn từ combobox loại phòng
-    Object selectedLoaiPhongItem = cboLoaiPhong.getSelectedItem();
-    Integer selectedLoaiPhongId = null;
-    if (selectedLoaiPhongItem instanceof LoaiPhong) {
-        selectedLoaiPhongId = ((LoaiPhong) selectedLoaiPhongItem).getId();
-    }
+    // Lấy tất cả phòng từ database
+    List<Phong> allRooms = phongDao.findAll();
 
+    // Lấy các giá trị được chọn từ combobox
+    Object selectedLoaiPhong = cboLoaiPhong.getSelectedItem();
+    Object selectedTang = cboTang.getSelectedItem();       // NEW: Lấy giá trị tầng được chọn
+    Object selectedTrangThai = cboTrangThai.getSelectedItem(); // NEW: Lấy giá trị trạng thái được chọn
+    
     // Lấy từ khóa tìm kiếm số phòng
     String soPhongKeyword = txtTimKiemP.getText().trim().toLowerCase();
 
+    // Lọc danh sách phòng
     for (Phong p : allRooms) {
-        boolean matchesLoaiPhong = (selectedLoaiPhongId == null || p.getIdLoaiPhong() == selectedLoaiPhongId);
+        // Điều kiện lọc theo Loại Phòng
+        boolean matchesLoaiPhong = (selectedLoaiPhong == null || selectedLoaiPhong.toString().equals("Tất cả") || 
+                                    (selectedLoaiPhong instanceof LoaiPhong && ((LoaiPhong) selectedLoaiPhong).getId() == p.getIdLoaiPhong()));
+        
+        // NEW: Điều kiện lọc theo Tầng
+        boolean matchesTang = (selectedTang == null || selectedTang.toString().equals("Tất cả") ||
+                               (selectedTang instanceof Integer && ((Integer) selectedTang) == p.getTang()));
+        
+        // NEW: Điều kiện lọc theo Trạng Thái
+        boolean matchesTrangThai = (selectedTrangThai == null || selectedTrangThai.toString().equals("Tất cả") ||
+                                    p.getTrangThai().equals(selectedTrangThai.toString()));
+        
+        // Điều kiện lọc theo Số phòng (không phân biệt hoa thường và tìm kiếm một phần)
         boolean matchesSoPhong = (soPhongKeyword.isEmpty() || p.getSoPhong().toLowerCase().contains(soPhongKeyword));
 
-        if (matchesLoaiPhong && matchesSoPhong) {
+        // Chỉ thêm phòng nếu tất cả các điều kiện lọc đều khớp
+        if (matchesLoaiPhong && matchesTang && matchesTrangThai && matchesSoPhong) { 
             filteredRooms.add(p);
         }
     }
 
     // Thêm các nút phòng đã lọc vào panel
     for (Phong p : filteredRooms) {
-        JButton btn = createRoomButton(p);
+        JButton btn = createRoomButton(p); // Tái sử dụng phương thức tạo nút hiện có
         pnlPhong.add(btn);
     }
 
@@ -308,5 +430,52 @@ private void fillComboBoxLoaiPhong() {
         XDialog.alert("Lỗi truy vấn dữ liệu loại phòng!");
     }
 }
+
+ private void fillComboBoxTang() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboTang.getModel();
+        model.removeAllElements();
+        model.addElement("Tất cả"); // Thêm mục để hiển thị tất cả các tầng
+        try {
+            // Đảm bảo phongDao đã được khởi tạo (như PhongDao phongDao = new PhongDaoImpl();)
+            PhongDao phongDao = new PhongDaoImpl(); 
+            List<Phong> list = phongDao.findAll();
+            Set<Integer> uniqueTangs = new HashSet<>();
+            for (Phong p : list) {
+                uniqueTangs.add(p.getTang());
+            }
+            List<Integer> sortedTangs = new ArrayList<>(uniqueTangs);
+            sortedTangs.sort(null); // Sắp xếp theo thứ tự tăng dần
+            for (Integer tang : sortedTangs) {
+                model.addElement(tang);
+            }
+        } catch (Exception e) {
+            XDialog.alert("Lỗi truy vấn dữ liệu tầng!");
+            e.printStackTrace();
+        }
+    }
+
+    // NEW: Phương thức điền dữ liệu cho cboTrangThai
+    private void fillComboBoxTrangThai() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboTrangThai.getModel();
+        model.removeAllElements();
+        model.addElement("Tất cả"); // Thêm mục để hiển thị tất cả các trạng thái
+        try {
+            // Đảm bảo phongDao đã được khởi tạo (như PhongDao phongDao = new PhongDaoImpl();)
+            PhongDao phongDao = new PhongDaoImpl();
+            List<Phong> list = phongDao.findAll();
+            Set<String> uniqueTrangThais = new HashSet<>();
+            for (Phong p : list) {
+                uniqueTrangThais.add(p.getTrangThai());
+            }
+            List<String> sortedTrangThais = new ArrayList<>(uniqueTrangThais);
+            sortedTrangThais.sort(null); // Sắp xếp theo thứ tự bảng chữ cái
+            for (String trangThai : sortedTrangThais) {
+                model.addElement(trangThai);
+            }
+        } catch (Exception e) {
+            XDialog.alert("Lỗi truy vấn dữ liệu trạng thái!");
+            e.printStackTrace();
+        }
+    }
 }
 
