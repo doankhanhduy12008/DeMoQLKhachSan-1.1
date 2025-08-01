@@ -2839,9 +2839,6 @@ int selectedRow = tabKhachHang.getSelectedRow();
 
 // Phương thức kiểm tra số CMT
 private boolean validateIDNumber(String cmt) {
-    if (cmt == null || cmt.trim().isEmpty()) {
-        return true; // Cho phép để trống (không nhập)
-    }
     // Kiểm tra chỉ chứa chữ số và độ dài phải là 12
     if (!cmt.trim().matches("\\d{12}")) {
         XDialog.alert("Số CMT phải là 12 chữ số và chỉ chứa chữ số.");
