@@ -3743,6 +3743,7 @@ void updateHoaDon() {
     try {
         // 1. Cập nhật Tổng Tiền của Hóa Đơn
         String rawAmount = txtTienTong.getText().replace(" VNĐ", "").replace(".", "");
+        System.out.println("Chuỗi rawAmount trước khi parse: " + rawAmount);
         currentHoaDon.setTongTien(Double.parseDouble(rawAmount));
         hoaDonDao.update(currentHoaDon);
 
