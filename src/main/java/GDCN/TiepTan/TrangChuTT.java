@@ -49,6 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -626,6 +627,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
         txtTenDN.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         txtTenDN.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtTenDN.setEnabled(false);
         txtTenDN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenDNActionPerformed(evt);
@@ -1772,13 +1774,25 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
-        checkOut();
+                boolean confirmed = XDialog.confirm("Bạn có chắc chắn muốn Check-out hóa đơn này không?"); //
+        
+        if (confirmed) {
+            checkOut(); //
+        } else {
+            XDialog.alert("Đã hủy thao tác Check-out."); //
+        }
         
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        updateHoaDon();
+            boolean confirmed = XDialog.confirm("Bạn có chắc chắn muốn cập nhật hóa đơn này không?"); //
+
+        if (confirmed) {
+            updateHoaDon(); //
+        } else {
+            XDialog.alert("Đã hủy thao tác sửa hóa đơn."); //
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemPMouseClicked
@@ -2011,7 +2025,13 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btnTaoMoiKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiKHActionPerformed
         // TODO add your handling code here:
-        btnTaoMoiKH();
+               boolean confirmed = XDialog.confirm("Bạn có muốn lưu thông tin khách hàng này không?");
+        
+        if (confirmed) {
+            btnTaoMoiKHDP(); // Gọi phương thức để lưu khách hàng nếu người dùng xác nhận
+        } else {
+            XDialog.alert("Đã hủy lưu thông tin khách hàng.");
+        }
     }//GEN-LAST:event_btnTaoMoiKHActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -2051,7 +2071,12 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void btmThemKHDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmThemKHDPActionPerformed
         // TODO add your handling code here:
-        btnTaoMoiKHDP();
+        boolean confirmed = XDialog.confirm("Bạn có muốn lưu thông tin khách hàng này không?");
+        if (confirmed) {
+            btnTaoMoiKHDP(); // Gọi phương thức để lưu khách hàng nếu người dùng xác nhận
+        } else {
+            XDialog.alert("Đã hủy lưu thông tin khách hàng.");
+        }
         
     }//GEN-LAST:event_btmThemKHDPActionPerformed
 
@@ -2354,6 +2379,7 @@ public void anh(){
     this.setIconImage(XIcon.getIcon("Logo.png").getImage());
     if (XAuth.user != null) {
             txtTen.setText(XAuth.user.getHoVaTen());
+            txtTenDN.setText(XAuth.user.getHoVaTen());
             // Đảm bảo ảnh của người dùng đang đăng nhập cũng được tải đúng cách
             // Giả sử ảnh của user đăng nhập cũng nằm trong folder "images"
             if (XAuth.user.getAnh() != null && !XAuth.user.getAnh().isEmpty()) {
@@ -3206,7 +3232,7 @@ void performInitialCheckInAction() {
         hd.setIdDatPhong(datPhongMoi.getId());
         hd.setNgayLap(new Date());
         String rawAmountText = txtTienTong.getText();
-        String cleanedAmountText = rawAmountText.replace(" VNĐ", "").replace(" VN?", "").replace(".", "");
+        String cleanedAmountText = rawAmountText.replace(" VNĐ", "").replace(" VN?", "").replace(",", "").replace(".", "");
         hd.setTongTien(Double.parseDouble(cleanedAmountText));
         hd.setTrangThai("Đang sử dụng"); 
         HoaDon hoaDonMoi = hdDao.create(hd);
@@ -3678,35 +3704,71 @@ void checkOut() {
     }
 
     try {
-        // Cập nhật trạng thái Hóa đơn thành "Hoàn thiện"
-        currentHoaDon.setTrangThai("Hoàn thiện");
-        String rawAmount = txtTienTong.getText().replace(" VNĐ", "").replace(".", "");
-        currentHoaDon.setTongTien(Double.parseDouble(rawAmount));
-        hoaDonDao.update(currentHoaDon); // Lưu trạng thái mới vào DB
+        double totalRoomCost = 0.0; // Biến mới để tính tổng tiền phòng dựa trên số ngày
+        double totalServiceCost = 0.0; // Biến để tính tổng tiền dịch vụ
 
-        // Cập nhật thời gian trả phòng trong ChiTietThuePhong và trạng thái phòng
+        // Lấy và cập nhật thông tin phòng đã thuê, đồng thời tính tổng tiền phòng
         ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
         PhongDao phongDao = new PhongDaoImpl();
         List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(currentHoaDon.getId());
 
-        StringBuilder roomNumbers = new StringBuilder(); // Để lưu số phòng
+        StringBuilder roomNumbers = new StringBuilder(); // Để lưu số phòng cho thông báo bill
         for (int i = 0; i < cttpList.size(); i++) {
             ChiTietThuePhong cttp = cttpList.get(i);
-            cttp.setThoiGianTraPhong(new Date()); 
-            cttpDao.update(cttp);
+            
+            Date checkInDate = cttp.getThoiGianNhanPhong(); // Lấy thời gian nhận phòng
+            Date checkOutDate = new Date(); // Thời gian trả phòng là thời điểm hiện tại
+            cttp.setThoiGianTraPhong(checkOutDate); 
+            cttpDao.update(cttp); // Cập nhật thời gian trả phòng vào DB
 
             Phong phong = phongDao.findById(cttp.getIdPhong());
             if (phong != null) {
+                // Tính số ngày lưu trú
+                Date checkInOnlyDate = Util.XDate.removeTime(checkInDate); // Chỉ lấy ngày, bỏ giờ
+                Date checkOutOnlyDate = Util.XDate.removeTime(checkOutDate); // Chỉ lấy ngày, bỏ giờ
+                
+                long diffMillis = checkOutOnlyDate.getTime() - checkInOnlyDate.getTime();
+                long daysStayed = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
+
+                // Yêu cầu: nếu check-in và check-out cùng ngày, tính là 1 ngày.
+                // Nếu khác ngày, tính số ngày chênh lệch + 1 (để tính cả ngày trả phòng).
+                if (daysStayed == 0 && diffMillis >= 0) { // Cùng ngày hoặc chênh lệch giờ nhưng vẫn trong ngày đó
+                    daysStayed = 1;
+                } else if (daysStayed > 0) { // Qua đêm hoặc nhiều ngày
+                    daysStayed++; // Cộng thêm 1 ngày để tính cả ngày check-out
+                } else { // Trường hợp ngày trả phòng trước ngày nhận phòng (không hợp lệ)
+                    daysStayed = 0; 
+                }
+
+                // Tính tiền phòng cho từng phòng và cộng vào tổng
+                totalRoomCost += phong.getGiaTien().doubleValue() * daysStayed;
+
+                // Cập nhật trạng thái phòng thành "Đang dọn dẹp"
                 phong.setTrangThai("Đang dọn dẹp"); 
                 phongDao.update(phong);
+                
                 roomNumbers.append(phong.getSoPhong());
                 if (i < cttpList.size() - 1) {
                     roomNumbers.append(", "); // Thêm dấu phẩy nếu có nhiều phòng
                 }
             }
         }
-        
-        // Lấy thông tin khách hàng
+
+        // Tính tổng tiền dịch vụ (lấy từ bảng dịch vụ hiện tại trên UI)
+        DefaultTableModel dichVuModel = (DefaultTableModel) tabDichVu.getModel();
+        for (int i = 0; i < dichVuModel.getRowCount(); i++) {
+            Object giaTriDichVu = dichVuModel.getValueAt(i, 2);
+            if (giaTriDichVu instanceof Number) {
+                totalServiceCost += ((Number) giaTriDichVu).doubleValue();
+            }
+        }
+
+        // Cập nhật Tổng Tiền của Hóa Đơn với tổng tiền phòng mới và tổng tiền dịch vụ
+        currentHoaDon.setTongTien(totalRoomCost + totalServiceCost); 
+        currentHoaDon.setTrangThai("Hoàn thiện");
+        hoaDonDao.update(currentHoaDon); // Lưu trạng thái mới vào DB
+
+        // Lấy thông tin khách hàng để hiển thị trên bill
         KhachHangDao khDao = new KhachHangDaoImpl();
         KhachHang kh = khDao.findById(currentHoaDon.getIdKhachHang());
         String tenKhachHang = (kh != null) ? kh.getHoTen() : "Không xác định";
@@ -3716,13 +3778,15 @@ void checkOut() {
                              "ID Hóa đơn: " + currentHoaDon.getId() + "\n" +
                              "Số phòng: " + roomNumbers.toString() + "\n" +
                              "Tên khách hàng: " + tenKhachHang + "\n" +
-                             "Tổng tiền: " + String.format("%,.0f", currentHoaDon.getTongTien()) + " VNĐ"; // Định dạng tiền tệ
+                             "Tổng tiền phòng: " + String.format("%,.0f", totalRoomCost) + " VNĐ\n" + // Hiển thị tổng tiền phòng
+                             "Tổng tiền dịch vụ: " + String.format("%,.0f", totalServiceCost) + " VNĐ\n" + // Hiển thị tổng tiền dịch vụ
+                             "Tổng tiền: " + String.format("%,.0f", currentHoaDon.getTongTien()) + " VNĐ"; // Định dạng tổng tiền tệ
 
         XDialog.alert(billMessage); // Hiển thị thông báo bill
         hienThiChiTietHoaDon(currentHoaDon); // Gọi lại để hiển thị dữ liệu đã cập nhật
         fillTableLichSu(); // Cập nhật lại bảng lịch sử
         loadAllRoomsToPanel(); // Cập nhật lại trạng thái phòng trên giao diện chính
-        test = false;
+        test = false; // Đặt lại biến test (nếu dùng để theo dõi trạng thái form)
     } catch (Exception e) {
         XDialog.alert("Lỗi khi thực hiện Check-out: " + e.getMessage());
         e.printStackTrace();
@@ -3737,7 +3801,7 @@ void updateHoaDon() {
 
     try {
         // 1. Cập nhật Tổng Tiền của Hóa Đơn
-        String rawAmount = txtTienTong.getText().replace(" VNĐ", "").replace(".", "");
+        String rawAmount = txtTienTong.getText().replace(" VNĐ", "").replace(",", "").replace(".", "");
         System.out.println("Chuỗi rawAmount trước khi parse: " + rawAmount);
         currentHoaDon.setTongTien(Double.parseDouble(rawAmount));
         hoaDonDao.update(currentHoaDon);
