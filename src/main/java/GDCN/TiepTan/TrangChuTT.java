@@ -3736,8 +3736,8 @@ void updateHoaDon() {
 
     try {
         // 1. Cập nhật Tổng Tiền của Hóa Đơn
-        double newTongTien = Double.parseDouble(txtTienTong.getText());
-        currentHoaDon.setTongTien(newTongTien);
+        String rawAmount = txtTienTong.getText().replace(" VNĐ", "").replace(".", "");
+        currentHoaDon.setTongTien(Double.parseDouble(rawAmount));
         hoaDonDao.update(currentHoaDon);
 
         // 2. Xử lý Chi Tiết Thuê Phòng (Phòng)
