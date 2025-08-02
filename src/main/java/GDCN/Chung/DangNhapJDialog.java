@@ -40,11 +40,11 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         jLabel3 = new javax.swing.JLabel();
         txtTen = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtMatKhau = new javax.swing.JTextField();
         bntDangNhap = new javax.swing.JButton();
         bntKetThuc = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        txtMatKhau = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Đăng Nhập");
@@ -72,12 +72,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Nhập mật khẩu:");
 
-        txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMatKhauActionPerformed(evt);
-            }
-        });
-
         bntDangNhap.setText("Đăng Nhập");
         bntDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +83,12 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         bntKetThuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bntKetThucActionPerformed(evt);
+            }
+        });
+
+        txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMatKhauActionPerformed(evt);
             }
         });
 
@@ -105,11 +105,11 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
                         .addGap(28, 28, 28)
                         .addComponent(jLabel2)
                         .addGap(83, 83, 83)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtMatKhau))))
                 .addContainerGap(81, Short.MAX_VALUE))
             .addComponent(jSeparator1)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -136,7 +136,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,10 +165,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenActionPerformed
 
-    private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMatKhauActionPerformed
-
     private void bntDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDangNhapActionPerformed
         // TODO add your handling code here:
         this.login();
@@ -178,6 +174,10 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         // TODO add your handling code here:
         this.exit();
     }//GEN-LAST:event_bntKetThucActionPerformed
+
+    private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMatKhauActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,7 +231,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField txtMatKhau;
+    private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 @Override
@@ -241,7 +241,7 @@ this.setLocationRelativeTo(null);
 @Override
 public void login() {
 String username = txtTen.getText();
-String password = txtMatKhau.getText();
+String password = new String(txtMatKhau.getPassword());
 
 NguoiDungDao dao = new NguoiDungDaoImpl();
 NguoiDung user = dao.findById(username);

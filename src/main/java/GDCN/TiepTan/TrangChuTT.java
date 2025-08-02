@@ -1339,6 +1339,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
         KhungTrang.add(pnlChat, "card8");
 
+        jpnKhachHang.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Tên Khách Hàng:");
 
