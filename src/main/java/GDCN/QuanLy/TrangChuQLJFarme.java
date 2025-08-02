@@ -46,11 +46,15 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.PatternSyntaxException;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangChuQLController{
-    
+    private TableRowSorter<DefaultTableModel> sorter;
+    private TableRowSorter<DefaultTableModel> sorterLP;
     public TrangChuQLJFarme(){
-//      setUndecorated(true); // Đặt dòng này lên đầu tiên
         initComponents();
         openFullScreen();
         open();
@@ -64,12 +68,16 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 //        ChonTG.repaint();
         this.phongDao = new PhongDaoImpl();
         
-        
-    }
-    
-    
-    
+        DefaultTableModel tableModel = (DefaultTableModel) tblNV.getModel();
+        sorter = new TableRowSorter<>(tableModel);
+        tblNV.setRowSorter(sorter);
+        DefaultTableModel tableModelLP = (DefaultTableModel) tblLoaiPhong.getModel();
+        sorterLP = new TableRowSorter<>(tableModelLP);
+        tblLoaiPhong.setRowSorter(sorterLP);
 
+    }
+
+    
     int chieungang = 1000;
     int chieudai = 52;
     
@@ -2352,6 +2360,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void OpenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OpenMouseClicked
         // TODO add your handling code here:
         OpenMenuBar();
@@ -2496,7 +2505,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_bntLPSuaActionPerformed
 
     private void bntLPTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPTimKiemActionPerformed
-        this.timKiemLoaiPhong();
+        timKiemLoaiPhong();
     }//GEN-LAST:event_bntLPTimKiemActionPerformed
 
     private void rdoPPhongDuocThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoPPhongDuocThueActionPerformed
@@ -2524,8 +2533,20 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_bntLPTaoMoiActionPerformed
 
     private void tblLoaiPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiPhongMouseClicked
+                                    
         if (evt.getClickCount() == 2) {
-            suaLoaiPhong();
+            int viewRowIndex = tblLoaiPhong.getSelectedRow();
+            if (viewRowIndex != -1) {
+                // Chuyển đổi chỉ mục hàng của view sang chỉ mục hàng của model
+                int modelRowIndex = tblLoaiPhong.convertRowIndexToModel(viewRowIndex);
+
+                // In ra để kiểm tra
+                System.out.println("Chỉ mục trên view (LP): " + viewRowIndex);
+                System.out.println("Chỉ mục trên model (LP): " + modelRowIndex);
+
+                // Gọi phương thức suaLoaiPhong() với chỉ mục model chính xác
+                suaLoaiPhong(modelRowIndex);
+            }
         }
     }//GEN-LAST:event_tblLoaiPhongMouseClicked
 
@@ -2710,9 +2731,18 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_bntNVLamMoiActionPerformed
 
     private void tblNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNVMouseClicked
-        if (evt.getClickCount() == 2) { // Kích hoạt khi nhấp đúp
-            suaNguoiDung();
+        if (evt.getClickCount() == 2) {
+        int viewRowIndex = tblNV.getSelectedRow();
+        if (viewRowIndex != -1) {
+            // Chỉ mục view sẽ được chuyển đổi chính xác sang chỉ mục model
+            int modelRowIndex = tblNV.convertRowIndexToModel(viewRowIndex);
+            
+            System.out.println("Chỉ mục trên view: " + viewRowIndex);
+            System.out.println("Chỉ mục trên model: " + modelRowIndex);
+            
+            suaNguoiDung(modelRowIndex);
         }
+    }
     }//GEN-LAST:event_tblNVMouseClicked
 
     private void bntNVTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNVTimKiemActionPerformed
@@ -3248,19 +3278,17 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         });
     }
     
-    void suaLoaiPhong() {
-        int selectedIndex = tblLoaiPhong.getSelectedRow(); // Lấy chỉ số hàng được chọn
-        
-        // Thêm kiểm tra để đảm bảo một hàng thực sự được chọn
-        if (selectedIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một loại phòng để sửa."); // Thông báo cho người dùng
-            return; // Thoát khỏi phương thức nếu không có hàng nào được chọn
-        }
-
+    void suaLoaiPhong(int modelRowIndex) {
         try {
-            LoaiPhong entity = items.get(selectedIndex); // Sử dụng chỉ số đã được xác thực
-            this.setFromLP(entity);
-            this.suatblLP(true);
+            // Kiểm tra để đảm bảo chỉ mục hợp lệ
+            if (modelRowIndex >= 0 && modelRowIndex < items.size()) {
+                // Sử dụng chỉ mục model đã được truyền vào
+                LoaiPhong entity = items.get(modelRowIndex);
+                this.setFromLP(entity);
+                this.suatblLP(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy loại phòng để sửa.");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi khi chọn loại phòng để sửa: " + e.getMessage());
             e.printStackTrace();
@@ -3309,18 +3337,28 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }
     
     void timKiemLoaiPhong() {
-        DefaultTableModel model = (DefaultTableModel) tblLoaiPhong.getModel();
-        model.setRowCount(0);
-        String tenLP = txtLPTimKiem.getText();
-        items = dao.findByName(tenLP);
-        items.forEach(item -> {
-            Object[] rowData = {
-                item.getId(),
-                item.getTenLoaiPhong(),
-                false
-            };
-            model.addRow(rowData);
-        });
+        String keyword = txtLPTimKiem.getText().trim();
+        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tblLoaiPhong.getRowSorter();
+
+        // Nếu sorter chưa được khởi tạo, có thể hiển thị thông báo lỗi
+        if (sorter == null) {
+            JOptionPane.showMessageDialog(this, "Lỗi: TableRowSorter chưa được khởi tạo.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (keyword.isEmpty()) {
+            sorter.setRowFilter(null); // Hiển thị lại toàn bộ dữ liệu nếu ô tìm kiếm trống
+        } else {
+            try {
+                // Tạo một RowFilter chỉ lọc trên cột "Tên loại phòng" (chỉ mục 1)
+                // "(?i)" để tìm kiếm không phân biệt chữ hoa, chữ thường
+                // 1 là chỉ mục của cột "Tên loại phòng"
+                RowFilter<TableModel, Object> rf = RowFilter.regexFilter("(?i)" + keyword, 1);
+                sorter.setRowFilter(rf);
+            } catch (PatternSyntaxException pse) {
+                JOptionPane.showMessageDialog(this, "Từ khóa tìm kiếm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
     
     /**
@@ -3378,83 +3416,102 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         String giaTienStr = txtPGiaThue.getText().trim();
         LoaiPhong loaiPhongChon = (LoaiPhong) cmbPLoaiPhong.getSelectedItem();
 
-        StringBuilder err = new StringBuilder();
-
-        // 1. Kiểm tra Số phòng không trống và là số nguyên dương
+        // 1. Kiểm tra Số phòng không trống
         if (soPhongStr.isEmpty()) {
-            err.append("Vui lòng không để trống Số phòng.\n");
-        } else {
-            try {
-                int soPhongInt = Integer.parseInt(soPhongStr);
-                if (soPhongInt <= 0) {
-                    err.append("Số phòng phải là một số nguyên dương.\n");
-                } else {
-                    // 2. Kiểm tra Số phòng bị trùng
-                    try {
-                        Phong existingPhong = Phongdao.findBySoPhong(soPhongStr);
-                        // Nếu tìm thấy phòng có số phòng này
-                        if (existingPhong != null) {
-                            // Kiểm tra nếu đang ở chế độ THÊM MỚI (currentPhongId == null)
-                            // hoặc nếu đang ở chế độ CẬP NHẬT nhưng ID của phòng tìm thấy
-                            // không phải là ID của phòng đang được chỉnh sửa
-                            if (currentPhongId == null || !currentPhongId.equals(existingPhong.getId())) {
-                                err.append("Số phòng này đã tồn tại. Vui lòng nhập số phòng khác.\n");
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.err.println("Lỗi khi kiểm tra số phòng trùng lặp: " + e.getMessage());
-                        // Có thể thêm XDialog.alert("Lỗi hệ thống khi kiểm tra số phòng.");
-                    }
-                }
-            } catch (NumberFormatException e) {
-                err.append("Số phòng phải là một số hợp lệ.\n");
-            }
+            XDialog.alert("Vui lòng không để trống Số phòng.");
+            txtPSoPhong.requestFocus(); // Đặt focus vào trường bị lỗi
+            return false;
         }
 
-        // 3. Kiểm tra Tầng không trống và là số nguyên dương
+        // 2. Kiểm tra Số phòng là số nguyên dương
+        try {
+            int soPhongInt = Integer.parseInt(soPhongStr);
+            if (soPhongInt <= 0) {
+                XDialog.alert("Số phòng phải là một số nguyên dương.");
+                txtPSoPhong.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            XDialog.alert("Số phòng phải là một số hợp lệ.");
+            txtPSoPhong.requestFocus();
+            return false;
+        }
+
+        // 3. Kiểm tra Số phòng bị trùng
+        try {
+            Phong existingPhong = Phongdao.findBySoPhong(soPhongStr);
+            if (existingPhong != null) {
+                // Kiểm tra nếu đang ở chế độ THÊM MỚI hoặc số phòng bị trùng với phòng khác
+                if (currentPhongId == null || !currentPhongId.equals(existingPhong.getId())) {
+                    XDialog.alert("Số phòng này đã tồn tại. Vui lòng nhập số phòng khác.");
+                    txtPSoPhong.requestFocus();
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi khi kiểm tra số phòng trùng lặp: " + e.getMessage());
+            XDialog.alert("Lỗi hệ thống khi kiểm tra số phòng.");
+            return false;
+        }
+
+        // 4. Kiểm tra Tầng không trống
         if (tangStr.isEmpty()) {
-            err.append("Vui lòng không để trống Tầng.\n");
-        } else {
-            try {
-                int tangInt = Integer.parseInt(tangStr);
-                if (tangInt <= 0) {
-                    err.append("Tầng phải là một số nguyên dương.\n");
-                }
-            } catch (NumberFormatException e) {
-                err.append("Tầng phải là một số hợp lệ.\n");
-            }
+            XDialog.alert("Vui lòng không để trống Tầng.");
+            txtPTang.requestFocus();
+            return false;
         }
 
-        // 4. Kiểm tra Giá thuê không trống và là số dương
+        // 5. Kiểm tra Tầng là số nguyên dương
+        try {
+            int tangInt = Integer.parseInt(tangStr);
+            if (tangInt <= 0) {
+                XDialog.alert("Tầng phải là một số nguyên dương.");
+                txtPTang.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            XDialog.alert("Tầng phải là một số hợp lệ.");
+            txtPTang.requestFocus();
+            return false;
+        }
+
+        // 6. Kiểm tra Giá thuê không trống
         if (giaTienStr.isEmpty()) {
-            err.append("Vui lòng không để trống Giá thuê.\n");
-        } else {
-            try {
-                double giaTienDouble = Double.parseDouble(giaTienStr);
-                if (giaTienDouble <= 0) {
-                    err.append("Giá thuê phải là một số dương.\n");
-                }
-            } catch (NumberFormatException e) {
-                err.append("Giá thuê phải là một số hợp lệ.\n");
+            XDialog.alert("Vui lòng không để trống Giá thuê.");
+            txtPGiaThue.requestFocus();
+            return false;
+        }
+
+        // 7. Kiểm tra Giá thuê là số dương
+        try {
+            double giaTienDouble = Double.parseDouble(giaTienStr);
+            if (giaTienDouble <= 0) {
+                XDialog.alert("Giá thuê phải là một số dương.");
+                txtPGiaThue.requestFocus();
+                return false;
             }
+        } catch (NumberFormatException e) {
+            XDialog.alert("Giá thuê phải là một số hợp lệ.");
+            txtPGiaThue.requestFocus();
+            return false;
         }
 
-        // 5. Kiểm tra Loại phòng đã chọn
+        // 8. Kiểm tra Loại phòng đã chọn
         if (loaiPhongChon == null) {
-            err.append("Vui lòng chọn Loại phòng.\n");
+            XDialog.alert("Vui lòng chọn Loại phòng.");
+            cmbPLoaiPhong.requestFocus();
+            return false;
         }
 
-        // 6. Kiểm tra Trạng thái phòng đã chọn
-        if (!rdoPPhongDuocThue.isSelected() && !rdoPPhongSua1.isSelected() && 
-            !rdoPPhongDonDep.isSelected() && !rdoPPhongTrong.isSelected()) {
-            err.append("Vui lòng chọn Trạng thái phòng.\n");
+        // 9. Kiểm tra Trạng thái phòng đã chọn
+        if (!rdoPPhongDuocThue.isSelected() && !rdoPPhongSua1.isSelected() &&
+                !rdoPPhongDonDep.isSelected() && !rdoPPhongTrong.isSelected()) {
+            XDialog.alert("Vui lòng chọn Trạng thái phòng.");
+            return false;
         }
 
-        if (err.length() > 0) {
-            XDialog.alert(err.toString());
-            return false; 
-        }
-        return true; 
+        // Nếu tất cả các kiểm tra đều thành công
+        return true;
     }
 
 
@@ -3745,70 +3802,102 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
     private boolean validateNguoiDungData(boolean isNewUser) {
         NguoiDung nguoiDung = this.layNguoiDung(); // Lấy dữ liệu thô từ form
-        StringBuilder err = new StringBuilder();
 
+        // 1. Kiểm tra Tên đăng nhập
         String username = nguoiDung.getUsername();
         if (username.isEmpty()) {
-            err.append("Tên đăng nhập không được để trống.\n");
-        } else if (username.contains(" ") || !username.matches("^[a-zA-Z0-9]+$")) {
-            err.append("Tên đăng nhập không được chứa ký tự trống và không dấu (chỉ chữ và số).\n");
-        } else if (isNewUser) { // Chỉ kiểm tra trùng lặp khi tạo mới
+            JOptionPane.showMessageDialog(this, "Tên đăng nhập không được để trống.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVTenDangNhap.requestFocus();
+            return false;
+        }
+        if (username.contains(" ") || !username.matches("^[a-zA-Z0-9]+$")) {
+            JOptionPane.showMessageDialog(this, "Tên đăng nhập không được chứa ký tự trống và không dấu (chỉ chữ và số).", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVTenDangNhap.requestFocus();
+            return false;
+        }
+        if (isNewUser) { // Chỉ kiểm tra trùng lặp khi tạo mới
             try {
                 NguoiDung existingUser = NVdao.findById(username);
                 if (existingUser != null) {
-                    err.append("Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.\n");
+                    JOptionPane.showMessageDialog(this, "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                    txtNVTenDangNhap.requestFocus();
+                    return false;
                 }
             } catch (Exception e) {
                 System.err.println("Lỗi khi kiểm tra tên đăng nhập trùng lặp: " + e.getMessage());
-                // Không thông báo lỗi ra ngoài cho người dùng cuối
+                JOptionPane.showMessageDialog(this, "Lỗi hệ thống khi kiểm tra tên đăng nhập.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return false;
             }
         }
 
+        // 2. Kiểm tra Mật khẩu
         String password = nguoiDung.getMatKhau();
         if (password.isEmpty()) {
-            err.append("Mật khẩu không được để trống.\n");
-        } else if (password.equals(username)) {
-            err.append("Mật khẩu không được trùng với tên đăng nhập.\n");
-        } else if (password.contains(" ")) { // Kiểm tra khoảng trống
-            err.append("Mật khẩu không được chứa khoảng trống.\n");
-        } else if (!password.matches("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?`~]+$")) {
-            // Regex này cho phép chữ cái (hoa/thường), số, và một số ký tự đặc biệt phổ biến.
-            // Loại bỏ các ký tự có dấu.
-            err.append("Mật khẩu chỉ được chứa chữ cái (không dấu), số và các ký tự đặc biệt.\n");
-        }
-
-
-        String hoVaTen = nguoiDung.getHoVaTen();
-        if (hoVaTen.isEmpty()) {
-            err.append("Họ và tên không được để trống.\n");
-        } else {
-            if (!Character.isUpperCase(hoVaTen.charAt(0))) {
-                err.append("Họ và tên phải viết hoa chữ cái đầu tiên.\n");
-            }
-            if (!hoVaTen.matches("^[\\p{L}\\s.'-]+$")) { 
-                 err.append("Họ và tên chỉ được chứa chữ cái, khoảng trắng, dấu chấm, dấu gạch ngang, dấu nháy đơn.\n");
-            }
-        }
-
-        String sdt = nguoiDung.getSdt();
-        if (sdt.isEmpty()) {
-            err.append("Số điện thoại không được để trống.\n");
-        } else if (!sdt.matches("^0[0-9]{6,14}$")) { 
-            err.append("Số điện thoại phải bắt đầu bằng số 0 và có từ 7 đến 15 chữ số.\n");
-        }
-
-        if (nguoiDung.getVaiTro() == null || nguoiDung.getVaiTro().isEmpty()) {
-            err.append("Vui lòng chọn vai trò.\n");
-        }
-        
-        if (!rdoNVHoatDong.isSelected() && !rdoNVTamDung.isSelected()) {
-            err.append("Vui lòng chọn trạng thái.\n");
-        }
-
-        if (err.length() > 0) {
-            JOptionPane.showMessageDialog(this, err.toString(), "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVMatKhau.requestFocus();
             return false;
         }
+        if (password.equals(username)) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được trùng với tên đăng nhập.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVMatKhau.requestFocus();
+            return false;
+        }
+        if (password.contains(" ")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được chứa khoảng trống.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVMatKhau.requestFocus();
+            return false;
+        }
+        if (!password.matches("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?`~]+$")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu chỉ được chứa chữ cái (không dấu), số và các ký tự đặc biệt.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVMatKhau.requestFocus();
+            return false;
+        }
+
+        // 3. Kiểm tra Họ và tên
+        String hoVaTen = nguoiDung.getHoVaTen();
+        if (hoVaTen.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Họ và tên không được để trống.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVHoVaTen.requestFocus();
+            return false;
+        }
+        if (!Character.isUpperCase(hoVaTen.charAt(0))) {
+            JOptionPane.showMessageDialog(this, "Họ và tên phải viết hoa chữ cái đầu tiên.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVHoVaTen.requestFocus();
+            return false;
+        }
+        if (!hoVaTen.matches("^[\\p{L}\\s.'-]+$")) {
+            JOptionPane.showMessageDialog(this, "Họ và tên chỉ được chứa chữ cái, khoảng trắng, dấu chấm, dấu gạch ngang, dấu nháy đơn.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVHoVaTen.requestFocus();
+            return false;
+        }
+
+        // 4. Kiểm tra Số điện thoại
+        String sdt = nguoiDung.getSdt();
+        if (sdt.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVSDT.requestFocus();
+            return false;
+        }
+        if (!sdt.matches("^0[0-9]{6,14}$")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải bắt đầu bằng số 0 và có từ 7 đến 15 chữ số.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVSDT.requestFocus();
+            return false;
+        }
+
+        // 5. Kiểm tra Vai trò
+        if (nguoiDung.getVaiTro() == null || nguoiDung.getVaiTro().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn vai trò.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            rdoNVQuanLy.requestFocus();
+            return false;
+        }
+
+        // 6. Kiểm tra Trạng thái
+        if (!rdoNVHoatDong.isSelected() && !rdoNVTamDung.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn trạng thái.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Nếu không có lỗi nào, trả về true
         return true;
     }
 
@@ -3910,11 +3999,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         txtNVTenDangNhap.setEditable(true); // Cho phép sửa Username khi thêm mới
     }
     
-    void suaNguoiDung() {
+    private void suaNguoiDung(int modelRowIndex) {
         try {
-            int selectedIndex = tblNV.getSelectedRow();
-            if (selectedIndex >= 0) {
-                NguoiDung entity = NVitems.get(selectedIndex);
+            if (modelRowIndex >= 0) {
+                // Lấy đối tượng NguoiDung chính xác từ danh sách gốc
+                NguoiDung entity = NVitems.get(modelRowIndex);
                 this.setFromNV(entity);
                 this.suatblNV(true);
             }
@@ -4014,30 +4103,26 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     
     void timKiemNguoiDung() {
         String keyword = txtNVTimKiem.getText().trim();
-        DefaultTableModel model = (DefaultTableModel) tblNV.getModel();
-        model.setRowCount(0); // Clear table
-        try {
-            List<NguoiDung> list = NVdao.findAll(); 
-            for (NguoiDung nd : list) {
-                if (nd.getUsername().toLowerCase().contains(keyword.toLowerCase()) ||
-                    nd.getHoVaTen().toLowerCase().contains(keyword.toLowerCase()) ||
-                    nd.getSdt().contains(keyword) ||
-                    (nd.getVaiTro() != null && nd.getVaiTro().toLowerCase().contains(keyword.toLowerCase()))) {
-                    Object[] rowData = {
-                        nd.getUsername(),
-                        nd.getHoVaTen(),
-                        nd.getMatKhau(),
-                        nd.getSdt(),
-                        nd.getVaiTro(),
-                        nd.isTrangThai() ? "Hoạt Động" : "Tạm Dừng",
-                        false
-                    };
-                    model.addRow(rowData);
-                }
+        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tblNV.getRowSorter();
+
+        // Nếu sorter chưa được khởi tạo, có thể hiển thị thông báo lỗi
+        if (sorter == null) {
+            JOptionPane.showMessageDialog(this, "Lỗi: TableRowSorter chưa được khởi tạo.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (keyword.isEmpty()) {
+            sorter.setRowFilter(null); // Hiển thị lại toàn bộ dữ liệu nếu ô tìm kiếm trống
+        } else {
+            try {
+                // Tạo một RowFilter chỉ lọc trên cột "SĐT" (chỉ mục 3)
+                // "(?i)" để tìm kiếm không phân biệt chữ hoa, chữ thường
+                // 3 là chỉ mục của cột "SĐT"
+                RowFilter<TableModel, Object> rf = RowFilter.regexFilter("(?i)" + keyword, 3);
+                sorter.setRowFilter(rf);
+            } catch (PatternSyntaxException pse) {
+                JOptionPane.showMessageDialog(this, "Từ khóa tìm kiếm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi tìm kiếm: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
     }
     
@@ -4486,41 +4571,36 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     
     List<KhachHang> kh_items = new ArrayList<>();
     
-    void fillTableKhachHang(String keyword) { // Thêm tham số keyword
+    void fillTableKhachHang(String keyword) {
         DefaultTableModel model = (DefaultTableModel) tabKhachHang.getModel();
-        model.setRowCount(0); 
+        model.setRowCount(0);
         try {
             KhachHangDao dao = new KhachHangDaoImpl();
-            List<KhachHang> all_kh_items_from_db = dao.findAll(); // Lấy tất cả khách hàng từ DB
-            kh_items = new ArrayList<>(); // Khởi tạo lại danh sách sẽ hiển thị trên bảng
-            
-            // Lọc danh sách nếu có từ khóa
+            List<KhachHang> kh_items;
+
             if (keyword != null && !keyword.trim().isEmpty()) {
-                String lowerCaseKeyword = keyword.trim().toLowerCase();
-                for (KhachHang kh : all_kh_items_from_db) {
-                    if (kh.getHoTen().toLowerCase().contains(lowerCaseKeyword)) {
-                        kh_items.add(kh); // Thêm khách hàng phù hợp vào danh sách hiển thị
-                    }
-                }
+                // Sử dụng phương thức searchBySDT để tìm kiếm trực tiếp trong DB
+                kh_items = dao.searchBySDT(keyword);
             } else {
-                kh_items = all_kh_items_from_db; // Nếu không có từ khóa, hiển thị tất cả
+                // Nếu không có từ khóa, hiển thị tất cả khách hàng
+                kh_items = dao.findAll();
             }
 
-            for (KhachHang kh : kh_items) { // Sử dụng danh sách đã lọc/toàn bộ để điền vào bảng
+            for (KhachHang kh : kh_items) {
                 Object[] row = {
                     kh.getHoTen(),
                     kh.getCmt(),
                     kh.getSdt(),
-                    false 
+                    false
                 };
                 model.addRow(row);
             }
         } catch (Exception e) {
             XDialog.alert("Lỗi truy vấn dữ liệu khách hàng!");
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
     }
-    
+
     // Thêm phương thức overload không tham số để các lệnh gọi cũ vẫn hoạt động
     void fillTableKhachHang() {
         fillTableKhachHang(null); // Mặc định gọi với null để hiển thị tất cả
