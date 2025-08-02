@@ -2446,6 +2446,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlChat.setVisible(false);
         pnlTDTroChuyen.setVisible(false);
         laytblLoaiphong();
+        lamMLoaiPhong();
     }//GEN-LAST:event_bntQLLoaiPhongMouseClicked
 
     private void bntQLPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLPhongMouseClicked
@@ -2599,6 +2600,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_bntLPXoaMucChonActionPerformed
 
     private void bntLPTimKiem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPTimKiem1ActionPerformed
+        txtLPTimKiem.setText("");
         lamMLoaiPhong();
         laytblLoaiphong();
     }//GEN-LAST:event_bntLPTimKiem1ActionPerformed
@@ -2665,6 +2667,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlChat.setVisible(false);
         pnlTDTroChuyen.setVisible(false);
         laytblLoaiphong();
+        lamMLoaiPhong();
     }//GEN-LAST:event_bntQLLoaiPhong1MouseClicked
 
     private void bntQLPhong1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLPhong1MouseClicked
@@ -3259,47 +3262,49 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     
     LoaiPhongDao dao = new LoaiPhongDaoImpl();
     java.util.List<LoaiPhong> items;
-    
-    public LoaiPhong layLoaiPhong() {
-        LoaiPhong entity = new LoaiPhong();
-        
-        // Lấy ID loại phòng từ text field (chỉ khi có giá trị, tức là đang sửa)
-        // txtLPID là trường hiển thị ID, được điền khi chọn từ bảng.
-        if (!txtLPID.getText().isEmpty()) {
-            try {
-                entity.setId(Integer.parseInt(txtLPID.getText()));
-            } catch (NumberFormatException e) {
-                // Trường hợp này không nên xảy ra nếu txtLPID chỉ được thiết lập bằng chương trình
-                // nhưng là một kiểm tra mạnh mẽ để đảm bảo tính toàn vẹn dữ liệu.
-                JOptionPane.showMessageDialog(this, "ID Loại Phòng không hợp lệ. Vui lòng làm mới và chọn lại.", "Lỗi dữ liệu", JOptionPane.ERROR_MESSAGE);
-                throw new RuntimeException("ID Loai Phong is not a valid number.", e); // Ném ngoại lệ để dừng thao tác nếu ID không hợp lệ
-            }
-        }
-        
-        // Lấy tên loại phòng từ text field tương ứng
-        entity.setTenLoaiPhong(txtLPLoaiPhong.getText()); 
+    private Integer currentLoaiPhongId = null;
 
+    private boolean validateLoaiPhongData(boolean isNew) {
+        String tenLoaiPhong = txtLPLoaiPhong.getText().trim();
+        if (tenLoaiPhong.isEmpty()) {
+            XDialog.alert("Tên loại phòng không được để trống!");
+            txtLPLoaiPhong.requestFocus();
+            return false;
+        }
+
+        try {
+            LoaiPhong existingLoaiPhong = dao.findByName(tenLoaiPhong).stream().findFirst().orElse(null);
+            if (existingLoaiPhong != null) {
+                if (isNew || (currentLoaiPhongId != null && !currentLoaiPhongId.equals(existingLoaiPhong.getId()))) {
+                    XDialog.alert("Tên loại phòng đã tồn tại. Vui lòng nhập tên khác.");
+                    txtLPLoaiPhong.requestFocus();
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi khi kiểm tra tên loại phòng trùng lặp: " + e.getMessage());
+        }
+        return true;
+    }
+
+    // Phương thức lấy dữ liệu từ form
+    private LoaiPhong getFormLP() {
+        LoaiPhong entity = new LoaiPhong();
+        if (!txtLPID.getText().isEmpty()) {
+            entity.setId(Integer.parseInt(txtLPID.getText()));
+        }
+        entity.setTenLoaiPhong(txtLPLoaiPhong.getText().trim());
         return entity;
     }
 
-    void taoLoaiPhong(){
-        String loaiPhongText = txtLPLoaiPhong.getText().trim();
-        StringBuilder err = new StringBuilder();
-        if(loaiPhongText.isEmpty()){
-            err.append("Chưa nhập loại phòng\n");
-        }
-        if(err.length()>0){
-            JOptionPane.showMessageDialog(this, err.toString());
-            return;
-        }
-        
-         LoaiPhong newLoaiPhong = this.layLoaiPhong();
-         dao.create(newLoaiPhong);
-         XDialog.alert("Tạo loại phòng thành công!");
-         this.laytblLoaiphong();
+    // Phương thức điền dữ liệu lên form
+    private void setFormLP(LoaiPhong entity) {
+        txtLPID.setText(String.valueOf(entity.getId()));
+        txtLPLoaiPhong.setText(entity.getTenLoaiPhong());
     }
 
-    void laytblLoaiphong(){
+    // Phương thức tải dữ liệu lên bảng
+    public void laytblLoaiphong() {
         DefaultTableModel model = (DefaultTableModel) tblLoaiPhong.getModel();
         model.setRowCount(0);
         items = dao.findAll();
@@ -3312,15 +3317,161 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             model.addRow(rowData);
         });
     }
-    
-    void suaLoaiPhong(int modelRowIndex) {
+
+    // Phương thức tạo mới loại phòng
+    private void taoLoaiPhong() {
+        if (!validateLoaiPhongData(true)) {
+            return;
+        }
         try {
-            // Kiểm tra để đảm bảo chỉ mục hợp lệ
+            LoaiPhong newLoaiPhong = getFormLP();
+            dao.create(newLoaiPhong);
+            XDialog.alert("Tạo loại phòng thành công!");
+            laytblLoaiphong();
+            lamMLoaiPhong();
+        } catch (Exception e) {
+            XDialog.alert("Tạo loại phòng thất bại! Lỗi: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Phương thức cập nhật loại phòng
+    private void capNLoaiPhong() {
+        if (!validateLoaiPhongData(false)) {
+            return;
+        }
+        if (XDialog.confirm("Bạn có chắc chắn muốn cập nhật loại phòng này không?")) {
+            try {
+                LoaiPhong entity = getFormLP();
+                dao.update(entity);
+                XDialog.alert("Cập nhật loại phòng thành công!");
+                laytblLoaiphong();
+                lamMLoaiPhong();
+            } catch (Exception e) {
+                XDialog.alert("Cập nhật loại phòng thất bại! Lỗi: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Phương thức xóa loại phòng
+    private void xoaLoaiPhong() {
+        // Thêm kiểm tra này để đảm bảo có ID để xóa
+        if (txtLPID.getText().isEmpty()) {
+            XDialog.alert("Vui lòng chọn một loại phòng để xóa.");
+            return;
+        }
+
+        Integer id = Integer.valueOf(txtLPID.getText());
+
+        if (XDialog.confirm("Bạn thực sự muốn xóa loại phòng này? Thao tác này sẽ xóa tất cả phòng thuộc loại này!")) {
+            try {
+                // Kiểm tra xem có phòng nào thuộc loại này không
+                PhongDao phongDao = new PhongDaoImpl();
+                List<Phong> rooms = phongDao.findByIdLoaiPhong(id);
+                if (!rooms.isEmpty()) {
+                     int confirm = JOptionPane.showConfirmDialog(this,
+                            "Có " + rooms.size() + " phòng đang thuộc loại này. Bạn có chắc chắn muốn xóa tất cả các phòng này?",
+                            "Xác nhận xóa",
+                            JOptionPane.YES_NO_OPTION);
+                     if(confirm == JOptionPane.YES_OPTION){
+                         for(Phong phong : rooms){
+                             phongDao.deleteById(phong.getId());
+                         }
+                         dao.deleteById(id);
+                         XDialog.alert("Xóa loại phòng và các phòng liên quan thành công!");
+                         laytblLoaiphong();
+                         lamMLoaiPhong();
+                     } else {
+                         XDialog.alert("Đã hủy thao tác xóa.");
+                     }
+                } else {
+                    dao.deleteById(id);
+                    XDialog.alert("Xóa loại phòng thành công!");
+                    laytblLoaiphong();
+                    lamMLoaiPhong();
+                }
+            } catch (Exception e) {
+                XDialog.alert("Xóa loại phòng thất bại! Lỗi: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Phương thức làm mới form
+    private void lamMLoaiPhong() {
+        txtLPLoaiPhong.setText("");
+        txtLPID.setText("");
+        setButtonStateLP(false);
+        currentLoaiPhongId = null;
+        laytblLoaiphong();
+    }
+
+    // Phương thức xóa các mục đã chọn trong bảng
+    private void xoaMDCLoaiPhong() {
+        int selectedCount = 0;
+        for (int i = 0; i < tblLoaiPhong.getRowCount(); i++) {
+            if (tblLoaiPhong.getValueAt(i, 2) instanceof Boolean && (Boolean) tblLoaiPhong.getValueAt(i, 2)) {
+                selectedCount++;
+            }
+        }
+
+        if (selectedCount == 0) {
+            XDialog.alert("Vui lòng chọn ít nhất một mục để xóa.");
+            return;
+        }
+        
+        if (XDialog.confirm("Bạn thực sự muốn xóa " + selectedCount + " mục đã chọn?")) {
+            List<Integer> idsToDelete = new ArrayList<>();
+            for (int i = 0; i < tblLoaiPhong.getRowCount(); i++) {
+                 // Lấy chỉ mục hàng của model
+                int modelRowIndex = tblLoaiPhong.convertRowIndexToModel(i); 
+                if (tblLoaiPhong.getValueAt(i, 2) instanceof Boolean && (Boolean) tblLoaiPhong.getValueAt(i, 2)) {
+                    idsToDelete.add((Integer) tblLoaiPhong.getValueAt(i, 0));
+                }
+            }
+
+            int successCount = 0;
+            for (Integer id : idsToDelete) {
+                try {
+                    dao.deleteById(id);
+                    successCount++;
+                } catch (Exception e) {
+                    System.err.println("Lỗi khi xóa loại phòng có ID " + id + ": " + e.getMessage());
+                }
+            }
+
+            if (successCount > 0) {
+                XDialog.alert("Đã xóa thành công " + successCount + " mục.");
+            }
+            laytblLoaiphong();
+        }
+    }
+
+    // Phương thức tìm kiếm loại phòng
+    private void timKiemLoaiPhong() {
+        String keyword = txtLPTimKiem.getText().trim();
+        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tblLoaiPhong.getRowSorter();
+        if (sorter != null) {
+            try {
+                if (keyword.isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    RowFilter<TableModel, Object> rf = RowFilter.regexFilter("(?i)" + keyword, 1);
+                    sorter.setRowFilter(rf);
+                }
+            } catch (PatternSyntaxException pse) {
+                XDialog.alert("Từ khóa tìm kiếm không hợp lệ.");
+            }
+        }
+    }
+    
+    private void suaLoaiPhong(int modelRowIndex) {
+        try {
             if (modelRowIndex >= 0 && modelRowIndex < items.size()) {
-                // Sử dụng chỉ mục model đã được truyền vào
                 LoaiPhong entity = items.get(modelRowIndex);
                 this.setFromLP(entity);
-                this.suatblLP(true);
+                this.setButtonStateLP(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy loại phòng để sửa.");
             }
@@ -3329,73 +3480,17 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             e.printStackTrace();
         }
     }
-    
-    void setFromLP(LoaiPhong entity){
-        txtLPID.setText(Integer.toString(entity.getId()));
+
+    private void setFromLP(LoaiPhong entity) {
+        txtLPID.setText(String.valueOf(entity.getId()));
         txtLPLoaiPhong.setText(entity.getTenLoaiPhong());
     }
-    
-    void suatblLP(boolean SuaLP){
-        bntLPSua.setEnabled(SuaLP);
-        bntLPTaoMoi.setEnabled(!SuaLP);
-    }
-    
-    void capNLoaiPhong(){
-        LoaiPhong entity = this.layLoaiPhong();
-        dao.update(entity);
-        this.laytblLoaiphong();
-    }
-    
-    void xoaLoaiPhong(){
-        if(XDialog.confirm("Bạn thực xự muốn xóa?")){
-            Integer id = Integer.valueOf(txtLPID.getText());
-            dao.deleteById(id);
-            this.laytblLoaiphong();
-            
-        }
-    }
-    
-    void lamMLoaiPhong(){
-        txtLPTimKiem.setText("");
-        timKiemLoaiPhong();
-        this.setFromLP(new LoaiPhong());
-        this.suatblLP(false);
-    }
-    
-    void xoaMDCLoaiPhong(){
-        if(XDialog.confirm("Bạn thực xự muốn xoa mục đã chọn?")){
-            for(int i = 0; i < tblLoaiPhong.getRowCount(); i++){
-                if((Boolean) tblLoaiPhong.getValueAt(i, 2)){
-                    dao.deleteById(items.get(i).getId());
-                }
-            }
-            this.laytblLoaiphong();
-        }
-    }
-    
-    void timKiemLoaiPhong() {
-        String keyword = txtLPTimKiem.getText().trim();
-        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tblLoaiPhong.getRowSorter();
 
-        // Nếu sorter chưa được khởi tạo, có thể hiển thị thông báo lỗi
-        if (sorter == null) {
-            JOptionPane.showMessageDialog(this, "Lỗi: TableRowSorter chưa được khởi tạo.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (keyword.isEmpty()) {
-            sorter.setRowFilter(null); // Hiển thị lại toàn bộ dữ liệu nếu ô tìm kiếm trống
-        } else {
-            try {
-                // Tạo một RowFilter chỉ lọc trên cột "Tên loại phòng" (chỉ mục 1)
-                // "(?i)" để tìm kiếm không phân biệt chữ hoa, chữ thường
-                // 1 là chỉ mục của cột "Tên loại phòng"
-                RowFilter<TableModel, Object> rf = RowFilter.regexFilter("(?i)" + keyword, 1);
-                sorter.setRowFilter(rf);
-            } catch (PatternSyntaxException pse) {
-                JOptionPane.showMessageDialog(this, "Từ khóa tìm kiếm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+    private void setButtonStateLP(boolean isEditing) {
+        bntLPTaoMoi.setEnabled(!isEditing);
+        bntLPSua.setEnabled(isEditing);
+        bntLPXoaPhongLP.setEnabled(isEditing);
+        txtLPID.setEnabled(false);
     }
     
     /**
