@@ -233,6 +233,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         txtTimTheoNgayBD = new javax.swing.JTextField();
         txtTimTheoNgayKT = new javax.swing.JTextField();
         btnLamMoiLS = new javax.swing.JButton();
+        pnlChat = new javax.swing.JPanel();
         jpnKhachHang = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         txtTenKHT = new javax.swing.JTextField();
@@ -245,7 +246,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jSeparator1 = new javax.swing.JSeparator();
         btnLamMoiKH = new javax.swing.JButton();
         btnTaoMoiKH = new javax.swing.JButton();
-        pnlChat = new javax.swing.JPanel();
         Tieude = new javax.swing.JPanel();
         jpnTDTrangChu = new javax.swing.JPanel();
         txtTrangChu = new javax.swing.JLabel();
@@ -1323,6 +1323,21 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
         KhungTrang.add(jpnXemLS, "card5");
 
+        pnlChat.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnlChatLayout = new javax.swing.GroupLayout(pnlChat);
+        pnlChat.setLayout(pnlChatLayout);
+        pnlChatLayout.setHorizontalGroup(
+            pnlChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1216, Short.MAX_VALUE)
+        );
+        pnlChatLayout.setVerticalGroup(
+            pnlChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 680, Short.MAX_VALUE)
+        );
+
+        KhungTrang.add(pnlChat, "card8");
+
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Tên Khách Hàng:");
 
@@ -1466,21 +1481,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         );
 
         KhungTrang.add(jpnKhachHang, "card6");
-
-        pnlChat.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout pnlChatLayout = new javax.swing.GroupLayout(pnlChat);
-        pnlChat.setLayout(pnlChatLayout);
-        pnlChatLayout.setHorizontalGroup(
-            pnlChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1216, Short.MAX_VALUE)
-        );
-        pnlChatLayout.setVerticalGroup(
-            pnlChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
-        );
-
-        KhungTrang.add(pnlChat, "card8");
 
         Tieude.setBackground(new java.awt.Color(255, 255, 255));
         Tieude.setLayout(new java.awt.CardLayout());
