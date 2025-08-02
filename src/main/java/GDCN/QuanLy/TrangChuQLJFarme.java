@@ -54,6 +54,9 @@ import javax.swing.table.TableRowSorter;
 public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangChuQLController{
     private TableRowSorter<DefaultTableModel> sorter;
     private TableRowSorter<DefaultTableModel> sorterLP;
+    private TableRowSorter<DefaultTableModel> sorterP;
+    private TableRowSorter<DefaultTableModel> sorterDV;
+    private TableRowSorter<DefaultTableModel> sorterKH;
     public TrangChuQLJFarme(){
         initComponents();
         openFullScreen();
@@ -74,6 +77,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         DefaultTableModel tableModelLP = (DefaultTableModel) tblLoaiPhong.getModel();
         sorterLP = new TableRowSorter<>(tableModelLP);
         tblLoaiPhong.setRowSorter(sorterLP);
+//        DefaultTableModel tableModelP = (DefaultTableModel) tblPhong.getModel();
+//        sorterP = new TableRowSorter<>(tableModelLP);
+//        tblPhong.setRowSorter(sorterP);
 
     }
 
@@ -2525,7 +2531,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_rdoNVTamDungActionPerformed
 
     private void bntDVTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDVTimKiemActionPerformed
-        laytblDichVu();
+        timKiemDichVu();
     }//GEN-LAST:event_bntDVTimKiemActionPerformed
 
     private void bntLPTaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLPTaoMoiActionPerformed
@@ -2577,7 +2583,12 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
     private void tblPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongMouseClicked
         if (evt.getClickCount() == 2) {
-            suaPhong();
+            int viewRowIndex = tblPhong.getSelectedRow();
+            if (viewRowIndex != -1) {
+                int modelRowIndex = tblPhong.convertRowIndexToModel(viewRowIndex);
+
+                suaPhong(modelRowIndex);
+            }
         }
     }//GEN-LAST:event_tblPhongMouseClicked
 
@@ -2734,12 +2745,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         if (evt.getClickCount() == 2) {
         int viewRowIndex = tblNV.getSelectedRow();
         if (viewRowIndex != -1) {
-            // Chỉ mục view sẽ được chuyển đổi chính xác sang chỉ mục model
+
             int modelRowIndex = tblNV.convertRowIndexToModel(viewRowIndex);
-            
-            System.out.println("Chỉ mục trên view: " + viewRowIndex);
-            System.out.println("Chỉ mục trên model: " + modelRowIndex);
-            
             suaNguoiDung(modelRowIndex);
         }
     }
@@ -2792,19 +2799,17 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_bntDVSuaActionPerformed
 
     private void tblDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDVMouseClicked
-        if (evt.getClickCount() == 2) { // Kích hoạt khi nhấp đúp chuột
-            int selectedRow = tblDV.getSelectedRow();
-            if (selectedRow >= 0) { // Đảm bảo có hàng được chọn
-                try {
-                    // Lấy đối tượng DichVu từ danh sách 'DichVuitems' dựa trên chỉ số hàng được chọn.
-                    // Đảm bảo rằng 'DichVuitems' đã được điền đầy đủ bởi 'laytblDichVu()'.
-                    Dao.entity.DichVu selectedService = DichVuitems.get(selectedRow);
-                    setFromDV(selectedService); // Điền dữ liệu vào các trường trên form
-                    suatblDV(true); // Đặt trạng thái form sang chế độ sửa
-                } catch (Exception e) {
-                    Util.XDialog.alert("Lỗi khi chọn dịch vụ để sửa: " + e.getMessage());
-                    e.printStackTrace();
-                }
+        if (evt.getClickCount() == 2) {
+            int viewRowIndex = tblDV.getSelectedRow();
+            if (viewRowIndex != -1) {
+                // Chuyển đổi chỉ mục hàng của view sang chỉ mục hàng của model
+                int modelRowIndex = tblDV.convertRowIndexToModel(viewRowIndex);
+
+                System.out.println("Chỉ mục trên view (DV): " + viewRowIndex);
+                System.out.println("Chỉ mục trên model (DV): " + modelRowIndex);
+
+                // Gọi phương thức suaDichVu() với chỉ mục model chính xác
+                suaDichVu(modelRowIndex);
             }
         }
     }//GEN-LAST:event_tblDVMouseClicked
@@ -2934,13 +2939,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_txtSDTActionPerformed
 
     private void tabKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabKhachHangMouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 1) { // Kiểm tra nhấp đúp chuột
-            int selectedRow = tabKhachHang.getSelectedRow();
-            if (selectedRow >= 0) {
-                KhachHang kh = kh_items.get(selectedRow); // Lấy khách hàng từ danh sách
-                setFormKH(kh); // Điền thông tin lên form
-                suatblKH(true); // Bật nút "Sửa", tắt nút "Tạo Mới"
+        if (evt.getClickCount() == 2) {
+            int viewRowIndex = tabKhachHang.getSelectedRow();
+            if (viewRowIndex != -1) {
+                int modelRowIndex = tabKhachHang.convertRowIndexToModel(viewRowIndex);
+                suaKhachHang(modelRowIndex); // Gọi phương thức suaKhachHang riêng biệt
             }
         }
     }//GEN-LAST:event_tabKhachHangMouseClicked
@@ -2974,7 +2977,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_txtTimKiemKHActionPerformed
 
     private void bntTimKiemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntTimKiemKHActionPerformed
-        fillTableKhachHang(txtTimKiemKH.getText());
+        String keyword = txtTimKiemKH.getText().trim();
+        // Gọi phương thức timKiemKhachHang() đã được sửa đổi
+        timKiemKhachHang(keyword);
     }//GEN-LAST:event_bntTimKiemKHActionPerformed
 
     private void btnTaoMoiKH1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiKH1ActionPerformed
@@ -2982,8 +2987,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }//GEN-LAST:event_btnTaoMoiKH1ActionPerformed
 
     private void btnLamMoiKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiKHMouseClicked
-        txtTimKiemKH.setText("");
-        fillTableKhachHang(null);
+        clearFormKH();
     }//GEN-LAST:event_btnLamMoiKHMouseClicked
 
 
@@ -3321,6 +3325,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }
     
     void lamMLoaiPhong(){
+        txtLPTimKiem.setText("");
+        timKiemLoaiPhong();
         this.setFromLP(new LoaiPhong());
         this.suatblLP(false);
     }
@@ -3515,48 +3521,84 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     }
 
 
-    void laytblPhong() { 
-        DefaultTableModel model = (DefaultTableModel) tblPhong.getModel(); 
-        model.setRowCount(0); 
-        try { 
-            Phongitems = Phongdao.findAll(); 
-            for (Phong item : Phongitems) { 
-                LoaiPhong loaiPhong = new LoaiPhongDaoImpl().findById(item.getIdLoaiPhong()); 
-                String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không rõ"; 
+    void laytblPhong() {
+        // Khởi tạo một DefaultTableModel mới
+        DefaultTableModel newModel = new DefaultTableModel() {
+            String[] columnNames = {"Số phòng", "Tầng", "Giá tiền", "Loại phòng", "Trạng thái", "Chọn"};
+
+            @Override
+            public int getColumnCount() {
+                return columnNames.length;
+            }
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            // Ghi đè phương thức isCellEditable
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Chỉ cho phép chỉnh sửa cột cuối cùng (cột "Chọn")
+                return column == getColumnCount() - 1; 
+            }
+
+            // Ghi đè phương thức getColumnClass để chỉ định kiểu dữ liệu cho từng cột
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == getColumnCount() - 1) {
+                    return Boolean.class; // Cột cuối cùng là kiểu Boolean
+                }
+                return super.getColumnClass(columnIndex); // Các cột khác giữ nguyên
+            }
+        };
+
+        try {
+            Phongitems = Phongdao.findAll();
+            for (Phong item : Phongitems) {
+                LoaiPhong loaiPhong = new LoaiPhongDaoImpl().findById(item.getIdLoaiPhong());
+                String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không rõ";
 
                 java.text.DecimalFormat formatter = new java.text.DecimalFormat("#,##0 VNĐ");
                 String giaTienFormatted = formatter.format(item.getGiaTien());
 
-                model.addRow(new Object[]{ 
-                     item.getSoPhong(), 
-                     item.getTang(), 
-                     giaTienFormatted,
-                     tenLoaiPhong, 
-                     item.getTrangThai(), 
-                     false 
-                 }); 
-             } 
-         } catch (Exception e) { 
-             XDialog.alert("Lỗi tải dữ liệu phòng!"); 
-             e.printStackTrace(); 
-         } 
-     } 
+                newModel.addRow(new Object[]{
+                    item.getSoPhong(),
+                    item.getTang(),
+                    giaTienFormatted,
+                    tenLoaiPhong,
+                    item.getTrangThai(),
+                    false // Giá trị ban đầu cho cột "Chọn"
+                });
+            }
 
-    void suaPhong() { 
-        try { 
-            int selectedIndex = tblPhong.getSelectedRow(); 
-            if (selectedIndex >= 0) { 
-                Phong entity = Phongitems.get(selectedIndex); 
-                this.setFromP(entity); 
-                this.suatblP(true); 
-                // Lưu ID của phòng đang được chỉnh sửa
-                this.currentPhongId = entity.getId(); // Giả sử Phong có phương thức getId()
-            } 
-        } catch (Exception e) { 
-            XDialog.alert("Lỗi khi chọn phòng để sửa!"); 
-            e.printStackTrace(); 
-        } 
-    } 
+            tblPhong.setModel(newModel);
+
+            // Khởi tạo và gán lại TableRowSorter cho model mới
+            sorterP = new TableRowSorter<>(newModel);
+            tblPhong.setRowSorter(sorterP);
+
+        } catch (Exception e) {
+            XDialog.alert("Lỗi tải dữ liệu phòng!");
+            e.printStackTrace();
+        }
+    }
+
+    void suaPhong(int modelRowIndex) {
+        try {
+            if (modelRowIndex >= 0 && modelRowIndex < Phongitems.size()) {
+                Phong entity = Phongitems.get(modelRowIndex);
+                this.setFromP(entity);
+                this.suatblP(true);
+                this.currentPhongId = entity.getId(); 
+            } else {
+                XDialog.alert("Không tìm thấy phòng để sửa.");
+            }
+        } catch (Exception e) {
+            XDialog.alert("Lỗi khi chọn phòng để sửa: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     void setFromP(Phong entity) { 
         txtPSoPhong.setText(entity.getSoPhong()); 
@@ -3688,37 +3730,26 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     } 
 
 
-     void timKiemPhong() { 
-         DefaultTableModel model = (DefaultTableModel) tblPhong.getModel(); 
-         model.setRowCount(0); 
-         String soPhongKeyword = txtPTimKiem.getText().trim(); 
-         try { 
-             java.util.List<Phong> list = Phongdao.findAll(); // Lấy tất cả và lọc 
-             for (Phong item : list) { 
-                 // So sánh số phòng chứa từ khóa, không phân biệt hoa thường
-                 if (item.getSoPhong().toLowerCase().contains(soPhongKeyword.toLowerCase())) { 
-                     LoaiPhong loaiPhong = new LoaiPhongDaoImpl().findById(item.getIdLoaiPhong()); 
-                     String tenLoaiPhong = (loaiPhong != null) ? loaiPhong.getTenLoaiPhong() : "Không rõ"; 
+    void timKiemPhong() {
+        String soPhongKeyword = txtPTimKiem.getText().trim();
+        if (sorterP == null) {
+            JOptionPane.showMessageDialog(this, "Lỗi: TableRowSorter chưa được khởi tạo cho bảng Phòng.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-                     // Định dạng giá tiền: bỏ .00 và thêm VNĐ
-                     java.text.DecimalFormat formatter = new java.text.DecimalFormat("#,##0 VNĐ");
-                     String giaTienFormatted = formatter.format(item.getGiaTien());
-
-                     model.addRow(new Object[]{ 
-                         item.getSoPhong(), 
-                         item.getTang(), 
-                         giaTienFormatted, // Sử dụng giá tiền đã định dạng
-                         tenLoaiPhong, 
-                         item.getTrangThai(), 
-                         false 
-                     }); 
-                 } 
-             } 
-         } catch (Exception e) { 
-             XDialog.alert("Lỗi tìm kiếm phòng!"); 
-             e.printStackTrace(); // In lỗi để dễ debug
-         } 
-     } 
+        if (soPhongKeyword.isEmpty()) {
+            sorterP.setRowFilter(null);
+        } else {
+            try {
+                // Giả sử cột "Số phòng" có chỉ mục là 0
+                int soPhongColumnIndex = 0; 
+                RowFilter<TableModel, Object> rf = RowFilter.regexFilter("(?i)" + soPhongKeyword, soPhongColumnIndex);
+                sorterP.setRowFilter(rf);
+            } catch (PatternSyntaxException pse) {
+                JOptionPane.showMessageDialog(this, "Từ khóa tìm kiếm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
 
     void taoPhong() { 
@@ -4343,27 +4374,96 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         laytblDichVu(); // Tải lại bảng dịch vụ
         this.currentDichVuId = null; // Reset ID dịch vụ đang chỉnh sửa
     }
+    
+    void suaDichVu(int modelRowIndex) {
+        try {
+            // Kiểm tra chỉ mục có hợp lệ hay không
+            if (modelRowIndex >= 0 && modelRowIndex < DichVuitems.size()) {
+                // Lấy đối tượng DichVu chính xác từ danh sách gốc
+                Dao.entity.DichVu selectedService = DichVuitems.get(modelRowIndex);
+
+                // Điền dữ liệu vào các trường trên form
+                setFromDV(selectedService);
+
+                // Đặt trạng thái form sang chế độ sửa
+                suatblDV(true);
+            } else {
+                Util.XDialog.alert("Không tìm thấy dịch vụ để sửa.");
+            }
+        } catch (Exception e) {
+            Util.XDialog.alert("Lỗi khi chọn dịch vụ để sửa: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    void timKiemDichVu() {
+        String keyword = txtDVTimKiem.getText().trim();
+        if (sorterDV == null) {
+            JOptionPane.showMessageDialog(this, "Lỗi: TableRowSorter chưa được khởi tạo.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (keyword.isEmpty()) {
+            sorterDV.setRowFilter(null);
+        } else {
+            try {
+                // Giả sử cột "Tên Dịch vụ" có chỉ mục là 1
+                int tenDichVuColumnIndex = 1;
+                RowFilter<TableModel, Object> rf = RowFilter.regexFilter("(?i)" + keyword, tenDichVuColumnIndex);
+                sorterDV.setRowFilter(rf);
+            } catch (PatternSyntaxException pse) {
+                JOptionPane.showMessageDialog(this, "Từ khóa tìm kiếm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
     void laytblDichVu() {
-        DefaultTableModel model = (DefaultTableModel) tblDV.getModel();
-        model.setRowCount(0); 
+        DefaultTableModel newModel = new DefaultTableModel() {
+            String[] columnNames = {"ID", "Tên Dịch vụ", "Đơn giá", "Chọn"};
 
-        String tenDichVuKeyword = txtDVTimKiem.getText().trim().toLowerCase(); 
+            @Override
+            public int getColumnCount() {
+                return columnNames.length;
+            }
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == getColumnCount() - 1;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == getColumnCount() - 1) {
+                    return Boolean.class;
+                }
+                return super.getColumnClass(columnIndex);
+            }
+        };
 
         try {
-            DichVuitems = DVdao.findAll(); 
-            DecimalFormat formatter = new DecimalFormat("#,##0 VNĐ"); // Định dạng giá tiền giống Phòng
+            DichVuitems = DVdao.findAll();
+            DecimalFormat formatter = new DecimalFormat("#,##0 VNĐ");
 
             for (Dao.entity.DichVu dv : DichVuitems) {
-                if (dv.getTenDichVu().toLowerCase().contains(tenDichVuKeyword)) {
-                    model.addRow(new Object[]{
-                        dv.getId(),
-                        dv.getTenDichVu(),
-                        formatter.format(dv.getDonGia()), // Định dạng giá tiền
-                        false 
-                    });
-                }
+                newModel.addRow(new Object[]{
+                    dv.getId(),
+                    dv.getTenDichVu(),
+                    formatter.format(dv.getDonGia()),
+                    false
+                });
             }
+
+            tblDV.setModel(newModel);
+
+            // Khởi tạo và gán lại TableRowSorter cho model mới
+            sorterDV = new TableRowSorter<>(newModel);
+            tblDV.setRowSorter(sorterDV);
+
         } catch (Exception e) {
             Util.XDialog.alert("Lỗi khi tải dữ liệu dịch vụ!");
             e.printStackTrace();
@@ -4571,21 +4671,33 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     
     List<KhachHang> kh_items = new ArrayList<>();
     
-    void fillTableKhachHang(String keyword) {
-        DefaultTableModel model = (DefaultTableModel) tabKhachHang.getModel();
-        model.setRowCount(0);
+    void fillTableKhachHang() {
+        DefaultTableModel newModel = new DefaultTableModel() {
+            String[] columnNames = {"Họ và Tên", "CMT", "SĐT", "Chọn"};
+            @Override
+            public int getColumnCount() {
+                return columnNames.length;
+            }
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == getColumnCount() - 1; 
+            }
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == getColumnCount() - 1) {
+                    return Boolean.class;
+                }
+                return super.getColumnClass(columnIndex);
+            }
+        };
+
         try {
             KhachHangDao dao = new KhachHangDaoImpl();
-            List<KhachHang> kh_items;
-
-            if (keyword != null && !keyword.trim().isEmpty()) {
-                // Sử dụng phương thức searchBySDT để tìm kiếm trực tiếp trong DB
-                kh_items = dao.searchBySDT(keyword);
-            } else {
-                // Nếu không có từ khóa, hiển thị tất cả khách hàng
-                kh_items = dao.findAll();
-            }
-
+            kh_items = dao.findAll(); // Cập nhật danh sách ở phạm vi lớp
             for (KhachHang kh : kh_items) {
                 Object[] row = {
                     kh.getHoTen(),
@@ -4593,19 +4705,61 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                     kh.getSdt(),
                     false
                 };
-                model.addRow(row);
+                newModel.addRow(row);
             }
+            tabKhachHang.setModel(newModel);
+
+            // Khởi tạo và gán lại sorterKH cho model mới
+            sorterKH = new TableRowSorter<>(newModel);
+            tabKhachHang.setRowSorter(sorterKH);
+
         } catch (Exception e) {
-            XDialog.alert("Lỗi truy vấn dữ liệu khách hàng!");
+            XDialog.alert("Lỗi tải dữ liệu khách hàng!");
             e.printStackTrace();
         }
     }
 
     // Thêm phương thức overload không tham số để các lệnh gọi cũ vẫn hoạt động
-    void fillTableKhachHang() {
-        fillTableKhachHang(null); // Mặc định gọi với null để hiển thị tất cả
-    }
+//    void fillTableKhachHang() {
+//        fillTableKhachHang(null); // Mặc định gọi với null để hiển thị tất cả
+//    }
+    
+    void timKiemKhachHang(String keyword) {
+        if (sorterKH == null) {
+            XDialog.alert("Lỗi: TableRowSorter chưa được khởi tạo cho bảng Khách hàng.");
+            return;
+        }
 
+        if (keyword.isEmpty()) {
+            sorterKH.setRowFilter(null); // Hiển thị lại toàn bộ dữ liệu nếu từ khóa trống
+        } else {
+            try {
+                // Tạo RowFilter để chỉ lọc trên cột SĐT (chỉ mục 2)
+                // "(?i)" để tìm kiếm không phân biệt chữ hoa, chữ thường
+                int sdtColumnIndex = 2; 
+                RowFilter<TableModel, Object> rf = RowFilter.regexFilter("(?i)" + keyword, sdtColumnIndex);
+                sorterKH.setRowFilter(rf);
+            } catch (PatternSyntaxException pse) {
+                XDialog.alert("Từ khóa tìm kiếm không hợp lệ.");
+            }
+        }
+    }
+    
+    void suaKhachHang(int modelRowIndex) {
+        try {
+            if (modelRowIndex >= 0 && modelRowIndex < kh_items.size()) {
+                KhachHang kh = kh_items.get(modelRowIndex);
+                setFormKH(kh);
+                suatblKH(true);
+            } else {
+                XDialog.alert("Không tìm thấy khách hàng để sửa.");
+            }
+        } catch (Exception e) {
+            XDialog.alert("Lỗi khi chọn khách hàng để sửa: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
     void setFormKH(KhachHang kh) {
         txtTenKH.setText(kh.getHoTen());
         txtSocmt.setText(kh.getCmt());
@@ -4703,48 +4857,63 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
   }
  
     void updateKH() {
-        int selectedRow = tabKhachHang.getSelectedRow();
-        if (selectedRow < 0) {
+        // Lấy chỉ mục hàng được chọn trên giao diện (view index)
+        int selectedViewRow = tabKhachHang.getSelectedRow();
+
+        if (selectedViewRow < 0) {
             XDialog.alert("Bạn chưa chọn khách hàng nào để sửa.");
             return;
         }
 
-       KhachHang khToUpdate = kh_items.get(selectedRow);
-       Integer currentKhachHangId = khToUpdate.getId(); 
+        // Chuyển đổi chỉ mục hàng của view sang chỉ mục hàng của model
+        int selectedModelRow = tabKhachHang.convertRowIndexToModel(selectedViewRow);
 
-       String tenKH = txtTenKH.getText().trim();
-       String cmt = txtSocmt.getText().trim();
-       String sdt = txtSDT.getText().trim();
+        // Lấy đối tượng KhachHang cần cập nhật từ danh sách gốc
+        KhachHang khToUpdate = kh_items.get(selectedModelRow);
+        Integer currentKhachHangId = khToUpdate.getId();
 
-       if (!validateCustomerName(tenKH)) {
-           return;
-       }
-       if (!validateIDNumber(cmt)) {
-           return;
-       }
-       if (!validatePhoneNumber(sdt)) {
-           return;
-       }
+        String tenKH = txtTenKH.getText().trim();
+        String cmt = txtSocmt.getText().trim();
+        String sdt = txtSDT.getText().trim();
 
-       if (isDuplicateKhachHang(tenKH, cmt, sdt, currentKhachHangId)) { 
-           return;
-       }
+        // Kiểm tra tính hợp lệ của dữ liệu đầu vào
+        if (!validateCustomerName(tenKH)) {
+            return;
+        }
+        if (!validateIDNumber(cmt)) {
+            return;
+        }
+        if (!validatePhoneNumber(sdt)) {
+            return;
+        }
 
-       khToUpdate.setHoTen(tenKH);
-       khToUpdate.setCmt(cmt);
-       khToUpdate.setSdt(sdt);
+        // Kiểm tra trùng lặp với các khách hàng khác (trừ khách hàng hiện tại)
+        if (isDuplicateKhachHang(tenKH, cmt, sdt, currentKhachHangId)) {
+            return;
+        }
 
-       try {
-           KhachHangDao khDao = new KhachHangDaoImpl();
-           khDao.update(khToUpdate);
-           this.fillTableKhachHang(); // Gọi lại fillTableKhachHang không tham số
-           this.clearFormKH(); 
-           XDialog.alert("Cập nhật khách hàng thành công!");
-       } catch (Exception e) {
-           XDialog.alert("Cập nhật khách hàng thất bại!");
-           e.printStackTrace();
-       }
-   }
+        // Cập nhật các thuộc tính của đối tượng KhachHang
+        khToUpdate.setHoTen(tenKH);
+        khToUpdate.setCmt(cmt);
+        khToUpdate.setSdt(sdt);
+
+        try {
+            KhachHangDao khDao = new KhachHangDaoImpl();
+            // Gọi phương thức cập nhật trong DAO
+            khDao.update(khToUpdate);
+
+            // Nạp lại dữ liệu cho bảng để hiển thị các thay đổi
+            this.fillTableKhachHang(); 
+
+            // Xóa form và chuyển trạng thái về thêm mới
+            this.clearFormKH();
+
+            XDialog.alert("Cập nhật khách hàng thành công!");
+        } catch (Exception e) {
+            XDialog.alert("Cập nhật khách hàng thất bại!");
+            e.printStackTrace();
+        }
+    }
 
     void deleteKH() {
        int selectedRow = tabKhachHang.getSelectedRow();
