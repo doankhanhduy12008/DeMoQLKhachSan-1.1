@@ -626,7 +626,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jLabel2.setText("Tên đăng nhập:");
 
         txtTenDN.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtTenDN.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtTenDN.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtTenDN.setEnabled(false);
         txtTenDN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -664,7 +664,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         });
 
         txtMKHT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtMKHT.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtMKHT.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtMKHT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMKHTActionPerformed(evt);
@@ -672,7 +672,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         });
 
         txtMKM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtMKM.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtMKM.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtMKM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMKMActionPerformed(evt);
@@ -680,7 +680,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         });
 
         txtXNMKM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtXNMKM.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtXNMKM.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtXNMKM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtXNMKMActionPerformed(evt);
@@ -2058,11 +2058,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private void btnKHCuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKHCuActionPerformed
         // TODO add your handling code here:
         this.showKHCU(this);
-        txtTenKH.setEnabled(false);
-        txtSocmt.setEnabled(false);
-        txtSDT.setEnabled(false);
-       
-        btmThemKHDP.setEnabled(false);
     }//GEN-LAST:event_btnKHCuActionPerformed
 
     private void btmThemKHDPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btmThemKHDPMouseClicked

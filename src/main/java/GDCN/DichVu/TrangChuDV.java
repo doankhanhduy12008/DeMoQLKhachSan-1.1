@@ -348,6 +348,8 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jLabel2.setText("Tên đăng nhập:");
 
         txtTenDN.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtTenDN.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtTenDN.setEnabled(false);
         txtTenDN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenDNActionPerformed(evt);
@@ -384,6 +386,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         });
 
         txtMKHT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtMKHT.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtMKHT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMKHTActionPerformed(evt);
@@ -391,6 +394,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         });
 
         txtMKM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtMKM.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtMKM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMKMActionPerformed(evt);
@@ -398,6 +402,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         });
 
         txtXNMKM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtXNMKM.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtXNMKM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtXNMKMActionPerformed(evt);
@@ -500,7 +505,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnTDTrangChu.setLayout(jpnTDTrangChuLayout);
         jpnTDTrangChuLayout.setHorizontalGroup(
             jpnTDTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtTrangChu, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+            .addComponent(txtTrangChu, javax.swing.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
         );
         jpnTDTrangChuLayout.setVerticalGroup(
             jpnTDTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -521,7 +526,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnTDDMK.setLayout(jpnTDDMKLayout);
         jpnTDDMKLayout.setHorizontalGroup(
             jpnTDDMKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtDMK, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+            .addComponent(txtDMK, javax.swing.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
         );
         jpnTDDMKLayout.setVerticalGroup(
             jpnTDDMKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,7 +547,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         jpnTDDichVu.setLayout(jpnTDDichVuLayout);
         jpnTDDichVuLayout.setHorizontalGroup(
             jpnTDDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtDMK1, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+            .addComponent(txtDMK1, javax.swing.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
         );
         jpnTDDichVuLayout.setVerticalGroup(
             jpnTDDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -564,7 +569,7 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
         pnlTDChat.setLayout(pnlTDChatLayout);
         pnlTDChatLayout.setHorizontalGroup(
             pnlTDChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtDMK4, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+            .addComponent(txtDMK4, javax.swing.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
         );
         pnlTDChatLayout.setVerticalGroup(
             pnlTDChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,14 +589,10 @@ public class TrangChuDV extends javax.swing.JFrame implements TrangChuDVControll
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(pnlMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Tieude, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Open, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addComponent(Open, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(Tieude, javax.swing.GroupLayout.PREFERRED_SIZE, 954, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -841,6 +842,7 @@ public void anh(){
     this.setIconImage(XIcon.getIcon("Logo.png").getImage());
     if (XAuth.user != null) {
             txtTen.setText(XAuth.user.getHoVaTen());
+            txtTenDN.setText(XAuth.user.getUsername());
             // Đảm bảo ảnh của người dùng đang đăng nhập cũng được tải đúng cách
             // Giả sử ảnh của user đăng nhập cũng nằm trong folder "images"
             if (XAuth.user.getAnh() != null && !XAuth.user.getAnh().isEmpty()) {
@@ -979,7 +981,6 @@ clearDMK();
 }
 
 void clearDMK(){
-  txtTenDN.setText("");
 txtMKHT.setText("");
 txtMKM.setText("");
 txtXNMKM.setText("");  
