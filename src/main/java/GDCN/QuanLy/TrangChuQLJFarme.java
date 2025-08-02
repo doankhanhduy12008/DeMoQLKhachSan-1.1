@@ -45,6 +45,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.RowFilter;
@@ -65,10 +67,17 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlChat.add(new GDCN.Chat.ChatJPanel()); 
         pnlChat.revalidate();
         pnlChat.repaint();
-//        ChonTG.setLayout(new java.awt.BorderLayout());
-//        ChonTG.add(new GDCN.Chung.ChonTG());
-//        ChonTG.revalidate();
-//        ChonTG.repaint();
+        pnlChonTG.setLayout(new java.awt.BorderLayout());
+        ChonTG chonTGPanel = new GDCN.Chung.ChonTG();
+        pnlChonTG.add(chonTGPanel, java.awt.BorderLayout.CENTER);        
+        chonTGPanel.setTimeChanged((startDate, endDate) -> {
+            fillTablePhong(startDate, endDate);
+            fillTableDTTiepTan(startDate, endDate);
+        });
+        
+        pnlChonTG.revalidate();
+        pnlChonTG.repaint();
+        
         this.phongDao = new PhongDaoImpl();
         
         DefaultTableModel tableModel = (DefaultTableModel) tblNV.getModel();
@@ -241,6 +250,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         txtNVTimKiem = new javax.swing.JTextField();
         pnlQLDoanhThu = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
+        pnlChonTG = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         tabPhong = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -1530,6 +1540,30 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1124, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 440, Short.MAX_VALUE)
+        );
+
+        pnlChonTG.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnlChonTGLayout = new javax.swing.GroupLayout(pnlChonTG);
+        pnlChonTG.setLayout(pnlChonTGLayout);
+        pnlChonTGLayout.setHorizontalGroup(
+            pnlChonTGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlChonTGLayout.setVerticalGroup(
+            pnlChonTGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 54, Short.MAX_VALUE)
+        );
+
         jTabbedPane3.setBackground(new java.awt.Color(255, 255, 255));
 
         tabPhong.setBackground(new java.awt.Color(255, 255, 255));
@@ -1602,8 +1636,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                     .addComponent(txtDTPTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bntDTPTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bntDTPDungTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                 .addGap(35, 35, 35))
         );
 
@@ -1677,25 +1711,12 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                     .addComponent(txtDTTTTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bntDTTTTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(bntDTTTDungTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
 
         jTabbedPane3.addTab("Doanh Thu Theo Tiếp Tân", tabDoanhThu);
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
 
         javax.swing.GroupLayout pnlQLDoanhThuLayout = new javax.swing.GroupLayout(pnlQLDoanhThu);
         pnlQLDoanhThu.setLayout(pnlQLDoanhThuLayout);
@@ -1703,15 +1724,24 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             pnlQLDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlQLDoanhThuLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(831, Short.MAX_VALUE))
+                .addGroup(pnlQLDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlChonTG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlQLDoanhThuLayout.setVerticalGroup(
             pnlQLDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlQLDoanhThuLayout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74))
+            .addGroup(pnlQLDoanhThuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlChonTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         NoiDung.add(pnlQLDoanhThu, "card5");
@@ -3136,6 +3166,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JPanel pnlChat;
+    private javax.swing.JPanel pnlChonTG;
     private javax.swing.JPanel pnlMenuBar;
     private javax.swing.JPanel pnlQLDichVu;
     private javax.swing.JPanel pnlQLDoanhThu;
@@ -4186,163 +4217,131 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
      * ==============================================================================================================================
      */
     
+    // Khai báo các DAO cần thiết ở cấp lớp (class level) để tái sử dụng
+    ChiTietThuePhongDao chiTietThuePhongDao = new ChiTietThuePhongDaoImpl();
+    HoaDonDao hoaDonDao = new HoaDonDaoImpl();
+    PhongDao phongDao = new PhongDaoImpl();
+    NguoiDungDao nguoiDungDao = new NguoiDungDaoImpl();
 
-    ChiTietThuePhongDao ChiTietThuePhongDao = new ChiTietThuePhongDaoImpl();
-    private PhongDaoImpl phongDao;
-    
+    /**
+     * Phương thức quá tải để gọi khi cần tải dữ liệu mặc định (dựa trên lựa chọn
+     * hiện tại của ChonTG panel).
+     */
     void fillTablePhong() {
+        // Lấy instance của ChonTG panel đã được thêm vào pnlChonTG
+        if (pnlChonTG.getComponentCount() > 0 && pnlChonTG.getComponent(0) instanceof ChonTG) {
+            ChonTG chonTGPanel = (ChonTG) pnlChonTG.getComponent(0);
+            fillTablePhong(chonTGPanel.getFrom(), chonTGPanel.getTo());
+        }
+    }
+
+    /**
+     * Tải và lọc dữ liệu doanh thu theo từng phòng dựa trên khoảng thời gian.
+     * @param startDate Ngày bắt đầu
+     * @param endDate Ngày kết thúc
+     */
+    void fillTablePhong(Date startDate, Date endDate) {
         DefaultTableModel model = (DefaultTableModel) tblDTPhong.getModel();
-        model.setRowCount(0); // Xóa tất cả các hàng hiện có trong bảng
+        model.setRowCount(0);
 
-        ChiTietThuePhongDao chiTietThuePhongDao = new ChiTietThuePhongDaoImpl();
-        // Lấy từ khóa tìm kiếm từ txtDTPTimKiem và chuyển sang chữ thường để tìm kiếm không phân biệt chữ hoa/thường
-        String soPhongKeyword = txtDTPTimKiem.getText().trim().toLowerCase(); 
-        
-        try {
-            List<Phong> allRooms = phongDao.findAll(); // Lấy tất cả các phòng
-            List<ChiTietThuePhong> allChiTietThuePhong = chiTietThuePhongDao.findAll(); // Lấy tất cả chi tiết thuê phòng
+        List<HoaDon> allInvoices = hoaDonDao.findAll();
+        Map<Integer, Double> roomRevenueMap = new HashMap<>();
+        Map<Integer, Long> roomRentedDaysMap = new HashMap<>();
 
-            // Tạo các Map để lưu trữ dữ liệu tổng hợp (doanh thu và số ngày thuê)
-            java.util.Map<Integer, Double> roomRevenueMap = new java.util.HashMap<>();
-            java.util.Map<Integer, Long> roomRentedDaysMap = new java.util.HashMap<>();
+        for (HoaDon invoice : allInvoices) {
+            Date ngayLap = invoice.getNgayLap();
+            // Chỉ xử lý các hóa đơn nằm trong khoảng thời gian đã chọn
+            if (ngayLap != null && !ngayLap.before(startDate) && !ngayLap.after(endDate)) {
+                List<ChiTietThuePhong> details = chiTietThuePhongDao.findByIdHoaDon(invoice.getId());
+                for (ChiTietThuePhong detail : details) {
+                    if (detail.getThoiGianNhanPhong() != null && detail.getThoiGianTraPhong() != null) {
+                        long diff = detail.getThoiGianTraPhong().getTime() - detail.getThoiGianNhanPhong().getTime();
+                        long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                        if (days == 0) days = 1; // Tính tối thiểu 1 ngày
 
-            // Khởi tạo các Map với giá trị 0 cho tất cả các phòng
-            for (Phong room : allRooms) {
-                roomRevenueMap.put(room.getId(), 0.0);
-                roomRentedDaysMap.put(room.getId(), 0L);
-            }
-
-            // Lặp qua tất cả các chi tiết thuê phòng để tính toán doanh thu và số ngày thuê
-            for (ChiTietThuePhong chiTiet : allChiTietThuePhong) {
-                Phong rentedRoom = phongDao.findById(chiTiet.getIdPhong()); // Tìm phòng tương ứng với chi tiết thuê
-                if (rentedRoom != null) {
-                    Date checkIn = chiTiet.getThoiGianNhanPhong();
-                    Date checkOut = chiTiet.getThoiGianTraPhong();
-
-                    if (checkIn != null && checkOut != null) {
-                        // Tính toán số ngày thuê dựa trên ngày lịch (coi mỗi ngày có hoạt động là 1 ngày)
-                        Date checkInOnlyDate = Util.XDate.removeTime(checkIn);
-                        Date checkOutOnlyDate = Util.XDate.removeTime(checkOut);
-                        
-                        long diffMillisAdjusted = checkOutOnlyDate.getTime() - checkInOnlyDate.getTime();
-                        long days = TimeUnit.DAYS.convert(diffMillisAdjusted, TimeUnit.MILLISECONDS);
-                        
-                        // Nếu thuê trong cùng một ngày lịch, tính là 1 ngày.
-                        // Nếu thuê qua nhiều ngày, cộng thêm 1 để tính cả ngày nhận phòng.
-                        if (days == 0 && diffMillisAdjusted >= 0) {
-                            days = 1;
-                        } else if (days > 0) {
-                            days = days + 1;
-                        } else { // Trường hợp không hợp lệ (ví dụ: ngày trả trước ngày nhận)
-                            days = 0;
+                        Phong room = phongDao.findById(detail.getIdPhong());
+                        if (room != null) {
+                            double revenue = days * room.getGiaTien().doubleValue();
+                            roomRevenueMap.put(room.getId(), roomRevenueMap.getOrDefault(room.getId(), 0.0) + revenue);
+                            roomRentedDaysMap.put(room.getId(), roomRentedDaysMap.getOrDefault(room.getId(), 0L) + days);
                         }
-
-                        // Tính doanh thu cho phần thuê này
-                        double segmentRevenue = rentedRoom.getGiaTien().doubleValue() * days;
-
-                        // Cộng dồn vào tổng doanh thu và số ngày thuê của phòng
-                        roomRentedDaysMap.put(rentedRoom.getId(), roomRentedDaysMap.getOrDefault(rentedRoom.getId(), 0L) + days);
-                        roomRevenueMap.put(rentedRoom.getId(), roomRevenueMap.getOrDefault(rentedRoom.getId(), 0.0) + segmentRevenue);
                     }
                 }
             }
+        }
 
-            // Điền dữ liệu tổng hợp vào bảng, áp dụng bộ lọc tìm kiếm
-            for (Phong room : allRooms) {
-                // Kiểm tra nếu số phòng chứa từ khóa tìm kiếm (không phân biệt chữ hoa/thường)
-                if (room.getSoPhong().toLowerCase().contains(soPhongKeyword)) {
-                    Object[] row = {
-                        room.getSoPhong(),
-                        roomRevenueMap.get(room.getId()),
-                        roomRentedDaysMap.get(room.getId())
-                    };
-                    model.addRow(row);
-                }
+        DecimalFormat formatter = new DecimalFormat("#,##0 VNĐ");
+        for (Map.Entry<Integer, Double> entry : roomRevenueMap.entrySet()) {
+            Phong room = phongDao.findById(entry.getKey());
+            if (room != null) {
+                model.addRow(new Object[]{
+                    room.getSoPhong(),
+                    formatter.format(entry.getValue()),
+                    roomRentedDaysMap.getOrDefault(entry.getKey(), 0L)
+                });
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Util.XDialog.alert("Lỗi khi tải dữ liệu doanh thu phòng.");
         }
     }
-    
+
+    /**
+     * Phương thức quá tải để gọi khi cần tải dữ liệu mặc định.
+     */
     void fillTableDTTiepTan() {
-        DefaultTableModel model = (DefaultTableModel) tblDTTiepTan.getModel();
-        model.setRowCount(0); // Xóa tất cả các hàng hiện có trong bảng
-
-        HoaDonDao hoaDonDao = new HoaDonDaoImpl();
-        NguoiDungDao nguoiDungDao = new NguoiDungDaoImpl();
-
-        // Lấy từ khóa tìm kiếm từ txtDTTTTimKiem và chuyển sang chữ thường
-        String receptionistKeyword = txtDTTTTimKiem.getText().trim().toLowerCase(); 
-
-        try {
-            List<HoaDon> allHoaDon = hoaDonDao.findAll(); // Lấy tất cả các hóa đơn
-            List<NguoiDung> allNguoiDung = nguoiDungDao.findAll(); // Lấy tất cả người dùng
-
-            // Các Map để tổng hợp dữ liệu theo tên đăng nhập của nhân viên
-            java.util.Map<String, Double> revenueByReceptionist = new java.util.HashMap<>();
-            java.util.Map<String, Long> invoiceCountByReceptionist = new java.util.HashMap<>();
-            java.util.Map<String, Integer> firstInvoiceIdByReceptionist = new java.util.HashMap<>();
-            java.util.Map<String, Integer> lastInvoiceIdByReceptionist = new java.util.HashMap<>();
-
-            // Khởi tạo các Map với giá trị mặc định cho tất cả các nhân viên có vai trò "Tiếp tân"
-            for (NguoiDung nd : allNguoiDung) {
-                if ("Tiếp tân".equalsIgnoreCase(nd.getVaiTro())) { 
-                    revenueByReceptionist.put(nd.getUsername(), 0.0);
-                    invoiceCountByReceptionist.put(nd.getUsername(), 0L);
-                    firstInvoiceIdByReceptionist.put(nd.getUsername(), Integer.MAX_VALUE); // Dùng MAX_VALUE để tìm số nhỏ nhất
-                    lastInvoiceIdByReceptionist.put(nd.getUsername(), Integer.MIN_VALUE); // Dùng MIN_VALUE để tìm số lớn nhất
-                }
-            }
-
-            // Tổng hợp dữ liệu từ các hóa đơn
-            for (HoaDon hd : allHoaDon) {
-                String username = hd.getIdNguoiDungLap();
-                // Kiểm tra nếu người dùng này là một tiếp tân và có trong danh sách đã khởi tạo
-                if (revenueByReceptionist.containsKey(username)) {
-                    // Tổng hợp doanh thu
-                    revenueByReceptionist.put(username, revenueByReceptionist.get(username) + hd.getTongTien());
-                    // Tổng hợp số hóa đơn
-                    invoiceCountByReceptionist.put(username, invoiceCountByReceptionist.get(username) + 1);
-                    // Cập nhật ID hóa đơn đầu và cuối
-                    firstInvoiceIdByReceptionist.put(username, Math.min(firstInvoiceIdByReceptionist.get(username), hd.getId()));
-                    lastInvoiceIdByReceptionist.put(username, Math.max(lastInvoiceIdByReceptionist.get(username), hd.getId()));
-                }
-            }
-
-            // Điền dữ liệu tổng hợp vào bảng, áp dụng bộ lọc tìm kiếm
-            for (NguoiDung nd : allNguoiDung) {
-                if ("Tiếp tân".equalsIgnoreCase(nd.getVaiTro())) { // Chỉ hiển thị nhân viên tiếp tân
-                    // Áp dụng bộ lọc tìm kiếm theo Họ và Tên của nhân viên
-                    if (nd.getHoVaTen().toLowerCase().contains(receptionistKeyword)) {
-                        Double totalRevenue = revenueByReceptionist.getOrDefault(nd.getUsername(), 0.0);
-                        Long totalInvoices = invoiceCountByReceptionist.getOrDefault(nd.getUsername(), 0L);
-                        Integer firstInvoice = firstInvoiceIdByReceptionist.get(nd.getUsername());
-                        Integer lastInvoice = lastInvoiceIdByReceptionist.get(nd.getUsername());
-
-                        // Xử lý trường hợp nhân viên không có hóa đơn nào
-                        String displayFirstInvoice = (firstInvoice == Integer.MAX_VALUE) ? "N/A" : String.valueOf(firstInvoice);
-                        String displayLastInvoice = (lastInvoice == Integer.MIN_VALUE) ? "N/A" : String.valueOf(lastInvoice);
-
-                        Object[] row = {
-                            nd.getHoVaTen(),          // Tên Nhân Viên
-                            totalRevenue,             // Doanh Thu
-                            totalInvoices,            // Số Hóa Đơn
-                            displayFirstInvoice,      // Hóa Đơn Đầu
-                            displayLastInvoice        // Hóa Đơn Cuối
-                        };
-                        model.addRow(row);
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace(); // In lỗi để gỡ lỗi
-            Util.XDialog.alert("Lỗi khi tải dữ liệu doanh thu theo tiếp tân.");
+        if (pnlChonTG.getComponentCount() > 0 && pnlChonTG.getComponent(0) instanceof ChonTG) {
+            ChonTG chonTGPanel = (ChonTG) pnlChonTG.getComponent(0);
+            fillTableDTTiepTan(chonTGPanel.getFrom(), chonTGPanel.getTo());
         }
     }
-    
+
+    /**
+     * Tải và lọc dữ liệu doanh thu theo từng nhân viên tiếp tân.
+     * @param startDate Ngày bắt đầu
+     * @param endDate Ngày kết thúc
+     */
+    void fillTableDTTiepTan(Date startDate, Date endDate) {
+        DefaultTableModel model = (DefaultTableModel) tblDTTiepTan.getModel();
+        model.setRowCount(0);
+
+        List<HoaDon> allInvoices = hoaDonDao.findAll();
+
+        Map<String, Double> revenueByReceptionist = new HashMap<>();
+        Map<String, Long> invoiceCountByReceptionist = new HashMap<>();
+        Map<String, Integer> firstInvoiceId = new HashMap<>();
+        Map<String, Integer> lastInvoiceId = new HashMap<>();
+
+        for (HoaDon hd : allInvoices) {
+            Date ngayLap = hd.getNgayLap();
+            // Chỉ xử lý các hóa đơn nằm trong khoảng thời gian đã chọn
+            if (ngayLap != null && !ngayLap.before(startDate) && !ngayLap.after(endDate)) {
+                String username = hd.getIdNguoiDungLap();
+                
+                revenueByReceptionist.put(username, revenueByReceptionist.getOrDefault(username, 0.0) + hd.getTongTien());
+                invoiceCountByReceptionist.put(username, invoiceCountByReceptionist.getOrDefault(username, 0L) + 1);
+
+                if (!firstInvoiceId.containsKey(username) || hd.getId() < firstInvoiceId.get(username)) {
+                    firstInvoiceId.put(username, hd.getId());
+                }
+                if (!lastInvoiceId.containsKey(username) || hd.getId() > lastInvoiceId.get(username)) {
+                    lastInvoiceId.put(username, hd.getId());
+                }
+            }
+        }
+
+        DecimalFormat formatter = new DecimalFormat("#,##0 VNĐ");
+        for (Map.Entry<String, Double> entry : revenueByReceptionist.entrySet()) {
+            String username = entry.getKey();
+            NguoiDung user = nguoiDungDao.findById(username);
+            if (user != null && "Tiếp tân".equals(user.getVaiTro())) {
+                model.addRow(new Object[]{
+                    user.getHoVaTen(),
+                    formatter.format(entry.getValue()),
+                    invoiceCountByReceptionist.get(username),
+                    firstInvoiceId.get(username),
+                    lastInvoiceId.get(username)
+                });
+            }
+        }
+    }
     /**
      * ==============================================================================================================================
      * ==================================================== QL DichVu ==============================================================
