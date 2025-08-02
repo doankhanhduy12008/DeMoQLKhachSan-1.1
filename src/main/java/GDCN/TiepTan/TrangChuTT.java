@@ -69,6 +69,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     boolean test = false;
     HoaDonDao hoaDonDao = new HoaDonDaoImpl();
     List<HoaDon> danhSachHoaDon = new ArrayList<>();
+    private List<HoaDon> currentDisplayedHoaDonList = new ArrayList<>();
     public TrangChuTT() {
         initComponents();
         openFullScreen();
@@ -2094,10 +2095,16 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
     private void tabLSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabLSMouseClicked
         // TODO add your handling code here:
-         if (evt.getClickCount() == 2) { // Kiểm tra nhấp đúp
-        int row = tabLS.getSelectedRow() + 1;
-        if (row >= 0) {
-            HoaDon selectedHD = danhSachHoaDon.get(row);
+   if (evt.getClickCount() == 2) { // Kiểm tra nhấp đúp
+        int selectedViewRow = tabLS.getSelectedRow(); // Lấy chỉ mục hàng được chọn trong bảng hiển thị
+        if (selectedViewRow >= 0) {
+            // CHUYỂN ĐỔI chỉ mục hàng của view sang chỉ mục hàng của model
+            // Điều này là cần thiết nếu bảng có bộ lọc hoặc sắp xếp
+            int modelRowIndex = tabLS.convertRowIndexToModel(selectedViewRow);
+
+            // Lấy đối tượng HoaDon từ DANH SÁCH HIỂN THỊ HIỆN TẠI
+            HoaDon selectedHD = currentDisplayedHoaDonList.get(modelRowIndex);
+            
             hienThiChiTietHoaDon(selectedHD);
             
             // Chuyển sang tab Đặt phòng
@@ -3498,17 +3505,22 @@ void fillTableLichSu() {
 }
 
 void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startDate, java.util.Date endDate) {
-    updateTongTien();
+    updateTongTien(); // Giữ nguyên logic tính tổng tiền
     DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
     model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
-    try {
-        danhSachHoaDon = hoaDonDao.findAll(); // Lấy tất cả hóa đơn
-        Dao.dao.KhachHangDao khDao = new Dao.daoimpl.KhachHangDaoImpl();
-        Dao.dao.ChiTietThuePhongDao cttpDao = new Dao.daoimpl.ChiTietThuePhongDaoImpl();
-        Dao.dao.PhongDao phongDao = new Dao.daoimpl.PhongDaoImpl();
 
-        for (Dao.entity.HoaDon hd : danhSachHoaDon) {
-            Dao.entity.KhachHang kh = khDao.findById(hd.getIdKhachHang());
+    currentDisplayedHoaDonList.clear(); // XÓA RỖNG DANH SÁCH HIỂN THỊ HIỆN TẠI
+
+    try {
+        // Lấy TẤT CẢ hóa đơn từ cơ sở dữ liệu.
+        // Đảm bảo 'danhSachHoaDon' luôn chứa dữ liệu đầy đủ.
+        danhSachHoaDon = hoaDonDao.findAll(); 
+        KhachHangDao khDao = new KhachHangDaoImpl();
+        ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+        PhongDao phongDao = new PhongDaoImpl();
+
+        for (HoaDon hd : danhSachHoaDon) { // LẶP QUA TẤT CẢ hóa đơn đã lấy từ DB
+            KhachHang kh = khDao.findById(hd.getIdKhachHang());
 
             // Áp dụng bộ lọc theo số điện thoại (nếu có keyword)
             boolean sdtMatches = (sdtKeyword == null || sdtKeyword.isEmpty() ||
@@ -3521,20 +3533,19 @@ void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startD
             // Áp dụng bộ lọc theo ngày (linh hoạt cho cả startDate, endDate hoặc cả hai)
             boolean dateFilterPassed = true;
             if (startDate != null || endDate != null) {
-                List<Dao.entity.ChiTietThuePhong> cttpListForDateCheck = cttpDao.findByIdHoaDon(hd.getId());
+                List<ChiTietThuePhong> cttpListForDateCheck = cttpDao.findByIdHoaDon(hd.getId());
                 if (cttpListForDateCheck.isEmpty()) {
-                    dateFilterPassed = false; // Không thể khớp bộ lọc ngày nếu không có bản ghi nhận phòng
+                    dateFilterPassed = false; 
                 } else {
                     java.util.Date checkInTime = cttpListForDateCheck.get(0).getThoiGianNhanPhong();
                     java.util.Date checkInDateOnly = (checkInTime != null) ? Util.XDate.removeTime(checkInTime) : null;
 
                     if (checkInDateOnly == null) {
-                        dateFilterPassed = false; // Không thể khớp bộ lọc ngày nếu ngày nhận phòng là null
+                        dateFilterPassed = false;
                     } else {
                         if (startDate != null && checkInDateOnly.before(startDate)) {
                             dateFilterPassed = false;
                         }
-                        // Chỉ kiểm tra endDate nếu điều kiện startDate đã được thỏa mãn (hoặc không áp dụng)
                         if (dateFilterPassed && endDate != null && checkInDateOnly.after(endDate)) {
                             dateFilterPassed = false;
                         }
@@ -3542,13 +3553,16 @@ void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startD
                 }
             }
 
-            // Chỉ thêm hàng vào bảng nếu tất cả các tiêu chí lọc đều khớp
+            // CHỈ THÊM hóa đơn vào danh sách hiển thị và bảng nếu tất cả các tiêu chí lọc đều khớp
             if (sdtMatches && cmtMatches && dateFilterPassed && kh != null && !cttpDao.findByIdHoaDon(hd.getId()).isEmpty()) {
+                currentDisplayedHoaDonList.add(hd); // THÊM HÓA ĐƠN VÀO DANH SÁCH HIỂN THỊ
+
+                // Chuẩn bị dữ liệu hàng cho bảng
                 StringBuilder roomNumbers = new StringBuilder();
-                List<Dao.entity.ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
+                List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
                 for (int i = 0; i < cttpList.size(); i++) {
-                    Dao.entity.ChiTietThuePhong currentCtp = cttpList.get(i);
-                    Dao.entity.Phong phong = phongDao.findById(currentCtp.getIdPhong());
+                    ChiTietThuePhong currentCtp = cttpList.get(i);
+                    Phong phong = phongDao.findById(currentCtp.getIdPhong());
                     if (phong != null) {
                         roomNumbers.append(phong.getSoPhong());
                         if (i < cttpList.size() - 1) {
@@ -3557,7 +3571,7 @@ void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startD
                     }
                 }
 
-                Dao.entity.ChiTietThuePhong firstCtp = cttpList.get(0);
+                ChiTietThuePhong firstCtp = cttpList.get(0);
                 Object[] row = {
                     roomNumbers.toString(),
                     kh.getHoTen(),
