@@ -2,12 +2,15 @@ package Dao.entity;
 
 import java.util.Date;
 
+
+
 public class TinNhan {
     private int id;
     private String nguoiGuiUsername;
     private String noiDungTinNhan;
     private Date thoiGianGui;
-
+    
+    
     // Constructor mặc định
     public TinNhan() {
     }
