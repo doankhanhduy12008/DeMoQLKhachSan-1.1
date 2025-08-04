@@ -60,8 +60,9 @@ public class ChatJPanelTrangChuTT extends javax.swing.JPanel {
         setBorder(new javax.swing.border.MatteBorder(null));
 
         jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(255, 0, 255));
+        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setRows(5);
+        jTextArea1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea1.setEnabled(false);
         jScrollPane1.setViewportView(jTextArea1);
 
