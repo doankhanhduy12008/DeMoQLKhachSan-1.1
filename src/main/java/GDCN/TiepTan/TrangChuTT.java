@@ -156,7 +156,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         btnDatP = new javax.swing.JLabel();
         btnXemLS = new javax.swing.JLabel();
         btnKH = new javax.swing.JLabel();
-        bntTroChuyen = new javax.swing.JLabel();
         Open = new javax.swing.JLabel();
         KhungTrang = new javax.swing.JPanel();
         jpnTrangChu = new javax.swing.JPanel();
@@ -165,7 +164,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         btnDatP1 = new javax.swing.JLabel();
         btnXemLS1 = new javax.swing.JLabel();
         pnlChat = new javax.swing.JPanel();
-        bntTroChuyen1 = new javax.swing.JLabel();
         jpnChonPhong = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -361,18 +359,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             }
         });
 
-        bntTroChuyen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        bntTroChuyen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bntTroChuyen.setText("Trò Chuyện");
-        bntTroChuyen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        bntTroChuyen.setMinimumSize(new java.awt.Dimension(291, 40));
-        bntTroChuyen.setPreferredSize(new java.awt.Dimension(91, 40));
-        bntTroChuyen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bntTroChuyenMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlMenuBarLayout = new javax.swing.GroupLayout(pnlMenuBar);
         pnlMenuBar.setLayout(pnlMenuBarLayout);
         pnlMenuBarLayout.setHorizontalGroup(
@@ -386,15 +372,13 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(btnKH, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXemLS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntTroChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(142, 142, 142)
                 .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(231, Short.MAX_VALUE))
         );
         pnlMenuBarLayout.setVerticalGroup(
             pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,7 +390,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                         .addComponent(btnDatP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnXemLS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bntTroChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDoiMK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -473,18 +456,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             .addGap(0, 694, Short.MAX_VALUE)
         );
 
-        bntTroChuyen1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        bntTroChuyen1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bntTroChuyen1.setText("Trò Chuyện");
-        bntTroChuyen1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        bntTroChuyen1.setMinimumSize(new java.awt.Dimension(291, 40));
-        bntTroChuyen1.setPreferredSize(new java.awt.Dimension(91, 40));
-        bntTroChuyen1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bntTroChuyen1MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jpnTrangChuLayout = new javax.swing.GroupLayout(jpnTrangChu);
         jpnTrangChu.setLayout(jpnTrangChuLayout);
         jpnTrangChuLayout.setHorizontalGroup(
@@ -497,12 +468,12 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                         .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45))
-                    .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnXemLS1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDatP1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bntTroChuyen1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(761, 761, 761))
+                        .addGap(806, 806, 806))
+                    .addGroup(jpnTrangChuLayout.createSequentialGroup()
+                        .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnXemLS1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                            .addComponent(btnDatP1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(761, 761, 761))))
             .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnTrangChuLayout.createSequentialGroup()
                     .addGap(0, 638, Short.MAX_VALUE)
@@ -519,9 +490,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(btnDatP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXemLS1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntTroChuyen1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
             .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(pnlChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1623,7 +1592,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(KhungTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(KhungTrang, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(pnlMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1673,6 +1642,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
+        pnlChat.setVisible(true);
     }//GEN-LAST:event_btnTrangChuMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -1692,6 +1662,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnDatP.setVisible(false);
         jpnTDDatP.setVisible(false);
         Open.setVisible(true);
+        pnlChat.setVisible(false);
         jpnChonPhong.setVisible(false);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
@@ -1712,6 +1683,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnDatP.setVisible(false);
         jpnTDDatP.setVisible(true);
         Open.setVisible(true);
+        pnlChat.setVisible(false);
         jpnChonPhong.setVisible(true);
         jpnKhachHang.setVisible(false);
         jpnTDKhachHang.setVisible(false);
@@ -1725,6 +1697,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnTDTrangChu.setVisible(false);
         jpnDMK.setVisible(false);
         jpnTDDMK.setVisible(false);
+        pnlChat.setVisible(false);
         jpnXemLS.setVisible(true);
         jpnTDXemLS.setVisible(true);
         jpnDatP.setVisible(false);
@@ -1986,6 +1959,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnTDDMK.setVisible(false);
         jpnXemLS.setVisible(false);
         jpnTDXemLS.setVisible(false);
+        pnlChat.setVisible(false);
         jpnDatP.setVisible(false);
         jpnTDDatP.setVisible(true);
         Open.setVisible(true);
@@ -2003,6 +1977,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnTDDMK.setVisible(false);
         jpnXemLS.setVisible(true);
         jpnTDXemLS.setVisible(true);
+        pnlChat.setVisible(false);
         jpnDatP.setVisible(false);
         jpnTDDatP.setVisible(false);
         Open.setVisible(true);
@@ -2090,6 +2065,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnTDDMK.setVisible(false);
         jpnXemLS.setVisible(false);
         jpnTDXemLS.setVisible(false);
+        pnlChat.setVisible(false);
         jpnDatP.setVisible(false);
         jpnTDDatP.setVisible(false);
         Open.setVisible(true);
@@ -2142,41 +2118,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         // TODO add your handling code here:
         filterRooms();
     }//GEN-LAST:event_cboLoaiPhongActionPerformed
-
-    private void bntTroChuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntTroChuyenMouseClicked
-        xoaDatPhongBtn();
-        jpnTrangChu.setVisible(false);
-        jpnTDTrangChu.setVisible(false);
-        jpnDMK.setVisible(false);
-        jpnTDDMK.setVisible(false);
-        jpnXemLS.setVisible(false);
-        jpnTDXemLS.setVisible(false);
-        jpnDatP.setVisible(false);
-        jpnTDDatP.setVisible(false);
-        Open.setVisible(true);
-        jpnChonPhong.setVisible(false);
-        jpnKhachHang.setVisible(false);
-        jpnTDKhachHang.setVisible(false);
-        pnlChat.setVisible(true);
-        pnlTDChat.setVisible(true);
-    }//GEN-LAST:event_bntTroChuyenMouseClicked
-
-    private void bntTroChuyen1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntTroChuyen1MouseClicked
-        jpnTrangChu.setVisible(false);
-        jpnTDTrangChu.setVisible(false);
-        jpnDMK.setVisible(false);
-        jpnTDDMK.setVisible(false);
-        jpnXemLS.setVisible(false);
-        jpnTDXemLS.setVisible(false);
-        jpnDatP.setVisible(false);
-        jpnTDDatP.setVisible(false);
-        jpnChonPhong.setVisible(false);
-        jpnKhachHang.setVisible(false);
-        jpnTDKhachHang.setVisible(false);
-        pnlChat.setVisible(true);
-        pnlTDChat.setVisible(true);
-        Open.setVisible(true);
-    }//GEN-LAST:event_bntTroChuyen1MouseClicked
 
     private void tabPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPhongMouseClicked
         // TODO add your handling code here:
@@ -2236,8 +2177,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JPanel KhungTrang;
     private javax.swing.JLabel Open;
     private javax.swing.JPanel Tieude;
-    private javax.swing.JLabel bntTroChuyen;
-    private javax.swing.JLabel bntTroChuyen1;
     private javax.swing.JButton btmThemKHDP;
     private javax.swing.JButton btnCheckIn;
     private javax.swing.JButton btnCheckOut;
