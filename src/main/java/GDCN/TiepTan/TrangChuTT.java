@@ -1791,28 +1791,38 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     }//GEN-LAST:event_txtTimSDTActionPerformed
 
     private void btnTimKiemSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemSDTActionPerformed
-        String sdt = txtTimSDT.getText().trim();
-        if (sdt.isEmpty()) {
-            Util.XDialog.alert("Vui lòng nhập số điện thoại để tìm kiếm.");
-            return;
-        }
-        // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng SDT
-        txtTimSCMT.setText("");
-        fillTableLichSu(sdt, null, null, null);
+    String sdt = txtTimSDT.getText().trim();
+    if (sdt.isEmpty()) {
+        Util.XDialog.alert("Vui lòng nhập số điện thoại để tìm kiếm.");
+        return;
+    }
+    // Xóa trường tìm kiếm CMT để chỉ tìm kiếm theo SĐT và thời gian
+    txtTimSCMT.setText("");
 
-        
+    // Lấy ngày bắt đầu và kết thúc từ chonTG1
+    Date startDate = chonTG1.getFrom();
+    Date endDate = chonTG1.getTo();
+
+    // Gọi hàm fillTableLichSu với đầy đủ các tham số lọc
+    fillTableLichSu(sdt, null, startDate, endDate);
     }//GEN-LAST:event_btnTimKiemSDTActionPerformed
 
     private void btnTimKiemCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemCMTActionPerformed
         // TODO add your handling code here:
-         String cmt = txtTimSCMT.getText().trim();
-        if (cmt.isEmpty()) {
-            Util.XDialog.alert("Vui lòng nhập số CMT để tìm kiếm.");
-            return;
-        }
-        // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng CMT
-        txtTimSDT.setText("");
-        fillTableLichSu(null, cmt, null, null);
+    String cmt = txtTimSCMT.getText().trim();
+    if (cmt.isEmpty()) {
+        Util.XDialog.alert("Vui lòng nhập số CMT để tìm kiếm.");
+        return;
+    }
+    // Xóa trường tìm kiếm SĐT để chỉ tìm kiếm theo CMT và thời gian
+    txtTimSDT.setText("");
+
+    // Lấy ngày bắt đầu và kết thúc từ chonTG1
+    Date startDate = chonTG1.getFrom();
+    Date endDate = chonTG1.getTo();
+
+    // Gọi hàm fillTableLichSu với đầy đủ các tham số lọc
+    fillTableLichSu(null, cmt, startDate, endDate);
     }//GEN-LAST:event_btnTimKiemCMTActionPerformed
 
     private void txtTimSCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimSCMTActionPerformed
