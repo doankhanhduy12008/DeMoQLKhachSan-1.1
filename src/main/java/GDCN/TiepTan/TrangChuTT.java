@@ -89,6 +89,11 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 cboTrangThaiActionPerformed(evt);
             }
         });
+        
+        chonTG1.setTimeChanged((startDate, endDate) -> {
+            fillTableLichSu(null, null, startDate, endDate);
+        });
+        
         pnlChat.setLayout(new java.awt.BorderLayout());
         pnlChat.add(new GDCN.Chat.ChatJPanelTrangChuTT()); 
         pnlChat.revalidate();
@@ -226,11 +231,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         btnTimKiemCMT = new javax.swing.JButton();
         txtTimSCMT = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        btnLoc = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        txtTimTheoNgayBD = new javax.swing.JTextField();
-        txtTimTheoNgayKT = new javax.swing.JTextField();
         btnLamMoiLS = new javax.swing.JButton();
         chonTG1 = new GDCN.Chung.ChonTG();
         jpnKhachHang = new javax.swing.JPanel();
@@ -378,7 +378,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMenuBarLayout.setVerticalGroup(
             pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1194,36 +1194,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel15.setText("Số cmt:");
 
-        btnLoc.setBackground(new java.awt.Color(204, 204, 204));
-        btnLoc.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnLoc.setText("Lọc");
-        btnLoc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnLoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLocActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel16.setText("Ngày bắt đầu:");
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel17.setText("Ngày kết thúc:");
-
-        txtTimTheoNgayBD.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtTimTheoNgayBD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimTheoNgayBDActionPerformed(evt);
-            }
-        });
-
-        txtTimTheoNgayKT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtTimTheoNgayKT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimTheoNgayKTActionPerformed(evt);
-            }
-        });
-
         btnLamMoiLS.setBackground(new java.awt.Color(204, 204, 204));
         btnLamMoiLS.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLamMoiLS.setText("Làm Mới");
@@ -1251,19 +1221,8 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                     .addComponent(btnLamMoiLS, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(chonTG1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
-                    .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jpnXemLSLayout.createSequentialGroup()
-                            .addComponent(jLabel16)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtTimTheoNgayBD, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel17)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtTimTheoNgayKT, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnLoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)))
+                    .addComponent(chonTG1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 828, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jpnXemLSLayout.setVerticalGroup(
@@ -1283,29 +1242,13 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
                         .addComponent(txtTimSCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnTimKiemCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
                         .addComponent(btnLamMoiLS, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpnXemLSLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(25, 25, 25)
                         .addComponent(chonTG1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
-                                .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                            .addComponent(txtTimTheoNgayBD))
-                                        .addGap(1, 1, 1)))
-                                .addGap(10, 10, 10))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnXemLSLayout.createSequentialGroup()
-                                .addGroup(jpnXemLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtTimTheoNgayKT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3)))
                 .addGap(22, 22, 22))
         );
 
@@ -1592,7 +1535,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(KhungTrang, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(KhungTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(pnlMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1855,8 +1798,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         }
         // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng SDT
         txtTimSCMT.setText("");
-        txtTimTheoNgayBD.setText("");
-        txtTimTheoNgayKT.setText("");
         fillTableLichSu(sdt, null, null, null);
 
         
@@ -1871,72 +1812,12 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         }
         // Xóa các trường tìm kiếm/lọc khác để chỉ tìm kiếm bằng CMT
         txtTimSDT.setText("");
-        txtTimTheoNgayBD.setText("");
-        txtTimTheoNgayKT.setText("");
         fillTableLichSu(null, cmt, null, null);
     }//GEN-LAST:event_btnTimKiemCMTActionPerformed
 
     private void txtTimSCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimSCMTActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimSCMTActionPerformed
-
-    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
-        String sdt = txtTimSDT.getText().trim();
-        String cmt = txtTimSCMT.getText().trim();
-        String ngayBDStr = txtTimTheoNgayBD.getText().trim();
-        String ngayKTStr = txtTimTheoNgayKT.getText().trim();
-
-        java.util.Date startDate = null;
-        java.util.Date endDate = null;
-
-        // Validate phone number if not empty
-        if (!sdt.isEmpty()) {
-            if (!validatePhoneNumber(sdt)) {
-                return;
-            }
-        }
-
-        // Validate ID number if not empty
-        if (!cmt.isEmpty()) {
-            if (!validateIDNumber(cmt)) {
-                return;
-            }
-        }
-
-        // Kiểm tra và parse ngày bắt đầu
-        if (!ngayBDStr.isEmpty()) {
-            startDate = parseDate(ngayBDStr, "Ngày bắt đầu");
-            if (startDate == null) return; // Nếu có lỗi parse, dừng lại
-        }
-        // Kiểm tra và parse ngày kết thúc
-        if (!ngayKTStr.isEmpty()) {
-            endDate = parseDate(ngayKTStr, "Ngày kết thúc");
-            if (endDate == null) return; // Nếu có lỗi parse, dừng lại
-        }
-
-        // Kiểm tra điều kiện ngày bắt đầu không được lớn hơn ngày kết thúc
-        if (startDate != null && endDate != null && startDate.after(endDate)) {
-            Util.XDialog.alert("Ngày bắt đầu không được lớn hơn ngày kết thúc.");
-            return;
-        }
-        
-        // Nếu không có bất kỳ tiêu chí nào được nhập
-        if (sdt.isEmpty() && cmt.isEmpty() && ngayBDStr.isEmpty() && ngayKTStr.isEmpty()) {
-            Util.XDialog.alert("Vui lòng nhập ít nhất một tiêu chí tìm kiếm hoặc lọc.");
-            return;
-        }
-
-        // Gọi phương thức fillTableLichSu với các tham số đã lấy được
-        fillTableLichSu(sdt.isEmpty() ? null : sdt, cmt.isEmpty() ? null : cmt, startDate, endDate);
-    }//GEN-LAST:event_btnLocActionPerformed
-
-    private void txtTimTheoNgayBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimTheoNgayBDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimTheoNgayBDActionPerformed
-
-    private void txtTimTheoNgayKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimTheoNgayKTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimTheoNgayKTActionPerformed
 
     private void btnDMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDMKActionPerformed
         // TODO add your handling code here:
@@ -2190,7 +2071,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JButton btnLamMSDMK;
     private javax.swing.JButton btnLamMoiKH;
     private javax.swing.JButton btnLamMoiLS;
-    private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaoMoiKH;
     private javax.swing.JButton btnThemDV;
@@ -2214,8 +2094,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -2279,8 +2157,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JTextField txtTimKiemSP;
     private javax.swing.JTextField txtTimSCMT;
     private javax.swing.JTextField txtTimSDT;
-    private javax.swing.JTextField txtTimTheoNgayBD;
-    private javax.swing.JTextField txtTimTheoNgayKT;
     private javax.swing.JLabel txtTrangChu;
     private javax.swing.JTextField txtTrangThai;
     private javax.swing.JPasswordField txtXNMKM;
@@ -3448,90 +3324,89 @@ void fillTableLichSu() {
     }
 }
 
-void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startDate, java.util.Date endDate) {
-    updateTongTien(); // Giữ nguyên logic tính tổng tiền
-    DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
-    model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+ void fillTableLichSu(String sdtKeyword, String cmtKeyword, java.util.Date startDate, java.util.Date endDate) {
+        updateTongTien();
+        DefaultTableModel model = (DefaultTableModel) tabLS.getModel();
+        model.setRowCount(0);
 
-    currentDisplayedHoaDonList.clear(); // XÓA RỖNG DANH SÁCH HIỂN THỊ HIỆN TẠI
+        currentDisplayedHoaDonList.clear();
 
-    try {
-        // Lấy TẤT CẢ hóa đơn từ cơ sở dữ liệu.
-        // Đảm bảo 'danhSachHoaDon' luôn chứa dữ liệu đầy đủ.
-        danhSachHoaDon = hoaDonDao.findAll(); 
-        KhachHangDao khDao = new KhachHangDaoImpl();
-        ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
-        PhongDao phongDao = new PhongDaoImpl();
+        try {
+            danhSachHoaDon = hoaDonDao.findAll();
+            KhachHangDao khDao = new KhachHangDaoImpl();
+            ChiTietThuePhongDao cttpDao = new ChiTietThuePhongDaoImpl();
+            PhongDao phongDao = new PhongDaoImpl();
 
-        for (HoaDon hd : danhSachHoaDon) { // LẶP QUA TẤT CẢ hóa đơn đã lấy từ DB
-            KhachHang kh = khDao.findById(hd.getIdKhachHang());
+            for (HoaDon hd : danhSachHoaDon) {
+                KhachHang kh = khDao.findById(hd.getIdKhachHang());
 
-            // Áp dụng bộ lọc theo số điện thoại (nếu có keyword)
-            boolean sdtMatches = (sdtKeyword == null || sdtKeyword.isEmpty() ||
-                                  (kh != null && kh.getSdt().toLowerCase().contains(sdtKeyword.toLowerCase())));
+                boolean sdtMatches = (sdtKeyword == null || sdtKeyword.isEmpty() ||
+                                      (kh != null && kh.getSdt().toLowerCase().contains(sdtKeyword.toLowerCase())));
 
-            // Áp dụng bộ lọc theo số CMT (nếu có keyword)
-            boolean cmtMatches = (cmtKeyword == null || cmtKeyword.isEmpty() ||
-                                  (kh != null && kh.getCmt().toLowerCase().contains(cmtKeyword.toLowerCase())));
+                boolean cmtMatches = (cmtKeyword == null || cmtKeyword.isEmpty() ||
+                                      (kh != null && kh.getCmt().toLowerCase().contains(cmtKeyword.toLowerCase())));
 
-            // Áp dụng bộ lọc theo ngày (linh hoạt cho cả startDate, endDate hoặc cả hai)
-            boolean dateFilterPassed = true;
-            if (startDate != null || endDate != null) {
-                List<ChiTietThuePhong> cttpListForDateCheck = cttpDao.findByIdHoaDon(hd.getId());
-                if (cttpListForDateCheck.isEmpty()) {
-                    dateFilterPassed = false; 
-                } else {
-                    java.util.Date checkInTime = cttpListForDateCheck.get(0).getThoiGianNhanPhong();
-                    java.util.Date checkInDateOnly = (checkInTime != null) ? Util.XDate.removeTime(checkInTime) : null;
-
-                    if (checkInDateOnly == null) {
+                // ---- PHẦN SỬA ĐỔI BẮT ĐẦU ----
+                boolean dateFilterPassed = true;
+                if (startDate != null || endDate != null) {
+                    List<ChiTietThuePhong> cttpListForDateCheck = cttpDao.findByIdHoaDon(hd.getId());
+                    if (cttpListForDateCheck.isEmpty()) {
                         dateFilterPassed = false;
                     } else {
-                        if (startDate != null && checkInDateOnly.before(startDate)) {
+                        java.util.Date checkInTime = cttpListForDateCheck.get(0).getThoiGianNhanPhong();
+                        if (checkInTime == null) {
                             dateFilterPassed = false;
-                        }
-                        if (dateFilterPassed && endDate != null && checkInDateOnly.after(endDate)) {
-                            dateFilterPassed = false;
+                        } else {
+                            java.util.Date checkInDateOnly = Util.XDate.removeTime(checkInTime);
+
+                            // Chuyển đổi startDate và endDate về 00:00:00 của ngày đó
+                            Date start = (startDate != null) ? XDate.removeTime(startDate) : null;
+                            Date end = (endDate != null) ? XDate.removeTime(endDate) : null;
+
+                            if (start != null && checkInDateOnly.before(start)) {
+                                dateFilterPassed = false;
+                            }
+                            if (dateFilterPassed && end != null && checkInDateOnly.after(end)) {
+                                dateFilterPassed = false;
+                            }
                         }
                     }
                 }
-            }
+                // ---- PHẦN SỬA ĐỔI KẾT THÚC ----
 
-            // CHỈ THÊM hóa đơn vào danh sách hiển thị và bảng nếu tất cả các tiêu chí lọc đều khớp
-            if (sdtMatches && cmtMatches && dateFilterPassed && kh != null && !cttpDao.findByIdHoaDon(hd.getId()).isEmpty()) {
-                currentDisplayedHoaDonList.add(hd); // THÊM HÓA ĐƠN VÀO DANH SÁCH HIỂN THỊ
+                if (sdtMatches && cmtMatches && dateFilterPassed && kh != null && !cttpDao.findByIdHoaDon(hd.getId()).isEmpty()) {
+                    currentDisplayedHoaDonList.add(hd);
 
-                // Chuẩn bị dữ liệu hàng cho bảng
-                StringBuilder roomNumbers = new StringBuilder();
-                List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
-                for (int i = 0; i < cttpList.size(); i++) {
-                    ChiTietThuePhong currentCtp = cttpList.get(i);
-                    Phong phong = phongDao.findById(currentCtp.getIdPhong());
-                    if (phong != null) {
-                        roomNumbers.append(phong.getSoPhong());
-                        if (i < cttpList.size() - 1) {
-                            roomNumbers.append(",");
+                    StringBuilder roomNumbers = new StringBuilder();
+                    List<ChiTietThuePhong> cttpList = cttpDao.findByIdHoaDon(hd.getId());
+                    for (int i = 0; i < cttpList.size(); i++) {
+                        ChiTietThuePhong currentCtp = cttpList.get(i);
+                        Phong phong = phongDao.findById(currentCtp.getIdPhong());
+                        if (phong != null) {
+                            roomNumbers.append(phong.getSoPhong());
+                            if (i < cttpList.size() - 1) {
+                                roomNumbers.append(",");
+                            }
                         }
                     }
-                }
 
-                ChiTietThuePhong firstCtp = cttpList.get(0);
-                Object[] row = {
-                    roomNumbers.toString(),
-                    kh.getHoTen(),
-                    Util.XDate.format(firstCtp.getThoiGianNhanPhong(), Util.XDate.PATTERN_FULL),
-                    firstCtp.getThoiGianTraPhong() != null ? Util.XDate.format(firstCtp.getThoiGianTraPhong(), Util.XDate.PATTERN_FULL) : "Chưa trả",
-                    hd.getTongTien(),
-                    false
-                };
-                model.addRow(row);
+                    ChiTietThuePhong firstCtp = cttpList.get(0);
+                    Object[] row = {
+                        roomNumbers.toString(),
+                        kh.getHoTen(),
+                        Util.XDate.format(firstCtp.getThoiGianNhanPhong(), Util.XDate.PATTERN_FULL),
+                        firstCtp.getThoiGianTraPhong() != null ? Util.XDate.format(firstCtp.getThoiGianTraPhong(), Util.XDate.PATTERN_FULL) : "Chưa trả",
+                        hd.getTongTien(),
+                        false
+                    };
+                    model.addRow(row);
+                }
             }
+        } catch (Exception e) {
+            Util.XDialog.alert("Lỗi truy vấn dữ liệu lịch sử!");
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        Util.XDialog.alert("Lỗi truy vấn dữ liệu lịch sử!");
-        e.printStackTrace();
     }
-}
 
 private HoaDon currentHoaDon;
 
@@ -3664,8 +3539,6 @@ void hienThiChiTietHoaDon(HoaDon hd) {
 void clearFormLichSu() {
     txtTimSDT.setText("");
     txtTimSCMT.setText("");
-    txtTimTheoNgayBD.setText("");
-    txtTimTheoNgayKT.setText("");
     fillTableLichSu(null, null, null, null); // Tải lại toàn bộ lịch sử
 }
 //===Check in và check out===

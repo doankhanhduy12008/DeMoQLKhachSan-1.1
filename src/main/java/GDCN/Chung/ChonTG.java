@@ -77,7 +77,7 @@ public class ChonTG extends javax.swing.JPanel {
         this.timeRangeSelected();
         if (timeChanged != null) {
             timeChanged.accept(getFrom(), getTo());
-        }
+        }   
     }//GEN-LAST:event_cboTimeRangesActionPerformed
 
 
