@@ -59,9 +59,11 @@ public class ChatJPanel extends javax.swing.JPanel {
 
         setBorder(new javax.swing.border.MatteBorder(null));
 
+        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(255, 0, 255));
+        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setRows(5);
+        jTextArea1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea1.setEnabled(false);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -167,9 +169,9 @@ public class ChatJPanel extends javax.swing.JPanel {
             }
         });
 
-        txtNDChat.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNDChat.addActionListener(new ActionListener() {
             @Override
-            public void keyPressed(java.awt.event.KeyEvent evt) {
+            public void actionPerformed(ActionEvent e) {
                 sendMessage();
             }
         });

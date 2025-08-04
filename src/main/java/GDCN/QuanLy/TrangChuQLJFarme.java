@@ -5101,14 +5101,14 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
 
             if (kh.getCmt().equalsIgnoreCase(cmt.trim())) {
                 XDialog.alert("Số CMT đã tồn tại trong hệ thống!");
-                return true;
+                return false;
             }
             if (kh.getSdt().equalsIgnoreCase(sdt.trim())) {
                 XDialog.alert("Số điện thoại đã tồn tại trong hệ thống!");
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
     
     /**
