@@ -90,7 +90,7 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
             }
         });
         pnlChat.setLayout(new java.awt.BorderLayout());
-        pnlChat.add(new GDCN.Chat.ChatJPanel()); 
+        pnlChat.add(new GDCN.Chat.ChatJPanelTrangChuTT()); 
         pnlChat.revalidate();
         pnlChat.repaint();
     }
@@ -160,7 +160,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         Open = new javax.swing.JLabel();
         KhungTrang = new javax.swing.JPanel();
         jpnTrangChu = new javax.swing.JPanel();
-        jpnKhungAnh = new javax.swing.JPanel();
         txtTen = new javax.swing.JLabel();
         Anh = new javax.swing.JLabel();
         btnDatP1 = new javax.swing.JLabel();
@@ -428,8 +427,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
 
         jpnTrangChu.setBackground(new java.awt.Color(255, 255, 255));
 
-        jpnKhungAnh.setBackground(new java.awt.Color(255, 255, 255));
-
         txtTen.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtTen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTen.setText("Nguyễn Văn Bách");
@@ -493,19 +490,19 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnTrangChuLayout.setHorizontalGroup(
             jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnTrangChuLayout.createSequentialGroup()
-                .addGap(128, 128, 128)
+                .addGap(156, 156, 156)
                 .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnXemLS1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                    .addComponent(btnDatP1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bntTroChuyen1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(502, 502, 502)
-                .addComponent(jpnKhungAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
-            .addGroup(jpnTrangChuLayout.createSequentialGroup()
-                .addGap(173, 173, 173)
-                .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jpnTrangChuLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46))
+                    .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnXemLS1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDatP1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bntTroChuyen1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(769, 769, 769))
             .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnTrangChuLayout.createSequentialGroup()
                     .addGap(0, 638, Short.MAX_VALUE)
@@ -514,21 +511,17 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
         jpnTrangChuLayout.setVerticalGroup(
             jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnTrangChuLayout.createSequentialGroup()
-                .addContainerGap(535, Short.MAX_VALUE)
-                .addComponent(jpnKhungAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(149, 149, 149))
-            .addGroup(jpnTrangChuLayout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(85, 85, 85)
                 .addComponent(Anh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTen)
-                .addGap(54, 54, 54)
+                .addGap(26, 26, 26)
                 .addComponent(btnDatP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXemLS1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bntTroChuyen1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
             .addGroup(jpnTrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(pnlChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -2311,7 +2304,6 @@ public final class TrangChuTT extends javax.swing.JFrame implements TrangChuCont
     private javax.swing.JPanel jpnDMK;
     private javax.swing.JPanel jpnDatP;
     private javax.swing.JPanel jpnKhachHang;
-    private javax.swing.JPanel jpnKhungAnh;
     private javax.swing.JPanel jpnTDDMK;
     private javax.swing.JPanel jpnTDDatP;
     private javax.swing.JPanel jpnTDKhachHang;
