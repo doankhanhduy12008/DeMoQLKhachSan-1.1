@@ -213,6 +213,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         bntPLamMoi = new javax.swing.JButton();
         bntPTaoMoi = new javax.swing.JButton();
         rdoPPhongSua1 = new javax.swing.JRadioButton();
+        jLabel11 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         txtPTimKiem = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -941,6 +942,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         jLabel6.setText("Giá Thuê\\1 Ngày:");
 
         txtPGiaThue.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtPGiaThue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPGiaThueActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Ghi Chú:");
@@ -1033,6 +1039,9 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel11.setText("VNĐ");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -1046,8 +1055,11 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtPSoPhong)
-                    .addComponent(txtPGiaThue)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtPGiaThue, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)))
                 .addGap(60, 60, 60)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1095,7 +1107,8 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPGiaThue, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPGiaThue, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cmbPLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -3023,6 +3036,10 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         clearFormKH();
     }//GEN-LAST:event_btnLamMoiKHMouseClicked
 
+    private void txtPGiaThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPGiaThueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPGiaThueActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -3124,6 +3141,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
     private javax.swing.JComboBox<String> cmbPLoaiPhong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -3955,6 +3973,24 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         
         return entity;
     }
+
+    private boolean isPhoneNumberDuplicate(String sdt, String currentUsername) {
+        try {
+            List<NguoiDung> allUsers = NVdao.findAll();
+            for (NguoiDung user : allUsers) {
+                // Bỏ qua người dùng đang được sửa
+                if (currentUsername != null && user.getUsername().equals(currentUsername)) {
+                    continue;
+                }
+                if (user.getSdt().equals(sdt)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     
 
     private boolean validateNguoiDungData(boolean isNewUser) {
@@ -4033,13 +4069,20 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         if (sdt.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
             txtNVSDT.requestFocus();
-            return false;
+                return false;
         }
         if (!sdt.matches("^0[0-9]{6,14}$")) {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải bắt đầu bằng số 0 và có từ 7 đến 15 chữ số.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
             txtNVSDT.requestFocus();
+            return false;            
+        }
+                    
+        if (isPhoneNumberDuplicate(sdt, isNewUser ? null : nguoiDung.getUsername())) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại. Vui lòng sử dụng số khác.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            txtNVSDT.requestFocus();
             return false;
         }
+        
 
         // 5. Kiểm tra Vai trò
         if (nguoiDung.getVaiTro() == null || nguoiDung.getVaiTro().isEmpty()) {
@@ -4053,8 +4096,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             JOptionPane.showMessageDialog(this, "Vui lòng chọn trạng thái.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
-        // Nếu không có lỗi nào, trả về true
         return true;
     }
 
@@ -4812,11 +4853,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             e.printStackTrace();
         }
     }
-
-    // Thêm phương thức overload không tham số để các lệnh gọi cũ vẫn hoạt động
-//    void fillTableKhachHang() {
-//        fillTableKhachHang(null); // Mặc định gọi với null để hiển thị tất cả
-//    }
     
     void timKiemKhachHang(String keyword) {
         if (sorterKH == null) {
