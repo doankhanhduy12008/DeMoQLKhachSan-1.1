@@ -2727,6 +2727,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);;
         laytblDichVu();
+        lamMDichVu();
     }//GEN-LAST:event_bntQLDichVu1MouseClicked
 
 
