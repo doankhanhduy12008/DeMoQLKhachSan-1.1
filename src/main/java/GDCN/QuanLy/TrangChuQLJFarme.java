@@ -2417,8 +2417,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
     }//GEN-LAST:event_bntTrangChuMouseClicked
 
     private void bntQLLoaiPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLLoaiPhongMouseClicked
@@ -2437,8 +2435,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblLoaiphong();
         lamMLoaiPhong();
     }//GEN-LAST:event_bntQLLoaiPhongMouseClicked
@@ -2459,8 +2455,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblPhong();
         fillLoaiPhongToCbo();
         laytblPhong();
@@ -2482,8 +2476,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVienMouseClicked
 
@@ -2503,8 +2495,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTablePhong();
         fillTableDTTiepTan();
     }//GEN-LAST:event_bntQLDoanhThuMouseClicked
@@ -2525,8 +2515,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblDichVu();
     }//GEN-LAST:event_bntQLDichVuMouseClicked
 
@@ -2658,8 +2646,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblLoaiphong();
         lamMLoaiPhong();
     }//GEN-LAST:event_bntQLLoaiPhong1MouseClicked
@@ -2680,8 +2666,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblPhong();
         fillLoaiPhongToCbo();
         laytblPhong();
@@ -2703,8 +2687,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(true);
         pnlTDQLKhachHang.setVisible(true);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTableKhachHang();
     }//GEN-LAST:event_bntQlKhachhangMouseClicked
 
@@ -2724,8 +2706,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTablePhong();
         fillTableDTTiepTan();
     }//GEN-LAST:event_bntQLDoanhThu1MouseClicked
@@ -2745,9 +2725,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(true);
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(false);
-        pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);;
         laytblDichVu();
     }//GEN-LAST:event_bntQLDichVu1MouseClicked
 
@@ -2863,8 +2841,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
-        pnlChat.setVisible(true);
-        pnlTDTroChuyen.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
         
@@ -2886,8 +2862,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVien1MouseClicked
 
@@ -2907,8 +2881,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(true);
         pnlTDQLKhachHang.setVisible(true);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTableKhachHang();
     }//GEN-LAST:event_bntQlKhachhang1MouseClicked
 
@@ -2928,8 +2900,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(true);
         pnlTDQLKhachHang.setVisible(true);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTableKhachHang();
     }//GEN-LAST:event_bntQlKhachhang2MouseClicked
 
@@ -2950,7 +2920,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             int viewRowIndex = tabKhachHang.getSelectedRow();
             if (viewRowIndex != -1) {
                 int modelRowIndex = tabKhachHang.convertRowIndexToModel(viewRowIndex);
-                suaKhachHang(modelRowIndex); // Gọi phương thức suaKhachHang riêng biệt
+                displaySelectedKhachHang();
             }
         }
     }//GEN-LAST:event_tabKhachHangMouseClicked
@@ -4758,95 +4728,79 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         }
     }
     
-    /**
+/**
      * ==============================================================================================================================
      * ==================================================== Khach Hang ==============================================================
      * ==============================================================================================================================
      */
     
-    List<KhachHang> kh_items = new ArrayList<>();
+    // CẢI TIẾN: Khởi tạo DAO một lần để tái sử dụng, tránh tạo đối tượng mới liên tục.
+    private final KhachHangDao khachHangDao = new KhachHangDaoImpl(); 
+    private List<KhachHang> kh_items = new ArrayList<>(); // Danh sách gốc chứa tất cả khách hàng
+    
+    // Cần đảm bảo bạn đã khai báo các biến giao diện này ở phần trên của lớp
+    // private javax.swing.JTable tabKhachHang;
+    // private javax.swing.JTextField txtTenKH, txtSocmt, txtSDT, txtTimKiemKH;
+    // private javax.swing.JButton btnSuaKH, btnTaoMoiKH;
     
     void fillTableKhachHang() {
-        DefaultTableModel newModel = new DefaultTableModel() {
-            String[] columnNames = {"Họ và Tên", "CMT", "SĐT", "Chọn"};
-            @Override
-            public int getColumnCount() {
-                return columnNames.length;
-            }
-            @Override
-            public String getColumnName(int column) {
-                return columnNames[column];
-            }
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == getColumnCount() - 1; 
-            }
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == getColumnCount() - 1) {
-                    return Boolean.class;
-                }
-                return super.getColumnClass(columnIndex);
-            }
-        };
-
+        // CẢI TIẾN: Lấy model hiện tại thay vì tạo mới để giữ lại cấu trúc cột
+        DefaultTableModel model = (DefaultTableModel) tabKhachHang.getModel();
+        model.setRowCount(0); // Xóa dữ liệu cũ trên bảng
+    
         try {
-            KhachHangDao dao = new KhachHangDaoImpl();
-            kh_items = dao.findAll(); // Cập nhật danh sách ở phạm vi lớp
+            kh_items = khachHangDao.findAll(); // Cập nhật danh sách khách hàng gốc
             for (KhachHang kh : kh_items) {
                 Object[] row = {
                     kh.getHoTen(),
                     kh.getCmt(),
-                    kh.getSdt(),
-                    false
+                    kh.getSdt()
                 };
-                newModel.addRow(row);
+                model.addRow(row);
             }
-            tabKhachHang.setModel(newModel);
-
-            // Khởi tạo và gán lại sorterKH cho model mới
-            sorterKH = new TableRowSorter<>(newModel);
-            tabKhachHang.setRowSorter(sorterKH);
-
+    
+            // CẢI TIẾN: Chỉ khởi tạo sorter một lần nếu nó chưa tồn tại
+            if (tabKhachHang.getRowSorter() == null) {
+                sorterKH = new TableRowSorter<>(model);
+                tabKhachHang.setRowSorter(sorterKH);
+            }
+    
         } catch (Exception e) {
             XDialog.alert("Lỗi tải dữ liệu khách hàng!");
             e.printStackTrace();
         }
     }
     
+    // CẢI TIẾN: Tìm kiếm trên cả 3 cột: Tên, CMT và SĐT
     void timKiemKhachHang(String keyword) {
-        if (sorterKH == null) {
-            XDialog.alert("Lỗi: TableRowSorter chưa được khởi tạo cho bảng Khách hàng.");
-            return;
-        }
-
-        if (keyword.isEmpty()) {
-            sorterKH.setRowFilter(null); // Hiển thị lại toàn bộ dữ liệu nếu từ khóa trống
+        if (sorterKH == null) return;
+    
+        if (keyword == null || keyword.trim().isEmpty()) {
+            sorterKH.setRowFilter(null);
         } else {
-            try {
-                // Tạo RowFilter để chỉ lọc trên cột SĐT (chỉ mục 2)
-                // "(?i)" để tìm kiếm không phân biệt chữ hoa, chữ thường
-                int sdtColumnIndex = 2; 
-                RowFilter<TableModel, Object> rf = RowFilter.regexFilter("(?i)" + keyword, sdtColumnIndex);
-                sorterKH.setRowFilter(rf);
-            } catch (PatternSyntaxException pse) {
-                XDialog.alert("Từ khóa tìm kiếm không hợp lệ.");
-            }
+            // "(?i)" để tìm kiếm không phân biệt chữ hoa, chữ thường
+            String searchKeyword = "(?i)" + keyword.trim();
+            // Tìm kiếm trên các cột Tên (0), CMT (1), SĐT (2)
+            sorterKH.setRowFilter(RowFilter.regexFilter(searchKeyword, 0, 1, 2));
         }
     }
     
-    void suaKhachHang(int modelRowIndex) {
-        try {
-            if (modelRowIndex >= 0 && modelRowIndex < kh_items.size()) {
-                KhachHang kh = kh_items.get(modelRowIndex);
+    // CẢI TIẾN: Đổi tên hàm để rõ nghĩa hơn. Hàm này được gọi khi người dùng click vào một hàng trên bảng
+    void displaySelectedKhachHang() {
+        int selectedViewRow = tabKhachHang.getSelectedRow();
+        if (selectedViewRow >= 0) {
+            // SỬA LỖI: Luôn chuyển đổi index của view sang model để lấy đúng dữ liệu khi bảng bị lọc/sắp xếp
+            int modelRowIndex = tabKhachHang.convertRowIndexToModel(selectedViewRow);
+            
+            // Lấy CMT từ model để đảm bảo tính duy nhất và chính xác
+            String cmt = (String) tabKhachHang.getModel().getValueAt(modelRowIndex, 1);
+            
+            // Tìm khách hàng trong danh sách gốc
+            KhachHang kh = findKhachHangByCmt(cmt);
+            if (kh != null) {
                 setFormKH(kh);
-                suatblKH(true);
-            } else {
-                XDialog.alert("Không tìm thấy khách hàng để sửa.");
+                suatblKH(true); // Bật nút Sửa, tắt nút Tạo mới
             }
-        } catch (Exception e) {
-            XDialog.alert("Lỗi khi chọn khách hàng để sửa: " + e.getMessage());
-            e.printStackTrace();
         }
     }
     
@@ -4855,201 +4809,237 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         txtSocmt.setText(kh.getCmt());
         txtSDT.setText(kh.getSdt());
     }
-    void setFormKHDP(KhachHang kh) { // Giữ nguyên nếu có sử dụng ở nơi khác
-        txtTenKH.setText(kh.getHoTen());
-        txtSocmt.setText(kh.getCmt());
-        txtSDT.setText(kh.getSdt());
+    
+    void suatblKH(boolean isEditing) {
+        btnSuaKH.setEnabled(isEditing);
+        btnTaoMoiKH.setEnabled(!isEditing);
     }
-
-    void suatblKH(boolean sua) {
-        btnSuaKH.setEnabled(sua);
-        btnTaoMoiKH.setEnabled(!sua);
-    }
-
+    
     KhachHang getFormKH() {
         KhachHang kh = new KhachHang();
-        kh.setHoTen(txtTenKH.getText());
-        kh.setCmt(txtSocmt.getText());
-        kh.setSdt(txtSDT.getText());
+        kh.setHoTen(txtTenKH.getText().trim());
+        kh.setCmt(txtSocmt.getText().trim());
+        kh.setSdt(txtSDT.getText().trim());
         return kh;
     }
-
-    KhachHang getFormKHDP() { // Giữ nguyên nếu có sử dụng ở nơi khác
-        KhachHang kh = new KhachHang();
-        kh.setHoTen(txtTenKH.getText());
-        kh.setCmt(txtSocmt.getText());
-        kh.setSdt(txtSDT.getText());
-        return kh;
-    }
-
-    void btnTaoMoiKH() {                                           
-        String tenKH = txtTenKH.getText().trim();
-        String cmt = txtSocmt.getText().trim();
-        String sdt = txtSDT.getText().trim();
-
-        if (!validateCustomerName(tenKH)) {
+    
+    void btnTaoMoiKH() {
+        KhachHang kh = getFormKH();
+        if (!validateInput(kh, null)) { // Dùng hàm validate tập trung, null vì đang tạo mới
             return;
         }
-        if (!validateIDNumber(cmt)) {
-            return;
-        }
-        if (!validatePhoneNumber(sdt)) {
-            return;
-        }
-
-        if (isDuplicateKhachHang(tenKH, cmt, sdt, null)) {
-            return;
-        }
-
+        
         try {
-            KhachHangDao khDao = new KhachHangDaoImpl();
-            KhachHang kh = getFormKH();
-            khDao.create(kh);
-            this.fillTableKhachHang(); // Gọi lại fillTableKhachHang không tham số để hiển thị tất cả sau khi thêm
-            this.clearFormKH();
+            khachHangDao.create(kh);
+            fillTableKhachHang();
+            clearFormKH();
             XDialog.alert("Thêm mới khách hàng thành công!");
         } catch (Exception e) {
             XDialog.alert("Thêm mới khách hàng thất bại!");
             e.printStackTrace();
         }
     }
- 
-    void btnTaoMoiKHDP() { // Giữ nguyên nếu có sử dụng ở nơi khác                                           
-      String tenKH = txtTenKH.getText().trim();
-      String cmt = txtSocmt.getText().trim();
-      String sdt = txtSDT.getText().trim();
-
-      if (!validateCustomerName(tenKH)) {
-          return;
-      }
-      if (!validateIDNumber(cmt)) {
-          return;
-      }
-      if (!validatePhoneNumber(sdt)) {
-          return;
-      }
-
-      if (isDuplicateKhachHang(tenKH, cmt, sdt, null)) {
-          return;
-      }
-
-      try {
-          KhachHangDao khDao = new KhachHangDaoImpl();
-          KhachHang kh = getFormKHDP();
-          khDao.create(kh);
-          this.fillTableKhachHang(); // Gọi lại fillTableKhachHang không tham số
-          this.clearFormKH(); 
-          XDialog.alert("Thêm mới khách hàng thành công!");
-      } catch (Exception e) {
-          XDialog.alert("Thêm mới khách hàng thất bại!");
-          e.printStackTrace();
-      }
-  }
- 
+    
     void updateKH() {
-        // Lấy chỉ mục hàng được chọn trên giao diện (view index)
         int selectedViewRow = tabKhachHang.getSelectedRow();
-
         if (selectedViewRow < 0) {
             XDialog.alert("Bạn chưa chọn khách hàng nào để sửa.");
             return;
         }
-
-        // Chuyển đổi chỉ mục hàng của view sang chỉ mục hàng của model
-        int selectedModelRow = tabKhachHang.convertRowIndexToModel(selectedViewRow);
-
-        // Lấy đối tượng KhachHang cần cập nhật từ danh sách gốc
-        KhachHang khToUpdate = kh_items.get(selectedModelRow);
-        Integer currentKhachHangId = khToUpdate.getId();
-
-        String tenKH = txtTenKH.getText().trim();
-        String cmt = txtSocmt.getText().trim();
-        String sdt = txtSDT.getText().trim();
-
-        // Kiểm tra tính hợp lệ của dữ liệu đầu vào
-        if (!validateCustomerName(tenKH)) {
+        
+        // SỬA LỖI: Lấy đúng đối tượng KhachHang cần sửa, ngay cả khi bảng đã được lọc/sắp xếp
+        int modelRowIndex = tabKhachHang.convertRowIndexToModel(selectedViewRow);
+        String cmtCu = (String) tabKhachHang.getModel().getValueAt(modelRowIndex, 1);
+        KhachHang khToUpdate = findKhachHangByCmt(cmtCu);
+        if (khToUpdate == null) {
+            XDialog.alert("Lỗi: Không tìm thấy khách hàng trong danh sách gốc.");
             return;
         }
-        if (!validateIDNumber(cmt)) {
+    
+        KhachHang khFromForm = getFormKH();
+        if (!validateInput(khFromForm, khToUpdate.getId())) { // Truyền ID để bỏ qua chính nó khi check trùng
             return;
         }
-        if (!validatePhoneNumber(sdt)) {
-            return;
-        }
-
-        // Kiểm tra trùng lặp với các khách hàng khác (trừ khách hàng hiện tại)
-        if (isDuplicateKhachHang(tenKH, cmt, sdt, currentKhachHangId)) {
-            return;
-        }
-
-        // Cập nhật các thuộc tính của đối tượng KhachHang
-        khToUpdate.setHoTen(tenKH);
-        khToUpdate.setCmt(cmt);
-        khToUpdate.setSdt(sdt);
-
+    
+        // Cập nhật thông tin cho đối tượng gốc
+        khToUpdate.setHoTen(khFromForm.getHoTen());
+        khToUpdate.setCmt(khFromForm.getCmt());
+        khToUpdate.setSdt(khFromForm.getSdt());
+    
         try {
-            KhachHangDao khDao = new KhachHangDaoImpl();
-            // Gọi phương thức cập nhật trong DAO
-            khDao.update(khToUpdate);
-
-            // Nạp lại dữ liệu cho bảng để hiển thị các thay đổi
-            this.fillTableKhachHang(); 
-
-            // Xóa form và chuyển trạng thái về thêm mới
-            this.clearFormKH();
-
+            khachHangDao.update(khToUpdate);
+            fillTableKhachHang();
+            clearFormKH();
             XDialog.alert("Cập nhật khách hàng thành công!");
         } catch (Exception e) {
             XDialog.alert("Cập nhật khách hàng thất bại!");
             e.printStackTrace();
         }
     }
-
+    
     void deleteKH() {
-       int selectedRow = tabKhachHang.getSelectedRow();
-       if (selectedRow < 0) {
-           XDialog.alert("Bạn chưa chọn khách hàng nào để xóa.");
-           return;
-       }
-
-       if (XDialog.confirm("Bạn có chắc chắn muốn xóa khách hàng này không?")) {
-           try {
-               KhachHang kh = kh_items.get(selectedRow);
-
-               KhachHangDao khDao = new KhachHangDaoImpl();
-               khDao.deleteById(kh.getId()); 
-
-               this.fillTableKhachHang(); // Gọi lại fillTableKhachHang không tham số
-               this.clearFormKH(); 
-               XDialog.alert("Xóa khách hàng thành công!");
-           } catch (Exception e) {
-               XDialog.alert("Xóa khách hàng thất bại!");
-               e.printStackTrace();
-           }
-       }
-   }
- 
-    // Phương thức clearFormKH đã được chỉnh sửa
+        int selectedViewRow = tabKhachHang.getSelectedRow();
+        if (selectedViewRow < 0) {
+            XDialog.alert("Bạn chưa chọn khách hàng nào để xóa.");
+            return;
+        }
+    
+        if (XDialog.confirm("Bạn có chắc chắn muốn xóa khách hàng này không?")) {
+            try {
+                // SỬA LỖI: Lấy đúng đối tượng cần xóa ngay cả khi bảng đã lọc/sắp xếp
+                int modelRowIndex = tabKhachHang.convertRowIndexToModel(selectedViewRow);
+                String cmt = (String) tabKhachHang.getModel().getValueAt(modelRowIndex, 1);
+                KhachHang khToDelete = findKhachHangByCmt(cmt);
+                if(khToDelete == null) {
+                    XDialog.alert("Lỗi: Không tìm thấy khách hàng để xóa.");
+                    return;
+                }
+                
+                khachHangDao.deleteById(khToDelete.getId());
+                fillTableKhachHang();
+                clearFormKH();
+                XDialog.alert("Xóa khách hàng thành công!");
+            } catch (Exception e) {
+                // Hiển thị thông báo cụ thể hơn nếu xóa không thành công do ràng buộc khóa ngoại
+                XDialog.alert("Xóa khách hàng thất bại! Khách hàng có thể đang liên quan đến một hóa đơn hoặc phiếu đặt phòng.");
+                e.printStackTrace();
+            }
+        }
+    }
+    
     void clearFormKH() {
-       txtTenKH.setText("");
-       txtSocmt.setText("");
-       txtSDT.setText("");
-       txtTimKiemKH.setText(""); // Đặt lại ô tìm kiếm
-       this.fillTableKhachHang(); // Hiển thị lại tất cả khách hàng
-       suatblKH(false);
-   }
- 
- 
-    private boolean validateCustomerName(String name) {
+        txtTenKH.setText("");
+        txtSocmt.setText("");
+        txtSDT.setText("");
+        txtTimKiemKH.setText("");
+        
+        // CẢI TIẾN: Chỉ cần xóa bộ lọc thay vì load lại cả bảng từ DB
+        if (sorterKH != null) {
+            sorterKH.setRowFilter(null);
+        }
+        
+        tabKhachHang.clearSelection();
+        suatblKH(false); // Chuyển về trạng thái thêm mới
+    }
+    
+    /**
+    * Các phương thức kiểm tra (validate) và tiện ích
+    */
+    
+    // CẢI TIẾN: Hàm validate tập trung
+    private boolean validateInput(KhachHang kh, Integer currentId) {
+        if (!validateCustomerName(kh.getHoTen()) || 
+            !validateIDNumber(kh.getCmt()) || 
+            !validatePhoneNumber(kh.getSdt())) {
+            return false;
+        }
+        
+        String duplicateField = findDuplicateField(kh, currentId);
+        if (duplicateField != null) {
+            if (duplicateField.equals("cmt")) {
+                XDialog.alert("Số CCCD/CMT này đã tồn tại!");
+            } else if (duplicateField.equals("sdt")) {
+                XDialog.alert("Số điện thoại này đã tồn tại!");
+            }
+            return false;
+        }
+        return true;
+    }
+    
+    // SỬA LỖI: Phương thức kiểm tra trùng lặp được viết lại hoàn toàn
+    private String findDuplicateField(KhachHang khToCheck, Integer currentKhachHangId) {
+        String cmtToCheck = khToCheck.getCmt();
+        String sdtToCheck = khToCheck.getSdt();
+    
+        for (KhachHang kh : kh_items) { // Kiểm tra trên danh sách đã tải, không query lại DB
+            // Bỏ qua chính nó khi đang ở chế độ cập nhật
+            if (currentKhachHangId != null && kh.getId() == currentKhachHangId) {
+                continue;
+            }
+    
+            // SỬA LỖI: Thêm kiểm tra null trước khi so sánh để tránh NullPointerException
+            String existingCmt = kh.getCmt();
+            if (existingCmt != null && existingCmt.equalsIgnoreCase(cmtToCheck)) {
+                return "cmt"; // Trả về tên trường bị trùng
+            }
+            
+            String existingSdt = kh.getSdt();
+            if (existingSdt != null && existingSdt.equalsIgnoreCase(sdtToCheck)) {
+                return "sdt"; // Trả về tên trường bị trùng
+            }
+        }
+        return null; // Không tìm thấy trùng lặp
+    }
+    
+    // CẢI TIẾN: Hàm tiện ích để tìm khách hàng trong danh sách gốc bằng CMT
+    private KhachHang findKhachHangByCmt(String cmt) {
+        if (cmt == null) return null;
+        for (KhachHang kh : kh_items) {
+            if (cmt.equals(kh.getCmt())) {
+                return kh;
+            }
+        }
+        return null;
+    }
+    
+//    // Giữ nguyên các hàm validate của bạn
+//    private boolean validateCustomerName(String name) {
+//        if (name == null || name.trim().isEmpty()) {
+//            XDialog.alert("Tên khách hàng không được để trống!");
+//            return false;
+//        }
+//        String trimmedName = name.trim();
+//        if (!trimmedName.matches("^[\\p{L} .'-]+$")) { // Thêm ^ và $ để khớp toàn bộ chuỗi
+//            XDialog.alert("Tên khách hàng không hợp lệ.");
+//            return false;
+//        }
+//        String[] words = trimmedName.split("\\s+");
+//        for (String word : words) {
+//            if (!word.isEmpty() && !Character.isUpperCase(word.charAt(0))) {
+//                XDialog.alert("Chữ cái đầu của mỗi từ trong tên khách hàng phải viết hoa.");
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//    
+//    private boolean validateIDNumber(String cccd) {
+//        if (cccd == null || cccd.trim().isEmpty()) {
+//            XDialog.alert("Số CCCD không được để trống!");
+//            return false;
+//        }
+//        String trimmedCccd = cccd.trim();
+//        if (!trimmedCccd.matches("^\\d{12}$")) { // Gộp 2 điều kiện vào 1 regex
+//            XDialog.alert("Số CCCD phải là 12 chữ số.");
+//            return false;
+//        }
+//        return true;
+//    }
+//    
+//    private boolean validatePhoneNumber(String sdt) {
+//        if (sdt == null || sdt.trim().isEmpty()) {
+//            XDialog.alert("Số điện thoại không được để trống!");
+//            return false;
+//        }
+//        
+//        if (!sdt.trim().matches("^0\\d{9}$")) {
+//            XDialog.alert("Số điện thoại không hợp lệ. SĐT phải bắt đầu bằng 0 và có 17 chữ số.");
+//            return false;
+//        }
+//        return true;
+//    }
+        private boolean validateCustomerName(String name) {
        if (name == null || name.trim().isEmpty()) {
            XDialog.alert("Tên khách hàng không được để trống!");
            return false;
        }
+
        String trimmedName = name.trim();
        if (!trimmedName.matches("[\\p{L} .'-]+")) {
            XDialog.alert("Tên khách hàng chỉ được chứa chữ cái, dấu cách, dấu chấm, dấu nháy đơn và dấu gạch nối.");
            return false;
        }
+
        String[] words = trimmedName.split("\\s+");
        for (String word : words) {
            if (!word.isEmpty() && !Character.isUpperCase(word.charAt(0))) {
@@ -5060,17 +5050,33 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
        return true;
    }
 
-    private boolean validateIDNumber(String cmt) {
-        if (cmt == null || cmt.trim().isEmpty()) {
-            XDialog.alert("Số CMT không được để trống!");
+
+
+    private boolean validateIDNumber(String cccd) {
+        if (cccd == null || cccd.trim().isEmpty()) {
+            XDialog.alert("Số CCCD không được để trống!");
             return false;
         }
-        if (!cmt.trim().matches("\\d+")) {
-            XDialog.alert("Số CMT chỉ được chứa chữ số.");
+
+        String trimmedCccd = cccd.trim();
+
+        // Kiểm tra xem có phải là số không
+        if (!trimmedCccd.matches("\\d+")) {
+            XDialog.alert("Số CCCD chỉ được chứa chữ số.");
             return false;
         }
+
+
+        // Thêm điều kiện kiểm tra độ dài phải là 12 ký tự
+        if (trimmedCccd.length() != 12) {
+            XDialog.alert("Số CCCD phải có đúng 12 chữ số.");
+            return false;
+        }
+
         return true;
     }
+
+
 
     private boolean validatePhoneNumber(String sdt) {
         if (sdt == null || sdt.trim().isEmpty()) {
@@ -5082,35 +5088,13 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
             XDialog.alert("Số điện thoại phải bắt đầu bằng số 0.");
             return false;
         }
-        if (!trimmedSdt.matches("\\d{7,11}")) {
-            XDialog.alert("Số điện thoại phải có từ 7 đến 11 chữ số và chỉ chứa chữ số.");
+
+        if (!trimmedSdt.matches("\\d{7,15}")) {
+            XDialog.alert("Số điện thoại phải có từ 7 đến 15 chữ số và chỉ chứa chữ số.");
             return false;
         }
         return true;
     }
-
-    // Phương thức isDuplicateKhachHang đã được chỉnh sửa
-    private boolean isDuplicateKhachHang(String tenKH, String cmt, String sdt, Integer currentKhachHangId) {
-        KhachHangDao dao = new KhachHangDaoImpl();
-        List<KhachHang> all_kh_items_for_check = dao.findAll(); // Luôn lấy dữ liệu mới nhất từ DB
-
-        for (KhachHang kh : all_kh_items_for_check) {
-            if (currentKhachHangId != null && kh.getId() == currentKhachHangId) {
-                continue;
-            }
-
-            if (kh.getCmt().equalsIgnoreCase(cmt.trim())) {
-                XDialog.alert("Số CMT đã tồn tại trong hệ thống!");
-                return false;
-            }
-            if (kh.getSdt().equalsIgnoreCase(sdt.trim())) {
-                XDialog.alert("Số điện thoại đã tồn tại trong hệ thống!");
-                return false;
-            }
-        }
-        return true;
-    }
-    
     /**
      * ==============================================================================================================================
      * ==================================================== Dang Xuat ==============================================================

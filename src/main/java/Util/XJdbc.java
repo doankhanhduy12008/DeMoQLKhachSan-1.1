@@ -65,11 +65,11 @@ public class XJdbc {
     // 26.164.194.236 ip cong cong
     // check ip ipconfig
     final String url  = "jdbc:sqlserver://26.164.194.236:20000;" 
-                      + "databaseName=QLKhachSan;"
+                      + "databaseName=QLKhachSanThi;"
                       + "encrypt=true;trustServerCertificate=true;";
 //    final String url = "jdbc:sqlserver://192.168.1.3:1433;databaseName=QLKhachSan;encrypt=true;trustServerCertificate=true;";
 //    final String url = "jdbc:sqlserver://26.162.30.188:1433;databaseName=QLKhachSan;encrypt=true;trustServerCertificate=true;";
-    final String user = "QLKhachSan";
+    final String user = "QLKhachSanThi";
     final String pass = "Duy12@";
 
     try {
