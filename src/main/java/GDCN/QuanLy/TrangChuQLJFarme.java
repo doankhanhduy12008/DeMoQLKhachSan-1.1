@@ -2417,8 +2417,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
     }//GEN-LAST:event_bntTrangChuMouseClicked
 
     private void bntQLLoaiPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntQLLoaiPhongMouseClicked
@@ -2437,8 +2435,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblLoaiphong();
         lamMLoaiPhong();
     }//GEN-LAST:event_bntQLLoaiPhongMouseClicked
@@ -2459,8 +2455,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblPhong();
         fillLoaiPhongToCbo();
         laytblPhong();
@@ -2482,8 +2476,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVienMouseClicked
 
@@ -2503,8 +2495,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTablePhong();
         fillTableDTTiepTan();
     }//GEN-LAST:event_bntQLDoanhThuMouseClicked
@@ -2525,8 +2515,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDichVu.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblDichVu();
     }//GEN-LAST:event_bntQLDichVuMouseClicked
 
@@ -2658,8 +2646,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblLoaiphong();
         lamMLoaiPhong();
     }//GEN-LAST:event_bntQLLoaiPhong1MouseClicked
@@ -2680,8 +2666,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblPhong();
         fillLoaiPhongToCbo();
         laytblPhong();
@@ -2703,8 +2687,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(true);
         pnlTDQLKhachHang.setVisible(true);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTableKhachHang();
     }//GEN-LAST:event_bntQlKhachhangMouseClicked
 
@@ -2724,8 +2706,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTablePhong();
         fillTableDTTiepTan();
     }//GEN-LAST:event_bntQLDoanhThu1MouseClicked
@@ -2746,8 +2726,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         laytblDichVu();
     }//GEN-LAST:event_bntQLDichVu1MouseClicked
 
@@ -2863,8 +2841,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlQLDoanhThu.setVisible(false);
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
-        pnlChat.setVisible(true);
-        pnlTDTroChuyen.setVisible(true);
         pnlQLKhachHang.setVisible(false);
         pnlTDQLKhachHang.setVisible(false);
         
@@ -2885,9 +2861,7 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         pnlTTQLDichVu.setVisible(false);
         pnlQLDichVu.setVisible(false);
         pnlQLKhachHang.setVisible(false);
-        pnlTDQLKhachHang.setVisible(false);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
+        pnlTDQLKhachHang.setVisible(false);;
         laytblNhanVien();
     }//GEN-LAST:event_bntQLNhanVien1MouseClicked
 
@@ -2907,8 +2881,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(true);
         pnlTDQLKhachHang.setVisible(true);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTableKhachHang();
     }//GEN-LAST:event_bntQlKhachhang1MouseClicked
 
@@ -2928,8 +2900,6 @@ public final class TrangChuQLJFarme extends javax.swing.JFrame implements TrangC
         Open.setVisible(true);
         pnlQLKhachHang.setVisible(true);
         pnlTDQLKhachHang.setVisible(true);
-        pnlChat.setVisible(false);
-        pnlTDTroChuyen.setVisible(false);
         fillTableKhachHang();
     }//GEN-LAST:event_bntQlKhachhang2MouseClicked
 

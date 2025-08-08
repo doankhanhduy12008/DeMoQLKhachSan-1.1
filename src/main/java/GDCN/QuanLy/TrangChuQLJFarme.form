@@ -159,7 +159,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="bntQlKhachhang1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntQlKhachhang2" pref="190" max="32767" attributes="0"/>
+                      <Component id="bntQlKhachhang2" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnDangXuat" min="-2" pref="87" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
